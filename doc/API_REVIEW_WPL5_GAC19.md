@@ -1,8 +1,8 @@
 API Review
 ==========
-Will Long (wpl5)
-Grant Costa (gac19)
-October 13, 2016
+Will Long (wpl5)  
+Grant Costa (gac19)  
+October 13, 2016  
 
 We both are working on the front-end, focusing especially on the
 internal View API.
@@ -51,7 +51,7 @@ View will be updated properly.
 
 Part 2
 ======
-1. **USE CASES**
+1. Five use cases for the front-end are as follows.
   * User clicks on a function in the FunctionStorage box, and it is 
   placed in the TextEntry box for execution.  
   * User changes the language to be used for parsing through the 
