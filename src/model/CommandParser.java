@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.Enumeration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
@@ -31,6 +32,8 @@ public class CommandParser {
         }
     }
     public Command parse(String command) throws ClassNotFoundException{
+        
+        
         String symbol = getSymbol(command);
         ArrayList<Integer> params = new ArrayList<Integer>();
         params.add(0);
