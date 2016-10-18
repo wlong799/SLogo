@@ -1,3 +1,7 @@
+# Eclipse Ignore #
+##################
+.classpath
+
 # IDEA Ignores #
 ################
 *.iml
