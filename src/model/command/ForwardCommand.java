@@ -2,6 +2,7 @@ package model.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.ExpressionNode;
 
 
 public class ForwardCommand extends Command {
@@ -9,12 +10,12 @@ public class ForwardCommand extends Command {
     private double value;
     
     public ForwardCommand(){
-        super(new ArrayList<Integer>());
+        super(new ArrayList<ExpressionNode>());
         System.out.println("FORWRAD COMMAND WOO");
     }
-    public ForwardCommand (List<Integer> params) {
+    public ForwardCommand (List<ExpressionNode> params) {
         super(params);
-        this.value = params.get(0);
+        //this.value = params.get(0);
         System.out.println("FORWARD COMMAND WITH VALUE " + value);
     }
 
