@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import model.CommandParser;
 import model.command.*;
 
@@ -8,15 +12,16 @@ public class SLogoController {
     private CommandParser myCommandParser;
     
     public SLogoController(){
-        myCommandParser = new CommandParser();
-        myCommandParser.addPatterns("resources/languages/English");
-        myCommandParser.addPatterns("resources/languages/Syntax");
+        myCommandParser = new CommandParser("English");
+        
     }
     
     public void parseText (String[] text) {
         
         for (String s : text) {
+            
             if (s.trim().length() > 0) {
+                
                 System.out.println(String.format("%s : %s", s, myCommandParser.getSymbol(s)));
                 AbstractCommand c = null;
                 try{
