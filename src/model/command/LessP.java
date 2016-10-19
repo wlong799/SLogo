@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.ExpressionNode;
 
-public class LessP extends AbstractCommandBoolean implements ITwoParameterCommand {
+public class LessP extends AbstractCommand implements ITwoParameterCommand {
 
 	public LessP(List<ExpressionNode> parameters) {
 		super(parameters);

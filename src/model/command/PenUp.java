@@ -3,7 +3,7 @@ package model.command;
 import java.util.List;
 import model.ExpressionNode;
 
-public class PenUp extends AbstractCommandTurtle implements IZeroParameterCommand {
+public class PenUp extends AbstractCommandOneParameterTurtle implements IZeroParameterCommand {
 
     public PenUp(List<ExpressionNode> parameters) {
         super(parameters);

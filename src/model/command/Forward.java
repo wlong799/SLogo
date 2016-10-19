@@ -1,19 +1,18 @@
 package model.command;
 
-import java.util.ArrayList;
 import java.util.List;
 import model.ExpressionNode;
 import turtle.Position;
 
 
-public class ForwardCommand extends AbstractCommandTurtle implements IOneParameterCommand {
+public class Forward extends AbstractCommandOneParameterTurtle {
 
-//    public ForwardCommand(){
+//    public Forward(){
 //        super(new ArrayList<ExpressionNode>());
 //        System.out.println("FORWARD COMMAND WOO");
 //    }
 
-    public ForwardCommand (List<ExpressionNode> parameters) {
+    public Forward(List<ExpressionNode> parameters) {
         super(parameters);
 //        System.out.println("FORWARD COMMAND WITH VALUE " + myMoveDistance);
     }
@@ -36,10 +35,6 @@ public class ForwardCommand extends AbstractCommandTurtle implements IOneParamet
         oneTurtle.setPosition(nextPosition);
 
         return myMoveDistance;
-    }
-
-    public int getNumParameters() {
-        return NUM_PARAMETERS;
     }
 
 }

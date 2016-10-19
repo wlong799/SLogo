@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ExpressionNode;
 
-public abstract class Command {
+public abstract class AbstractCommand {
 
     private List<ExpressionNode> myNodes;
 
-    public Command(List<ExpressionNode> parameters){
+
+    AbstractCommand(List<ExpressionNode> parameters){
         myNodes = parameters;
     }
 
-    public ArrayList<Double> getParameters() {
+    ArrayList<Double> getParameters() {
 
         ArrayList<Double> parameterList = new ArrayList<>();
 

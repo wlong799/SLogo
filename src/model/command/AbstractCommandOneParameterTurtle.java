@@ -5,11 +5,11 @@ import java.util.List;
 import model.ExpressionNode;
 import turtle.Turtle;
 
-public abstract class AbstractCommandTurtle extends Command{
+public abstract class AbstractCommandOneParameterTurtle extends AbstractCommandOneParameter {
 
     Turtle oneTurtle; // TODO: get a reference to the Turtle object
 
-	public AbstractCommandTurtle(List<ExpressionNode> parameters) {
+	AbstractCommandOneParameterTurtle(List<ExpressionNode> parameters) {
 		super(parameters);
 	}
 
