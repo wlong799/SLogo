@@ -16,17 +16,17 @@ Part 2
 * user types in 'fs' instead of 'fd' for 'forward':
 this is an incorrect spelling, syntax error. Therefore this will be caught when parsing the commands, and will be sent to the external part of the back end in order to signal to the front end that there was a syntax error.
 
-* user wants to execute a function that will take the turtle beyond the current view:
-the model will execute the function as normal--the turtle only has position variables. The front end will decide what the best way to handle this is: it can either expand the view to fit the turtle, do nothing at all, or it can signal to the back end that there should be an error. In the error case, the turtle can revert to its previous position before the last set of commands was put into the model.
+* user wants to execute a function that will take the dataStorage beyond the current view:
+the model will execute the function as normal--the dataStorage only has position variables. The front end will decide what the best way to handle this is: it can either expand the view to fit the dataStorage, do nothing at all, or it can signal to the back end that there should be an error. In the error case, the dataStorage can revert to its previous position before the last set of commands was put into the model.
 
-* user issues a command to move the turtle forward 50:
-the model will parse the command, then execute it. The execution will see that the turtle needs to move forward by 50 in the direction it is already facing. Through trigonometric identities and geometry, it will calculate the changes in the x and y coordinates in the Turtle and update them. Because the Turtle is updated, the model will create a new TurtleState object to be seen by the controller.
+* user issues a command to move the dataStorage forward 50:
+the model will parse the command, then execute it. The execution will see that the dataStorage needs to move forward by 50 in the direction it is already facing. Through trigonometric identities and geometry, it will calculate the changes in the x and y coordinates in the Turtle and update them. Because the Turtle is updated, the model will create a new TurtleState object to be seen by the controller.
 
 * user issues a command to set a different pen color:
 the model directly modifies the Turtle object to have the different pen color attribute. A new TurtleState object may be made, but in this case the view will not need to do anything with it.
 
 * a user wants to reference a variable that does not exist:
-there will be nothing to call in the model with that variable name. This may not be recognized during parsing, since the variables may be defined in the same code block. Therefore, this will be recognized during code execution. An error will be passed to display to the user (for which the controller will be listening), and the turtle will revert to the state it was in before it began executing the code tree.
+there will be nothing to call in the model with that variable name. This may not be recognized during parsing, since the variables may be defined in the same code block. Therefore, this will be recognized during code execution. An error will be passed to display to the user (for which the controller will be listening), and the dataStorage will revert to the state it was in before it began executing the code tree.
 
 2. Regular expressions will help with parsing instructions. This will enable us to make the code tree easily. The observer and observable will help let the controller know if the Turtle is updated or if an error is thrown and needs to be displayed to the user.
 

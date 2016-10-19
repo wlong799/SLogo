@@ -6,7 +6,7 @@ Introduction
 The goal of this project is to develop an integrated development environment for a
 simplified version of the programming language Logo, named "SLogo". There are two main
 design goals in mind for this project. First, we want to ensure that the back-end part
-of the project (e.g. command parsing, function storage, control of the turtle) is
+of the project (e.g. command parsing, function storage, control of the dataStorage) is
 separated from the front-end part of the project (e.g. graphic display, handling of
 user input). This will allow us to work on each half of the project independently, as
 long as we spend time in the beginning carefully designing how these two halves of
@@ -31,13 +31,13 @@ Design Overview
 We'll begin by describing the front-end, or "View", component of our project. SLogoGUI
 is the main container class, and is responsible for maintaining the proper layout of
 all other elements within the scene. The main element within the GUI is TurtleView,
-which displays the turtle as it draws the commands passed into it. Every time the
-turtle's state is updated in the back-end, TurtleView will automatically update as well,
+which displays the dataStorage as it draws the commands passed into it. Every time the
+dataStorage's state is updated in the back-end, TurtleView will automatically update as well,
 through bindings to a TurtleState object in the Model. CommandEntryBox will be beneath, and
 contains a text box for entering the SLogo commands, as well as a button for submitting
 and a button for clearing the text. Across the top of the GUI will be ToolBar, a
 which will contain options for the user to change, such as background color,
-SLogo language, turtle image, etc. Along the right-side will be a panel with multiple
+SLogo language, dataStorage image, etc. Along the right-side will be a panel with multiple
 tabs for the user to select. One of these is StoredFunctionView, which will
 contain a vertical list of any functions and variables that have been defined so far.
 There will also be CommandHistoryView, which will contain previously entered commands,
@@ -57,7 +57,7 @@ command input, and determines the proper Commands to excecute through the use of
 expression trees and regex parsing. Command will be an abstract class, with a single
 abstract method doCommand() that will be overriden for each different SLogoCommand.
 SLogoModel will execute these commands one-by-one.
-Whenever the turtle is updated, a Turtle class will be responsible
+Whenever the dataStorage is updated, a Turtle class will be responsible
 for correctly updating the current position, orientation, etc. of the Turtle through
 methods like move(), rotate(), etc. This will update position of an observable TurtleState
 object. There will also be a FunctionStorage class for keeping track of the different
@@ -96,7 +96,7 @@ correctness of the command, it will then immediately show up in the CommandHisto
 The use of the CommandHistoryView is similar to the Console window of the Eclipse IDE:
 here, the user will see the previous (clickable) commands which they entered, as well as any possible
 error messages which the commands may have triggered. Upon the user entering executable commands, the
-turtle in the TurtleViewer will move to complete the commands, even if the commands end in a command
+dataStorage in the TurtleViewer will move to complete the commands, even if the commands end in a command
 that may throw an error.
 
 ![GUI](view_draw.jpg)

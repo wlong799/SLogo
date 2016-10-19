@@ -10,6 +10,9 @@ abstract class AbstractCommandZeroParameter extends AbstractCommand {
     AbstractCommandZeroParameter(List<ExpressionNode> parameters) {
         super(parameters);
     }
+    AbstractCommandZeroParameter() {
+        super();
+    }
 
     int getNumParameters() {
         return NUM_PARAMETERS;

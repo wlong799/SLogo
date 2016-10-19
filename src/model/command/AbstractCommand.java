@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ExpressionNode;
 
-public abstract class AbstractCommand {
+abstract class AbstractCommand {
 
     private List<ExpressionNode> myNodes;
 
+    AbstractCommand() {
+        myNodes = null;
+    }
 
     AbstractCommand(List<ExpressionNode> parameters){
         myNodes = parameters;
