@@ -45,7 +45,7 @@ public class CommandParser {
         return patterns;
     }
 
-    public double parse (String command) throws Exception{
+    public double parse (String command) throws Exception {
 
         List<String> onOneLine = Arrays.asList(command.split("\\n"));
 
@@ -57,6 +57,7 @@ public class CommandParser {
             if (symbol.equals("NO MATCH")) {
                 if (getSymbol(rawCommand, true).equals("NO MATCH")) {
                     System.out.println("Throw Invalid Command Exception");
+                    return 0.0;
                 }
                 else {
                     commandQueue.add(rawCommand);
@@ -67,41 +68,27 @@ public class CommandParser {
             }
         }
         ExpressionTree completeCommand = new ExpressionTree();
-
-        try{
-        completeCommand.makeTree(commandQueue);
+        ExpressionNode node = null;
+        try {
+            node = completeCommand.makeTree(commandQueue);
         }
-        catch(Exception e){
+        catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Couldnt make tree");
+            return 0.0;
         }
 
-        return traverse(completeCommand.getRoot());
-        
-         * ArrayList<Integer> params = new ArrayList<Integer>();
-         * params.add(0);
-         * System.out.println(params.getClass());
-         * System.out.println(List.class);
-         * Class<?> clazz = Class.forName((!symbol.equals("NO MATCH")) ?
-         * "model.command."+symbol+"Command" : "java.lang.String");
-         * AbstractCommand c = null;
-         * try {
-         * //clazz.getMethod("execute").getParameterCount();
-         * Constructor<?> ctor = clazz.getDeclaredConstructor(List.class);
-         * Object o = ctor.newInstance(params);
-         * System.out.println("Printing: " + o);
-         * c = (AbstractCommand)o;
-         * }
-         * catch(Exception e) {
-         * 
-         * e.printStackTrace();
-         * }
-         * return c;
-         
+        return traverse(node);
 
     }
 
     private double traverse (ExpressionNode root) {
-        return 0;
+        double output = 0.0;
+        for (int i = 0; i < root.getCommands().size(); i++) {
+            System.out.println(root.getCommands().get(i).getClass());
+            output = root.getCommands().get(i).execute();
+        }
+        return output;
     }
 
     private boolean isConstant (String command) {
