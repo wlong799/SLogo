@@ -8,9 +8,6 @@ import turtle.Position;
 
 public class ForwardCommand extends AbstractCommandTurtle implements IOneParameterCommand {
 
-    private double myMoveDistance;
-    private ExpressionNode first_parameter;
-    
 //    public ForwardCommand(){
 //        super(new ArrayList<ExpressionNode>());
 //        System.out.println("FORWARD COMMAND WOO");
@@ -18,15 +15,14 @@ public class ForwardCommand extends AbstractCommandTurtle implements IOneParamet
 
     public ForwardCommand (List<ExpressionNode> parameters) {
         super(parameters);
-        first_parameter = parameters.get(FIRST_PARAMETER);
-        System.out.println("FORWARD COMMAND WITH VALUE " + myMoveDistance);
+//        System.out.println("FORWARD COMMAND WITH VALUE " + myMoveDistance);
     }
 
     @Override
     public double execute () {
-        System.out.println(myMoveDistance);
+//        System.out.println(myMoveDistance);
 
-        myMoveDistance = executeParameter(first_parameter);
+        double myMoveDistance = getParameters().get(FIRST_PARAMETER);
 
         double turtleHeading = oneTurtle.getHeading();
 
@@ -40,10 +36,6 @@ public class ForwardCommand extends AbstractCommandTurtle implements IOneParamet
         oneTurtle.setPosition(nextPosition);
 
         return myMoveDistance;
-    }
-
-    public double executeParameter(ExpressionNode oneNode) { // TODO: maybe not implement the interface so can be private
-        return oneNode.getCommand().execute(); // TODO: this is what I need here, execute like this?
     }
 
     public int getNumParameters() {
