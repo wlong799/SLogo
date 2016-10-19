@@ -23,4 +23,8 @@ public class ExpressionNode {
         myCommand = command;
         myChildren = new ArrayList<ExpressionNode>();
     }
+
+    public Command getCommand() {
+        return myCommand;
+    }
 }

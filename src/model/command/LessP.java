@@ -8,7 +8,6 @@ public class LessP extends AbstractCommandBoolean implements ITwoParameterComman
 
 	public LessP(List<ExpressionNode> parameters) {
 		super(parameters);
-		// TODO Auto-generated constructor stub
 	}
 
 	
