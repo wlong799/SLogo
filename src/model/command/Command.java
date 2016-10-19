@@ -6,7 +6,7 @@ import model.ExpressionNode;
 
 public abstract class Command {
 
-    List<ExpressionNode> myNodes;
+    private List<ExpressionNode> myNodes;
 
     public Command(List<ExpressionNode> parameters){
         myNodes = parameters;
