@@ -1,7 +1,5 @@
 package turtle;
 
-import model.Position;
-
 /**
  * TurtleState is a simplified object which only reflects what the Turtle has
  * but without any of the turtle's functionality

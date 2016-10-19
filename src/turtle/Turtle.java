@@ -1,10 +1,9 @@
 package turtle;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Observable;
 
-import model.Position;
-
-public class Turtle {
+public class Turtle extends Observable{
 	
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 	
@@ -17,13 +16,19 @@ public class Turtle {
 	private boolean myTurtleVisible;
 	
 	public Turtle() {
+//		addObserver(aClassThatIsObserving); TODO: implement observer
 		myPosition = new Position(0, 0);
 		myHeading = 0;
 		myPenDown = true;
 		myTurtleVisible = true;
 	}
 
-	
+	private void updateAndCallObserver() {
+        setChanged();
+        TurtleState showOffState = new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
+        notifyObservers(showOffState);
+    }
+
 	
 	//
 	//
@@ -35,6 +40,7 @@ public class Turtle {
 
 	public void setPosition(Position position) {
 		myPosition = position;
+        updateAndCallObserver();
 	}
 	
 	public double getHeading() {
@@ -43,6 +49,7 @@ public class Turtle {
 
 	public void setHeading(double heading) {
 		myHeading = heading;
+        updateAndCallObserver();
 	}
 	
 	public boolean getPenDownStatus() {
@@ -51,15 +58,16 @@ public class Turtle {
 	
 	public void setPenDownStatus(boolean isPenDown) {
 		myPenDown = isPenDown;
+        updateAndCallObserver();
 	}
-	
-	
+
 	public boolean getVisibility() {
 		return myTurtleVisible;
 	}
 	
 	public void setVisibility(boolean isVisible) {
 		myTurtleVisible = isVisible;
+        updateAndCallObserver();
 	}
 	
 }
