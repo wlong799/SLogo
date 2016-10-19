@@ -18,7 +18,7 @@ public class SLogoController {
         for (String s : text) {
             if (s.trim().length() > 0) {
                 System.out.println(String.format("%s : %s", s, myCommandParser.getSymbol(s)));
-                Command c = null;
+                AbstractCommand c = null;
                 try{
                     c = myCommandParser.parse(s);
                 }

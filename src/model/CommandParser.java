@@ -3,8 +3,6 @@ package model;
 import java.util.List;
 import java.util.Enumeration;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
@@ -31,7 +29,7 @@ public class CommandParser {
                                             Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
         }
     }
-    public Command parse(String command) throws ClassNotFoundException{
+    public AbstractCommand parse(String command) throws ClassNotFoundException{
         
         
         String symbol = getSymbol(command);
@@ -40,13 +38,13 @@ public class CommandParser {
         System.out.println(params.getClass());
         System.out.println(List.class);
         Class<?> clazz = Class.forName((!symbol.equals("NO MATCH")) ? "model.command."+symbol+"Command" : "java.lang.String");
-        Command c = null;
+        AbstractCommand c = null;
         try {
             //clazz.getMethod("execute").getParameterCount();
             Constructor<?> ctor = clazz.getDeclaredConstructor(List.class);
             Object o = ctor.newInstance(params);
             System.out.println("Printing: " + o);
-            c = (Command)o;
+            c = (AbstractCommand)o;
         }
         catch(Exception e) {
             
