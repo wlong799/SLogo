@@ -4,15 +4,15 @@ public class Position {
 	private double myX;
 	private double myY;
 	
+	public Position() {
+		myX = 0;
+		myY = 0;
+	}
+	
 	public Position(double x, double y) {
 		myX = x;
 		myY = y;
 	}
-	
-//	public Postiion() {
-//		Position(0,0);
-//	}
-	
 
 	public double getX() {
 		return myX;
