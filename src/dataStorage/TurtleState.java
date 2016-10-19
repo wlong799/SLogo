@@ -1,12 +1,12 @@
-package turtle;
+package dataStorage;
 
 /**
  * TurtleState is a simplified object which only reflects what the Turtle has
- * but without any of the turtle's functionality
+ * but without any of the dataStorage's functionality
  * 
  * @author Filip Mazurek
  */
-public class TurtleState {
+class TurtleState {
 	private Position myPosition;
 	private double myHeading; // use unit circle-style direction
 	

@@ -1,17 +1,18 @@
 package model.command;
 
 
-import model.ExpressionNode;
-import java.util.List;
+public class Constant extends AbstractCommandZeroParameter{
 
-public class Constant extends AbstractCommand{
-    public Constant(List<ExpressionNode> parameters) {
-        super(parameters);
+    private double myValue;
+
+    public Constant(double value) {
+        super();
+        myValue = value;
     }
 
     @Override
     public double execute() {
-        return ownValue;
+        return myValue;
     }
 }
 

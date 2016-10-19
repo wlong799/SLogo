@@ -1,4 +1,4 @@
-package turtle;
+package dataStorage;
 
 public class Position {
 	private double myX;

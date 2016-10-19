@@ -1,19 +1,18 @@
 package model.command;
 
 import java.util.List;
+
+import dataStorage.DataStorageManager;
 import model.ExpressionNode;
-import turtle.Turtle;
+import dataStorage.Turtle;
 
 abstract class AbstractCommandZeroParameterTurtle extends AbstractCommandZeroParameter {
 
-    Turtle oneTurtle; // TODO: get a reference to the Turtle object
+    Turtle myTurtle;
 
     AbstractCommandZeroParameterTurtle(List<ExpressionNode> parameters) {
         super(parameters);
-    }
-
-    Turtle getTurtle() {
-        // grab a reference to the turtle.
+        myTurtle = DataStorageManager.get().getTurtle();
     }
 
 }

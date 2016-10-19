@@ -1,4 +1,4 @@
-package turtle;
+package dataStorage;
 
 import java.beans.PropertyChangeSupport;
 import java.util.Observable;
@@ -7,7 +7,7 @@ public class Turtle extends Observable{
 	
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 	
-	/* The turtle's current position */
+	/* The dataStorage's current position */
 	private Position myPosition;
 	private double myHeading; // use unit circle-style direction
 	
@@ -24,9 +24,10 @@ public class Turtle extends Observable{
 	}
 
 	private void updateAndCallObserver() {
-        setChanged();
         TurtleState showOffState = new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
+        setChanged();
         notifyObservers(showOffState);
+		clearChanged();
     }
 
 	

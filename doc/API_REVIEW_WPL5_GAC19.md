@@ -62,7 +62,7 @@ Part 2
   * User opens up the help screen HTML file.  
 2. Binding will allow for the GUI elements to be updated automatically,
 as soon as their relevant parts in the Model have been changed.
-3. I'm excited to figure out how to properly draw the turtle on the
+3. I'm excited to figure out how to properly draw the dataStorage on the
 screen based on information from the back-end, and to set up my GUI
 in a user-friendly and appealing manner.
 4. I'm worried about figuring out how to properly set up communication
