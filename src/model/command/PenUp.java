@@ -3,7 +3,9 @@ package model.command;
 import java.util.List;
 import model.ExpressionNode;
 
-public class PenUp extends AbstractCommandOneParameterTurtle implements IZeroParameterCommand {
+public class PenUp extends AbstractCommandZeroParameterTurtle {
+
+    public static final double PEN_UP_RETURN = 1;
 
     public PenUp(List<ExpressionNode> parameters) {
         super(parameters);
@@ -12,11 +14,6 @@ public class PenUp extends AbstractCommandOneParameterTurtle implements IZeroPar
     @Override
     public double execute() {
         oneTurtle.setPenDownStatus(false);
-        return 1;
-    }
-
-    @Override
-    public int getNumParameters() {
-        return NUM_PARAMETERS;
+        return PEN_UP_RETURN;
     }
 }
