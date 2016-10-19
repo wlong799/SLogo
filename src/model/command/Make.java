@@ -11,7 +11,7 @@ public class Make extends AbstractCommandTwoParameter {
 
     Make(List<ExpressionNode> parameters) {
         super(parameters);
-        myName = parameters.get(PARAMETER_ONE).toString();
+        myName = parameters.get(PARAMETER_ONE).toString();  // TODO: make a toString method to return only name
     }
 
     @Override
@@ -19,7 +19,7 @@ public class Make extends AbstractCommandTwoParameter {
         List<Double> givenParameters = getParameters();
         double varValue = givenParameters.get(PARAMETER_TWO);
 
-        DataStorageManager.get().getVariableStorage().setVariable(myName, varValue);
+        DataStorageManager.get().getValueVariableStorage().setVariable(myName, varValue);
 
         return varValue;
     }

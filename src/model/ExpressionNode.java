@@ -27,4 +27,7 @@ public class ExpressionNode {
     public AbstractCommand getCommand() {
         return myCommand;
     }
+
+
+    // TODO: override a toString method to return only name of expressionNode? for making/using variables
 }

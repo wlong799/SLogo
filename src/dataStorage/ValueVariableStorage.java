@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class VariableStorage {
+public class ValueVariableStorage {
     private static final double DEFAULT_RETURN = 0;
     private Map<String, Double> variableMap = new HashMap<>();
 
