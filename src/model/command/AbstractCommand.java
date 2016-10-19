@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ExpressionNode;
 
-abstract class AbstractCommand {
+public abstract class AbstractCommand {
 
     private List<ExpressionNode> myNodes;
 
@@ -17,7 +17,6 @@ abstract class AbstractCommand {
     }
 
     ArrayList<Double> getParameters() {
-
         ArrayList<Double> parameterList = new ArrayList<>();
 
         for (ExpressionNode oneNode : myNodes) {

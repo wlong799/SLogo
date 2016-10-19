@@ -12,7 +12,11 @@ public class VariableStorage {
         variableMap.put(varName, value);
     }
 
+    public boolean variableExists(String varName) {
+        return variableMap.containsKey(varName);
+    }
+
     public Double getVariable(String varName) {
-        return variableMap.containsKey(varName) ? variableMap.get(varName) : DEFAULT_RETURN;
+        return variableExists(varName) ? variableMap.get(varName) : DEFAULT_RETURN;
     }
 }
