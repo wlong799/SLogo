@@ -1,6 +1,7 @@
 package model;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Queue;
 import model.command.AbstractCommand;
@@ -35,18 +36,7 @@ public class ExpressionTree {
 
             try {
 
-                Object o = ctor.newInstance(new ArrayList<ExpressionNode>());
-                System.out.println(o.getClass());
-                Method getNumParams = commandClass.getMethod("getNumParameters");
-                System.out.println("get num params");
-                int paramNum = (int) getNumParams.invoke(o);
-                if(paramNum>0){
-                    for (; paramNum > 0; paramNum--) {
-                        parameters.add(makeTree(commands));
-                    }
-                    Method addParams = commandClass.getMethod("addParameters", List.class);
-                    addParams.invoke(o, parameters);
-                }
+                Object o = createCommandObject(commands, parameters, commandClass, ctor);
                 return (AbstractCommand) o;
             }
             catch (Exception e) {
@@ -61,9 +51,37 @@ public class ExpressionTree {
                 return new Constant(Double.parseDouble(command));
             }
             else {
+                System.out.println("Found user variable");
                 return createUserCommand(command);
             }
         }
+    }
+
+    /**
+     * @param commands
+     * @param parameters
+     * @param commandClass
+     * @param ctor
+     * @return
+     * @throws Exception
+     */
+    private Object createCommandObject (Queue<String> commands,
+                                        List<ExpressionNode> parameters,
+                                        Class<?> commandClass,
+                                        Constructor<?> ctor) throws Exception {
+        Object o = ctor.newInstance(new ArrayList<ExpressionNode>());
+        System.out.println(o.getClass());
+        Method getNumParams = commandClass.getMethod("getNumParameters");
+        System.out.println("get num params");
+        int paramNum = (int) getNumParams.invoke(o);
+        if (paramNum > 0) {
+            for (; paramNum > 0; paramNum--) {
+                parameters.add(makeTree(commands));
+            }
+            Method addParams = commandClass.getMethod("addParameters", List.class);
+            addParams.invoke(o, parameters);
+        }
+        return o;
     }
 
     private ExpressionNode makeCommandList (Queue<String> commandQueue) {
@@ -72,16 +90,16 @@ public class ExpressionTree {
         ExpressionNode root = new ExpressionNode();
         while (closedBrackets != openBrackets) {
             String next = commandQueue.poll();
-            if(next.equals("]")){
+            if (next.equals("]")) {
                 closedBrackets++;
             }
-            else if(next.equals("[")){
+            else if (next.equals("[")) {
                 openBrackets++;
                 makeCommandList(commandQueue);
             }
-            else{
-            root.addCommand(makeCommand(commandQueue, next));
-        
+            else {
+                root.addCommand(makeCommand(commandQueue, next));
+
             }
         }
         if (commandQueue.size() != 0) {
