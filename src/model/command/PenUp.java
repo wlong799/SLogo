@@ -4,22 +4,21 @@ import java.util.List;
 
 import model.ExpressionNode;
 
-public class PenUp extends TurtleCommand implements IZeroParameterCommand {
+public class PenUp extends AbstractCommandTurtle implements IZeroParameterCommand {
 
-	public PenUp(List<ExpressionNode> parameters) {
-		super(parameters);
-		// TODO Auto-generated constructor stub
-	}
+    public PenUp(List<ExpressionNode> parameters) {
+        super(parameters);
+    }
 
 
-	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public double execute() {
+        oneTurtle.setPenDownStatus(false);
+        return 1;
+    }
 
-	@Override
-	public int getNumParameters() {
-		return NUM_PARAMETERS;
-	}
+    @Override
+    public int getNumParameters() {
+        return NUM_PARAMETERS;
+    }
 }

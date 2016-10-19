@@ -20,7 +20,7 @@ public class ForwardCommand extends Command {
     }
 
     @Override
-    public void execute () {
+    public double execute () {
         // TODO Auto-generated method stub
         System.out.println(value);
     }
