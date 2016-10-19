@@ -12,13 +12,14 @@ public class Main {
                 "# foo",
                 "foo #",
                 "#",
-                "fd",
-                "FD",
+                "fd 50",
+                "FD 50",
                 "forwardd",
                 "equalp",
                 "equal?",
                 "equal??",
                 "+",
+                "lessp 10 20",
                 "SuM",
                 "-",
                 "*",
@@ -43,7 +44,8 @@ public class Main {
                 "[",
                 "]",
                 "(",
-                ")"
+                ")",
+                "[ fd 50 fd 30 ]"
             };
             SLogoController controller = new SLogoController();
             // these are more specific, so add them first to ensure they are checked first
