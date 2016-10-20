@@ -5,12 +5,13 @@ import view.SLogoView;
 
 
 public class SLogoController {
+    private static final String DEFAULT_LANGUAGE = "English";
 
     private CommandParser myCommandParser;
     private SLogoView mySLogoView;
 
     public SLogoController() {
-        myCommandParser = new CommandParser("English");
+        myCommandParser = new CommandParser(DEFAULT_LANGUAGE);
         mySLogoView = new SLogoView();
     }
 
