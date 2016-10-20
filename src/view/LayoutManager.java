@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface LayoutManager {
     public abstract Parent setComponentLayout(List<ViewElement> viewElements);
+    public abstract double getWidth();
+    public abstract double getHeight();
 }
