@@ -9,12 +9,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class TurtleView implements ViewElement {
+public class TurtleView implements ViewElement, Observer {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
+    private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
     private static final double TURTLE_SIZE = 50;
 
@@ -34,12 +38,15 @@ public class TurtleView implements ViewElement {
         background = new Rectangle(width, height, DEFAULT_BG_COLOR);
         lineCanvas = new Canvas(width, height);
         lineGraphics = lineCanvas.getGraphicsContext2D();
-        turtle = new ImageView(new Image("resources/turtle2.png"));
+        turtle = new ImageView(new Image(TURTLE_IMAGE_LOCATION));
         turtle.setFitHeight(TURTLE_SIZE);
         turtle.setFitWidth(TURTLE_SIZE);
 
-        lineGraphics.setFill(Color.YELLOW);
-        lineGraphics.fillRect(0, 0, myWidth, myHeight/2);
+        lineGraphics.setStroke(DEFAULT_LINE_COLOR);
+        lineGraphics.strokeLine(0, 0, 100, 100);
+        lineGraphics.strokeLine(30, 60, 100, 500);
+        lineGraphics.strokeLine(40, 90, 30, 20);
+
 
         myContent = new StackPane();
         myContent.setLayoutX(x);
@@ -50,5 +57,10 @@ public class TurtleView implements ViewElement {
     @Override
     public Node getContent() {
         return myContent;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        return;
     }
 }
