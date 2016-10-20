@@ -14,6 +14,7 @@ public class PenUp extends AbstractCommandZeroParameterTurtle {
     @Override
     public double execute() {
         myTurtle.setPenDownStatus(false);
+
         return PEN_UP_RETURN;
     }
 }

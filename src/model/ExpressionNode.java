@@ -7,25 +7,26 @@ import model.command.*;
 
 public class ExpressionNode {
 
-    private AbstractCommand myCommand;
-    private List<ExpressionNode> myChildren;
+    private List<AbstractCommand> myCommands;
 
-    public ExpressionNode () {
-        myChildren = new ArrayList<ExpressionNode>();
+    public ExpressionNode(){
+        myCommands = new ArrayList<AbstractCommand>();
+    }
+    public ExpressionNode (List<AbstractCommand> commands) {
+        myCommands = commands;
     }
 
-    public ExpressionNode (AbstractCommand command, List<ExpressionNode> children) {
-        myCommand = command;
-        myChildren = children;
+    
+    public ExpressionNode (Double value){
+        myCommands.add(new Constant(value));
     }
 
-    public ExpressionNode (AbstractCommand command) {
-        myCommand = command;
-        myChildren = new ArrayList<ExpressionNode>();
+    public List<AbstractCommand> getCommands() {
+        return myCommands;
     }
-
-    public AbstractCommand getCommand() {
-        return myCommand;
+    
+    public void addCommand(AbstractCommand command){
+        myCommands.add(command);
     }
 
 
