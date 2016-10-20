@@ -3,11 +3,11 @@ package model.command;
 import java.util.List;
 import model.ExpressionNode;
 
-public class LessP extends AbstractCommandTwoParameter{
+public class LessThan extends AbstractCommandTwoParameter{
     private static final double TRUE_RESULT = 1;
     private static final double FALSE_RESULT = 0;
 
-	public LessP(List<ExpressionNode> parameters) {
+	public LessThan(List<ExpressionNode> parameters) {
 		super(parameters);
 	}
 	
