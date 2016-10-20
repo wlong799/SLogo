@@ -13,27 +13,16 @@ public class SLogoController {
     public SLogoController() {
         myCommandParser = new CommandParser(DEFAULT_LANGUAGE);
         mySLogoView = new SLogoView();
-    }
-
-    public void parseText(String[] text) {
-
-        for (String s : text) {
-
-            if (s.trim().length() > 0) {
-
-                try {
-                    System.out.println(myCommandParser.parse(s));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-
-        System.out.println();
+        setUpInteractions();
     }
 
     public SLogoView getSLogoView() {
         return mySLogoView;
+    }
+
+    private void setUpInteractions() {
+        ViewModelController vmController = new ViewModelController(mySLogoView.getViewElements());
+        vmController.setCommandParser(myCommandParser);
+        vmController.setUpInteractions();
     }
 }

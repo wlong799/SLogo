@@ -11,11 +11,11 @@ import java.util.List;
  * they interact with each other, and possibly how they interact with other
  * parts of the program
  */
-public abstract class InteractionManager {
+public abstract class InteractionController {
 
-    private List<ViewElement> viewElements;
+    protected List<ViewElement> viewElements;
 
-    protected InteractionManager(List<ViewElement> elements) {
+    protected InteractionController(List<ViewElement> elements) {
         viewElements = elements;
     }
 
