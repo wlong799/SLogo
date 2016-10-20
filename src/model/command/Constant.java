@@ -1,5 +1,7 @@
 package model.command;
 
+import java.util.List;
+import model.ExpressionNode;
 
 public class Constant extends AbstractCommandZeroParameter{
 
@@ -9,7 +11,17 @@ public class Constant extends AbstractCommandZeroParameter{
         super();
         myValue = value;
     }
-
+    
+    public Constant(List<ExpressionNode> parameters) {
+        super(parameters);
+        myValue = parameters.get(0).getCommands().get(0).execute();
+    }
+    
+    @Override
+    public void addParameters(List<ExpressionNode> parameters){
+        myValue = parameters.get(0).getCommands().get(0).execute();
+    }
+    
     @Override
     public double execute() {
         return myValue;

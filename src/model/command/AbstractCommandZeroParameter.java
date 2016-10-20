@@ -7,14 +7,14 @@ import java.util.List;
 abstract class AbstractCommandZeroParameter extends AbstractCommand {
     private static final int NUM_PARAMETERS = 0;
 
-    AbstractCommandZeroParameter(List<ExpressionNode> parameters) {
+    public AbstractCommandZeroParameter(List<ExpressionNode> parameters) {
         super(parameters);
     }
-    AbstractCommandZeroParameter() {
+    public AbstractCommandZeroParameter() {
         super();
     }
 
-    int getNumParameters() {
+    public int getNumParameters() {
         return NUM_PARAMETERS;
     }
 }
