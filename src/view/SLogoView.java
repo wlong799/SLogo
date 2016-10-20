@@ -19,11 +19,8 @@ public class SLogoView {
 
     public SLogoView() {
         myLayoutManager = new SimpleLayout();
-        myViewElements = new ArrayList<>();
-        myViewElements.add(new TurtleView());
-        myViewElements.add(new TextEntryBox());
-
-        root = myLayoutManager.setComponentLayout(myViewElements);
+        root = myLayoutManager.getElementLayout();
+        myViewElements = myLayoutManager.getViewElements();
         myWidth = myLayoutManager.getWidth();
         myHeight = myLayoutManager.getHeight();
 

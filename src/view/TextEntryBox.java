@@ -10,8 +10,12 @@ import javafx.scene.control.TextArea;
 public class TextEntryBox implements ViewElement{
     private TextArea myTextBox;
 
-    public TextEntryBox() {
-        myTextBox = new TextArea("BLEH");
+    public TextEntryBox(double x, double y, double width, double height) {
+        myTextBox = new TextArea("ENTER COMMAND");
+        myTextBox.setLayoutX(x);
+        myTextBox.setLayoutY(y);
+        myTextBox.setPrefWidth(width);
+        myTextBox.setPrefHeight(height);
     }
 
     @Override

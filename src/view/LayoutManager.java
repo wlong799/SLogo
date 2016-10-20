@@ -12,7 +12,8 @@ import java.util.List;
  * layouts easily.
  */
 public interface LayoutManager {
-    public abstract Parent setComponentLayout(List<ViewElement> viewElements);
+    public abstract Parent getElementLayout();
+    public List<ViewElement> getViewElements();
     public abstract double getWidth();
     public abstract double getHeight();
 }

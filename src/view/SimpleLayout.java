@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextArea;
 import sun.java2d.pipe.SpanShapeRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class SimpleLayout implements LayoutManager {
     private static final double TEXT_BOX_RATIO = 0.1;
 
     private Group root;
+    private List<ViewElement> myViewElements;
     private double myWidth;
     private double myHeight;
     private double myPadding;
@@ -37,34 +39,31 @@ public class SimpleLayout implements LayoutManager {
         myWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, width));
         myHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, height));
         myPadding = Math.min(myWidth, myHeight) * PADDING_RATIO;
+
+        double elementWidth = myWidth - 2 * myPadding;
+        double textBoxHeight = TEXT_BOX_RATIO * myHeight;
+        double turtleHeight = myHeight - 3 * myPadding - textBoxHeight;
+        TurtleView turtleView = new TurtleView(myPadding, myPadding, elementWidth, turtleHeight);
+        TextEntryBox textEntryBox = new TextEntryBox(myPadding, myHeight - myPadding - textBoxHeight,
+                                                     elementWidth, textBoxHeight);
+
+        myViewElements = new ArrayList<>();
+        myViewElements.add(turtleView);
+        myViewElements.add(textEntryBox);
     }
 
     @Override
-    public Parent setComponentLayout(List<ViewElement> viewElements) {
-        Canvas turtleView = null;
-        TextArea textEntryBox = null;
-        for (ViewElement element : viewElements) {
-            if (element.getClass().getSimpleName().equals(ViewElementName.TURTLE_VIEW.getName())) {
-                turtleView = (Canvas)element.getContent();
-            }
-            if (element.getClass().getSimpleName().equals(ViewElementName.TEXT_ENTRY_BOX.getName())) {
-                textEntryBox = (TextArea)element.getContent();
-            }
+    public Parent getElementLayout() {
+        root = new Group();
+        for (ViewElement element : myViewElements) {
+            root.getChildren().add(element.getContent());
         }
-        double textBoxHeight = TEXT_BOX_RATIO * myHeight;
-
-        turtleView.setLayoutX(myPadding);
-        turtleView.setLayoutY(myPadding);
-        turtleView.setWidth(myWidth - 2 * myPadding);
-        turtleView.setHeight(myWidth - 3 * myPadding - textBoxHeight);
-
-        textEntryBox.setLayoutX(myPadding);
-        textEntryBox.setLayoutY(myHeight - myPadding - textBoxHeight);
-        textEntryBox.setPrefHeight(textBoxHeight);
-        textEntryBox.setPrefWidth(myWidth - 2 * myPadding);
-
-        root.getChildren().addAll(turtleView, textEntryBox);
         return root;
+    }
+
+    @Override
+    public List<ViewElement> getViewElements() {
+        return myViewElements;
     }
 
     @Override
