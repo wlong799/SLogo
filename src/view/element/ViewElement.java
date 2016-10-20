@@ -1,4 +1,4 @@
-package view;
+package view.element;
 
 import javafx.scene.Node;
 
@@ -9,5 +9,5 @@ import javafx.scene.Node;
  * actually implemented (as opposed to extending the JavaFX codebase).
  */
 public interface ViewElement {
-    public abstract Node getContent();
+    Node getContent();
 }

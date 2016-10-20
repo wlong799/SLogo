@@ -1,11 +1,10 @@
 package view;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.TextArea;
-import sun.java2d.pipe.SpanShapeRenderer;
+import view.element.TextEntryBox;
+import view.element.TurtleView;
+import view.element.ViewElement;
 
 import java.util.ArrayList;
 import java.util.List;

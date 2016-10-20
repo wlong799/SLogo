@@ -1,4 +1,4 @@
-package view;
+package view.element;
 
 import javafx.scene.Node;
 
@@ -6,7 +6,7 @@ import javafx.scene.Node;
  * @author Will Long
  * @version 10/19/16
  */
-public class CommandHistoryWindow implements ViewElement{
+public class ToolBar implements ViewElement{
     @Override
     public Node getContent() {
         return null;

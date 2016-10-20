@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.Parent;
+import view.element.ViewElement;
 
 import java.util.List;
 

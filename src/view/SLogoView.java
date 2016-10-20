@@ -2,8 +2,8 @@ package view;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import view.element.ViewElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

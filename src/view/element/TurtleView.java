@@ -1,4 +1,4 @@
-package view;
+package view.element;
 
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
