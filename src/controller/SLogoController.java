@@ -1,23 +1,20 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import model.CommandParser;
-import model.command.*;
+import view.SLogoView;
 
 
 public class SLogoController {
 
     private CommandParser myCommandParser;
+    private SLogoView mySLogoView;
 
-    public SLogoController () {
+    public SLogoController() {
         myCommandParser = new CommandParser("English");
-
+        mySLogoView = new SLogoView();
     }
 
-    public void parseText (String[] text) {
+    public void parseText(String[] text) {
 
         for (String s : text) {
 
@@ -25,8 +22,7 @@ public class SLogoController {
 
                 try {
                     System.out.println(myCommandParser.parse(s));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -34,5 +30,9 @@ public class SLogoController {
         }
 
         System.out.println();
+    }
+
+    public SLogoView getSLogoView() {
+        return mySLogoView;
     }
 }
