@@ -1,4 +1,4 @@
-package view;
+package view.element;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * @author Will Long
  * @version 10/19/16
  */
-public class TextEntryBox implements ViewElement{
+public class TextEntryBox implements ViewElement {
     private static final double TEXT_BOX_RATIO = 0.80;
     private static final double PADDING_RATIO = 0.05;
     private static final String DEFAULT_TEXT = "ENTER COMMANDS HERE";
@@ -43,10 +43,11 @@ public class TextEntryBox implements ViewElement{
         VBox buttonBox = new VBox(yPadding);
         buttonBox.setPrefWidth(buttonWidth);
         buttonBox.setPrefHeight(height);
+
         mySubmitButton = new Button(SUBMIT_TEXT);
         mySubmitButton.setPrefWidth(buttonWidth);
         mySubmitButton.setPrefHeight(buttonHeight);
-        setSubmitHandler(event -> myTextBox.setText(myTextBox.getText() + "SUBMIT"));
+
         myClearButton = new Button(CLEAR_TEXT);
         myClearButton.setPrefWidth(buttonWidth);
         myClearButton.setPrefHeight(buttonHeight);
@@ -63,6 +64,10 @@ public class TextEntryBox implements ViewElement{
 
     public void setSubmitHandler(EventHandler<ActionEvent> submitHandler) {
         mySubmitButton.setOnAction(submitHandler);
+    }
+
+    public String getEnteredText() {
+        return myTextBox.getText();
     }
 
     private void clearText() {
