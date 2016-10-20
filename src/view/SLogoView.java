@@ -2,23 +2,20 @@ package view;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class responsible for organizing the layout of the GUI,
- * as well as the interactions between various elements.
+ * Class responsible for organizing the layout of the GUI, as well as the interactions between
+ * various elements.
  */
 public class SLogoView {
-    private static final double DEFAULT_WIDTH = 1000;
-    private static final double DEFAULT_HEIGHT = 750;
-
     private Scene myScene;
     private Parent root;
     private LayoutManager myLayoutManager;
     private List<ViewElement> myViewElements;
+    private double myWidth, myHeight;
 
     public SLogoView() {
         myLayoutManager = new SimpleLayout();
@@ -27,8 +24,10 @@ public class SLogoView {
         myViewElements.add(new TextEntryBox());
 
         root = myLayoutManager.setComponentLayout(myViewElements);
+        myWidth = myLayoutManager.getWidth();
+        myHeight = myLayoutManager.getHeight();
 
-        myScene = new Scene(root, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        myScene = new Scene(root, myWidth, myHeight);
     }
 
     public Scene getScene() {
