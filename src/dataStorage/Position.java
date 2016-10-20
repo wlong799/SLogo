@@ -29,4 +29,9 @@ public class Position {
 	public void setY(double y) {
 		myY = y;
 	}
+	
+	@Override
+	public String toString(){
+	    return myX + ", " + myY;
+	}
 }
