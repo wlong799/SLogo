@@ -79,10 +79,14 @@ public class LayoutManager {
         TabbedHelperPanel tabbedHelperPanel = new TabbedHelperPanel(width, height);
         double tabWidth = tabbedHelperPanel.getTabWidth();
         double tabHeight = tabbedHelperPanel.getTabHeight();
-        // PLACEHOLDER
-        tabbedHelperPanel.placeElementInNewTab("PLACEHOLDER", new CommandHistoryWindow(tabWidth, tabHeight));
+        CommandHistoryWindow commandHistoryWindow = new CommandHistoryWindow(tabWidth, tabHeight);
+        StoredFunctionWindow storedFunctionWindow = new StoredFunctionWindow(tabWidth, tabHeight);
+        tabbedHelperPanel.placeElementInNewTab("Command History", commandHistoryWindow);
+        tabbedHelperPanel.placeElementInNewTab("Stored Functions", storedFunctionWindow);
         myContentGrid.addSidePanelElement(tabbedHelperPanel);
         myViewElements.add(tabbedHelperPanel);
+        myViewElements.add(commandHistoryWindow);
+        myViewElements.add(storedFunctionWindow);
     }
 
     private void createBottomBarElement() {
