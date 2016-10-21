@@ -53,7 +53,7 @@ public class ViewModelController extends InteractionController {
                 line = line.trim();
                 if (line.length() > 0) {
                     try {
-                        myCommandParser.parse(line);
+                        myCommandParser.parse(line, myTurtle);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
