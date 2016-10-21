@@ -3,6 +3,7 @@ package controller;
 import view.SLogoView;
 import model.SLogoModel;
 import view.SLogoView;
+import model.SLogoModel;
 
 
 public class SLogoController {
@@ -11,19 +12,23 @@ public class SLogoController {
     private SLogoModel myModel;
     private SLogoView mySLogoView;
 
-    public SLogoController() {
+    public SLogoController () {
+
         myModel = new SLogoModel(DEFAULT_LANGUAGE);
         mySLogoView = new SLogoView();
         setUpInteractions();
     }
 
-    public SLogoView getSLogoView() {
+    public SLogoView getSLogoView () {
         return mySLogoView;
     }
 
-    private void setUpInteractions() {
+    private void setUpInteractions () {
         ViewModelController vmController = new ViewModelController(mySLogoView.getViewElements());
         vmController.setModel(myModel);
         vmController.setUpInteractions();
+
+        ViewViewController vvController = new ViewViewController(mySLogoView.getViewElements());
+        vvController.setUpInteractions();
     }
 }

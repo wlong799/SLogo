@@ -26,17 +26,22 @@ public class ViewModelController extends InteractionController {
         myModel = model;
     }
 
-    private void linkTurtleWithView () {
+
+
+    private void linkTurtleWithView() {
         Turtle turtle = myModel.getTurtle();
         if (turtle == null || getElementByClass("TurtleView") == null) {
             return;
         }
-        TurtleView turtleView = (TurtleView) getElementByClass("TurtleView");
+        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
+
         turtle.addObserver(turtleView);
         turtle.setVisibility(true);
     }
 
-    private void linkTextBoxToParser () {
+
+
+    private void linkTextBoxToParser() {
         if (myModel.noParser() || getElementByClass("TextEntryBox") == null) {
             return;
         }
@@ -53,6 +58,7 @@ public class ViewModelController extends InteractionController {
                         myModel.parse(line);
                     }
                     catch (Exception e) {
+
                         e.printStackTrace();
                     }
                 }

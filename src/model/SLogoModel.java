@@ -38,6 +38,7 @@ public class SLogoModel {
 
     public void setLanguage (String language) {
         myCommandParser = new CommandParser(language, myTurtle);
+
     }
 
 }
