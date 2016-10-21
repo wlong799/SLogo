@@ -2,6 +2,7 @@ package controller;
 
 import dataStorage.Turtle;
 import model.CommandParser;
+import model.SLogoModel;
 import view.element.TextEntryBox;
 import view.element.TurtleView;
 import view.element.ViewElement;
@@ -9,8 +10,7 @@ import view.element.ViewElement;
 import java.util.List;
 
 public class ViewModelController extends InteractionController {
-    private Turtle myTurtle;
-    private CommandParser myCommandParser;
+    private SLogoModel myModel;
 
     protected ViewModelController(List<ViewElement> elements) {
         super(elements);
@@ -22,25 +22,23 @@ public class ViewModelController extends InteractionController {
         linkTurtleWithView();
     }
 
-    public void setTurtle(Turtle turtle) {
-        myTurtle = turtle;
+    public void setModel(SLogoModel model){
+        myModel = model;
     }
 
-    public void setCommandParser(CommandParser parser) {
-        myCommandParser = parser;
-    }
 
     private void linkTurtleWithView() {
-        if (myTurtle == null || getElementByClass("TurtleView") == null) {
+        Turtle turtle = myModel.getTurtle();
+        if (turtle == null || getElementByClass("TurtleView") == null) {
             return;
         }
         TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
-        myTurtle.addObserver(turtleView);
-        myTurtle.setVisibility(true);
+        turtle.addObserver(turtleView);
+        turtle.setVisibility(true);
     }
 
     private void linkTextBoxToParser() {
-        if (myCommandParser == null || getElementByClass("TextEntryBox") == null) {
+        if (myModel.noParser() || getElementByClass("TextEntryBox") == null) {
             return;
         }
         TextEntryBox textEntryBox = (TextEntryBox) getElementByClass("TextEntryBox");
@@ -53,7 +51,7 @@ public class ViewModelController extends InteractionController {
                 line = line.trim();
                 if (line.length() > 0) {
                     try {
-                        myCommandParser.parse(line, myTurtle);
+                        myModel.parse(line);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

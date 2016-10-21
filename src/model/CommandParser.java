@@ -119,9 +119,6 @@ public class CommandParser {
                 return e.getKey();
             }
         }
-        for (Entry<String, Pattern> e : myCommands) {
-
-        }
         return ERROR;
     }
 
