@@ -1,8 +1,7 @@
 package view;
 
-import javafx.scene.Group;
 import javafx.scene.Parent;
-import view.element.TextEntryBox;
+import view.element.ContentGrid;
 import view.element.TurtleView;
 import view.element.ViewElement;
 
@@ -20,10 +19,8 @@ public class LayoutManager {
     private static final double MIN_HEIGHT = 375;
     private static final double DEFAULT_HEIGHT = 750;
     private static final double MAX_HEIGHT = 1125;
-    private static final double PADDING_RATIO = 0.05;
-    private static final double TEXT_BOX_RATIO = 0.1;
 
-    private Group root;
+    private ContentGrid myContentGrid;
     private List<ViewElement> myViewElements;
     private double myWidth;
     private double myHeight;
@@ -34,29 +31,18 @@ public class LayoutManager {
     }
 
     public LayoutManager(double width, double height) {
-        root = new Group();
         myWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, width));
         myHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, height));
-        myPadding = Math.min(myWidth, myHeight) * PADDING_RATIO;
-
-        double elementWidth = myWidth - 2 * myPadding;
-        double textBoxHeight = TEXT_BOX_RATIO * myHeight;
-        double turtleHeight = myHeight - 3 * myPadding - textBoxHeight;
-        TurtleView turtleView = new TurtleView(myPadding, myPadding, elementWidth, turtleHeight);
-        TextEntryBox textEntryBox = new TextEntryBox(myPadding, myHeight - myPadding - textBoxHeight,
-                                                     elementWidth, textBoxHeight);
-
+        myContentGrid = new ContentGrid(width, height);
         myViewElements = new ArrayList<>();
-        myViewElements.add(turtleView);
-        myViewElements.add(textEntryBox);
+        createMainElement();
+        //createToolBarElement();
+        //createSidePanelElement();
+        //createBottomBarElement();
     }
 
     public Parent getElementLayout() {
-        root = new Group();
-        for (ViewElement element : myViewElements) {
-            root.getChildren().add(element.getContent());
-        }
-        return root;
+       return (Parent) myContentGrid.getContent();
     }
 
     public List<ViewElement> getViewElements() {
@@ -69,5 +55,13 @@ public class LayoutManager {
 
     public double getHeight() {
         return myHeight;
+    }
+
+    private void createMainElement() {
+        double width = myContentGrid.getMainElementWidth();
+        double height = myContentGrid.getMainElementHeight();
+        TurtleView turtleView = new TurtleView(width, height);
+        myContentGrid.addMainElement(turtleView);
+        myViewElements.add(turtleView);
     }
 }
