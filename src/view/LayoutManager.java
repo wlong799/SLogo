@@ -75,13 +75,15 @@ public class LayoutManager {
     }
 
     private void createSidePanelElement() {
-        //placeholder
         double width = myContentGrid.getSidePanelWidth();
         double height = myContentGrid.getSidePanelHeight();
-        System.out.println(width + " " + height);
-        ToolBar toolBar = new ToolBar(width, height);
-        myContentGrid.addSidePanelElement(toolBar);
-        myViewElements.add(toolBar);
+        TabbedHelperPanel tabbedHelperPanel = new TabbedHelperPanel(width, height);
+        double tabWidth = tabbedHelperPanel.getTabWidth();
+        double tabHeight = tabbedHelperPanel.getTabHeight();
+        tabbedHelperPanel.placeElementInNewTab("ToolBar 1", new ToolBar(tabWidth, tabHeight));
+        tabbedHelperPanel.placeElementInNewTab("ToolBar 2", new ToolBar(tabWidth, tabHeight));
+        myContentGrid.addSidePanelElement(tabbedHelperPanel);
+        myViewElements.add(tabbedHelperPanel);
     }
 
     private void createBottomBarElement() {
