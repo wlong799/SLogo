@@ -60,13 +60,12 @@ public class LayoutManager {
     private void createToolBarElement() {
         double width = myContentGrid.getToolbarWidth();
         double height = myContentGrid.getToolbarHeight();
-        ToolBar toolBar = new ToolBar(width, height);
-        myContentGrid.addToolBarElement(toolBar);
-        myViewElements.add(toolBar);
+        SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
+        myContentGrid.addToolBarElement(settingsToolBar);
+        myViewElements.add(settingsToolBar);
     }
 
     private void createMainElement() {
-        //placeholder
         double width = myContentGrid.getMainElementWidth();
         double height = myContentGrid.getMainElementHeight();
         TurtleView turtleView = new TurtleView(width, height);
@@ -80,8 +79,8 @@ public class LayoutManager {
         TabbedHelperPanel tabbedHelperPanel = new TabbedHelperPanel(width, height);
         double tabWidth = tabbedHelperPanel.getTabWidth();
         double tabHeight = tabbedHelperPanel.getTabHeight();
-        tabbedHelperPanel.placeElementInNewTab("ToolBar 1", new ToolBar(tabWidth, tabHeight));
-        tabbedHelperPanel.placeElementInNewTab("ToolBar 2", new ToolBar(tabWidth, tabHeight));
+        // PLACEHOLDER
+        tabbedHelperPanel.placeElementInNewTab("PLACEHOLDER", new CommandHistoryWindow(tabWidth, tabHeight));
         myContentGrid.addSidePanelElement(tabbedHelperPanel);
         myViewElements.add(tabbedHelperPanel);
     }

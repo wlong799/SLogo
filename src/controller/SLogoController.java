@@ -26,5 +26,8 @@ public class SLogoController {
         ViewModelController vmController = new ViewModelController(mySLogoView.getViewElements());
         vmController.setModel(myModel);
         vmController.setUpInteractions();
+
+        ViewViewController vvController = new ViewViewController(mySLogoView.getViewElements());
+        vvController.setUpInteractions();
     }
 }
