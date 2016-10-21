@@ -17,7 +17,7 @@ public class Turtle extends Observable{
 	
 	public Turtle() {
 		myPosition = new Position(0, 0);
-		myHeading = -1*Math.PI/2;
+		myHeading = 90.0;
 		myPenDown = true;
 		myTurtleVisible = true;
 	}

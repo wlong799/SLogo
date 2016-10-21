@@ -1,7 +1,6 @@
 package model.command;
 
 import java.util.List;
-import dataStorage.Position;
 import model.ExpressionNode;
 
 public class Right extends AbstractCommandOneParameterTurtle {
@@ -12,10 +11,10 @@ public class Right extends AbstractCommandOneParameterTurtle {
     
     @Override
     public double execute () {
-        double rotationDegreees = getParameters().get(PARAMETER_ONE);
+        double rotationDegrees = getParameters().get(PARAMETER_ONE);
+        myTurtle.setHeading((myTurtle.getHeading()+rotationDegrees)%360.0);
         
-        
-        return 0;
+        return rotationDegrees;
     }
 
 }
