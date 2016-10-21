@@ -11,12 +11,12 @@ abstract class AbstractMoveTurtle extends AbstractCommandOneParameterTurtle {
         super(parameters);
     }
 
-    protected double move (MoveDirectionEnum dir) {
+    protected double move (MoveDirection dir) {
         double givenMoveDistance = getParameters().get(PARAMETER_ONE);
 
         double directionDistance = givenMoveDistance;
 
-        if(dir == MoveDirectionEnum.Backward) {
+        if(dir == MoveDirection.Backward) {
             directionDistance = -givenMoveDistance;
         }
 

@@ -1,6 +1,6 @@
 package model.command;
 
 
-enum MoveDirectionEnum {
+enum MoveDirection {
     Forward, Backward
 }

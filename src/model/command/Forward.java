@@ -12,7 +12,7 @@ public class Forward extends AbstractMoveTurtle {
 
     @Override
     public double execute () {
-       return(move(MoveDirectionEnum.Forward));
+       return(move(MoveDirection.Forward));
     }
 
 }

@@ -12,7 +12,7 @@ public class Back extends AbstractMoveTurtle {
 
     @Override
     public double execute () {
-        return(move(MoveDirectionEnum.Backward));
+        return(move(MoveDirection.Backward));
     }
 
 }

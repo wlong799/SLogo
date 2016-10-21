@@ -19,8 +19,6 @@ abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
             turnDegrees = -givenTurnDegrees;
         }
 
-        turnDegrees = correctOverTurns(turnDegrees);
-
         double newHeading = myTurtle.getHeading() + turnDegrees;
 
         myTurtle.setHeading(correctOverTurns(newHeading));
@@ -28,12 +26,17 @@ abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
         return givenTurnDegrees;
     }
 
-    private double correctOverTurns(double degrees) {
+    protected double correctOverTurns(double degrees) {
         int overByNumTurns = 0;
         if(Math.abs(degrees) >= CIRCLE_DEGREES) {
             overByNumTurns = (int) (degrees / CIRCLE_DEGREES);
         }
-        return degrees - overByNumTurns * CIRCLE_DEGREES;
+        double newDegrees =  degrees - overByNumTurns * CIRCLE_DEGREES;
+
+        if(newDegrees < 0) {
+            newDegrees += CIRCLE_DEGREES;
+        }
+        return newDegrees;
     }
 
 }
