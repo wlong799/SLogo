@@ -4,15 +4,15 @@ import java.util.List;
 import model.ExpressionNode;
 
 
-public class Forward extends AbstractMoveTurtle {
+public class Back extends AbstractMoveTurtle {
 
-    public Forward(List<ExpressionNode> parameters) {
+    public Back(List<ExpressionNode> parameters) {
         super(parameters);
     }
 
     @Override
     public double execute () {
-       return(move(MoveDirectionEnum.Forward));
+        return(move(MoveDirectionEnum.Backward));
     }
 
 }

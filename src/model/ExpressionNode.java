@@ -16,7 +16,6 @@ public class ExpressionNode {
         myCommands = commands;
     }
 
-    
     public ExpressionNode (Double value){
         myCommands.add(new Constant(value));
     }

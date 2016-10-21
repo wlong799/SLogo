@@ -11,6 +11,7 @@ public class Make extends AbstractCommandTwoParameter {
 
     Make(List<ExpressionNode> parameters) {
         super(parameters);
+        // TODO: look at Filip comment in expression tree
         myName = parameters.get(PARAMETER_ONE).getCommand().toString();  // TODO: make a toString method to return only name
     }
 
