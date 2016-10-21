@@ -1,6 +1,5 @@
 package controller;
 
-
 import view.SLogoView;
 import model.SLogoModel;
 import view.SLogoView;
