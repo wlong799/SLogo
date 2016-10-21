@@ -6,7 +6,7 @@ package dataStorage;
  * 
  * @author Filip Mazurek
  */
-class TurtleState {
+public class TurtleState {
 	private Position myPosition;
 	private double myHeading; // use unit circle-style direction
 	
