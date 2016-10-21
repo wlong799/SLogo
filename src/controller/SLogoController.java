@@ -1,5 +1,6 @@
 package controller;
 
+import dataStorage.DataStorageManager;
 import model.CommandParser;
 import view.SLogoView;
 
@@ -23,6 +24,7 @@ public class SLogoController {
     private void setUpInteractions() {
         ViewModelController vmController = new ViewModelController(mySLogoView.getViewElements());
         vmController.setCommandParser(myCommandParser);
+        vmController.setTurtle(DataStorageManager.get().getTurtle());
         vmController.setUpInteractions();
     }
 }

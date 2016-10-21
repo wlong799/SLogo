@@ -1,5 +1,6 @@
 package view.element;
 
+import dataStorage.TurtleState;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,14 +23,13 @@ public class TurtleView implements ViewElement, Observer {
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
     private static final double TURTLE_SIZE = 50;
 
+    private double myWidth, myHeight;
+    private TurtleState prevState, currentState;
     private StackPane myContent;
     private Rectangle background;
     private Canvas lineCanvas;
     private GraphicsContext lineGraphics;
     private ImageView turtle;
-
-    private double myWidth, myHeight;
-
 
     public TurtleView(double x, double y, double width, double height) {
         myWidth = width;
@@ -61,6 +61,16 @@ public class TurtleView implements ViewElement, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        prevState = currentState;
+        currentState = (TurtleState)arg;
+        draw();
         return;
+    }
+
+    private void draw() {
+        System.out.println(currentState.getPosition().getX());
+        System.out.println(currentState.getPosition().getY());
+        turtle.setTranslateX(currentState.getPosition().getX());
+        turtle.setTranslateY(currentState.getPosition().getY());
     }
 }
