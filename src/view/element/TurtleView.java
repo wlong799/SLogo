@@ -31,7 +31,7 @@ public class TurtleView implements ViewElement, Observer {
     private GraphicsContext lineGraphics;
     private ImageView turtle;
 
-    public TurtleView(double x, double y, double width, double height) {
+    public TurtleView(double width, double height) {
         myWidth = width;
         myHeight = height;
 
@@ -45,8 +45,6 @@ public class TurtleView implements ViewElement, Observer {
         turtle.setFitWidth(TURTLE_SIZE);
 
         myContent = new StackPane();
-        myContent.setLayoutX(x);
-        myContent.setLayoutY(y);
         myContent.getChildren().addAll(background, lineCanvas, turtle);
     }
 
