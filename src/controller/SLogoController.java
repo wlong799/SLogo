@@ -1,38 +1,30 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import dataStorage.DataStorageManager;
 import model.CommandParser;
-import model.command.*;
+import view.SLogoView;
 
 
 public class SLogoController {
+    private static final String DEFAULT_LANGUAGE = "English";
 
     private CommandParser myCommandParser;
+    private SLogoView mySLogoView;
 
-    public SLogoController () {
-        myCommandParser = new CommandParser("English");
-
+    public SLogoController() {
+        myCommandParser = new CommandParser(DEFAULT_LANGUAGE);
+        mySLogoView = new SLogoView();
+        setUpInteractions();
     }
 
-    public void parseText (String[] text) {
+    public SLogoView getSLogoView() {
+        return mySLogoView;
+    }
 
-        for (String s : text) {
-
-            if (s.trim().length() > 0) {
-
-                try {
-                    System.out.println(myCommandParser.parse(s));
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-
-        System.out.println();
+    private void setUpInteractions() {
+        ViewModelController vmController = new ViewModelController(mySLogoView.getViewElements());
+        vmController.setCommandParser(myCommandParser);
+        vmController.setTurtle(DataStorageManager.get().getTurtle());
+        vmController.setUpInteractions();
     }
 }

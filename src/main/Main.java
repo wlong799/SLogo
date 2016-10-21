@@ -49,7 +49,7 @@ public class Main {
             };
             SLogoController controller = new SLogoController();
             // these are more specific, so add them first to ensure they are checked first
-            controller.parseText(examples);
+            //controller.parseText(examples);
             
     }
 }

@@ -17,9 +17,9 @@ public class Forward extends AbstractCommandOneParameterTurtle {
         double myMoveDistance = getParameters().get(PARAMETER_ONE);
 
         double turtleHeading = myTurtle.getHeading();
-
-        double yMove = myMoveDistance * Math.asin(turtleHeading);
-        double xMove = myMoveDistance * Math.acos(turtleHeading);
+        
+        double yMove = myMoveDistance * Math.sin(turtleHeading);
+        double xMove = myMoveDistance * Math.cos(turtleHeading);
 
         Position prevPosition = myTurtle.getPosition();
 

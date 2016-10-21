@@ -1,4 +1,4 @@
-package main;
+package controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,9 +11,11 @@ public class AppLauncher extends Application {
     private static final String APP_TITLE = "SLogo";
 
     public void start(Stage stage) {
-        SLogoView slogoView = new SLogoView();
+        SLogoController slogoController = new SLogoController();
+        SLogoView slogoView = slogoController.getSLogoView();
         stage.setTitle(APP_TITLE);
         stage.setScene(slogoView.getScene());
+        stage.setResizable(false);
         stage.show();
     }
 

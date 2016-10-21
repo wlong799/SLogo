@@ -2,8 +2,8 @@ package view;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import view.element.ViewElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,16 +18,20 @@ public class SLogoView {
     private double myWidth, myHeight;
 
     public SLogoView() {
-        myLayoutManager = new SimpleLayout();
+        myLayoutManager = new LayoutManager();
         root = myLayoutManager.getElementLayout();
-        myViewElements = myLayoutManager.getViewElements();
         myWidth = myLayoutManager.getWidth();
         myHeight = myLayoutManager.getHeight();
 
         myScene = new Scene(root, myWidth, myHeight);
+
+        myViewElements = myLayoutManager.getViewElements();
     }
 
     public Scene getScene() {
         return myScene;
+    }
+    public List<ViewElement> getViewElements() {
+        return myViewElements;
     }
 }
