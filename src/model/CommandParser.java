@@ -11,7 +11,9 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import dataStorage.Turtle;
+import dataStorage.VariableStorage;
 import model.command.*;
 
 
@@ -19,10 +21,14 @@ public class CommandParser {
 
     private List<Entry<String, Pattern>> mySyntax;
     private List<Entry<String, Pattern>> myCommands;
+    private VariableStorage myVariableStorage;
+    private Turtle myTurtle;
 
-    public CommandParser (String language) {
+    public CommandParser (String language, Turtle turtle) {
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
+        myVariableStorage = new VariableStorage();
+        myTurtle = turtle;
         init(language);
 
     }
@@ -46,29 +52,10 @@ public class CommandParser {
         return patterns;
     }
 
-    public double parse (String command, Turtle turtle) throws Exception {
+    public double parse (String command) throws Exception {
 
-        List<String> onOneLine = Arrays.asList(command.split("\\n"));
-
-        Queue<String> commands = new LinkedList<String>();
-        onOneLine.forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
-        Queue<String> commandQueue = new LinkedList<String>();
-        for (String rawCommand : commands) {
-            String symbol = getSymbol(rawCommand, false);
-            if (symbol.equals("NO MATCH")) {
-                if (getSymbol(rawCommand, true).equals("NO MATCH")) {
-                    System.out.println("Throw Invalid Command Exception");
-                    return 0.0;
-                }
-                else {
-                    commandQueue.add(rawCommand);
-                }
-            }
-            else {
-                commandQueue.add(symbol);
-            }
-        }
-        ExpressionTree completeCommand = new ExpressionTree(turtle);
+        Queue<String> commandQueue = makeCommandQueue(command);
+        ExpressionTree completeCommand = new ExpressionTree(myTurtle, myVariableStorage);
         ExpressionNode node = null;
         try {
             node = completeCommand.makeTree(commandQueue);
@@ -83,6 +70,68 @@ public class CommandParser {
 
     }
 
+    private List<String> getUserCommand (String command, Queue<String> commands) throws Exception {
+        String commandString = myVariableStorage.getCommand(command);
+        List<String> commandParams = myVariableStorage.getCommandParams(command);
+
+        List<String> commandQueue = new LinkedList<String>();
+        Arrays.asList(commandString.split("\n"))
+                .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
+                        .collect(Collectors.toList())));
+        if (!commands.poll().equals("[")) {
+            throw new Exception("Invalid custom command");
+        }
+        ;
+        for (String s : commandParams) {
+            myVariableStorage.setVariable(s,
+                                          traverse(new ExpressionTree(myTurtle, myVariableStorage)
+                                                  .makeTree(commands)));
+        }
+        return commandQueue;
+    }
+
+    private Queue<String> makeCommandQueue (String command) {
+        List<String> onOneLine = Arrays.asList(command.split("\\n"));
+
+        Queue<String> commands = new LinkedList<String>();
+        onOneLine.forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
+        Queue<String> commandQueue = new LinkedList<String>();
+        while (!commands.isEmpty()) {
+            String rawCommand = commands.poll();
+            String symbol = getSymbol(rawCommand, false);
+            if (symbol.equals("NO MATCH")) {
+                symbol = getSymbol(rawCommand, true);
+                if (symbol.equals("NO MATCH")) {
+                    System.out.println("Throw Invalid Command Exception");
+
+                }
+                else {
+                    if (symbol.equals("Variable")) {
+                        commandQueue
+                                .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
+                    }
+                    else {
+                        if(!symbol.equals("Command")){
+                            commandQueue.add(rawCommand);
+                        }
+                        else{
+                            try{
+                                commandQueue.addAll(getUserCommand(rawCommand, commands));
+                            }
+                            catch(Exception ex){
+                                System.out.println("exception in custom command");
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                commandQueue.add(symbol);
+            }
+        }
+        return commandQueue;
+    }
+
     private double traverse (ExpressionNode root) {
         double output = 0.0;
         for (int i = 0; i < root.getCommands().size(); i++) {
@@ -92,24 +141,18 @@ public class CommandParser {
         return output;
     }
 
-    private boolean isConstant (String command) {
-        for (Entry<String, Pattern> e : mySyntax) {
-            if (match(command, e.getValue())) {
-                return e.getKey().equals("Constant");
-            }
-        }
-        return false;
-    }
-
     private boolean isVariable (String command) {
-        for (Entry<String, Pattern> e : mySyntax) {
-            if (match(command, e.getValue())) {
+        return command.startsWith(":");
+    }
+
+    private boolean isConstant (String command){
+        for(Entry<String, Pattern> e : mySyntax){
+            if(match(command, e.getValue())){
                 return e.getKey().equals("Constant");
             }
         }
         return false;
     }
-
     // returns the language's type associated with the given text if one exists
     public String getSymbol (String text, boolean syntax) {
         final String ERROR = "NO MATCH";

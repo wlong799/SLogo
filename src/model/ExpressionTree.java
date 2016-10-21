@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Queue;
 import dataStorage.Turtle;
+import dataStorage.VariableStorage;
 import model.command.AbstractCommand;
 import model.command.Constant;
 import java.util.*;
@@ -13,14 +14,17 @@ public class ExpressionTree {
 
     private ExpressionNode myRoot;
     private Turtle myTurtle;
+    private VariableStorage myVariableStorage;
 
-    public ExpressionTree(Turtle turtle){
+    public ExpressionTree (Turtle turtle, VariableStorage variables) {
         myTurtle = turtle;
+        myVariableStorage = variables;
     }
-    
+
     public ExpressionNode makeTree (Queue<String> commands) throws ClassNotFoundException {
         ExpressionNode root = new ExpressionNode();
         String command = commands.poll();
+        System.out.println("parsing " + command);
         if (command.equals("[")) {
             return makeCommandList(commands);
         }
@@ -32,17 +36,17 @@ public class ExpressionTree {
     }
 
     private AbstractCommand makeCommand (Queue<String> commands, String command) {
-        List<ExpressionNode> parameters = new ArrayList<ExpressionNode>();
         try {
             Class<?> commandClass = Class.forName("model.command." + command);
             Constructor<?> ctor = commandClass.getDeclaredConstructor(List.class);
 
             try {
 
-                Object o = createCommandObject(commands, parameters, commandClass, ctor);
+                Object o = createCommandObject(commands, commandClass, ctor);
                 return (AbstractCommand) o;
             }
             catch (Exception e) {
+                System.out.println("Command " + command);
                 System.out.println("new instance didnt work");
                 return null;
             }
@@ -50,13 +54,17 @@ public class ExpressionTree {
         }
         catch (Exception e) {
             System.out.println("no command class");
-            if (!command.startsWith(":")) {
+
+            try {
+                System.out.println("trying to parse double " + command);
                 return new Constant(Double.parseDouble(command));
             }
-            else {
-                System.out.println("Found user variable");
-                return createUserCommand(command);
+            catch (Exception ex) {
+                // return createUserCommand(command);
+                System.out.println("Throw invalid command string");
+                return new Constant(myVariableStorage.getVariable(command));
             }
+
         }
     }
 
@@ -69,10 +77,10 @@ public class ExpressionTree {
      * @throws Exception
      */
     private Object createCommandObject (Queue<String> commands,
-                                        List<ExpressionNode> parameters,
                                         Class<?> commandClass,
                                         Constructor<?> ctor) throws Exception {
-        Object o = ctor.newInstance(new ArrayList<ExpressionNode>());
+        List<ExpressionNode> parameters = new ArrayList<ExpressionNode>();
+        Object o = ctor.newInstance(parameters);
         System.out.println(o.getClass());
         Method getNumParams = commandClass.getMethod("getNumParameters");
         System.out.println("get num params");
@@ -84,11 +92,21 @@ public class ExpressionTree {
             Method addParams = commandClass.getMethod("setParameters", List.class);
             addParams.invoke(o, parameters);
         }
-        if(commandClass.getSuperclass().toString().contains("Turtle")){
+        addOtherParameters(commandClass, o);
+        System.out.println(o.getClass());
+        return o;
+    }
+
+    private void addOtherParameters (Class<?> commandClass, Object o) throws Exception {
+        if (commandClass.getSuperclass().toString().contains("Turtle")) {
             Method setTurtle = commandClass.getMethod("setTurtle", Turtle.class);
             setTurtle.invoke(o, myTurtle);
         }
-        return o;
+        else if (commandClass.getSuperclass().toString().contains("HigherOrder")) {
+            Method addVariableStorage =
+                    commandClass.getMethod("addVariables", VariableStorage.class);
+            addVariableStorage.invoke(o, myVariableStorage);
+        }
     }
 
     private ExpressionNode makeCommandList (Queue<String> commandQueue) {
@@ -111,12 +129,15 @@ public class ExpressionTree {
         }
         if (commandQueue.size() != 0) {
             System.out.println("THROW EXCEPTION: MALFORMATTED COMMAND STRING");
-            return null;
+            return root;
         }
         return root;
     }
 
-    private AbstractCommand createUserCommand (String command) {
+    private AbstractCommand createUserCommand (String command) throws Exception { // CommandNotFoundException
+        // ExpressionNode commandRoot = myVariableStorage.getCommand(command);
+        // List<String> commandParams = myVariableStorage.getCommandParams(command);
+
         return null;
     }
 
