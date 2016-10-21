@@ -6,13 +6,17 @@ import dataStorage.DataStorageManager;
 import model.ExpressionNode;
 import dataStorage.Turtle;
 
-abstract class AbstractCommandZeroParameterTurtle extends AbstractCommandZeroParameter {
+public abstract class AbstractCommandZeroParameterTurtle extends AbstractCommandZeroParameter {
 
-    Turtle myTurtle;
+    protected Turtle myTurtle;
 
     AbstractCommandZeroParameterTurtle(List<ExpressionNode> parameters) {
         super(parameters);
-        myTurtle = DataStorageManager.get().getTurtle();
+        //myTurtle = DataStorageManager.get().getTurtle();
+    }
+    
+    public void setTurtle(Turtle turtle){
+        myTurtle = turtle;
     }
 
 }
