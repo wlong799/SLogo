@@ -18,7 +18,7 @@ import java.util.Observer;
  * @version 10/19/16
  */
 public class TurtleView implements ViewElement, Observer {
-    private static final Color DEFAULT_BG_COLOR = Color.BLACK;
+    private static final Color DEFAULT_BG_COLOR = Color.WHITE;
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
     private static final double TURTLE_SIZE = 50;

@@ -14,23 +14,25 @@ import java.util.List;
  */
 public class ContentGrid implements ViewElement{
     private static final double TOOLBAR_RATIO = 0.1;
-    private static final double MAIN_PANEL_RATIO = 0.7;
-    private static final double BOTTOM_BAR_RATIO = 0.2;
+    private static final double MAIN_PANEL_RATIO = 0.75;
+    private static final double BOTTOM_BAR_RATIO = 0.15;
     private static final double HORIZONTAL_RATIO = 0.70;
-    private static final double PADDING_RATIO = 0.05;
+    private static final double PADDING_RATIO = 0.02;
 
     private GridPane myContentGrid;
     private double myWidth, myHeight;
     private double myXPadding, myYPadding;
-    private List<Double> myRowSizes, myColSizes;
 
-    public ContentGrid(double width, double height) {
+    public ContentGrid(double width, double height, double borderSize) {
+        myWidth = width - 2 * borderSize;
+        myHeight = height - 2 * borderSize;
+
         myContentGrid = new GridPane();
-        myWidth = width;
-        myHeight = height;
+        myContentGrid.setLayoutX(borderSize);
+        myContentGrid.setLayoutY(borderSize);
+        myContentGrid.setStyle("-fx-background-color: white");
         myXPadding = myWidth * PADDING_RATIO;
         myYPadding = myHeight * PADDING_RATIO;
-        myContentGrid.setGridLinesVisible(true);
 
         setPadding();
         setGridSizing();
@@ -46,7 +48,7 @@ public class ContentGrid implements ViewElement{
         ColumnConstraints column2 = new ColumnConstraints();
         double xSpaceRemaining = myWidth - myXPadding;
         column1.setPrefWidth(xSpaceRemaining * HORIZONTAL_RATIO);
-        column2.setPercentWidth(xSpaceRemaining * (1 - HORIZONTAL_RATIO));
+        column2.setPrefWidth(xSpaceRemaining * (1 - HORIZONTAL_RATIO));
         myContentGrid.getColumnConstraints().addAll(column1, column2);
 
         RowConstraints row1 = new RowConstraints();
@@ -80,11 +82,36 @@ public class ContentGrid implements ViewElement{
         return myContentGrid;
     }
 
+    public double getToolbarWidth() {
+        return myWidth;
+    }
+
+    public double getToolbarHeight() {
+        return myContentGrid.getRowConstraints().get(0).getPrefHeight();
+    }
+
     public double getMainElementWidth() {
         return myContentGrid.getColumnConstraints().get(0).getPrefWidth();
     }
 
     public double getMainElementHeight() {
         return myContentGrid.getRowConstraints().get(1).getPrefHeight();
+    }
+
+    public double getSidePanelWidth() {
+        return myContentGrid.getColumnConstraints().get(1).getPrefWidth();
+    }
+
+    public double getSidePanelHeight() {
+        return myContentGrid.getRowConstraints().get(1).getPrefHeight() +
+                myContentGrid.getRowConstraints().get(2).getPrefHeight();
+    }
+
+    public double getBottomBarWidth() {
+        return myContentGrid.getColumnConstraints().get(0).getPrefWidth();
+    }
+
+    public double getBottomBarHeight() {
+        return myContentGrid.getRowConstraints().get(2).getPrefHeight();
     }
 }
