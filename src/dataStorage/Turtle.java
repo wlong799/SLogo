@@ -27,7 +27,6 @@ public class Turtle extends Observable{
         TurtleState showOffState = new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
         setChanged();
         notifyObservers(showOffState);
-		clearChanged();
     }
 
 	
