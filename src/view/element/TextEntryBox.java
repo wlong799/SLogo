@@ -23,18 +23,16 @@ public class TextEntryBox implements ViewElement {
     private TextArea myTextBox;
     private Button mySubmitButton, myClearButton;
 
-    public TextEntryBox(double x, double y, double width, double height) {
+    public TextEntryBox(double width, double height) {
         double xPadding = width * PADDING_RATIO;
         double yPadding = height * PADDING_RATIO;
 
         myContent = new HBox(xPadding);
-        myContent.setLayoutX(x);
-        myContent.setLayoutY(y);
         myContent.setPrefWidth(width);
         myContent.setPrefHeight(height);
 
         double textBoxWidth = width * TEXT_BOX_RATIO;
-        myTextBox = new TextArea(DEFAULT_TEXT);
+        myTextBox = new TextArea();
         myTextBox.setPrefWidth(textBoxWidth);
         myTextBox.setPrefHeight(height);
 
