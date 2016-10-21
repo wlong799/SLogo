@@ -18,7 +18,7 @@ public class SLogoView {
     private double myWidth, myHeight;
 
     public SLogoView() {
-        myLayoutManager = new SimpleLayout();
+        myLayoutManager = new LayoutManager();
         root = myLayoutManager.getElementLayout();
         myWidth = myLayoutManager.getWidth();
         myHeight = myLayoutManager.getHeight();
