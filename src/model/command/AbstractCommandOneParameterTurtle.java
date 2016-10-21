@@ -7,9 +7,9 @@ import dataStorage.DataStorageManager;
 
 abstract class AbstractCommandOneParameterTurtle extends AbstractCommandOneParameter{
 
-    Turtle myTurtle;
+    protected Turtle myTurtle;
 
-    AbstractCommandOneParameterTurtle(List<ExpressionNode> parameters) {
+    public AbstractCommandOneParameterTurtle(List<ExpressionNode> parameters) {
         super(parameters);
         myTurtle = DataStorageManager.get().getTurtle();
     }

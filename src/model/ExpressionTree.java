@@ -15,7 +15,6 @@ public class ExpressionTree {
 
     public ExpressionNode makeTree (Queue<String> commands) throws ClassNotFoundException {
         ExpressionNode root = new ExpressionNode();
-        // while (!commands.isEmpty()) {
         String command = commands.poll();
         if (command.equals("[")) {
             List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
