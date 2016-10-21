@@ -1,6 +1,7 @@
 package controller;
 
-import model.CommandParser;
+
+import view.SLogoView;
 import model.SLogoModel;
 import view.SLogoView;
 
