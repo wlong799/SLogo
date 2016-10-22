@@ -5,8 +5,8 @@ import model.ExpressionNode;
 
 import java.util.List;
 
-public class XCor extends AbstractCommandZeroParameterTurtle {
-    public XCor(List<ExpressionNode> parameters) {
+public class XCoordinate extends AbstractCommandZeroParameterTurtle {
+    public XCoordinate(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

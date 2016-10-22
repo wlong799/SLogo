@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Cos extends AbstractCommandOneParameterMath {
-    public Cos(List<ExpressionNode> parameters) {
+public class Cosine extends AbstractCommandOneParameterMath {
+    public Cosine(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

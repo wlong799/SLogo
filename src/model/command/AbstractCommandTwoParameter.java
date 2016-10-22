@@ -13,6 +13,7 @@ public abstract class AbstractCommandTwoParameter extends AbstractCommand {
         super(parameters);
     }
 
+    @Override
     public int getNumParameters() {
         return NUM_PARAMETERS;
     }

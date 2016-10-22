@@ -4,8 +4,8 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class Pow extends AbstractCommandTwoParameterMath {
-    public Pow(List<ExpressionNode> parameters) {
+public class Power extends AbstractCommandTwoParameterMath {
+    public Power(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

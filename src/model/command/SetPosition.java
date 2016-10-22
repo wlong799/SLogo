@@ -7,8 +7,8 @@ import model.ExpressionNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetXY extends AbstractCommandTwoParameterTurtle {
-    public SetXY(List<ExpressionNode> parameters) {
+public class SetPosition extends AbstractCommandTwoParameterTurtle {
+    public SetPosition(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

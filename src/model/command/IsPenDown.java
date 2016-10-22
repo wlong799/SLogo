@@ -4,11 +4,11 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class PenDownP extends AbstractCommandZeroParameterTurtle {
+public class IsPenDown extends AbstractCommandZeroParameterTurtle {
     private static final double RETURN_PENDOWN = 1;
     private static final double RETURN_PENUP = 0;
 
-    public PenDownP(List<ExpressionNode> parameters) {
+    public IsPenDown(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

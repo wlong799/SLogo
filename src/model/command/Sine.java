@@ -4,8 +4,8 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class Sin extends AbstractCommandOneParameterMath {
-    public Sin(List<ExpressionNode> parameters) {
+public class Sine extends AbstractCommandOneParameterMath {
+    public Sine(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

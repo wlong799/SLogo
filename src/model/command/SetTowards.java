@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Towards extends AbstractCommandTwoParameterTurtle {
-    public Towards(List<ExpressionNode> parameters) {
+public class SetTowards extends AbstractCommandTwoParameterTurtle {
+    public SetTowards(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

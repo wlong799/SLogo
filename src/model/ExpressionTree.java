@@ -7,6 +7,7 @@ import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.AbstractCommand;
 import model.command.Constant;
+import model.command.Variable;
 import java.util.*;
 
 
@@ -69,7 +70,9 @@ public class ExpressionTree {
             catch (Exception ex) {
                 // return createUserCommand(command);
                 System.out.println("Throw invalid command string");
-                return new Constant(myVariableStorage.getVariable(command));
+                Variable var = new Variable(command);
+                var.addVariables(myVariableStorage, myCommandStorage);
+                return var;
             }
 
         }
@@ -139,13 +142,6 @@ public class ExpressionTree {
             return root;
         }
         return root;
-    }
-
-    private AbstractCommand createUserCommand (String command) throws Exception { // CommandNotFoundException
-        // ExpressionNode commandRoot = myVariableStorage.getCommand(command);
-        // List<String> commandParams = myVariableStorage.getCommandParams(command);
-
-        return null;
     }
 
     public ExpressionNode getRoot () {

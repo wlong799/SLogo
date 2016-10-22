@@ -4,9 +4,9 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class NotEqualP extends AbstractCommandTwoParameterBoolean {
+public class NotEqual extends AbstractCommandTwoParameterBoolean {
 
-    public NotEqualP(List<ExpressionNode> parameters) {
+    public NotEqual(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

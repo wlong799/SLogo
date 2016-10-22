@@ -4,9 +4,9 @@ import java.util.List;
 import model.ExpressionNode;
 
 
-public class Back extends AbstractMoveTurtle {
+public class Backward extends AbstractMoveTurtle {
 
-    public Back(List<ExpressionNode> parameters) {
+    public Backward(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

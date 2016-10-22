@@ -3,7 +3,7 @@ package model.command;
 import dataStorage.Position;
 import model.ExpressionNode;
 import java.util.List;
-import model.command.SetXY;
+import model.command.SetPosition;
 
 
 public class Home extends AbstractCommandZeroParameterTurtle {

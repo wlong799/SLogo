@@ -108,11 +108,11 @@ public class CommandParser {
 
                 }
                 else {
-                    if (symbol.equals("Variable")) {
-                        commandQueue
-                                .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
-                    }
-                    else {
+//                    if (symbol.equals("Variable")) {
+//                        commandQueue
+//                                .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
+//                    }
+//                    else {
                         if(!symbol.equals("Command")){
                             commandQueue.add(rawCommand);
                         }
@@ -124,7 +124,7 @@ public class CommandParser {
                                 System.out.println("exception in custom command");
                             }
                         }
-                    }
+                    //}
                 }
             }
             else {
