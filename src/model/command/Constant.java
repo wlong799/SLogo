@@ -21,7 +21,7 @@ public class Constant extends AbstractCommandZeroParameter{
 
     @Override
     public void addParameters(List<ExpressionNode> parameters){
-        myValue = parameters.get(0).getCommands().get(0).execute();
+        myValue = parameters.get(0).getCommands().get(parameters.get(0).getCommands().size()-1).execute();
     }
     
     @Override

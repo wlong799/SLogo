@@ -21,7 +21,11 @@ public abstract class AbstractCommand {
     public void setParameters(List<ExpressionNode> parameters){
         myNodes = parameters;
     }
-    
+    public List<AbstractCommand> getParametersAsCommands() {
+        ArrayList<AbstractCommand> commands = new ArrayList<AbstractCommand>();
+        myNodes.forEach(command -> commands.addAll(command.getCommands()));
+        return commands;
+    }
     public abstract int getNumParameters();
     
     public ArrayList<Double> getParameters() {

@@ -28,6 +28,7 @@ public class SLogoModel {
             myCommandParser.parse(s);
         }
         catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Throw parsing exception");
         }
     }
