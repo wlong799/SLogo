@@ -5,7 +5,9 @@ import model.ExpressionNode;
 
 public class PenUp extends AbstractCommandZeroParameterTurtle {
 
-    public static final double PEN_UP_RETURN = 1;
+    private static final double PEN_UP_RETURN = 0;
+    private static final boolean PEN_DOWN_STATUS = false;
+
 
     public PenUp(List<ExpressionNode> parameters) {
         super(parameters);
@@ -13,7 +15,7 @@ public class PenUp extends AbstractCommandZeroParameterTurtle {
 
     @Override
     public double execute() {
-        myTurtle.setPenDownStatus(false);
+        myTurtle.setPenDownStatus(PEN_DOWN_STATUS);
         return PEN_UP_RETURN;
     }
 }

@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Queue;
 import dataStorage.Turtle;
-import dataStorage.VariableStorage;
+import dataStorage.*;
 import model.command.AbstractCommand;
 import model.command.Constant;
 import java.util.*;
@@ -14,11 +14,13 @@ public class ExpressionTree {
 
     private ExpressionNode myRoot;
     private Turtle myTurtle;
-    private VariableStorage myVariableStorage;
-
-    public ExpressionTree (Turtle turtle, VariableStorage variables) {
+    private ValueVariableStorage myVariableStorage;
+    private CommandVariableStorage myCommandStorage;
+    
+    public ExpressionTree (Turtle turtle, ValueVariableStorage variables, CommandVariableStorage commands) {
         myTurtle = turtle;
         myVariableStorage = variables;
+        myCommandStorage = commands;
     }
 
     public ExpressionNode makeTree (Queue<String> commands) throws ClassNotFoundException {
@@ -52,6 +54,11 @@ public class ExpressionTree {
             }
 
         }
+
+        /* TODO FILIP: Here, can we see about changing the command object? We already have the command as a string.
+         * would be much easier to construct the command with the command with the string as a parameter. Can
+         * most easily then use this when calling the "Make" method of when finding the object is a constant
+         */
         catch (Exception e) {
             System.out.println("no command class");
 
@@ -104,8 +111,8 @@ public class ExpressionTree {
         }
         else if (commandClass.getSuperclass().toString().contains("HigherOrder")) {
             Method addVariableStorage =
-                    commandClass.getMethod("addVariables", VariableStorage.class);
-            addVariableStorage.invoke(o, myVariableStorage);
+                    commandClass.getMethod("addVariables", ValueVariableStorage.class, CommandVariableStorage.class);
+            addVariableStorage.invoke(o, myVariableStorage, myCommandStorage);
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import dataStorage.Turtle;
-import dataStorage.VariableStorage;
+import dataStorage.*;
 import model.command.*;
 
 
@@ -21,13 +21,15 @@ public class CommandParser {
 
     private List<Entry<String, Pattern>> mySyntax;
     private List<Entry<String, Pattern>> myCommands;
-    private VariableStorage myVariableStorage;
+    private ValueVariableStorage myVariableStorage;
+    private CommandVariableStorage myCommandStorage;
     private Turtle myTurtle;
 
     public CommandParser (String language, Turtle turtle) {
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
-        myVariableStorage = new VariableStorage();
+        myVariableStorage = new ValueVariableStorage();
+        myCommandStorage = new CommandVariableStorage();
         myTurtle = turtle;
         init(language);
 
@@ -55,7 +57,7 @@ public class CommandParser {
     public double parse (String command) throws Exception {
 
         Queue<String> commandQueue = makeCommandQueue(command);
-        ExpressionTree completeCommand = new ExpressionTree(myTurtle, myVariableStorage);
+        ExpressionTree completeCommand = new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage);
         ExpressionNode node = null;
         try {
             node = completeCommand.makeTree(commandQueue);
@@ -71,8 +73,8 @@ public class CommandParser {
     }
 
     private List<String> getUserCommand (String command, Queue<String> commands) throws Exception {
-        String commandString = myVariableStorage.getCommand(command);
-        List<String> commandParams = myVariableStorage.getCommandParams(command);
+        String commandString = myCommandStorage.getCommand(command);
+        List<String> commandParams = myCommandStorage.getCommandParams(command);
 
         List<String> commandQueue = new LinkedList<String>();
         Arrays.asList(commandString.split("\n"))
@@ -84,7 +86,7 @@ public class CommandParser {
         ;
         for (String s : commandParams) {
             myVariableStorage.setVariable(s,
-                                          traverse(new ExpressionTree(myTurtle, myVariableStorage)
+                                          traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
                                                   .makeTree(commands)));
         }
         return commandQueue;

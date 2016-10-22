@@ -1,7 +1,7 @@
 package model;
 
 import dataStorage.Turtle;
-import dataStorage.VariableStorage;
+
 
 
 public class SLogoModel {
