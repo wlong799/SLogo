@@ -20,7 +20,7 @@ abstract class AbstractMoveTurtle extends AbstractCommandOneParameterTurtle {
             directionDistance = -givenMoveDistance;
         }
 
-        double turtleHeading = myTurtle.getHeading();
+        double turtleHeading = Math.toRadians(myTurtle.getHeading());
 
         double yMove = directionDistance * Math.sin(turtleHeading);
         double xMove = directionDistance * Math.cos(turtleHeading);

@@ -1,42 +1,44 @@
 package model;
 
 import dataStorage.Turtle;
-import dataStorage.VariableStorage;
+
+
 
 public class SLogoModel {
     private static final String DEFAULT_LANGUAGE = "English";
     private CommandParser myCommandParser;
     private Turtle myTurtle;
-    private VariableStorage myVariableStorage;
-    
-    public SLogoModel(){
+
+    public SLogoModel () {
         myTurtle = new Turtle();
-        myCommandParser = new CommandParser(DEFAULT_LANGUAGE);
+        myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myTurtle);
     }
-    
-    public SLogoModel(String language){
+
+    public SLogoModel (String language) {
         myTurtle = new Turtle();
-        myCommandParser = new CommandParser(language);
+        myCommandParser = new CommandParser(language, myTurtle);
     }
-    
-    public Turtle getTurtle() {
+
+    public Turtle getTurtle () {
         return myTurtle;
     }
-    
-    public void parse(String s){
-        try{
-            myCommandParser.parse(s, myTurtle);
+
+    public void parse (String s) {
+        try {
+            myCommandParser.parse(s);
         }
-        catch(Exception e){
+        catch (Exception e) {
             System.out.println("Throw parsing exception");
         }
     }
-    
-    public boolean noParser() {
+
+    public boolean noParser () {
         return myCommandParser == null;
     }
-    public void setLanguage(String language){
-        myCommandParser = new CommandParser(language);
+
+    public void setLanguage (String language) {
+        myCommandParser = new CommandParser(language, myTurtle);
+
     }
 
 }

@@ -1,7 +1,7 @@
 package controller;
 
-import dataStorage.DataStorageManager;
-import model.CommandParser;
+import view.SLogoView;
+import model.SLogoModel;
 import view.SLogoView;
 import model.SLogoModel;
 
@@ -13,6 +13,7 @@ public class SLogoController {
     private SLogoView mySLogoView;
 
     public SLogoController () {
+
         myModel = new SLogoModel(DEFAULT_LANGUAGE);
         mySLogoView = new SLogoView();
         setUpInteractions();
