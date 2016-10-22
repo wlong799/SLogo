@@ -7,7 +7,7 @@ import model.ExpressionNode;
 public abstract class AbstractCommand {
 
     private List<ExpressionNode> myNodes;
-
+    
     AbstractCommand() {
         myNodes = null;
     }

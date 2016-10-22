@@ -1,9 +1,9 @@
 package model;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Queue;
+import dataStorage.Turtle;
 import model.command.AbstractCommand;
 import model.command.Constant;
 import java.util.*;
@@ -12,13 +12,16 @@ import java.util.*;
 public class ExpressionTree {
 
     private ExpressionNode myRoot;
+    private Turtle myTurtle;
 
+    public ExpressionTree(Turtle turtle){
+        myTurtle = turtle;
+    }
+    
     public ExpressionNode makeTree (Queue<String> commands) throws ClassNotFoundException {
         ExpressionNode root = new ExpressionNode();
-        // while (!commands.isEmpty()) {
         String command = commands.poll();
         if (command.equals("[")) {
-            List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
             return makeCommandList(commands);
         }
         else {
@@ -83,8 +86,12 @@ public class ExpressionTree {
             for (; paramNum > 0; paramNum--) {
                 parameters.add(makeTree(commands));
             }
-            Method addParams = commandClass.getMethod("addParameters", List.class);
+            Method addParams = commandClass.getMethod("setParameters", List.class);
             addParams.invoke(o, parameters);
+        }
+        if(commandClass.getSuperclass().toString().contains("Turtle")){
+            Method setTurtle = commandClass.getMethod("setTurtle", Turtle.class);
+            setTurtle.invoke(o, myTurtle);
         }
         return o;
     }

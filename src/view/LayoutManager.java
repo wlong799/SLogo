@@ -60,13 +60,12 @@ public class LayoutManager {
     private void createToolBarElement() {
         double width = myContentGrid.getToolbarWidth();
         double height = myContentGrid.getToolbarHeight();
-        ToolBar toolBar = new ToolBar(width, height);
-        myContentGrid.addToolBarElement(toolBar);
-        myViewElements.add(toolBar);
+        SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
+        myContentGrid.addToolBarElement(settingsToolBar);
+        myViewElements.add(settingsToolBar);
     }
 
     private void createMainElement() {
-        //placeholder
         double width = myContentGrid.getMainElementWidth();
         double height = myContentGrid.getMainElementHeight();
         TurtleView turtleView = new TurtleView(width, height);
@@ -75,13 +74,19 @@ public class LayoutManager {
     }
 
     private void createSidePanelElement() {
-        //placeholder
         double width = myContentGrid.getSidePanelWidth();
         double height = myContentGrid.getSidePanelHeight();
-        System.out.println(width + " " + height);
-        ToolBar toolBar = new ToolBar(width, height);
-        myContentGrid.addSidePanelElement(toolBar);
-        myViewElements.add(toolBar);
+        TabbedHelperPanel tabbedHelperPanel = new TabbedHelperPanel(width, height);
+        double tabWidth = tabbedHelperPanel.getTabWidth();
+        double tabHeight = tabbedHelperPanel.getTabHeight();
+        CommandHistoryWindow commandHistoryWindow = new CommandHistoryWindow(tabWidth, tabHeight);
+        StoredFunctionWindow storedFunctionWindow = new StoredFunctionWindow(tabWidth, tabHeight);
+        tabbedHelperPanel.placeElementInNewTab("Command History", commandHistoryWindow);
+        tabbedHelperPanel.placeElementInNewTab("Stored Functions", storedFunctionWindow);
+        myContentGrid.addSidePanelElement(tabbedHelperPanel);
+        myViewElements.add(tabbedHelperPanel);
+        myViewElements.add(commandHistoryWindow);
+        myViewElements.add(storedFunctionWindow);
     }
 
     private void createBottomBarElement() {

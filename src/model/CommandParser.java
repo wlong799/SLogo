@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import dataStorage.Turtle;
 import model.command.*;
 
 
@@ -45,7 +46,7 @@ public class CommandParser {
         return patterns;
     }
 
-    public double parse (String command) throws Exception {
+    public double parse (String command, Turtle turtle) throws Exception {
 
         List<String> onOneLine = Arrays.asList(command.split("\\n"));
 
@@ -67,7 +68,7 @@ public class CommandParser {
                 commandQueue.add(symbol);
             }
         }
-        ExpressionTree completeCommand = new ExpressionTree();
+        ExpressionTree completeCommand = new ExpressionTree(turtle);
         ExpressionNode node = null;
         try {
             node = completeCommand.makeTree(commandQueue);
@@ -117,9 +118,6 @@ public class CommandParser {
             if (match(text, e.getValue())) {
                 return e.getKey();
             }
-        }
-        for (Entry<String, Pattern> e : myCommands) {
-
         }
         return ERROR;
     }
