@@ -1,0 +1,28 @@
+package model.command;
+
+
+import dataStorage.Position;
+import model.ExpressionNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SetXY extends AbstractCommandTwoParameterTurtle {
+    public SetXY(List<ExpressionNode> parameters) {
+        super(parameters);
+    }
+
+    public double execute() {
+        ArrayList<Double> operationParameters = getParameters();
+        double givenX = operationParameters.get(PARAMETER_ONE);
+        double givenY = operationParameters.get(PARAMETER_TWO);
+
+        Position turtlePos = myTurtle.getPosition();
+        double turtleX = turtlePos.getX();
+        double turtleY = turtlePos.getY();
+
+        myTurtle.setPosition(new Position(givenX, givenY));
+
+        return distanceFormula(givenX, givenY, turtleX, turtleY);
+    }
+}

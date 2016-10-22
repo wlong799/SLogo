@@ -16,7 +16,6 @@ public class ExpressionNode {
         myCommands = commands;
     }
 
-    
     public ExpressionNode (Double value){
         myCommands.add(new Constant(value));
     }
@@ -28,4 +27,7 @@ public class ExpressionNode {
     public void addCommand(AbstractCommand command){
         myCommands.add(command);
     }
+
+
+    // TODO: override a toString method to return only name of expressionNode? for making/using variables
 }

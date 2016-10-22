@@ -48,6 +48,11 @@ public class ExpressionTree {
             }
 
         }
+
+        /* TODO FILIP: Here, can we see about changing the command object? We already have the command as a string.
+         * would be much easier to construct the command with the command with the string as a parameter. Can
+         * most easily then use this when calling the "Make" method of when finding the object is a constant
+         */
         catch (Exception e) {
             System.out.println("no command class");
             if (!command.startsWith(":")) {

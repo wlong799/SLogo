@@ -4,15 +4,15 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class Right extends AbstractTurnTurtle {
+public class Left extends AbstractTurnTurtle {
 
-    public Right(List<ExpressionNode> parameters) {
+    public Left(List<ExpressionNode> parameters) {
         super(parameters);
     }
 
     @Override
     public double execute () {
-        return(turn(TurnDirection.Right));
+        return(turn(TurnDirection.Left));
     }
 
 }
