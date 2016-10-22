@@ -12,7 +12,7 @@ public class Make extends AbstractCommandTwoParameter {
     Make(List<ExpressionNode> parameters) {
         super(parameters);
         // TODO: look at Filip comment in expression tree
-        myName = parameters.get(PARAMETER_ONE).getCommand().toString();  // TODO: make a toString method to return only name
+        myName = parameters.get(PARAMETER_ONE).getCommands().get(PARAMETER_ONE).toString();  // TODO: make a toString method to return only name
     }
 
     @Override

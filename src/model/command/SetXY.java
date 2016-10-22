@@ -4,6 +4,7 @@ package model.command;
 import dataStorage.Position;
 import model.ExpressionNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SetXY extends AbstractCommandTwoParameterTurtle {
@@ -12,8 +13,9 @@ public class SetXY extends AbstractCommandTwoParameterTurtle {
     }
 
     public double execute() {
-        double givenX = getParameters().get(PARAMETER_ONE);
-        double givenY = getParameters().get(PARAMETER_TWO);
+        ArrayList<Double> operationParameters = getParameters();
+        double givenX = operationParameters.get(PARAMETER_ONE);
+        double givenY = operationParameters.get(PARAMETER_TWO);
 
         Position turtlePos = myTurtle.getPosition();
         double turtleX = turtlePos.getX();
