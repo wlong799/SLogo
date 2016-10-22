@@ -11,7 +11,7 @@ public class EqualP extends AbstractCommandTwoParameterBoolean {
     }
 
     public double execute() {
-        Operation equal = (double numOne, double numTwo) -> {return numOne == numTwo;};
-        return executionHelp(equal);
+        BooleanOperation equal = (double numOne, double numTwo) -> {return numOne == numTwo;};
+        return executionHelpBoolean(equal);
     }
 }

@@ -11,7 +11,7 @@ public class And extends AbstractCommandTwoParameterBoolean {
     }
 
     public double execute() {
-        Operation and = (double numOne, double numTwo) -> {return (numOne > 0) && (numTwo > 0);};
-        return executionHelp(and);
+        BooleanOperation and = (double numOne, double numTwo) -> {return (numOne > 0) && (numTwo > 0);};
+        return executionHelpBoolean(and);
     }
 }

@@ -11,7 +11,7 @@ public class LessP extends AbstractCommandTwoParameterBoolean {
     }
 
     public double execute() {
-        Operation less = (double numOne, double numTwo) -> {return numOne < numTwo;};
-        return executionHelp(less);
+        BooleanOperation less = (double numOne, double numTwo) -> {return numOne < numTwo;};
+        return executionHelpBoolean(less);
     }
 }

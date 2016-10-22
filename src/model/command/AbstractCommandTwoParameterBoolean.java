@@ -15,11 +15,12 @@ public abstract class AbstractCommandTwoParameterBoolean extends AbstractCommand
         super(parameters);
     }
 
-    interface Operation {
+
+    interface BooleanOperation {
         boolean operate(double a, double b);
     }
 
-    protected double executionHelp(Operation o) {
+    protected double executionHelpBoolean(BooleanOperation o) {
         ArrayList<Double> operationParameters = getParameters();
         double numOne = operationParameters.get(PARAMETER_ONE);
         double numTwo = operationParameters.get(PARAMETER_TWO);

@@ -11,7 +11,7 @@ public class GreaterP extends AbstractCommandTwoParameterBoolean {
     }
 
     public double execute() {
-        Operation greater = (double numOne, double numTwo) -> {return numOne > numTwo;};
-        return executionHelp(greater);
+        BooleanOperation greater = (double numOne, double numTwo) -> {return numOne > numTwo;};
+        return executionHelpBoolean(greater);
     }
 }

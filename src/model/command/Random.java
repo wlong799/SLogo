@@ -1,19 +1,16 @@
 package model.command;
 
 import model.ExpressionNode;
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class Random extends AbstractCommandOneParameter {
+public class Random extends AbstractCommandOneParameterMath {
     public Random(List<ExpressionNode> parameters) {
         super(parameters);
     }
 
     public double execute() {
-        ArrayList<Double> operationParameters = getParameters();
-        double num = operationParameters.get(PARAMETER_ONE);
-
-        return Math.random() * num;
+        MathOperation minus = (double num) -> {return Math.random() * num;};
+        return executionHelpMath(minus);
     }
 }

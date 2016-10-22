@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Minus extends AbstractCommandOneParameter {
+public class Minus extends AbstractCommandOneParameterMath {
     public Minus(List<ExpressionNode> parameters) {
         super(parameters);
     }
 
     public double execute() {
-        ArrayList<Double> operationParameters = getParameters();
-        double num = operationParameters.get(PARAMETER_ONE);
-
-        return -num;
+        MathOperation minus = (double num) -> {return -num;};
+        return executionHelpMath(minus);
     }
 }

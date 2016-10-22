@@ -11,7 +11,7 @@ public class NotEqualP extends AbstractCommandTwoParameterBoolean {
     }
 
     public double execute() {
-        Operation notEqual = (double numOne, double numTwo) -> {return numOne != numTwo;};
-        return executionHelp(notEqual);
+        BooleanOperation notEqual = (double numOne, double numTwo) -> {return numOne != numTwo;};
+        return executionHelpBoolean(notEqual);
     }
 }

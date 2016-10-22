@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Log extends AbstractCommandOneParameter {
+public class Log extends AbstractCommandOneParameterMath {
     public Log(List<ExpressionNode> parameters) {
         super(parameters);
     }
 
     public double execute() {
-        ArrayList<Double> operationParameters = getParameters();
-        double num = operationParameters.get(PARAMETER_ONE);
-
-        return Math.log(num);
+        MathOperation log = (double num) -> {return Math.log(Math.toRadians(num));};
+        return executionHelpMath(log);
     }
 }
