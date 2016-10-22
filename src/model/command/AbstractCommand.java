@@ -8,7 +8,7 @@ public abstract class AbstractCommand {
 
     private List<ExpressionNode> myNodes;
     
-    AbstractCommand() {
+    public AbstractCommand() {
         myNodes = null;
     }
 
@@ -21,7 +21,9 @@ public abstract class AbstractCommand {
     public void setParameters(List<ExpressionNode> parameters){
         myNodes = parameters;
     }
-
+    
+    public abstract int getNumParameters();
+    
     public ArrayList<Double> getParameters() {
 
         ArrayList<Double> parameterList = new ArrayList<>();

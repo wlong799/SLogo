@@ -15,7 +15,8 @@ abstract class AbstractCommandThreeParameter extends AbstractCommand {
         super(parameters);
     }
 
-    int getNumParameters() {
+    @Override
+    public int getNumParameters() {
         return NUM_PARAMETERS;
     }
 }
