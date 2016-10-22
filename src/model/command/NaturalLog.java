@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Log extends AbstractCommandOneParameterMath {
-    public Log(List<ExpressionNode> parameters) {
+public class NaturalLog extends AbstractCommandOneParameterMath {
+    public NaturalLog(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

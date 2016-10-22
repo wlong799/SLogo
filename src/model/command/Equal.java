@@ -4,9 +4,9 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class EqualP extends AbstractCommandTwoParameterBoolean {
+public class Equal extends AbstractCommandTwoParameterBoolean {
 
-    public EqualP(List<ExpressionNode> parameters) {
+    public Equal(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

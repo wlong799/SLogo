@@ -4,9 +4,9 @@ import model.ExpressionNode;
 import java.util.List;
 
 
-public class GreaterP extends AbstractCommandTwoParameterBoolean {
+public class GreaterThan extends AbstractCommandTwoParameterBoolean {
 
-    public GreaterP(List<ExpressionNode> parameters) {
+    public GreaterThan(List<ExpressionNode> parameters) {
         super(parameters);
     }
 

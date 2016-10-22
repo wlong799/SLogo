@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Tan extends AbstractCommandOneParameterMath {
-    public Tan(List<ExpressionNode> parameters) {
+public class ArcTangent extends AbstractCommandOneParameterMath {
+    public ArcTangent(List<ExpressionNode> parameters) {
         super(parameters);
     }
 
     public double execute() {
-        MathOperation tan = (double num) -> {
+        MathOperation atan = (double num) -> {
             double result;
             try{
-                result = Math.tan(Math.toRadians(num));
+                result = Math.atan(Math.toRadians(num));
             }
             catch(Exception e){
                 result = 0;
@@ -22,6 +22,6 @@ public class Tan extends AbstractCommandOneParameterMath {
             return result;
         };
 
-        return executionHelpMath(tan);
+        return executionHelpMath(atan);
     }
 }
