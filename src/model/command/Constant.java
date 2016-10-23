@@ -25,6 +25,10 @@ public class Constant extends AbstractCommandZeroParameter{
     }
     
     @Override
+    public String toString() {
+        return Double.toString(myValue);
+    }
+    @Override
     public double execute() {
         return myValue;
     }

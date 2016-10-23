@@ -28,8 +28,8 @@ public class CommandParser {
     public CommandParser (String language, Turtle turtle) {
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
-        myVariableStorage = new ValueVariableStorage();
-        myCommandStorage = new CommandVariableStorage();
+        myVariableStorage = DataStorageManager.get().getValueVariableStorage();
+        myCommandStorage = DataStorageManager.get().getCommandVariableStorage();
         myTurtle = turtle;
         init(language);
 
@@ -74,15 +74,20 @@ public class CommandParser {
 
     private List<String> getUserCommand (String command, Queue<String> commands) throws Exception {
         String commandString = myCommandStorage.getCommand(command);
+        System.out.println(commandString);
         List<String> commandParams = myCommandStorage.getCommandParams(command);
+        System.out.println(commandParams);
         //ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
         //String commandString = "";
         //commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
         List<String> commandQueue = new LinkedList<String>();
 
         for (String s : commandParams) {
-            commandString.replaceAll(s, Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                                                  .makeTree(commands))));
+            String replacement = Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
+                                                          .makeTree(commands)));
+            System.out.println("Replacing " + s + " with " +replacement);
+            commandString = commandString.replaceAll(s, replacement);
+            System.out.println(commandString);
 //            myVariableStorage.setVariable(s,
 //                                          traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
 //                                                  .makeTree(commands)));
@@ -90,6 +95,7 @@ public class CommandParser {
         Arrays.asList(commandString.split("\n"))
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
                         .collect(Collectors.toList())));
+        System.out.println(commandQueue);
         return commandQueue;
     }
 

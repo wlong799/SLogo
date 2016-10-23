@@ -23,7 +23,8 @@ public abstract class AbstractCommand {
     }
     public List<AbstractCommand> getParametersAsCommands() {
         ArrayList<AbstractCommand> commands = new ArrayList<AbstractCommand>();
-        myNodes.forEach(command -> commands.addAll(command.getCommands()));
+        if(myNodes!=null)
+            myNodes.forEach(command -> commands.addAll(command.getCommands()));
         return commands;
     }
     public abstract int getNumParameters();
@@ -44,6 +45,14 @@ public abstract class AbstractCommand {
         return myNodes;
     }
 
+    @Override
+    public String toString(){
+        //StringBuilder myName = new StringBuilder();
+        
+        //myName.append(this.getClass().getSimpleName());
+        //getParametersAsCommands().forEach(c -> myName.append(" " + c.toString()));
+        return this.getClass().getSimpleName();
+    }
     public abstract double execute();
 
     // TODO FILIP: See about moving this method down a class or two

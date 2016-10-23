@@ -28,10 +28,11 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder{
 
         List<AbstractCommand> commands = getParameterNodes().get(2).getCommands();
         StringBuilder commandString = new StringBuilder();
+        commandString.append("[ ");
         for(AbstractCommand oneCommand : commands) {
             commandString.append(oneCommand.toString());
         }
-
+        commandString.append(" ]");
         CommandVariableStorage commandStorage = DataStorageManager.get().getCommandVariableStorage();
 
         commandStorage.setCommand(commandName, variableNames, commandString.toString());
