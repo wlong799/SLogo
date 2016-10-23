@@ -47,11 +47,15 @@ public abstract class AbstractCommand {
 
     @Override
     public String toString(){
-        //StringBuilder myName = new StringBuilder();
+        StringBuilder myName = new StringBuilder();
         
-        //myName.append(this.getClass().getSimpleName());
-        //getParametersAsCommands().forEach(c -> myName.append(" " + c.toString()));
-        return this.getClass().getSimpleName();
+        myName.append(this.getClass().getSimpleName());
+        myName.append(" ");
+        for(ExpressionNode node : myNodes){
+            myName.append(node.toString());
+            myName.append(" ");
+        }
+        return myName.toString();
     }
     public abstract double execute();
 
