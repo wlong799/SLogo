@@ -109,16 +109,19 @@ public class CommandParser {
 
                 }
                 else {
+                     
 //                    if (symbol.equals("Variable")) {
 //                        commandQueue
 //                                .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
 //                    }
 //                    else {
-                        if(!symbol.equals("Command")){
+                    
+                        if(!symbol.equals("Command") || !DataStorageManager.get().getCommandVariableStorage().hasCommand(rawCommand)){
                             commandQueue.add(rawCommand);
                         }
                         else{
                             try{
+                                System.out.println("custom!");
                                 commandQueue.addAll(getUserCommand(rawCommand, commands));
                             }
                             catch(Exception ex){

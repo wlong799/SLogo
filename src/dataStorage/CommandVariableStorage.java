@@ -21,4 +21,8 @@ public class CommandVariableStorage {
     public List<String> getCommandParams (String commandName) {
         return commandParamMap.get(commandName);
     }
+    
+    public boolean hasCommand(String commandName){
+        return commandParamMap.containsKey(commandName) && commandMap.containsKey(commandName);
+    }
 }
