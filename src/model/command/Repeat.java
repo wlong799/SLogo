@@ -26,7 +26,7 @@ public class Repeat extends AbstractCommandHigherOrder {
      */
     @Override
     public double execute () {
-        double numTimes = myNodes.get(0).getCommands().get(0).execute();
+        double numTimes = getParametersAsCommands().get(0).execute();
 
         ExpressionNode codeBlock = myNodes.get(1);
         double returnValue = 0;

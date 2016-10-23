@@ -9,7 +9,8 @@ public class CommandVariableStorage {
     private Map<String, List<String>> commandParamMap = new HashMap<String, List<String>>();
     private Map<String, String> commandMap = new HashMap<String, String>();
     
-    public void setCommand (String commandName, String commandString) {
+    public void setCommand (String commandName, List<String> parameterNames, String commandString) {
+        commandParamMap.put(commandName, parameterNames);
         commandMap.put(commandName, commandString);
     }
 

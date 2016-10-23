@@ -1,6 +1,10 @@
 package model.command;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import dataStorage.CommandVariableStorage;
+import dataStorage.DataStorageManager;
 import model.ExpressionNode;
 
 // TODO FILIP: holy f I think we might need to implement scopes
@@ -14,14 +18,31 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder{
 
     @Override
     public double execute () {
-        // TODO Auto-generated method stub
-        return 0;
+        String commandName = getParametersAsCommands().get(0).toString();
+
+        List<AbstractCommand> variables = getParameterNodes().get(1).getCommands();
+        List<String> variableNames = new ArrayList<>();
+        for(AbstractCommand oneCommand : variables) {
+            variableNames.add(oneCommand.toString());
+        }
+
+        List<AbstractCommand> commands = getParameterNodes().get(2).getCommands();
+        StringBuilder commandString = new StringBuilder();
+        for(AbstractCommand oneCommand : commands) {
+            commandString.append(oneCommand.toString());
+        }
+
+        CommandVariableStorage commandStorage = DataStorageManager.get().getCommandVariableStorage();
+
+        commandStorage.setCommand(commandName, variableNames, commandString.toString());
+
+        return 1;
     }
 
     @Override
     public int getNumParameters () {
         // TODO Auto-generated method stub
-        return 0;
+        return 3;
     }
 
 }

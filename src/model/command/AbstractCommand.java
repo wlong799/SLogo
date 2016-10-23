@@ -40,6 +40,10 @@ public abstract class AbstractCommand {
         return parameterList;
     }
 
+    public List<ExpressionNode> getParameterNodes() {
+        return myNodes;
+    }
+
     public abstract double execute();
 
     // TODO FILIP: See about moving this method down a class or two
