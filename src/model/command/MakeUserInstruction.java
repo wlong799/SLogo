@@ -7,8 +7,7 @@ import dataStorage.CommandVariableStorage;
 import dataStorage.DataStorageManager;
 import model.ExpressionNode;
 
-// TODO FILIP: holy f I think we might need to implement scopes
-// Going to do a basic implementation so we can get it working and figured out first.
+
 public class MakeUserInstruction extends AbstractCommandHigherOrder{
 
     public MakeUserInstruction (List<ExpressionNode> parameters) {
@@ -26,16 +25,11 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder{
             variableNames.add(oneCommand.toString());
         }
 
-        List<AbstractCommand> commands = getParameterNodes().get(2).getCommands();
-        StringBuilder commandString = new StringBuilder();
-        commandString.append("[ ");
-        for(AbstractCommand oneCommand : commands) {
-            commandString.append(oneCommand.toString());
-        }
-        commandString.append(" ]");
+
+        String commandString = getParameterNodes().get(2).toString();
         CommandVariableStorage commandStorage = DataStorageManager.get().getCommandVariableStorage();
 
-        commandStorage.setCommand(commandName, variableNames, commandString.toString());
+        commandStorage.setCommand(commandName, variableNames, commandString);
 
         return 1;
     }
