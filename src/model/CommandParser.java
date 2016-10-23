@@ -75,20 +75,22 @@ public class CommandParser {
     private List<String> getUserCommand (String command, Queue<String> commands) throws Exception {
         String commandString = myCommandStorage.getCommand(command);
         List<String> commandParams = myCommandStorage.getCommandParams(command);
-
+        //ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
+        //String commandString = "";
+        //commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
         List<String> commandQueue = new LinkedList<String>();
-        Arrays.asList(commandString.split("\n"))
-                .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
-                        .collect(Collectors.toList())));
-        if (!commands.poll().equals("[")) {
-            throw new Exception("Invalid custom command");
-        }
-        ;
+        
+
         for (String s : commandParams) {
-            myVariableStorage.setVariable(s,
-                                          traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                                                  .makeTree(commands)));
+            commandString.replaceAll(s, Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
+                                                  .makeTree(commands))));
+//            myVariableStorage.setVariable(s,
+//                                          traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
+//                                                  .makeTree(commands)));
         }
+        Arrays.asList(commandString.split("\n"))
+        .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
+                .collect(Collectors.toList())));
         return commandQueue;
     }
 

@@ -21,7 +21,7 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder{
     @Override
     public int getNumParameters () {
         // TODO Auto-generated method stub
-        return 0;
+        return 3;
     }
 
 }
