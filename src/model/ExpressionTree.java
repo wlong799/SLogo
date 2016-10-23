@@ -137,10 +137,10 @@ public class ExpressionTree {
 
             }
         }
-        if (commandQueue.size() != 0) {
-            System.out.println("THROW EXCEPTION: MALFORMATTED COMMAND STRING");
-            return root;
-        }
+//        if (commandQueue.size() != 0) {
+//            System.out.println("THROW EXCEPTION: MALFORMATTED COMMAND STRING");
+//            return root;
+//        }
         return root;
     }
 

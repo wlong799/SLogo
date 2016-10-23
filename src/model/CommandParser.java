@@ -82,7 +82,7 @@ public class CommandParser {
 
         for (String s : commandParams) {
             commandString.replaceAll(s, Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                    .makeTree(commands))));
+                                                  .makeTree(commands))));
 //            myVariableStorage.setVariable(s,
 //                                          traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
 //                                                  .makeTree(commands)));
