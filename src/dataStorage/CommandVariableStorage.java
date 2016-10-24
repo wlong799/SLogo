@@ -9,6 +9,7 @@ import java.util.Map;
 
 
 public class CommandVariableStorage {
+
     private Map<String, List<String>> commandParamMap;
     private Map<String, String> commandMap;
     private ObservableList<String> commandStorageList;
@@ -17,6 +18,10 @@ public class CommandVariableStorage {
         commandParamMap = new HashMap<>();
         commandMap = new HashMap<>();
         commandStorageList = FXCollections.observableArrayList();
+    }
+
+    public void setCommand (String commandName, List<String> parameterNames, String commandString) {
+        commandParamMap.put(commandName, parameterNames);
     }
 
     public void setCommand (String commandName, String commandString) {
@@ -30,6 +35,10 @@ public class CommandVariableStorage {
     
     public List<String> getCommandParams (String commandName) {
         return commandParamMap.get(commandName);
+    }
+
+    public boolean hasCommand(String commandName) {
+        return commandParamMap.containsKey(commandName) && commandMap.containsKey(commandName);
     }
 
     public ObservableList<String> getCommandVariableList() {

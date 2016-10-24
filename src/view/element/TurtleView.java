@@ -100,7 +100,7 @@ public class TurtleView implements ViewElement, Observer {
     }
 
     private void updateTurtleHeading(double heading) {
-        turtle.setRotate(heading+90);
+        turtle.setRotate(heading + 90);
     }
 
     private void updateTurtleVisibility(boolean isVisible) {
