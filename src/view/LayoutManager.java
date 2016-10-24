@@ -23,7 +23,6 @@ public class LayoutManager {
     private List<ViewElement> myViewElements;
     private double myWidth;
     private double myHeight;
-    private double myPadding;
 
     public LayoutManager() {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);

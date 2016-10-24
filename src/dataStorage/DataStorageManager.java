@@ -27,7 +27,7 @@ public class DataStorageManager {
         return myValueVariableStorage;
     }
 
-    public ObservableList<String> getCommandHistoryList() {
-        return myCommandHistoryStorage.getCommandHistoryList();
+    public CommandHistoryStorage getCommandHistoryStorage() {
+        return myCommandHistoryStorage;
     }
 }

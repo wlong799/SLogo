@@ -1,5 +1,6 @@
 package model;
 
+import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 
 
@@ -24,13 +25,14 @@ public class SLogoModel {
     }
 
     public void parse (String s) {
+        String command = s;
         try {
             myCommandParser.parse(s);
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Throw parsing exception");
+            command += "\nERROR ENCOUNTERED WHEN PARSING.";
         }
+        DataStorageManager.get().getCommandHistoryStorage().addCommand(command);
     }
 
     public boolean noParser () {
