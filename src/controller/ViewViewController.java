@@ -16,6 +16,20 @@ public class ViewViewController extends InteractionController {
     @Override
     public void setUpInteractions() {
         setBackgroundColorChanger();
+        setLineColorChanger();
+    }
+    
+    private void setLineColorChanger(){
+    	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
+            System.out.println("HM");
+            return;
+        }
+    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
+        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
+        toolBar.setLineColorPickerHandler(event -> {
+            turtleView.setLineColor(toolBar.getSelectedLineColor());
+        });
+    	
     }
 
     private void setBackgroundColorChanger() {
