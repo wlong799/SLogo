@@ -15,6 +15,20 @@ public class ViewViewController extends InteractionController {
         setBackgroundColorChanger();
         setLineColorChanger();
         setClickableCommandHistory();
+        setClickableFunctionStorage();
+    }
+
+    private void setClickableFunctionStorage() {
+        if (getElementByClass("StoredFunctionWindow") == null || getElementByClass("TextEntryBox") == null) {
+            return;
+        }
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
+        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        funcWindow.setClickEvent(event -> {
+            String selectedFunction = funcWindow.getSelectedFunction();
+            textBox.setText(selectedFunction);
+        });
+    }
     }
 
     private void setClickableCommandHistory() {
