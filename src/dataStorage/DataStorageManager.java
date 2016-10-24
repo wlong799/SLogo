@@ -1,16 +1,18 @@
 package dataStorage;
 
-import dataStorage.ValueVariableStorage;
+import javafx.collections.ObservableList;
 
 public class DataStorageManager {
     private Turtle myTurtle;
     private ValueVariableStorage myValueVariableStorage;
+    private CommandHistoryStorage myCommandHistoryStorage;
 
     private static DataStorageManager instance = new DataStorageManager();
 
     private DataStorageManager() {
         myTurtle = new Turtle();
         myValueVariableStorage = new ValueVariableStorage();
+        myCommandHistoryStorage = new CommandHistoryStorage();
     }
 
     public static DataStorageManager get() {
@@ -23,5 +25,9 @@ public class DataStorageManager {
 
     public ValueVariableStorage getValueVariableStorage() {
         return myValueVariableStorage;
+    }
+
+    public ObservableList<String> getCommandHistoryList() {
+        return myCommandHistoryStorage.getCommandHistoryList();
     }
 }
