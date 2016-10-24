@@ -32,6 +32,13 @@ public class ViewModelController extends InteractionController {
         StoredVariableWindow varWindow = (StoredVariableWindow) getElementByClass("StoredVariableWindow");
         ValueVariableStorage varStorage = DataStorageManager.get().getValueVariableStorage();
         varWindow.setStoredVariableList(varStorage.getVariableList());
+        varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
+        varWindow.setEditedEvent(event -> {
+            String[] newVals = event.getNewValue().split("\\s+");
+            String name = newVals[0];
+            double val = Double.parseDouble(newVals[1]);
+            varStorage.setVariable(name, val);
+        });
     }
 
     private void linkFunctionStorage() {
