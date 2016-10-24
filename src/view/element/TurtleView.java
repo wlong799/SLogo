@@ -10,6 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -40,9 +42,7 @@ public class TurtleView implements ViewElement, Observer {
         lineGraphics = lineCanvas.getGraphicsContext2D();
         lineGraphics.setStroke(DEFAULT_LINE_COLOR);
 
-        turtle = new ImageView(new Image(TURTLE_IMAGE_LOCATION));
-        turtle.setFitHeight(TURTLE_SIZE);
-        turtle.setFitWidth(TURTLE_SIZE);
+        setTurtleImageInit(TURTLE_IMAGE_LOCATION);
 
         myContent = new StackPane();
         myContent.getChildren().addAll(background, lineCanvas, turtle);
@@ -64,7 +64,22 @@ public class TurtleView implements ViewElement, Observer {
         draw();
         return;
     }
-
+    
+    public void setTurtleImage(String picture_file_path){
+    	
+			turtle.setImage(new Image(picture_file_path));
+			turtle.setFitHeight(TURTLE_SIZE);
+			turtle.setFitWidth(TURTLE_SIZE);
+		} 
+    
+    public void setTurtleImageInit(String picture_file_path){
+    	
+		turtle = new ImageView(new Image(picture_file_path));
+		turtle.setFitHeight(TURTLE_SIZE);
+		turtle.setFitWidth(TURTLE_SIZE);
+	} 
+    
+    
     public void setBackgroundColor(Color color) {
         background.setFill(color);
     }
@@ -102,6 +117,7 @@ public class TurtleView implements ViewElement, Observer {
     private void updateTurtleHeading(double heading) {
         turtle.setRotate(heading + 90);
     }
+    
 
     private void updateTurtleVisibility(boolean isVisible) {
         turtle.setVisible(isVisible);

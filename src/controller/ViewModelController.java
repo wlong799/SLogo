@@ -22,6 +22,7 @@ public class ViewModelController extends InteractionController {
         linkCommandHistory();
         linkFunctionStorage();
         linkVariableStorage();
+        setLanguageChanger();
     }
 
     private void linkVariableStorage() {
@@ -80,7 +81,19 @@ public class ViewModelController extends InteractionController {
             myModel.parse(entryText);
         });
     }
-
+    
+    private void setLanguageChanger(){
+    	if (getElementByClass("SettingsToolBar") == null){
+    		System.out.println("fail");
+    		return;
+    	}
+    	
+    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
+    	toolBar.setLanguageChooserHandler(event -> {myModel.setLanguage(toolBar.getLanguageSelection());
+    	System.out.println("success");});
+    	System.out.println("success");
+    }
+    
     private void linkCommandHistory() {
         if (DataStorageManager.get().getCommandHistoryStorage() == null ||
                 getElementByClass("CommandHistoryWindow") == null) {
