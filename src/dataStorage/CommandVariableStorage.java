@@ -20,7 +20,7 @@ public class CommandVariableStorage {
     }
 
     public void setCommand (String commandName, String commandString) {
-        commandStorageList.add(commandName + ":\n" + commandString);
+        commandStorageList.add(commandName + "\n" + commandString);
         commandMap.put(commandName, commandString);
     }
 

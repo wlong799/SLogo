@@ -22,7 +22,7 @@ public class ValueVariableStorage {
 
     public void setVariable (String varName, Double value) {
         variableMap.put(varName, value);
-        variableList.add(varName + ": " + value);
+        variableList.add(varName + " " + value);
     }
 
     public boolean variableExists(String varName) {

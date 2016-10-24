@@ -1,9 +1,6 @@
 package controller;
 
-import dataStorage.CommandHistoryStorage;
-import dataStorage.CommandVariableStorage;
-import dataStorage.DataStorageManager;
-import dataStorage.Turtle;
+import dataStorage.*;
 import model.CommandParser;
 import model.SLogoModel;
 import view.element.*;
@@ -28,7 +25,13 @@ public class ViewModelController extends InteractionController {
     }
 
     private void linkVariableStorage() {
-
+        if (getElementByClass("StoredVariableWindow") == null ||
+                DataStorageManager.get().getValueVariableStorage() == null) {
+            return;
+        }
+        StoredVariableWindow varWindow = (StoredVariableWindow) getElementByClass("StoredVariableWindow");
+        ValueVariableStorage varStorage = DataStorageManager.get().getValueVariableStorage();
+        varWindow.setStoredVariableList(varStorage.getVariableList());
     }
 
     private void linkFunctionStorage() {
@@ -36,7 +39,7 @@ public class ViewModelController extends InteractionController {
                 DataStorageManager.get().getCommandVariableStorage() == null) {
             return;
         }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow) getElementByClass("StoredFunctionWindow");
         CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
         funcWindow.setStoredFunctionList(funcStorage.getCommandVariableList());
     }

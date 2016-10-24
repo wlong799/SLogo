@@ -25,10 +25,9 @@ public class ViewViewController extends InteractionController {
         StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
         TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
         funcWindow.setClickEvent(event -> {
-            String selectedFunction = funcWindow.getSelectedFunction();
+            String selectedFunction = funcWindow.getSelectedFunction().split("\n")[0];
             textBox.setText(selectedFunction);
         });
-    }
     }
 
     private void setClickableCommandHistory() {
