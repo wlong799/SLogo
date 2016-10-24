@@ -1,14 +1,12 @@
 package controller;
 
 import dataStorage.CommandHistoryStorage;
+import dataStorage.CommandVariableStorage;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import model.CommandParser;
 import model.SLogoModel;
-import view.element.CommandHistoryWindow;
-import view.element.TextEntryBox;
-import view.element.TurtleView;
-import view.element.ViewElement;
+import view.element.*;
 
 import java.util.List;
 
@@ -25,6 +23,22 @@ public class ViewModelController extends InteractionController {
         linkTextBoxToParser();
         linkTurtleWithView();
         linkCommandHistory();
+        linkFunctionStorage();
+        linkVariableStorage();
+    }
+
+    private void linkVariableStorage() {
+
+    }
+
+    private void linkFunctionStorage() {
+        if (getElementByClass("StoredFunctionWindow") == null ||
+                DataStorageManager.get().getCommandVariableStorage() == null) {
+            return;
+        }
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
+        CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
+        funcWindow.setStoredFunctionList(funcStorage.getCommandVariableList());
     }
 
     public void setModel(SLogoModel model) {
