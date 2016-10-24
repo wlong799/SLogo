@@ -5,6 +5,7 @@ public class DataStorageManager {
     private ValueVariableStorage myValueVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
+    private Notifications myNotifications;
 
     private static DataStorageManager instance = new DataStorageManager();
 
@@ -14,6 +15,7 @@ public class DataStorageManager {
         myCommandVariableStorage = new CommandVariableStorage();
 
         myCommandHistoryStorage = new CommandHistoryStorage();
+        myNotifications = new Notifications();
     }
 
     public static DataStorageManager get() {
@@ -34,5 +36,9 @@ public class DataStorageManager {
 
     public CommandVariableStorage getCommandVariableStorage() {
         return myCommandVariableStorage;
+    }
+
+    public Notifications getNotifications() {
+        return myNotifications;
     }
 }
