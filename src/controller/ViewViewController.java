@@ -1,9 +1,6 @@
 package controller;
 
-import dataStorage.Turtle;
-import view.element.SettingsToolBar;
-import view.element.TurtleView;
-import view.element.ViewElement;
+import view.element.*;
 
 import java.util.List;
 
@@ -17,8 +14,21 @@ public class ViewViewController extends InteractionController {
     public void setUpInteractions() {
         setBackgroundColorChanger();
         setLineColorChanger();
+        setClickableCommandHistory();
     }
-    
+
+    private void setClickableCommandHistory() {
+        if (getElementByClass("CommandHistoryWindow") == null || getElementByClass("TextEntryBox") == null) {
+            return;
+        }
+        CommandHistoryWindow chWindow = (CommandHistoryWindow)getElementByClass("CommandHistoryWindow");
+        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        chWindow.setClickEvent(event -> {
+            String selectedCommand= chWindow.getSelectedCommand();
+            textBox.setText(selectedCommand);
+        });
+    }
+
     private void setLineColorChanger(){
     	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
             System.out.println("HM");
