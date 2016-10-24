@@ -13,7 +13,6 @@ public class DataStorageManager {
         myTurtle = new Turtle();
         myValueVariableStorage = new ValueVariableStorage();
         myCommandVariableStorage = new CommandVariableStorage();
-
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
     }
