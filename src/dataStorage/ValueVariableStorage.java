@@ -21,8 +21,18 @@ public class ValueVariableStorage {
     }
 
     public void setVariable (String varName, Double value) {
+        int index = variableList.size();
+        if (variableMap.containsKey(varName)) {
+            for (int i = 0; i < variableList.size(); i++) {
+                if(variableList.get(i).split(" ")[0].equals(varName)) {
+                    variableList.remove(i);
+                    index = i;
+                    break;
+                }
+            }
+        }
         variableMap.put(varName, value);
-        variableList.add(varName + " " + value);
+        variableList.add(index, varName + " " + value);
     }
 
     public boolean variableExists(String varName) {
