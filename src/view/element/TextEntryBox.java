@@ -68,6 +68,10 @@ public class TextEntryBox implements ViewElement {
         return myTextBox.getText();
     }
 
+    public void setText(String text) {
+        myTextBox.setText(text);
+    }
+
     private void clearText() {
         myTextBox.clear();
     }

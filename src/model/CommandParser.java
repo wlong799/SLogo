@@ -16,6 +16,8 @@ import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.*;
 
+import javax.xml.crypto.Data;
+
 
 public class CommandParser {
 
@@ -28,8 +30,8 @@ public class CommandParser {
     public CommandParser (String language, Turtle turtle) {
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
-        myVariableStorage = new ValueVariableStorage();
-        myCommandStorage = new CommandVariableStorage();
+        myVariableStorage = DataStorageManager.get().getValueVariableStorage();
+        myCommandStorage = DataStorageManager.get().getCommandVariableStorage();
         myTurtle = turtle;
         init(language);
 

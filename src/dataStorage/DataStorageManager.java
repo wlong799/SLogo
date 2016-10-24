@@ -1,10 +1,9 @@
 package dataStorage;
 
-import dataStorage.ValueVariableStorage;
-
 public class DataStorageManager {
     private Turtle myTurtle;
     private ValueVariableStorage myValueVariableStorage;
+    private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
 
     private static DataStorageManager instance = new DataStorageManager();
@@ -13,6 +12,8 @@ public class DataStorageManager {
         myTurtle = new Turtle();
         myValueVariableStorage = new ValueVariableStorage();
         myCommandVariableStorage = new CommandVariableStorage();
+
+        myCommandHistoryStorage = new CommandHistoryStorage();
     }
 
     public static DataStorageManager get() {
@@ -25,6 +26,10 @@ public class DataStorageManager {
 
     public ValueVariableStorage getValueVariableStorage() {
         return myValueVariableStorage;
+    }
+
+    public CommandHistoryStorage getCommandHistoryStorage() {
+        return myCommandHistoryStorage;
     }
 
     public CommandVariableStorage getCommandVariableStorage() {
