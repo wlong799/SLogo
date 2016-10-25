@@ -1,13 +1,13 @@
 package dataStorage;
 
-public class SubDataStorageManager {
+class SubDataStorageManager {
     private Turtle myTurtle;
     private ValueVariableStorage myValueVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
     private Notifications myNotifications;
 
-    public SubDataStorageManager() {
+    SubDataStorageManager() {
         myTurtle = new Turtle();
         myValueVariableStorage = new ValueVariableStorage();
         myCommandVariableStorage = new CommandVariableStorage();
@@ -19,19 +19,19 @@ public class SubDataStorageManager {
         return myTurtle;
     }
 
-    public ValueVariableStorage getValueVariableStorage() {
+    ValueVariableStorage getValueVariableStorage() {
         return myValueVariableStorage;
     }
 
-    public CommandHistoryStorage getCommandHistoryStorage() {
+    CommandHistoryStorage getCommandHistoryStorage() {
         return myCommandHistoryStorage;
     }
 
-    public CommandVariableStorage getCommandVariableStorage() {
+    CommandVariableStorage getCommandVariableStorage() {
         return myCommandVariableStorage;
     }
 
-    public Notifications getNotifications() {
+    Notifications getNotifications() {
         return myNotifications;
     }
 }

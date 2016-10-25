@@ -20,6 +20,7 @@ public class DataStorageManager {
         return instance;
     }
 
+    // TODO: allow accepting multiple simulationID's
     public void changeSimulation(int newSimulationID) {
         if(!(mySubDataStorageManagers.containsKey(newSimulationID))) {
             SubDataStorageManager newSubDataStorageManager = new SubDataStorageManager();
