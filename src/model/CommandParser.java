@@ -57,7 +57,8 @@ public class CommandParser {
     public double parse (String command) throws Exception {
 
         Queue<String> commandQueue = makeCommandQueue(command);
-        ExpressionTree completeCommand = new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage);
+        ExpressionTree completeCommand =
+                new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage);
         ExpressionNode node = null;
         try {
             node = completeCommand.makeTree(commandQueue);
@@ -77,20 +78,28 @@ public class CommandParser {
         System.out.println(commandString);
         List<String> commandParams = myCommandStorage.getCommandParams(command);
         System.out.println(commandParams);
-        //ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
-        //String commandString = "";
-        //commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
+        // ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
+        // String commandString = "";
+        // commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
         List<String> commandQueue = new LinkedList<String>();
 
         for (String s : commandParams) {
-            String replacement = Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                                                          .makeTree(commands)));
-            System.out.println("Replacing " + s + " with " +replacement);
+            String replacement;
+            if (isVariable(commands.peek())) {
+                replacement = commands.poll();
+            }
+            else {
+                replacement =
+                        Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage,
+                                                                    myCommandStorage)
+                                                                            .makeTree(commands)));
+            }
+            System.out.println("Replacing " + s + " with " + replacement);
             commandString = commandString.replaceAll(s, replacement);
             System.out.println(commandString);
-//            myVariableStorage.setVariable(s,
-//                                          traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-//                                                  .makeTree(commands)));
+            // myVariableStorage.setVariable(s,
+            // traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
+            // .makeTree(commands)));
         }
         Arrays.asList(commandString.split("\n"))
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
@@ -115,26 +124,27 @@ public class CommandParser {
 
                 }
                 else {
-                     
-//                    if (symbol.equals("Variable")) {
-//                        commandQueue
-//                                .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
-//                    }
-//                    else {
-                    
-                        if(!symbol.equals("Command") || !DataStorageManager.get().getCommandVariableStorage().hasCommand(rawCommand)){
-                            commandQueue.add(rawCommand);
+
+                    // if (symbol.equals("Variable")) {
+                    // commandQueue
+                    // .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
+                    // }
+                    // else {
+
+                    if (!symbol.equals("Command") || !DataStorageManager.get()
+                            .getCommandVariableStorage().hasCommand(rawCommand)) {
+                        commandQueue.add(rawCommand);
+                    }
+                    else {
+                        try {
+                            System.out.println("custom!");
+                            commandQueue.addAll(getUserCommand(rawCommand, commands));
                         }
-                        else{
-                            try{
-                                System.out.println("custom!");
-                                commandQueue.addAll(getUserCommand(rawCommand, commands));
-                            }
-                            catch(Exception ex){
-                                System.out.println("exception in custom command");
-                            }
+                        catch (Exception ex) {
+                            System.out.println("exception in custom command");
                         }
-                    //}
+                    }
+                    // }
                 }
             }
             else {
@@ -157,14 +167,15 @@ public class CommandParser {
         return command.startsWith(":");
     }
 
-    private boolean isConstant (String command){
-        for(Entry<String, Pattern> e : mySyntax){
-            if(match(command, e.getValue())){
+    private boolean isConstant (String command) {
+        for (Entry<String, Pattern> e : mySyntax) {
+            if (match(command, e.getValue())) {
                 return e.getKey().equals("Constant");
             }
         }
         return false;
     }
+
     // returns the language's type associated with the given text if one exists
     public String getSymbol (String text, boolean syntax) {
         final String ERROR = "NO MATCH";

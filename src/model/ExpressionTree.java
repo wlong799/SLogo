@@ -25,9 +25,13 @@ public class ExpressionTree {
     }
 
     public ExpressionNode makeTree (Queue<String> commands) throws ClassNotFoundException {
+        System.out.println("Make tree out of \n" + commands);
         ExpressionNode root = new ExpressionNode();
         String command = commands.poll();
         System.out.println("parsing " + command);
+        while(command.equals(" ")){
+            command = commands.poll();
+        }
         if (command.equals("[")) {
             return makeCommandList(commands);
         }
@@ -104,6 +108,7 @@ public class ExpressionTree {
         }
         addOtherParameters(commandClass, o);
         System.out.println(o.getClass());
+        System.out.println(parameters);
         return o;
     }
 
@@ -131,6 +136,9 @@ public class ExpressionTree {
             else if (next.equals("[")) {
                 openBrackets++;
                 makeCommandList(commandQueue);
+            }
+            else if (next.equals(" ")){
+                continue;
             }
             else {
                 root.addCommand(makeCommand(commandQueue, next));
