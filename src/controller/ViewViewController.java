@@ -1,9 +1,6 @@
 package controller;
 
-import dataStorage.Turtle;
-import view.element.SettingsToolBar;
-import view.element.TurtleView;
-import view.element.ViewElement;
+import view.element.*;
 
 import java.util.List;
 
@@ -16,6 +13,46 @@ public class ViewViewController extends InteractionController {
     @Override
     public void setUpInteractions() {
         setBackgroundColorChanger();
+        setLineColorChanger();
+        setClickableCommandHistory();
+        setClickableFunctionStorage();
+    }
+
+    private void setClickableFunctionStorage() {
+        if (getElementByClass("StoredFunctionWindow") == null || getElementByClass("TextEntryBox") == null) {
+            return;
+        }
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
+        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        funcWindow.setClickEvent(event -> {
+            String selectedFunction = funcWindow.getSelectedFunction().split("\n")[0];
+            textBox.setText(selectedFunction);
+        });
+    }
+
+    private void setClickableCommandHistory() {
+        if (getElementByClass("CommandHistoryWindow") == null || getElementByClass("TextEntryBox") == null) {
+            return;
+        }
+        CommandHistoryWindow chWindow = (CommandHistoryWindow)getElementByClass("CommandHistoryWindow");
+        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        chWindow.setClickEvent(event -> {
+            String selectedCommand= chWindow.getSelectedCommand();
+            textBox.setText(selectedCommand);
+        });
+    }
+
+    private void setLineColorChanger(){
+    	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
+            System.out.println("HM");
+            return;
+        }
+    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
+        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
+        toolBar.setLineColorPickerHandler(event -> {
+            turtleView.setLineColor(toolBar.getSelectedLineColor());
+        });
+    	
     }
 
     private void setBackgroundColorChanger() {

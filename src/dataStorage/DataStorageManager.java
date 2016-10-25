@@ -1,33 +1,50 @@
 package dataStorage;
 
-import dataStorage.ValueVariableStorage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataStorageManager {
-    private Turtle myTurtle;
-    private ValueVariableStorage myValueVariableStorage;
-    private CommandVariableStorage myCommandVariableStorage;
-
+    private int simulationID;
+    private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
+    private Map<Integer, SubDataStorageManager> mySubDataStorageManagers;
     private static DataStorageManager instance = new DataStorageManager();
 
     private DataStorageManager() {
-        myTurtle = new Turtle();
-        myValueVariableStorage = new ValueVariableStorage();
-        myCommandVariableStorage = new CommandVariableStorage();
+        simulationID = DEFAULT_SIM_ID;
+        mySubDataStorageManagers = new HashMap<>();
+        SubDataStorageManager defaultSubDataStorageManager = new SubDataStorageManager();
+        mySubDataStorageManagers.put(DEFAULT_SIM_ID, defaultSubDataStorageManager);
     }
 
     public static DataStorageManager get() {
         return instance;
     }
 
+    public void changeSimulation(int newSimulationID) {
+        if(!(mySubDataStorageManagers.containsKey(newSimulationID))) {
+            SubDataStorageManager newSubDataStorageManager = new SubDataStorageManager();
+            mySubDataStorageManagers.put(newSimulationID, newSubDataStorageManager);
+        }
+        simulationID = newSimulationID;
+    }
+
     public Turtle getTurtle() {
-        return myTurtle;
+        return mySubDataStorageManagers.get(simulationID).getTurtle();
     }
 
     public ValueVariableStorage getValueVariableStorage() {
-        return myValueVariableStorage;
+        return mySubDataStorageManagers.get(simulationID).getValueVariableStorage();
+    }
+
+    public CommandHistoryStorage getCommandHistoryStorage() {
+        return mySubDataStorageManagers.get(simulationID).getCommandHistoryStorage();
     }
 
     public CommandVariableStorage getCommandVariableStorage() {
-        return myCommandVariableStorage;
+        return mySubDataStorageManagers.get(simulationID).getCommandVariableStorage();
+    }
+
+    public Notifications getNotifications() {
+        return mySubDataStorageManagers.get(simulationID).getNotifications();
     }
 }

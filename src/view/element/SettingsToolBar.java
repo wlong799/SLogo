@@ -15,7 +15,8 @@ public class SettingsToolBar implements ViewElement{
     private double myWidth, myHeight;
 
     private ToolBar myToolBar;
-    ColorPicker myColorPicker;
+    ColorPicker myBackgroundColorPicker;
+    ColorPicker myLineColorPicker;
 
     public SettingsToolBar(double width, double height) {
         myWidth = width;
@@ -25,17 +26,29 @@ public class SettingsToolBar implements ViewElement{
         myToolBar.setStyle("-fx-background-color: #00FF00");
         myToolBar.setPrefWidth(myWidth);
         myToolBar.setPrefHeight(myHeight);
-
-        myColorPicker = new ColorPicker();
-        myToolBar.getItems().add(myColorPicker);
+        
+        myLineColorPicker = new ColorPicker(Color.BLACK);
+        myToolBar.getItems().add(myLineColorPicker);
+        
+        myBackgroundColorPicker = new ColorPicker();
+        myToolBar.getItems().add(myBackgroundColorPicker);
+        
+    }
+    
+    public void setLineColorPickerHandler(EventHandler<ActionEvent> handler) {
+        myLineColorPicker.setOnAction(handler);
     }
 
+    public Color getSelectedLineColor() {
+        return myLineColorPicker.getValue();
+    }
+    
     public void setBackgroundColorPickerHandler(EventHandler<ActionEvent> handler) {
-        myColorPicker.setOnAction(handler);
+        myBackgroundColorPicker.setOnAction(handler);
     }
 
     public Color getSelectedBackgroundColor() {
-        return myColorPicker.getValue();
+        return myBackgroundColorPicker.getValue();
     }
 
     @Override

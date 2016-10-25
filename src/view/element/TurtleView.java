@@ -68,6 +68,10 @@ public class TurtleView implements ViewElement, Observer {
     public void setBackgroundColor(Color color) {
         background.setFill(color);
     }
+    
+    public void setLineColor(Color color){
+    	lineGraphics.setStroke(color);
+    }
 
     private void draw() {
         double x1 = currentState.getPosition().getX();
@@ -96,7 +100,7 @@ public class TurtleView implements ViewElement, Observer {
     }
 
     private void updateTurtleHeading(double heading) {
-        turtle.setRotate(heading+90);
+        turtle.setRotate(heading + 90);
     }
 
     private void updateTurtleVisibility(boolean isVisible) {
