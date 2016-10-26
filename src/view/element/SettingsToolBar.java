@@ -14,7 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.effect.DropShadow;
@@ -22,7 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 
-public class SettingsToolBar implements ViewElement{
+public class SettingsToolBar implements Viewable {
     private double myWidth, myHeight;
     
     private ResourceBundle myUIElements;

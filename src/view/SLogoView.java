@@ -2,7 +2,8 @@ package view;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import view.element.ViewElement;
+import javafx.scene.layout.Pane;
+import view.element.Viewable;
 
 import java.util.List;
 
@@ -11,27 +12,36 @@ import java.util.List;
  * various elements.
  */
 public class SLogoView {
-    private Scene myScene;
-    private Parent root;
-    private LayoutManager myLayoutManager;
-    private List<ViewElement> myViewElements;
+    private static final double DEFAULT_WIDTH = 1000;
+    private static final double DEFAULT_HEIGHT = 750;
+
     private double myWidth, myHeight;
 
+    private Scene myScene;
+    private ContentManager myCurrentContentManager;
+    private List<Viewable> myViewables;
+
     public SLogoView() {
-        myLayoutManager = new LayoutManager();
-        root = myLayoutManager.getElementLayout();
-        myWidth = myLayoutManager.getWidth();
-        myHeight = myLayoutManager.getHeight();
+        myWidth = DEFAULT_WIDTH;
+        myHeight = DEFAULT_HEIGHT;
 
-        myScene = new Scene(root, myWidth, myHeight);
+        myCurrentContentManager = new StartContent(myWidth, myHeight);
+        myViewables = myCurrentContentManager.getElements();
 
-        myViewElements = myLayoutManager.getViewElements();
+        myScene = new Scene(myCurrentContentManager.getContentLayout(), myWidth, myHeight);
     }
 
     public Scene getScene() {
         return myScene;
     }
-    public List<ViewElement> getViewElements() {
-        return myViewElements;
+
+    public List<Viewable> getViewElements() {
+        return myViewables;
+    }
+
+    public void setCurrentContentManager(ContentManager contentManager) {
+        myCurrentContentManager = contentManager;
+        myScene.setRoot(myCurrentContentManager.getContentLayout());
+        myViewables = myCurrentContentManager.getElements();
     }
 }

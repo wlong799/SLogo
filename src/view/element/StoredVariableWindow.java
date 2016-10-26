@@ -8,13 +8,11 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseEvent;
 
-import javax.swing.*;
-
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class StoredVariableWindow implements ViewElement {
+public class StoredVariableWindow implements Viewable {
     private ListView<String> storedVariableView;
 
     private double myWidth, myHeight;

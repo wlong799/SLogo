@@ -4,6 +4,8 @@ import view.SLogoView;
 import model.SLogoModel;
 import view.SLogoView;
 import model.SLogoModel;
+import view.StartContent;
+import view.WorkspaceContent;
 
 
 public class SLogoController {
@@ -13,10 +15,11 @@ public class SLogoController {
     private SLogoView mySLogoView;
 
     public SLogoController () {
-
         myModel = new SLogoModel(DEFAULT_LANGUAGE);
         mySLogoView = new SLogoView();
-        setUpInteractions();
+
+        StartController startController = new StartController(mySLogoView.getViewElements(), this);
+        startController.setUpInteractions();
     }
 
     public SLogoView getSLogoView () {
@@ -31,4 +34,10 @@ public class SLogoController {
         ViewViewController vvController = new ViewViewController(mySLogoView.getViewElements());
         vvController.setUpInteractions();
     }
+
+    public void newWorkspace() {
+        mySLogoView.setCurrentContentManager(new WorkspaceContent());
+        setUpInteractions();
+    }
+
 }

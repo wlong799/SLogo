@@ -15,7 +15,6 @@ public class AppLauncher extends Application {
         SLogoView slogoView = slogoController.getSLogoView();
         stage.setTitle(APP_TITLE);
         stage.setScene(slogoView.getScene());
-        stage.setResizable(false);
         stage.show();
     }
 
