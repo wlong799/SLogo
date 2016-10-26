@@ -13,14 +13,12 @@ import java.util.Map;
  * Manages the various workspaces available in the application
  */
 public class WorkspaceManager {
-    private SLogoView mySLogoView;
     private int currentWorkspaceNum;
     private int maxWorkspaceNum;
     private int numWorkspaces;
     private Map<Integer, Workspace> workspaceMap;
 
-    public WorkspaceManager(SLogoView sLogoView) {
-        mySLogoView = sLogoView;
+    public WorkspaceManager() {
         currentWorkspaceNum = -1;
         maxWorkspaceNum = 0;
         numWorkspaces = 0;
