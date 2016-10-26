@@ -27,12 +27,10 @@ public class WorkspaceManager {
         workspaceMap = new HashMap<>();
     }
 
-    public void addWorkspace() {
+    public void addWorkspace(Workspace workspace) {
         numWorkspaces++;
         maxWorkspaceNum++;
         currentWorkspaceNum = maxWorkspaceNum;
-        ContentManager content = new WorkspaceContent(mySLogoView.getWidth(), mySLogoView.getHeight());
-        Workspace workspace = new Workspace(content, new SLogoModel());
         workspaceMap.put(currentWorkspaceNum, workspace);
     }
 

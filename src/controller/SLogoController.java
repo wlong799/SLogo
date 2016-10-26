@@ -2,12 +2,10 @@ package controller;
 
 import controller.workspace.Workspace;
 import controller.workspace.WorkspaceManager;
-import view.SLogoView;
+import view.*;
 import model.SLogoModel;
 import view.SLogoView;
 import model.SLogoModel;
-import view.StartContent;
-import view.WorkspaceContent;
 
 
 public class SLogoController {
@@ -28,10 +26,21 @@ public class SLogoController {
     }
 
     public void createNewWorkspace() {
-        myWorkspaceManager.addWorkspace();
-        mySLogoView.setCurrentContentManager(myWorkspaceManager.getCurrentWorkspace().getContentManager());
+        double width = mySLogoView.getWidth();
+        double height = mySLogoView.getHeight();
+        ContentManager content = new WorkspaceContent(width, height);
+        Workspace workspace = new Workspace(content, new SLogoModel());
+        myWorkspaceManager.addWorkspace(workspace);
     }
 
+    public void loadCurrentWorkspace() {
+        Workspace currentWorkspace = myWorkspaceManager.getCurrentWorkspace();
+        if (currentWorkspace == null) {
+            launchStartScreen();
+        } else {
+            mySLogoView.setCurrentContentManager(currentWorkspace.getContentManager());
+        }
+    }
 
     private void launchStartScreen() {
         double width = mySLogoView.getWidth();

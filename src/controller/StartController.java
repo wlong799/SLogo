@@ -23,6 +23,7 @@ public class StartController extends InteractionController{
         StartButtons buttons = (StartButtons)getElementByClass("StartButtons");
         buttons.setStartEvent(event -> {
             myController.createNewWorkspace();
+            myController.loadCurrentWorkspace();
         });
     }
 }
