@@ -11,7 +11,7 @@ import javafx.stage.FileChooser;
 
 public class ViewViewController extends InteractionController {
 
-    protected ViewViewController(List<Viewable> elements) {
+    public ViewViewController(List<Viewable> elements) {
         super(elements);
     }
 

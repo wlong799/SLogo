@@ -1,5 +1,6 @@
 package controller;
 
+import controller.workspace.Workspace;
 import view.SLogoView;
 import model.SLogoModel;
 import view.SLogoView;
@@ -11,33 +12,34 @@ import view.WorkspaceContent;
 public class SLogoController {
     private static final String DEFAULT_LANGUAGE = "English";
 
-    private SLogoModel myModel;
+    private double myWidth, myHeight;
+
+    private Workspace myCurrentWorkspace;
     private SLogoView mySLogoView;
 
-    public SLogoController () {
-        myModel = new SLogoModel(DEFAULT_LANGUAGE);
-        mySLogoView = new SLogoView();
+    public SLogoController(double width, double height) {
+        myWidth = width;
+        myHeight = height;
+        mySLogoView = new SLogoView(myWidth, myHeight);
 
-        StartController startController = new StartController(mySLogoView.getViewElements(), this);
-        startController.setUpInteractions();
+        launchStartScreen();
+
     }
 
-    public SLogoView getSLogoView () {
+    public SLogoView getSLogoView() {
         return mySLogoView;
     }
 
-    private void setUpInteractions () {
-        ViewModelController vmController = new ViewModelController(mySLogoView.getViewElements());
-        vmController.setModel(myModel);
-        vmController.setUpInteractions();
-
-        ViewViewController vvController = new ViewViewController(mySLogoView.getViewElements());
-        vvController.setUpInteractions();
+    public void newWorkspace() {
+        myCurrentWorkspace = new Workspace(new WorkspaceContent(myWidth, myHeight), new SLogoModel());
+        mySLogoView.setCurrentContentManager(myCurrentWorkspace.getContentManager());
     }
 
-    public void newWorkspace() {
-        mySLogoView.setCurrentContentManager(new WorkspaceContent());
-        setUpInteractions();
+
+    private void launchStartScreen() {
+        mySLogoView.setCurrentContentManager(new StartContent(myWidth, myHeight));
+        StartController startController = new StartController(mySLogoView.getViewElements(), this);
+        startController.setUpInteractions();
     }
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -12,23 +13,12 @@ import java.util.List;
  * various elements.
  */
 public class SLogoView {
-    private static final double DEFAULT_WIDTH = 1000;
-    private static final double DEFAULT_HEIGHT = 750;
-
-    private double myWidth, myHeight;
-
     private Scene myScene;
     private ContentManager myCurrentContentManager;
     private List<Viewable> myViewables;
 
-    public SLogoView() {
-        myWidth = DEFAULT_WIDTH;
-        myHeight = DEFAULT_HEIGHT;
-
-        myCurrentContentManager = new StartContent(myWidth, myHeight);
-        myViewables = myCurrentContentManager.getElements();
-
-        myScene = new Scene(myCurrentContentManager.getContentLayout(), myWidth, myHeight);
+    public SLogoView(double width, double height) {
+        myScene = new Scene(new Group(), width, height);
     }
 
     public Scene getScene() {

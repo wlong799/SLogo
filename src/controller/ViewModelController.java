@@ -10,7 +10,7 @@ import java.util.List;
 public class ViewModelController extends InteractionController {
     private SLogoModel myModel;
 
-    protected ViewModelController(List<Viewable> elements) {
+    public ViewModelController(List<Viewable> elements) {
         super(elements);
     }
 
