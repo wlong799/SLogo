@@ -1,6 +1,7 @@
 package controller;
 
 import controller.workspace.Workspace;
+import controller.workspace.WorkspaceManager;
 import view.SLogoView;
 import model.SLogoModel;
 import view.SLogoView;
@@ -12,32 +13,30 @@ import view.WorkspaceContent;
 public class SLogoController {
     private static final String DEFAULT_LANGUAGE = "English";
 
-    private double myWidth, myHeight;
-
-    private Workspace myCurrentWorkspace;
+    private WorkspaceManager myWorkspaceManager;
     private SLogoView mySLogoView;
 
     public SLogoController(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-        mySLogoView = new SLogoView(myWidth, myHeight);
+        mySLogoView = new SLogoView(width, height);
+        myWorkspaceManager = new WorkspaceManager(mySLogoView);
 
         launchStartScreen();
-
     }
 
     public SLogoView getSLogoView() {
         return mySLogoView;
     }
 
-    public void newWorkspace() {
-        myCurrentWorkspace = new Workspace(new WorkspaceContent(myWidth, myHeight), new SLogoModel());
-        mySLogoView.setCurrentContentManager(myCurrentWorkspace.getContentManager());
+    public void createNewWorkspace() {
+        myWorkspaceManager.addWorkspace();
+        mySLogoView.setCurrentContentManager(myWorkspaceManager.getCurrentWorkspace().getContentManager());
     }
 
 
     private void launchStartScreen() {
-        mySLogoView.setCurrentContentManager(new StartContent(myWidth, myHeight));
+        double width = mySLogoView.getWidth();
+        double height = mySLogoView.getHeight();
+        mySLogoView.setCurrentContentManager(new StartContent(width, height));
         StartController startController = new StartController(mySLogoView.getViewElements(), this);
         startController.setUpInteractions();
     }

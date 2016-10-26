@@ -13,12 +13,16 @@ import java.util.List;
  * various elements.
  */
 public class SLogoView {
+    private double myWidth, myHeight;
+
     private Scene myScene;
     private ContentManager myCurrentContentManager;
     private List<Viewable> myViewables;
 
     public SLogoView(double width, double height) {
-        myScene = new Scene(new Group(), width, height);
+        myWidth = width;
+        myHeight = height;
+        myScene = new Scene(new Group(), myWidth, myHeight);
     }
 
     public Scene getScene() {
@@ -27,6 +31,14 @@ public class SLogoView {
 
     public List<Viewable> getViewElements() {
         return myViewables;
+    }
+
+    public double getWidth() {
+        return myWidth;
+    }
+
+    public double getHeight() {
+        return myHeight;
     }
 
     public void setCurrentContentManager(ContentManager contentManager) {
