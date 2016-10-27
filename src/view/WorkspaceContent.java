@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * LayoutManager just provides a quick setup for the application. Non-resizable, and provides a
+ * WorkspaceContent just provides a quick setup for the application. Non-resizable, and provides a
  * TurtleView, with a TextEntryBox beneath.
  */
-public class LayoutManager {
+public class WorkspaceContent implements ContentManager {
     private static final double MIN_WIDTH = 500;
     private static final double DEFAULT_WIDTH = 1000;
     private static final double MAX_WIDTH = 1500;
@@ -20,32 +20,34 @@ public class LayoutManager {
     private static final double BORDER_RATIO = 0.05;
 
     private ContentGrid myContentGrid;
-    private List<ViewElement> myViewElements;
+    private List<Viewable> myViewables;
     private double myWidth;
     private double myHeight;
 
-    public LayoutManager() {
+    public WorkspaceContent() {
         this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
-    public LayoutManager(double width, double height) {
+    public WorkspaceContent(double width, double height) {
         myWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, width));
         myHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, height));
         double borderSize = Math.min(myHeight, myWidth) * BORDER_RATIO;
         myContentGrid = new ContentGrid(width, height, borderSize);
-        myViewElements = new ArrayList<>();
+        myViewables = new ArrayList<>();
         createMainElement();
         createToolBarElement();
         createSidePanelElement();
         createBottomBarElement();
     }
 
-    public Parent getElementLayout() {
+    @Override
+    public Parent getContentLayout() {
         return (Parent) myContentGrid.getContent();
     }
 
-    public List<ViewElement> getViewElements() {
-        return myViewElements;
+    @Override
+    public List<Viewable> getElements() {
+        return myViewables;
     }
 
     public double getWidth() {
@@ -61,7 +63,7 @@ public class LayoutManager {
         double height = myContentGrid.getToolbarHeight();
         SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
         myContentGrid.addToolBarElement(settingsToolBar);
-        myViewElements.add(settingsToolBar);
+        myViewables.add(settingsToolBar);
     }
 
     private void createMainElement() {
@@ -69,7 +71,7 @@ public class LayoutManager {
         double height = myContentGrid.getMainElementHeight();
         TurtleView turtleView = new TurtleView(width, height);
         myContentGrid.addMainElement(turtleView);
-        myViewElements.add(turtleView);
+        myViewables.add(turtleView);
     }
 
     private void createSidePanelElement() {
@@ -85,10 +87,10 @@ public class LayoutManager {
         tabbedHelperPanel.placeElementInNewTab("Functions", storedFunctionWindow);
         tabbedHelperPanel.placeElementInNewTab("Variables", storedVariableWindow);
         myContentGrid.addSidePanelElement(tabbedHelperPanel);
-        myViewElements.add(tabbedHelperPanel);
-        myViewElements.add(commandHistoryWindow);
-        myViewElements.add(storedFunctionWindow);
-        myViewElements.add(storedVariableWindow);
+        myViewables.add(tabbedHelperPanel);
+        myViewables.add(commandHistoryWindow);
+        myViewables.add(storedFunctionWindow);
+        myViewables.add(storedVariableWindow);
     }
 
     private void createBottomBarElement() {
@@ -96,6 +98,6 @@ public class LayoutManager {
         double height = myContentGrid.getBottomBarHeight();
         TextEntryBox textEntryBox = new TextEntryBox(width, height);
         myContentGrid.addBottomBarElement(textEntryBox);
-        myViewElements.add(textEntryBox);
+        myViewables.add(textEntryBox);
     }
 }

@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  * @author Will Long
  * @version 10/19/16
  */
-public class TextEntryBox implements ViewElement {
+public class TextEntryBox implements Viewable {
     private static final double TEXT_BOX_RATIO = 0.80;
     private static final double PADDING_RATIO = 0.05;
     private static final String DEFAULT_TEXT = "ENTER COMMANDS HERE";

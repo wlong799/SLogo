@@ -3,13 +3,12 @@ package view.element;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import view.element.ViewElement;
 
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class TabbedHelperPanel implements ViewElement {
+public class TabbedHelperPanel implements Viewable {
 
     private TabPane myTabContainer;
 
@@ -25,7 +24,7 @@ public class TabbedHelperPanel implements ViewElement {
         myTabContainer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
     }
 
-    public void placeElementInNewTab(String tabName, ViewElement element) {
+    public void placeElementInNewTab(String tabName, Viewable element) {
         Tab newTab = new Tab(tabName, element.getContent());
         myTabContainer.getTabs().add(newTab);
     }
