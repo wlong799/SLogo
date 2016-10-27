@@ -10,8 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,7 +17,7 @@ import java.util.Observer;
  * @author Will Long
  * @version 10/19/16
  */
-public class TurtleView implements ViewElement, Observer {
+public class TurtleView implements Viewable, Observer {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";

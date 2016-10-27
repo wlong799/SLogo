@@ -8,6 +8,6 @@ import javafx.scene.Node;
  * the content to be a node. This makes it very easy to change how the individual elements are
  * actually implemented (as opposed to extending the JavaFX codebase).
  */
-public interface ViewElement {
+public interface Viewable {
     Node getContent();
 }

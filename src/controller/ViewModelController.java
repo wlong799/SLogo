@@ -1,7 +1,6 @@
 package controller;
 
 import dataStorage.*;
-import model.CommandParser;
 import model.SLogoModel;
 import view.element.*;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class ViewModelController extends InteractionController {
     private SLogoModel myModel;
 
-    protected ViewModelController(List<ViewElement> elements) {
+    public ViewModelController(List<Viewable> elements) {
         super(elements);
     }
 

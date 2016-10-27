@@ -4,19 +4,14 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import model.CommandParser;
-import view.element.ViewElement;
 
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class CommandHistoryWindow implements ViewElement {
+public class CommandHistoryWindow implements Viewable {
     private ListView<String> commandListView;
 
     private double myWidth, myHeight;
