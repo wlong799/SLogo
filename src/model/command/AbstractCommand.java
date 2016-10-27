@@ -51,7 +51,7 @@ public abstract class AbstractCommand {
         myName.append(this.getClass().getSimpleName());
         myName.append(" ");
         for(AbstractCommand node : myParameters){
-            myName.append(node.toString());
+            myName.append(node.toString().trim());
             myName.append(" ");
         }
         return myName.toString();

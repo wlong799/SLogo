@@ -6,7 +6,7 @@ import dataStorage.DataStorageManager;
 
 
 public class Repeat extends AbstractCommandHigherOrder {
-    private static final String REPCOUNT_VAR = "repcount";
+    private static final String REPCOUNT_VAR = ":repcount";
     private static final double START_REPCOUNT = 1;
 
     // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
@@ -25,15 +25,17 @@ public class Repeat extends AbstractCommandHigherOrder {
     @Override
     public double execute () {
         double numTimes = getRawParameters().get(0).execute();
-        
+        System.out.println("Repeat " + numTimes + " times");
         AbstractCommand command = getRawParameters().get(1);
         //ExpressionNode codeBlock = myNodes.get(1);
         double returnValue = 0;
 
         for (double repcountVar = START_REPCOUNT; repcountVar <= numTimes; repcountVar++) {
-            getVariables().setVariable(REPCOUNT_VAR,
-                                                                           repcountVar);
+            //getVariables().setVariable(REPCOUNT_VAR,
+             //                                                              repcountVar);
             returnValue = command.execute();
+            System.out.println(returnValue);
+            System.out.println("REPEAT " + (numTimes-repcountVar) + " more times");
         }
 
         return returnValue;

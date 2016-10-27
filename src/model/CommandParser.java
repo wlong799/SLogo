@@ -83,10 +83,12 @@ public class CommandParser {
         List<String> commandQueue = new LinkedList<String>();
 
         for (String s : commandParams) {
-            System.out.println("replace " + s + " with value");
+            System.out.println("replace " + s + " with value in " + commandString);
+            System.out.println("remaining commands " + commands);
             commandString = commandString.replaceAll(s, Double
                     .toString((new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                            .makeTree(commands).execute())));
+                            .makeSubTree(commands).execute())));
+           
             // myVariableStorage.setVariable(s,
             // traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
             // .makeTree(commands)));
