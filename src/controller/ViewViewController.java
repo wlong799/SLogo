@@ -32,7 +32,7 @@ public class ViewViewController extends InteractionController {
         StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
         TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
         funcWindow.setClickEvent(event -> {
-            String selectedFunction = funcWindow.getSelectedFunction().split("\n")[0];
+            String selectedFunction = funcWindow.getSelectedElement().split("\n")[0];
             textBox.setText(selectedFunction);
         });
     }
@@ -44,7 +44,7 @@ public class ViewViewController extends InteractionController {
         CommandHistoryWindow chWindow = (CommandHistoryWindow)getElementByClass("CommandHistoryWindow");
         TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
         chWindow.setClickEvent(event -> {
-            String selectedCommand= chWindow.getSelectedCommand();
+            String selectedCommand= chWindow.getSelectedElement();
             textBox.setText(selectedCommand);
         });
     }

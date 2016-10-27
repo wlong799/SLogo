@@ -8,53 +8,26 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseEvent;
 
-/**
- * @author Will Long
- * @version 10/19/16
- */
-public class StoredVariableWindow implements Viewable {
-    private ListView<String> storedVariableView;
-
-    private double myWidth, myHeight;
+public class StoredVariableWindow extends TabElement {
+    private static final String MY_NAME = "Variables";
 
     public StoredVariableWindow(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-
-        initializeFunctionWindow();
-    }
-    private void initializeFunctionWindow() {
-        storedVariableView = new ListView<>();
-        storedVariableView.setPrefWidth(myWidth);
-        storedVariableView.setPrefHeight(myHeight);
-        storedVariableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        storedVariableView.setCellFactory(TextFieldListCell.forListView());
-        storedVariableView.setEditable(true);
-    }
-
-    public void setStoredVariableList(ObservableList<String> observableFunctionList) {
-        storedVariableView.setItems(observableFunctionList);
-    }
-
-    public void setClickEvent(EventHandler<MouseEvent> mouseEvent) {
-        storedVariableView.setOnMouseClicked(mouseEvent);
-    }
-
-    public String getSelectedVariable() {
-        return storedVariableView.getSelectionModel().getSelectedItem();
+        super(width, height);
+        myListView.setCellFactory(TextFieldListCell.forListView());
+        myListView.setEditable(true);
     }
 
     public void editSelectedVariable() {
-        int index = storedVariableView.getSelectionModel().getSelectedIndex();
-        storedVariableView.edit(index);
+        int index = myListView.getSelectionModel().getSelectedIndex();
+        myListView.edit(index);
     }
 
     public void setEditedEvent(EventHandler<ListView.EditEvent<String>> editedEvent) {
-        storedVariableView.setOnEditCommit(editedEvent);
+        myListView.setOnEditCommit(editedEvent);
     }
 
     @Override
-    public Node getContent() {
-        return storedVariableView;
+    public String getTabName() {
+        return MY_NAME;
     }
 }

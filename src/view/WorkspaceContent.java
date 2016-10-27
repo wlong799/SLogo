@@ -83,34 +83,31 @@ public class WorkspaceContent implements ContentManager {
         myViewables.add(textEntryBox);
     }
 
-    public void addTabs(List<String> openTabs) {
+    public void addTab(String tabClass) {
         double tabWidth = myHelperPanel.getTabWidth();
         double tabHeight = myHelperPanel.getTabHeight();
-        for (String tabName : openTabs) {
-            Viewable tab = null;
-            try {
-                Object obj = Class.forName(tabName).getConstructor(double.class, double.class).newInstance(tabWidth, tabHeight);
-                if (obj instanceof Viewable) {
-                    tab = (Viewable) obj;
-                } else {
-                    throw new ClassCastException();
-                }
-            } catch (ClassNotFoundException e) {
-                System.err.println("Tab class not found: " + tabName);
-            } catch (NoSuchMethodException e) {
-                System.err.println("Constructor not found for class: " + tabName);
-            } catch (ClassCastException e) {
-                System.err.println("Class does not implement Viewable: " + tabName);
-            } catch (Exception e) {
-                System.err.println("Error when instantiating object: " + tabName);
+        TabElement tab;
+        try {
+            Object obj = Class.forName(tabClass).getConstructor(double.class, double.class).newInstance(tabWidth, tabHeight);
+            if (obj instanceof TabElement) {
+                tab = (TabElement) obj;
+            } else {
+                throw new ClassCastException();
             }
-            if (tab == null) {
-                continue;
-            }
-            String[] spl = tabName.split("\\.");
-            String name = spl[spl.length-1];
-            myHelperPanel.placeElementInNewTab(name, tab);
-            myViewables.add(tab);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Tab class not found: " + tabClass);
+            return;
+        } catch (NoSuchMethodException e) {
+            System.err.println("Constructor not found for class: " + tabClass);
+            return;
+        } catch (ClassCastException e) {
+            System.err.println("Class does not extend TabElement: " + tabClass);
+            return;
+        } catch (Exception e) {
+            System.err.println("Error when instantiating object: " + tabClass);
+            return;
         }
+        myHelperPanel.placeElementInNewTab(tab);
+        myViewables.add(tab);
     }
 }

@@ -1,7 +1,6 @@
 package controller.workspace;
 
 import model.SLogoModel;
-import view.ContentManager;
 import view.WorkspaceContent;
 
 public class WorkspaceFactory {
@@ -10,7 +9,9 @@ public class WorkspaceFactory {
     public static Workspace createWorkspace(double width, double height) {
         WorkspaceContent workspaceContent = new WorkspaceContent(width, height);
         WorkspacePreferences preferences = new WorkspacePreferences();
-        workspaceContent.addTabs(preferences.getOpenTabs());
+        for (String tabClass : preferences.getOpenTabs()) {
+            workspaceContent.addTab(tabClass);
+        }
         SLogoModel model = new SLogoModel();
         Workspace workspace = new Workspace(workspaceContent, model);
         nextWorkspaceID++;

@@ -24,8 +24,10 @@ public class TabbedHelperPanel implements Viewable {
         myTabContainer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
     }
 
-    public void placeElementInNewTab(String tabName, Viewable element) {
-        Tab newTab = new Tab(tabName, element.getContent());
+    public void placeElementInNewTab(TabElement newTabElement) {
+        String tabName = newTabElement.getTabName();
+        Node tabContent = newTabElement.getContent();
+        Tab newTab = new Tab(tabName, tabContent);
         myTabContainer.getTabs().add(newTab);
     }
 

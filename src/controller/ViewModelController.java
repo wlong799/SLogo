@@ -31,7 +31,7 @@ public class ViewModelController extends InteractionController {
         }
         StoredVariableWindow varWindow = (StoredVariableWindow) getElementByClass("StoredVariableWindow");
         ValueVariableStorage varStorage = DataStorageManager.get().getValueVariableStorage();
-        varWindow.setStoredVariableList(varStorage.getVariableList());
+        varWindow.setObservedList(varStorage.getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
         varWindow.setEditedEvent(event -> {
             String[] newVals = event.getNewValue().split("\\s+");
@@ -48,7 +48,7 @@ public class ViewModelController extends InteractionController {
         }
         StoredFunctionWindow funcWindow = (StoredFunctionWindow) getElementByClass("StoredFunctionWindow");
         CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
-        funcWindow.setStoredFunctionList(funcStorage.getCommandVariableList());
+        funcWindow.setObservedList(funcStorage.getCommandVariableList());
     }
 
     public void setModel(SLogoModel model) {
@@ -100,7 +100,7 @@ public class ViewModelController extends InteractionController {
         }
         CommandHistoryStorage chStorage = DataStorageManager.get().getCommandHistoryStorage();
         CommandHistoryWindow chWindow = (CommandHistoryWindow) getElementByClass("CommandHistoryWindow");
-        chWindow.setCommandHistory(chStorage.getCommandHistoryList());
+        chWindow.setObservedList(chStorage.getCommandHistoryList());
     }
 
 }

@@ -7,42 +7,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 
-/**
- * @author Will Long
- * @version 10/19/16
- */
-public class StoredFunctionWindow implements Viewable {
-    private ListView<String> storedFunctionView;
-
-    private double myWidth, myHeight;
+public class StoredFunctionWindow extends TabElement{
+    private static final String MY_NAME = "Functions";
 
     public StoredFunctionWindow(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-
-        initializeFunctionWindow();
-    }
-    private void initializeFunctionWindow() {
-        storedFunctionView = new ListView<>();
-        storedFunctionView.setPrefWidth(myWidth);
-        storedFunctionView.setPrefHeight(myHeight);
-        storedFunctionView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-    }
-
-    public void setStoredFunctionList(ObservableList<String> observableFunctionList) {
-        storedFunctionView.setItems(observableFunctionList);
-    }
-
-    public void setClickEvent(EventHandler<MouseEvent> mouseEvent) {
-        storedFunctionView.setOnMouseClicked(mouseEvent);
-    }
-
-    public String getSelectedFunction() {
-        return storedFunctionView.getFocusModel().getFocusedItem();
+        super(width, height);
     }
 
     @Override
-    public Node getContent() {
-        return storedFunctionView;
+    public String getTabName() {
+        return MY_NAME;
     }
 }
