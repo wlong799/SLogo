@@ -31,6 +31,7 @@ public class ListCommand extends AbstractCommand {
         for(AbstractCommand oneCommand : commands) {
             commandString.append(oneCommand.toString());
         }
+      
         commandString.append(" ]");
 
         return commandString.toString();

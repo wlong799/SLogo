@@ -25,17 +25,17 @@ public class ExpressionTree {
         myCommandStorage = commands;
     }
     
-    public AbstractCommand makeTree(Queue<String> commands){
+    public AbstractCommand makeTree(Queue<String> commands) throws ClassNotFoundException{
         List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
         while(!commands.isEmpty()){
-            commandList.add(makeTree(commands));
+            commandList.add(makeSubTree(commands));
         }
         return new ListCommand(commandList);
     }
     
     public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException {
         String command = commands.poll();
-        System.out.println("parsing " + command);
+        System.out.println("parsing string: " + command);
         //AbstractCommand rootCommands = null;
         if (command.equals("[")) {
             return makeCommandList(commands);
@@ -56,8 +56,8 @@ public class ExpressionTree {
                 return (AbstractCommand) o;
             }
             catch (Exception e) {
-                System.out.println("Command " + command);
-                System.out.println("new instance didnt work");
+                System.out.println("Failed to instantiate " + command);
+                e.printStackTrace();
                 return null;
             }
 
@@ -68,16 +68,15 @@ public class ExpressionTree {
          * most easily then use this when calling the "Make" method of when finding the object is a constant
          */
         catch (Exception e) {
-            System.out.println("no command class");
+            System.out.println("Could not create command of class " + command);
 
             try {
-                System.out.println("trying to parse double " + command);
+                System.out.println("Trying to create constant " + command);
                 return new Constant(Double.parseDouble(command));
             }
             catch (Exception ex) {
                 // return createUserCommand(command);
-                System.out.println("Throw invalid command string");
-                System.out.println(command);
+                System.out.println("Could not create a constant. Creating variable " + command);
                 Variable var = new Variable(command);
                 var.addVariables(myVariableStorage, myCommandStorage);
                 return var;
@@ -130,7 +129,7 @@ public class ExpressionTree {
     private ListCommand makeCommandList (Queue<String> commandQueue) {
         int openBrackets = 1;
         int closedBrackets = 0;
-        
+        System.out.println("Creating command list of " + commandQueue);
         List<AbstractCommand> commandList = new ArrayList<AbstractCommand>(); 
         while (closedBrackets != openBrackets) {
             String next = commandQueue.poll();
@@ -138,7 +137,7 @@ public class ExpressionTree {
                 closedBrackets++;
             }
             else if (next.equals("[")) {
-                openBrackets++;
+                //openBrackets++;
                 commandList.add(makeCommandList(commandQueue));
             }
             else {
