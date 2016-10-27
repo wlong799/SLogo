@@ -7,6 +7,7 @@ import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.AbstractCommand;
 import model.command.Constant;
+import model.command.ListCommand;
 import model.command.Variable;
 import java.util.*;
 
@@ -23,19 +24,25 @@ public class ExpressionTree {
         myVariableStorage = variables;
         myCommandStorage = commands;
     }
-
-    public ExpressionNode makeTree (Queue<String> commands) throws ClassNotFoundException {
-        ExpressionNode root = new ExpressionNode();
+    
+    public AbstractCommand makeTree(Queue<String> commands){
+        List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
+        while(!commands.isEmpty()){
+            commandList.add(makeTree(commands));
+        }
+        return new ListCommand(commandList);
+    }
+    
+    public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException {
         String command = commands.poll();
         System.out.println("parsing " + command);
+        //AbstractCommand rootCommands = null;
         if (command.equals("[")) {
             return makeCommandList(commands);
         }
         else {
-            root.addCommand(makeCommand(commands, command));
+            return makeCommand(commands, command);
         }
-
-        return root;
     }
 
     private AbstractCommand makeCommand (Queue<String> commands, String command) {
@@ -70,6 +77,7 @@ public class ExpressionTree {
             catch (Exception ex) {
                 // return createUserCommand(command);
                 System.out.println("Throw invalid command string");
+                System.out.println(command);
                 Variable var = new Variable(command);
                 var.addVariables(myVariableStorage, myCommandStorage);
                 return var;
@@ -89,7 +97,7 @@ public class ExpressionTree {
     private Object createCommandObject (Queue<String> commands,
                                         Class<?> commandClass,
                                         Constructor<?> ctor) throws Exception {
-        List<ExpressionNode> parameters = new ArrayList<ExpressionNode>();
+        List<AbstractCommand> parameters = new ArrayList<AbstractCommand>();
         Object o = ctor.newInstance(parameters);
         System.out.println(o.getClass());
         Method getNumParams = commandClass.getMethod("getNumParameters");
@@ -97,7 +105,7 @@ public class ExpressionTree {
         int paramNum = (int) getNumParams.invoke(o);
         if (paramNum > 0) {
             for (; paramNum > 0; paramNum--) {
-                parameters.add(makeTree(commands));
+                parameters.add(makeSubTree(commands));
             }
             Method addParams = commandClass.getMethod("setParameters", List.class);
             addParams.invoke(o, parameters);
@@ -119,10 +127,11 @@ public class ExpressionTree {
         }
     }
 
-    private ExpressionNode makeCommandList (Queue<String> commandQueue) {
+    private ListCommand makeCommandList (Queue<String> commandQueue) {
         int openBrackets = 1;
         int closedBrackets = 0;
-        ExpressionNode root = new ExpressionNode();
+        
+        List<AbstractCommand> commandList = new ArrayList<AbstractCommand>(); 
         while (closedBrackets != openBrackets) {
             String next = commandQueue.poll();
             if (next.equals("]")) {
@@ -130,15 +139,14 @@ public class ExpressionTree {
             }
             else if (next.equals("[")) {
                 openBrackets++;
-                makeCommandList(commandQueue);
+                commandList.add(makeCommandList(commandQueue));
             }
             else {
-                root.addCommand(makeCommand(commandQueue, next));
-
+                commandList.add(makeCommand(commandQueue, next));
             }
         }
-
-        return root;
+        ListCommand command = new ListCommand(commandList);
+        return command;
     }
 
     public ExpressionNode getRoot () {
