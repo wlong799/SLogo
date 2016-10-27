@@ -1,4 +1,4 @@
-package view.element;
+package view.panel;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
+import view.Viewable;
 
 /**
  * Abstract super class for all elements that can be placed in the helper panel as a tab. Introduces a method for

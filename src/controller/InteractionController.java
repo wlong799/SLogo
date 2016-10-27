@@ -1,9 +1,6 @@
 package controller;
 
 import view.ViewElementManager;
-import view.element.Viewable;
-
-import java.util.List;
 
 /**
  * Takes in elements present in view, and is responsible for setting up how

@@ -1,7 +1,5 @@
 package view;
 
-import view.element.Viewable;
-
 import java.util.ArrayList;
 import java.util.List;
 

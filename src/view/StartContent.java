@@ -1,15 +1,9 @@
 package view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import view.element.StartButtons;
-import view.element.StartScreen;
-import view.element.Viewable;
-
-import java.util.ArrayList;
-import java.util.List;
+import view.start.StartButtons;
+import view.start.StartScreen;
 
 public class StartContent implements ContentManager {
     private static final double BUTTON_PANE_OFFSET_RATIO = 0.80;

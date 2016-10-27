@@ -1,4 +1,4 @@
-package view.element;
+package view.panel;
 
 public class CommandHistoryWindow extends TabElement {
     private static final String MY_NAME = "History";

@@ -1,12 +1,8 @@
-package view.element;
+package view.panel;
 
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.input.MouseEvent;
 
 public class StoredVariableWindow extends TabElement {
     private static final String MY_NAME = "Variables";

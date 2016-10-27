@@ -1,10 +1,11 @@
 package view;
 
 import javafx.scene.Parent;
-import view.element.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import view.panel.TabElement;
+import view.panel.TabbedHelperPanel;
+import view.textbox.TextEntryBox;
+import view.toolbar.SettingsToolBar;
+import view.turtle.TurtleView;
 
 /**
  * WorkspaceContent just provides a quick setup for the application. Non-resizable, and provides a

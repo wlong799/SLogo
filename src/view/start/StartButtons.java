@@ -1,10 +1,11 @@
-package view.element;
+package view.start;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import view.Viewable;
 
 public class StartButtons implements Viewable {
     private static final double PADDING_RATIO = 0.05;

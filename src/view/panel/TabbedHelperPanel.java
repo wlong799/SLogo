@@ -1,8 +1,9 @@
-package view.element;
+package view.panel;
 
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import view.Viewable;
 
 /**
  * @author Will Long

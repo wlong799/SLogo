@@ -1,4 +1,4 @@
-package view.element;
+package view.turtle;
 
 import dataStorage.TurtleState;
 import javafx.scene.Node;
@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import view.Viewable;
 
 import java.util.Observable;
 import java.util.Observer;

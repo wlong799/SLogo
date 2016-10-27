@@ -3,7 +3,12 @@ package controller;
 import dataStorage.*;
 import model.SLogoModel;
 import view.ViewElementManager;
-import view.element.*;
+import view.panel.CommandHistoryWindow;
+import view.panel.StoredFunctionWindow;
+import view.panel.StoredVariableWindow;
+import view.textbox.TextEntryBox;
+import view.toolbar.SettingsToolBar;
+import view.turtle.TurtleView;
 
 
 public class ViewModelController extends InteractionController {

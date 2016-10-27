@@ -1,10 +1,7 @@
 package controller;
 
 import view.ViewElementManager;
-import view.element.StartButtons;
-import view.element.Viewable;
-
-import java.util.List;
+import view.start.StartButtons;
 
 /**
  * @author Will Long

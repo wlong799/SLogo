@@ -1,4 +1,4 @@
-package view.element;
+package view.textbox;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.Viewable;
 
 /**
  * @author Will Long

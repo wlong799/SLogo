@@ -1,7 +1,6 @@
 package controller;
 
 import view.ViewElementManager;
-import view.element.*;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -9,6 +8,11 @@ import java.net.MalformedURLException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
+import view.panel.CommandHistoryWindow;
+import view.panel.StoredFunctionWindow;
+import view.textbox.TextEntryBox;
+import view.toolbar.SettingsToolBar;
+import view.turtle.TurtleView;
 
 public class ViewViewController extends InteractionController {
 

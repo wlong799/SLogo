@@ -1,12 +1,7 @@
 package view;
 
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import view.element.Viewable;
-
-import java.util.List;
 
 /**
  * Class responsible for organizing the layout of the GUI, as well as the interactions between
