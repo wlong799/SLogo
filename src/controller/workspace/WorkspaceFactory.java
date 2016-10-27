@@ -8,9 +8,11 @@ public class WorkspaceFactory {
     private static int nextWorkspaceID = 1;
 
     public static Workspace createWorkspace(double width, double height) {
-        ContentManager contentManager = new WorkspaceContent(width, height);
+        WorkspaceContent workspaceContent = new WorkspaceContent(width, height);
+        WorkspacePreferences preferences = new WorkspacePreferences();
+        workspaceContent.addTabs(preferences.getOpenTabs());
         SLogoModel model = new SLogoModel();
-        Workspace workspace = new Workspace(contentManager, model);
+        Workspace workspace = new Workspace(workspaceContent, model);
         nextWorkspaceID++;
         return workspace;
     }
