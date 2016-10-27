@@ -1,8 +1,6 @@
 package controller;
 
-import view.element.TextEntryBox;
-import view.element.TurtleView;
-import view.element.ViewElement;
+import view.element.Viewable;
 
 import java.util.List;
 
@@ -13,16 +11,16 @@ import java.util.List;
  */
 public abstract class InteractionController {
 
-    protected List<ViewElement> viewElements;
+    protected List<Viewable> viewables;
 
-    protected InteractionController(List<ViewElement> elements) {
-        viewElements = elements;
+    protected InteractionController(List<Viewable> elements) {
+        viewables = elements;
     }
 
     public abstract void setUpInteractions();
 
-    protected ViewElement getElementByClass(String className) {
-        for (ViewElement element : viewElements) {
+    protected Viewable getElementByClass(String className) {
+        for (Viewable element : viewables) {
             if (checkClass(element, className)) {
                 return element;
             }
@@ -30,7 +28,7 @@ public abstract class InteractionController {
         return null;
     }
 
-    protected boolean checkClass(ViewElement element, String className) {
+    protected boolean checkClass(Viewable element, String className) {
         return element.getClass().getSimpleName().equals(className);
     }
 }

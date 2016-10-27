@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
  * @author Will Long
  * @version 10/19/16
  */
-public class StoredFunctionWindow implements ViewElement {
+public class StoredFunctionWindow implements Viewable {
     private ListView<String> storedFunctionView;
 
     private double myWidth, myHeight;

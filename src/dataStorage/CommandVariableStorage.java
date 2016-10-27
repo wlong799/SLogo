@@ -22,12 +22,14 @@ public class CommandVariableStorage {
 
     public void setCommand (String commandName, List<String> parameterNames, String commandString) {
         commandParamMap.put(commandName, parameterNames);
+        commandMap.put(commandName, commandString);
+        commandStorageList.add(commandName);
     }
 
-    public void setCommand (String commandName, String commandString) {
-        commandStorageList.add(commandName + "\n" + commandString);
-        commandMap.put(commandName, commandString);
-    }
+//    public void setCommand (String commandName, String commandString) {
+//        commandStorageList.add(commandName + "\n" + commandString);
+//        commandMap.put(commandName, commandString);
+//    }
 
     public String getCommand (String commandName) {
         return commandMap.get(commandName);
