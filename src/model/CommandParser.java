@@ -132,13 +132,6 @@ public class CommandParser {
 
                 }
                 else {
-
-                    // if (symbol.equals("Variable")) {
-                    // commandQueue
-                    // .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
-                    // }
-                    // else {
-
                     if (!symbol.equals("Command") || !DataStorageManager.get()
                             .getCommandVariableStorage().hasCommand(rawCommand)) {
                         System.out.println("adding " + rawCommand + " to command queue because " +
