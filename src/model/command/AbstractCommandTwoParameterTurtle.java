@@ -3,7 +3,7 @@ package model.command;
 import java.util.List;
 
 import dataStorage.DataStorageManager;
-import model.ExpressionNode;
+
 import dataStorage.Turtle;
 
 public abstract class AbstractCommandTwoParameterTurtle extends AbstractCommandTwoParameter{

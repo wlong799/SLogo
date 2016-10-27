@@ -2,7 +2,7 @@ package model.command;
 
 import dataStorage.DataStorageManager;
 import dataStorage.Position;
-import model.ExpressionNode;
+
 import java.util.List;
 import model.command.SetPosition;
 

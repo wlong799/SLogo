@@ -5,7 +5,6 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.*;
-import javax.xml.crypto.Data;
 
 
 public class CommandParser {

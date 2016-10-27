@@ -14,7 +14,6 @@ import java.util.*;
 
 public class ExpressionTree {
 
-    private ExpressionNode myRoot;
     private Turtle myTurtle;
     private ValueVariableStorage myVariableStorage;
     private CommandVariableStorage myCommandStorage;
@@ -146,9 +145,5 @@ public class ExpressionTree {
         }
         ListCommand command = new ListCommand(commandList);
         return command;
-    }
-
-    public ExpressionNode getRoot () {
-        return myRoot;
     }
 }
