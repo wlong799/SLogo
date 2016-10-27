@@ -17,10 +17,9 @@ public class ExpressionTree {
     private Turtle myTurtle;
     private ValueVariableStorage myVariableStorage;
     private CommandVariableStorage myCommandStorage;
-
-    public ExpressionTree (Turtle turtle,
-                           ValueVariableStorage variables,
-                           CommandVariableStorage commands) {
+    private DataStorageManager myData;
+    public ExpressionTree (DataStorageManager data) {
+        myData = data;
         myTurtle = turtle;
         myVariableStorage = variables;
         myCommandStorage = commands;
@@ -64,18 +63,8 @@ public class ExpressionTree {
             }
 
         }
-
-        /*
-         * TODO FILIP: Here, can we see about changing the command object? We already have the
-         * command as a string.
-         * would be much easier to construct the command with the command with the string as a
-         * parameter. Can
-         * most easily then use this when calling the "Make" method of when finding the object is a
-         * constant
-         */
         catch (Exception e) {
             System.out.println("Could not create command of class " + command);
-
             try {
                 System.out.println("Trying to create constant " + command);
                 return new Constant(Double.parseDouble(command));
@@ -121,16 +110,10 @@ public class ExpressionTree {
     }
 
     private void addOtherParameters (Class<?> commandClass, Object o) throws Exception {
-        if (commandClass.getSuperclass().toString().contains("Turtle")) {
-            Method setTurtle = commandClass.getMethod("setTurtle", Turtle.class);
-            setTurtle.invoke(o, myTurtle);
-        }
-        else if (commandClass.getSuperclass().toString().contains("HigherOrder")) {
-            Method addVariableStorage =
-                    commandClass.getMethod("addVariables", ValueVariableStorage.class,
-                                           CommandVariableStorage.class);
-            addVariableStorage.invoke(o, myVariableStorage, myCommandStorage);
-        }
+        Method addOtherParameters =
+                commandClass.getMethod("addOtherParameters", DataStorageManager.class,
+                                       Turtle.class);
+        addOtherParameters.invoke(o, DataStorageManager.get(), myTurtle);
     }
 
     private ListCommand makeCommandList (Queue<String> commandQueue) {

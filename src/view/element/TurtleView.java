@@ -9,9 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.util.Observable;
 import java.util.Observer;
+
 
 /**
  * @author Will Long
@@ -31,7 +31,7 @@ public class TurtleView implements Viewable, Observer {
     private GraphicsContext lineGraphics;
     private ImageView turtle;
 
-    public TurtleView(double width, double height) {
+    public TurtleView (double width, double height) {
         myWidth = width;
         myHeight = height;
 
@@ -47,46 +47,46 @@ public class TurtleView implements Viewable, Observer {
     }
 
     @Override
-    public Node getContent() {
+    public Node getContent () {
         return myContent;
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update (Observable o, Object arg) {
         if (currentState != null) {
             prevState = currentState;
-        } else {
+        }
+        else {
             prevState = (TurtleState) arg;
         }
         currentState = (TurtleState) arg;
         draw();
         return;
     }
-    
-    public void setTurtleImage(String picture_file_path){
-    	
-			turtle.setImage(new Image(picture_file_path));
-			turtle.setFitHeight(TURTLE_SIZE);
-			turtle.setFitWidth(TURTLE_SIZE);
-		} 
-    
-    public void setTurtleImageInit(String picture_file_path){
-    	
-		turtle = new ImageView(new Image(picture_file_path));
-		turtle.setFitHeight(TURTLE_SIZE);
-		turtle.setFitWidth(TURTLE_SIZE);
-	} 
-    
-    
-    public void setBackgroundColor(Color color) {
-        background.setFill(color);
-    }
-    
-    public void setLineColor(Color color){
-    	lineGraphics.setStroke(color);
+
+    public void setTurtleImage (String picture_file_path) {
+
+        turtle.setImage(new Image(picture_file_path));
+        turtle.setFitHeight(TURTLE_SIZE);
+        turtle.setFitWidth(TURTLE_SIZE);
     }
 
-    private void draw() {
+    public void setTurtleImageInit (String picture_file_path) {
+
+        turtle = new ImageView(new Image(picture_file_path));
+        turtle.setFitHeight(TURTLE_SIZE);
+        turtle.setFitWidth(TURTLE_SIZE);
+    }
+
+    public void setBackgroundColor (Color color) {
+        background.setFill(color);
+    }
+
+    public void setLineColor (Color color) {
+        lineGraphics.setStroke(color);
+    }
+
+    private void draw () {
         double x1 = currentState.getPosition().getX();
         double y1 = currentState.getPosition().getY();
         double x2 = prevState.getPosition().getX();
@@ -102,22 +102,21 @@ public class TurtleView implements Viewable, Observer {
         updateTurtleVisibility(currentState.getVisibility());
     }
 
-    private void updateTurtlePosition(double x, double y) {
+    private void updateTurtlePosition (double x, double y) {
         turtle.setTranslateX(x);
         turtle.setTranslateY(y);
     }
 
-    private void drawLine(double x1, double y1, double x2, double y2) {
+    private void drawLine (double x1, double y1, double x2, double y2) {
         lineGraphics.strokeLine(x1 + myWidth / 2, y1 + myHeight / 2,
-                x2 + myWidth / 2, y2 + myHeight / 2);
+                                x2 + myWidth / 2, y2 + myHeight / 2);
     }
 
-    private void updateTurtleHeading(double heading) {
+    private void updateTurtleHeading (double heading) {
         turtle.setRotate(heading + 90);
     }
-    
 
-    private void updateTurtleVisibility(boolean isVisible) {
+    private void updateTurtleVisibility (boolean isVisible) {
         turtle.setVisible(isVisible);
     }
 }

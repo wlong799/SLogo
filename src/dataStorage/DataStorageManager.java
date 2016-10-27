@@ -1,50 +1,47 @@
 package dataStorage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 public class DataStorageManager {
     private int simulationID;
     private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
-    private Map<Integer, SubDataStorageManager> mySubDataStorageManagers;
+    private Turtle myTurtle;
+    private ValueVariableStorage myValueVariableStorage;
+    private CommandHistoryStorage myCommandHistoryStorage;
+    private CommandVariableStorage myCommandVariableStorage;
+    private Notifications myNotifications;
     private static DataStorageManager instance = new DataStorageManager();
 
-    private DataStorageManager() {
+    public DataStorageManager () {
         simulationID = DEFAULT_SIM_ID;
-        mySubDataStorageManagers = new HashMap<>();
-        SubDataStorageManager defaultSubDataStorageManager = new SubDataStorageManager();
-        mySubDataStorageManagers.put(DEFAULT_SIM_ID, defaultSubDataStorageManager);
+        myTurtle = new Turtle();
+        myValueVariableStorage = new ValueVariableStorage();
+        myCommandVariableStorage = new CommandVariableStorage();
+        myCommandHistoryStorage = new CommandHistoryStorage();
+        myNotifications = new Notifications();
     }
 
-    public static DataStorageManager get() {
+    public Turtle getTurtle () {
+        return myTurtle;
+    }
+
+    public Double getVariable (String varName) {
+        return myValueVariableStorage.getVariable(varName);
+    }
+
+    public void setVariable (String varName, double value) {
+        myValueVariableStorage.setVariable(varName, value);
+    }
+
+    public void setCommand (String commandName, List<String> parameterNames, String commandString) {
+        myCommandVariableStorage.setCommand(commandName, parameterNames, commandString);
+    }
+
+    public static DataStorageManager get () {
         return instance;
     }
 
-    public void changeSimulation(int newSimulationID) {
-        if(!(mySubDataStorageManagers.containsKey(newSimulationID))) {
-            SubDataStorageManager newSubDataStorageManager = new SubDataStorageManager();
-            mySubDataStorageManagers.put(newSimulationID, newSubDataStorageManager);
-        }
-        simulationID = newSimulationID;
-    }
-
-    public Turtle getTurtle() {
-        return mySubDataStorageManagers.get(simulationID).getTurtle();
-    }
-
-    public ValueVariableStorage getValueVariableStorage() {
-        return mySubDataStorageManagers.get(simulationID).getValueVariableStorage();
-    }
-
-    public CommandHistoryStorage getCommandHistoryStorage() {
-        return mySubDataStorageManagers.get(simulationID).getCommandHistoryStorage();
-    }
-
-    public CommandVariableStorage getCommandVariableStorage() {
-        return mySubDataStorageManagers.get(simulationID).getCommandVariableStorage();
-    }
-
-    public Notifications getNotifications() {
-        return mySubDataStorageManagers.get(simulationID).getNotifications();
-    }
 }

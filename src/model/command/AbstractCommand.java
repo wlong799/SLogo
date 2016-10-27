@@ -2,6 +2,8 @@ package model.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import dataStorage.DataStorageManager;
+import dataStorage.Turtle;
 
 
 public abstract class AbstractCommand {
@@ -54,6 +56,13 @@ public abstract class AbstractCommand {
             myName.append(" ");
         }
         return myName.toString();
+    }
+    
+    public void addOtherParameters(DataStorageManager data, Turtle turtle){
+        /**
+         * Do nothing here. commands that use the variables will override to
+         * set their instance variables
+         */
     }
 
 }
