@@ -5,7 +5,6 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -15,8 +14,6 @@ import java.util.stream.Collectors;
 import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.*;
-
-import javax.xml.crypto.Data;
 
 
 public class CommandParser {
@@ -61,9 +58,10 @@ public class CommandParser {
         Queue<String> commandQueue = makeCommandQueue(command);
         ExpressionTree completeCommand =
                 new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage);
-        ExpressionNode node = null;
+
+        AbstractCommand rootCommand = null;
         try {
-            node = completeCommand.makeTree(commandQueue);
+            rootCommand = completeCommand.makeTree(commandQueue);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +69,7 @@ public class CommandParser {
             return 0.0;
         }
 
-        return traverse(node);
+        return rootCommand.execute();
 
     }
 
@@ -79,30 +77,30 @@ public class CommandParser {
         String commandString = myCommandStorage.getCommand(command);
         System.out.println(commandString);
         List<String> commandParams = myCommandStorage.getCommandParams(command);
-        System.out.println(commandParams);
         // ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
         // String commandString = "";
         // commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
         List<String> commandQueue = new LinkedList<String>();
 
         for (String s : commandParams) {
+            System.out.println("replace " + s + " with value in " + command);
+            System.out.println("remaining commands " + commands);
             String replacement;
-            if (isVariable(commands.peek())) {
+            if(isVariable(commands.peek())){
                 replacement = commands.poll();
             }
-            else {
-                replacement =
-                        Double.toString(traverse(new ExpressionTree(myTurtle, myVariableStorage,
-                                                                    myCommandStorage)
-                                                                            .makeTree(commands)));
+            else{
+                replacement = Double
+                        .toString((new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
+                                .makeSubTree(commands).execute()));
             }
-            System.out.println("Replacing " + s + " with " + replacement);
             commandString = commandString.replaceAll(s, replacement);
-            System.out.println(commandString);
+
             // myVariableStorage.setVariable(s,
             // traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
             // .makeTree(commands)));
         }
+        System.out.println(commandString);
         Arrays.asList(commandString.split("\n"))
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
                         .collect(Collectors.toList())));
@@ -135,6 +133,9 @@ public class CommandParser {
 
                     if (!symbol.equals("Command") || !DataStorageManager.get()
                             .getCommandVariableStorage().hasCommand(rawCommand)) {
+                        System.out.println("adding " + rawCommand + " to command queue because " +
+                                           (!symbol.equals("command") ? "not a command syntax"
+                                                                      : "not in command storage"));
                         commandQueue.add(rawCommand);
                     }
                     else {
@@ -154,15 +155,6 @@ public class CommandParser {
             }
         }
         return commandQueue;
-    }
-
-    private double traverse (ExpressionNode root) {
-        double output = 0.0;
-        for (int i = 0; i < root.getCommands().size(); i++) {
-            System.out.println(root.getCommands().get(i).getClass());
-            output = root.getCommands().get(i).execute();
-        }
-        return output;
     }
 
     private boolean isVariable (String command) {
