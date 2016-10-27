@@ -72,13 +72,13 @@ public class CommandParser {
 
     }
 
-    private List<String> getUserCommand (String command, Queue<String> commands) throws Exception {
+    private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
         String commandString = myCommandStorage.getCommand(command);
         List<String> commandParams = myCommandStorage.getCommandParams(command);
         // ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
         // String commandString = "";
         // commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
-        List<String> commandQueue = new LinkedList<String>();
+        Queue<String> commandQueue = new LinkedList<String>();
 
         for (String s : commandParams) {
             System.out.println("replace " + s + " with value in " + command);
@@ -100,9 +100,20 @@ public class CommandParser {
         }
         System.out.println(commandString);
         Arrays.asList(commandString.split("\n"))
-                .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
-                        .collect(Collectors.toList())));
-        return commandQueue;
+        .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
+                .collect(Collectors.toList())));
+        Queue<String> finalQueue = new LinkedList<String>();
+        while(!commandQueue.isEmpty()){
+            String comm = commandQueue.poll();
+            if(DataStorageManager.get().getCommandVariableStorage().hasCommand(comm)){
+                commandQueue.addAll(getUserCommand(comm, commandQueue));
+            }
+            else{
+                finalQueue.add(comm);
+            }
+        }
+        
+        return finalQueue;
     }
 
     private Queue<String> makeCommandQueue (String command) {
