@@ -19,7 +19,7 @@ public class DataStorageManager {
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
 
-        Turtle defaultTurtle = new Turtle();
+        Turtle defaultTurtle = new Turtle(DEFAULT_SIM_ID);
         myTurtleStorage.put(DEFAULT_SIM_ID, defaultTurtle);
 
         myActiveIDs = new ArrayList<>();
@@ -30,18 +30,16 @@ public class DataStorageManager {
         return instance;
     }
 
-
     public void changeSimulation(List<Integer> newSimulationIDs) {
         myActiveIDs.clear();
         for(int oneID : newSimulationIDs) {
             if(!(myTurtleStorage.containsKey(oneID))) {
-                myTurtleStorage.put(oneID, new Turtle());
+                myTurtleStorage.put(oneID, new Turtle(oneID));
             }
         }
         myActiveIDs = newSimulationIDs;
     }
 
-    // TODO: how to do this
     public Collection<Turtle> getActiveTurtles() {
         return myTurtleStorage.values();
     }
@@ -60,5 +58,9 @@ public class DataStorageManager {
 
     public Notifications getNotifications() {
         return myNotifications;
+    }
+
+    public double getNumTurtles() {
+        return myTurtleStorage.size();
     }
 }

@@ -6,16 +6,25 @@ import java.util.Observable;
 public class Turtle extends Observable{
 	
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
+    private int myID;
 	
-	/* The dataStorage's current position */
+	/* The Turtle's current position */
 	private Position myPosition;
 	private double myHeading; // use unit circle-style direction
 	
-	/* Current status */
+	/* Pen status */
 	private boolean myPenDown;
+    private double myPenColor;
+    private double myPenSize;
+
+    /* Turtle status */
 	private boolean myTurtleVisible;
-	
-	public Turtle() {
+    private double myShape;
+
+
+	public Turtle(int id) {
+        myID = id;
 		myPosition = new Position(0, 0);
 		myHeading = 90.0;
 		myPenDown = true;
@@ -29,11 +38,14 @@ public class Turtle extends Observable{
         // clearChanged(); // TODO: Was this removed on purpose?
     }
 
-	
-	//
 	//
 	/* Getter and Setter methods */
 	//
+
+    public double getID() {
+        return myID;
+    }
+
 	public Position getPosition() {
 		return myPosition;
 	}
@@ -61,6 +73,22 @@ public class Turtle extends Observable{
         updateAndCallObserver();
 	}
 
+    public double getPenColor() {
+        return myPenColor;
+    }
+
+    public void setPenColor(double newPenColor) {
+        myPenColor = newPenColor;
+    }
+
+    public double getPenSize() {
+        return myPenSize;
+    }
+
+    public void setPenSize(double newPenSize) {
+        myPenSize = newPenSize;
+    }
+
 	public boolean getVisibility() {
 		return myTurtleVisible;
 	}
@@ -69,5 +97,12 @@ public class Turtle extends Observable{
 		myTurtleVisible = isVisible;
         updateAndCallObserver();
 	}
-	
+
+    public void setShape(double newShape) {
+        myShape = newShape;
+    }
+
+    public double getShape() {
+        return myShape;
+    }
 }
