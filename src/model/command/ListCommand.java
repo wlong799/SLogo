@@ -29,12 +29,13 @@ public class ListCommand extends AbstractCommand {
         StringBuilder commandString = new StringBuilder();
         commandString.append("[ ");
         for(AbstractCommand oneCommand : commands) {
-            commandString.append(oneCommand.toString());
+            commandString.append(oneCommand.toString().trim());
+            commandString.append(" ");
         }
-      
-        commandString.append(" ]");
+        String comString = commandString.toString().trim();
+        comString+=" ]";
 
-        return commandString.toString();
+        return comString;
     }
 
 }

@@ -83,12 +83,19 @@ public class CommandParser {
         List<String> commandQueue = new LinkedList<String>();
 
         for (String s : commandParams) {
-            System.out.println("replace " + s + " with value in " + commandString);
+            System.out.println("replace " + s + " with value in " + command);
             System.out.println("remaining commands " + commands);
-            commandString = commandString.replaceAll(s, Double
-                    .toString((new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                            .makeSubTree(commands).execute())));
-           
+            String replacement;
+            if(isVariable(commands.peek())){
+                replacement = commands.poll();
+            }
+            else{
+                replacement = Double
+                        .toString((new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
+                                .makeSubTree(commands).execute()));
+            }
+            commandString = commandString.replaceAll(s, replacement);
+
             // myVariableStorage.setVariable(s,
             // traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
             // .makeTree(commands)));
@@ -125,6 +132,9 @@ public class CommandParser {
 
                     if (!symbol.equals("Command") || !DataStorageManager.get()
                             .getCommandVariableStorage().hasCommand(rawCommand)) {
+                        System.out.println("adding " + rawCommand + " to command queue because " +
+                                           (!symbol.equals("command") ? "not a command syntax"
+                                                                      : "not in command storage"));
                         commandQueue.add(rawCommand);
                     }
                     else {
