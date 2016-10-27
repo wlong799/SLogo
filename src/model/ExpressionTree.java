@@ -2,40 +2,43 @@ package model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Queue;
 import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.AbstractCommand;
-import model.command.Constant;
 import model.command.ListCommand;
-import model.command.Variable;
+import model.command.higherOrderCommands.Variable;
+import model.command.zeroParameter.Constant;
 import java.util.*;
 
 
 public class ExpressionTree {
-
+    private ResourceBundle myCommandPaths;
+    private String myCommandPathsPath = "resources/commandPaths";
     private Turtle myTurtle;
     private ValueVariableStorage myVariableStorage;
     private CommandVariableStorage myCommandStorage;
-    
-    public ExpressionTree (Turtle turtle, ValueVariableStorage variables, CommandVariableStorage commands) {
+
+    public ExpressionTree (Turtle turtle,
+                           ValueVariableStorage variables,
+                           CommandVariableStorage commands) {
         myTurtle = turtle;
         myVariableStorage = variables;
         myCommandStorage = commands;
+        myCommandPaths = ResourceBundle.getBundle(myCommandPathsPath);
     }
-    
-    public AbstractCommand makeTree(Queue<String> commands) throws ClassNotFoundException{
+
+    public AbstractCommand makeTree (Queue<String> commands) throws ClassNotFoundException {
         List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
-        while(!commands.isEmpty()){
+        while (!commands.isEmpty()) {
             commandList.add(makeSubTree(commands));
         }
         return new ListCommand(commandList);
     }
-    
+
     public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException {
         String command = commands.poll();
         System.out.println("parsing string: " + command);
-        //AbstractCommand rootCommands = null;
+        // AbstractCommand rootCommands = null;
         if (command.equals("[")) {
             return makeCommandList(commands);
         }
@@ -46,7 +49,7 @@ public class ExpressionTree {
 
     private AbstractCommand makeCommand (Queue<String> commands, String command) {
         try {
-            Class<?> commandClass = Class.forName("model.command." + command);
+            Class<?> commandClass = Class.forName(myCommandPaths.getString(command));
             Constructor<?> ctor = commandClass.getDeclaredConstructor(List.class);
 
             try {
@@ -62,9 +65,13 @@ public class ExpressionTree {
 
         }
 
-        /* TODO FILIP: Here, can we see about changing the command object? We already have the command as a string.
-         * would be much easier to construct the command with the command with the string as a parameter. Can
-         * most easily then use this when calling the "Make" method of when finding the object is a constant
+        /*
+         * TODO FILIP: Here, can we see about changing the command object? We already have the
+         * command as a string.
+         * would be much easier to construct the command with the command with the string as a
+         * parameter. Can
+         * most easily then use this when calling the "Make" method of when finding the object is a
+         * constant
          */
         catch (Exception e) {
             System.out.println("Could not create command of class " + command);
@@ -120,7 +127,8 @@ public class ExpressionTree {
         }
         else if (commandClass.getSuperclass().toString().contains("HigherOrder")) {
             Method addVariableStorage =
-                    commandClass.getMethod("addVariables", ValueVariableStorage.class, CommandVariableStorage.class);
+                    commandClass.getMethod("addVariables", ValueVariableStorage.class,
+                                           CommandVariableStorage.class);
             addVariableStorage.invoke(o, myVariableStorage, myCommandStorage);
         }
     }
@@ -129,14 +137,14 @@ public class ExpressionTree {
         int openBrackets = 1;
         int closedBrackets = 0;
         System.out.println("Creating command list of " + commandQueue);
-        List<AbstractCommand> commandList = new ArrayList<AbstractCommand>(); 
+        List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
         while (closedBrackets != openBrackets) {
             String next = commandQueue.poll();
             if (next.equals("]")) {
                 closedBrackets++;
             }
             else if (next.equals("[")) {
-                //openBrackets++;
+                // openBrackets++;
                 commandList.add(makeCommandList(commandQueue));
             }
             else {
