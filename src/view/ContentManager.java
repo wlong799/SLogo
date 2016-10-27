@@ -9,5 +9,5 @@ public interface ContentManager {
 
     Parent getContentLayout();
 
-    List<Viewable> getElements();
+    ViewElementManager getElements();
 }

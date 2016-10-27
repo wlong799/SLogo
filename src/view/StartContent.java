@@ -20,7 +20,7 @@ public class StartContent implements ContentManager {
     private double myPaneWidth, myPaneHeight;
 
     private Pane myStartContent;
-    private List<Viewable> myElements;
+    private ViewElementManager myViewElements;
 
     public StartContent(double width, double height) {
         myWidth = width;
@@ -28,12 +28,12 @@ public class StartContent implements ContentManager {
         myPaneWidth = myWidth * BUTTON_PANE_WIDTH_RATIO;
         myPaneHeight = myHeight * BUTTON_PANE_HEIGHT_RATIO;
 
-        myElements = new ArrayList<>();
+        myViewElements = new ViewElementManager();
 
         StartScreen startScreen = new StartScreen(myWidth, myHeight);
         StartButtons startButtons = new StartButtons(myPaneWidth, myPaneHeight);
-        myElements.add(startScreen);
-        myElements.add(startButtons);
+        myViewElements.addElement(startScreen);
+        myViewElements.addElement(startButtons);
 
         myStartContent = new Pane(startScreen.getContent(), createCenteredButtonPane(startButtons));
     }
@@ -44,8 +44,8 @@ public class StartContent implements ContentManager {
     }
 
     @Override
-    public List<Viewable> getElements() {
-        return myElements;
+    public ViewElementManager getElements() {
+        return myViewElements;
     }
 
     private Pane createCenteredButtonPane(StartButtons startButtons) {

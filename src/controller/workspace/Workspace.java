@@ -23,8 +23,7 @@ public class Workspace {
     }
 
     private void setUpInteractions() {
-        ViewModelController vmController = new ViewModelController(myContent.getElements());
-        vmController.setModel(myModel);
+        ViewModelController vmController = new ViewModelController(myContent.getElements(), myModel);
         vmController.setUpInteractions();
 
         ViewViewController vvController = new ViewViewController(myContent.getElements());

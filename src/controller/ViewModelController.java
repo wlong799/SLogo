@@ -2,16 +2,16 @@ package controller;
 
 import dataStorage.*;
 import model.SLogoModel;
+import view.ViewElementManager;
 import view.element.*;
-
-import java.util.List;
 
 
 public class ViewModelController extends InteractionController {
     private SLogoModel myModel;
 
-    public ViewModelController(List<Viewable> elements) {
-        super(elements);
+    public ViewModelController(ViewElementManager viewElements, SLogoModel model) {
+        super(viewElements);
+        myModel = model;
     }
 
     @Override
@@ -25,11 +25,11 @@ public class ViewModelController extends InteractionController {
     }
 
     private void linkVariableStorage() {
-        if (getElementByClass("StoredVariableWindow") == null ||
+        if (myViewElements.getElement("StoredVariableWindow") == null ||
                 DataStorageManager.get().getValueVariableStorage() == null) {
             return;
         }
-        StoredVariableWindow varWindow = (StoredVariableWindow) getElementByClass("StoredVariableWindow");
+        StoredVariableWindow varWindow = (StoredVariableWindow) myViewElements.getElement("StoredVariableWindow");
         ValueVariableStorage varStorage = DataStorageManager.get().getValueVariableStorage();
         varWindow.setObservedList(varStorage.getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
@@ -42,11 +42,11 @@ public class ViewModelController extends InteractionController {
     }
 
     private void linkFunctionStorage() {
-        if (getElementByClass("StoredFunctionWindow") == null ||
+        if (myViewElements.getElement("StoredFunctionWindow") == null ||
                 DataStorageManager.get().getCommandVariableStorage() == null) {
             return;
         }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow) getElementByClass("StoredFunctionWindow");
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow) myViewElements.getElement("StoredFunctionWindow");
         CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
         funcWindow.setObservedList(funcStorage.getCommandVariableList());
     }
@@ -57,10 +57,10 @@ public class ViewModelController extends InteractionController {
 
     private void linkTurtleWithView() {
         Turtle turtle = myModel.getTurtle();
-        if (turtle == null || getElementByClass("TurtleView") == null) {
+        if (turtle == null || myViewElements.getElement("TurtleView") == null) {
             return;
         }
-        TurtleView turtleView = (TurtleView) getElementByClass("TurtleView");
+        TurtleView turtleView = (TurtleView) myViewElements.getElement("TurtleView");
 
         turtle.addObserver(turtleView);
         turtle.setVisibility(true);
@@ -68,10 +68,10 @@ public class ViewModelController extends InteractionController {
 
 
     private void linkTextBoxToParser() {
-        if (myModel.noParser() || getElementByClass("TextEntryBox") == null) {
+        if (myModel.noParser() || myViewElements.getElement("TextEntryBox") == null) {
             return;
         }
-        TextEntryBox textEntryBox = (TextEntryBox) getElementByClass("TextEntryBox");
+        TextEntryBox textEntryBox = (TextEntryBox) myViewElements.getElement("TextEntryBox");
         textEntryBox.setSubmitHandler(event -> {
             String entryText = textEntryBox.getEnteredText().trim();
             if (entryText == null || entryText.length() == 0) {
@@ -82,12 +82,12 @@ public class ViewModelController extends InteractionController {
     }
     
     private void setLanguageChanger(){
-    	if (getElementByClass("SettingsToolBar") == null){
+    	if (myViewElements.getElement("SettingsToolBar") == null){
     		System.out.println("fail");
     		return;
     	}
     	
-    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
+    	SettingsToolBar toolBar = (SettingsToolBar) myViewElements.getElement("SettingsToolBar");
     	toolBar.setLanguageChooserHandler(event -> {myModel.setLanguage(toolBar.getLanguageSelection());
     	System.out.println("success");});
     	System.out.println("success");
@@ -95,11 +95,11 @@ public class ViewModelController extends InteractionController {
     
     private void linkCommandHistory() {
         if (DataStorageManager.get().getCommandHistoryStorage() == null ||
-                getElementByClass("CommandHistoryWindow") == null) {
+                myViewElements.getElement("CommandHistoryWindow") == null) {
             return;
         }
         CommandHistoryStorage chStorage = DataStorageManager.get().getCommandHistoryStorage();
-        CommandHistoryWindow chWindow = (CommandHistoryWindow) getElementByClass("CommandHistoryWindow");
+        CommandHistoryWindow chWindow = (CommandHistoryWindow) myViewElements.getElement("CommandHistoryWindow");
         chWindow.setObservedList(chStorage.getCommandHistoryList());
     }
 

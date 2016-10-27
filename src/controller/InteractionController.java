@@ -1,5 +1,6 @@
 package controller;
 
+import view.ViewElementManager;
 import view.element.Viewable;
 
 import java.util.List;
@@ -11,24 +12,11 @@ import java.util.List;
  */
 public abstract class InteractionController {
 
-    protected List<Viewable> viewables;
+    protected ViewElementManager myViewElements;
 
-    protected InteractionController(List<Viewable> elements) {
-        viewables = elements;
+    protected InteractionController(ViewElementManager viewElements) {
+        myViewElements = viewElements;
     }
 
     public abstract void setUpInteractions();
-
-    protected Viewable getElementByClass(String className) {
-        for (Viewable element : viewables) {
-            if (checkClass(element, className)) {
-                return element;
-            }
-        }
-        return null;
-    }
-
-    protected boolean checkClass(Viewable element, String className) {
-        return element.getClass().getSimpleName().equals(className);
-    }
 }

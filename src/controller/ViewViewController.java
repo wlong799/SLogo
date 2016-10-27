@@ -1,18 +1,19 @@
 package controller;
 
+import view.ViewElementManager;
 import view.element.*;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
 
 public class ViewViewController extends InteractionController {
 
-    public ViewViewController(List<Viewable> elements) {
-        super(elements);
+    public ViewViewController(ViewElementManager viewElements) {
+        super(viewElements);
     }
 
     @Override
@@ -26,11 +27,11 @@ public class ViewViewController extends InteractionController {
     }
 
     private void setClickableFunctionStorage() {
-        if (getElementByClass("StoredFunctionWindow") == null || getElementByClass("TextEntryBox") == null) {
+        if (myViewElements.getElement("StoredFunctionWindow") == null || myViewElements.getElement("TextEntryBox") == null) {
             return;
         }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
-        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow) myViewElements.getElement("StoredFunctionWindow");
+        TextEntryBox textBox = (TextEntryBox) myViewElements.getElement("TextEntryBox");
         funcWindow.setClickEvent(event -> {
             String selectedFunction = funcWindow.getSelectedElement().split("\n")[0];
             textBox.setText(selectedFunction);
@@ -38,11 +39,11 @@ public class ViewViewController extends InteractionController {
     }
 
     private void setClickableCommandHistory() {
-        if (getElementByClass("CommandHistoryWindow") == null || getElementByClass("TextEntryBox") == null) {
+        if (myViewElements.getElement("CommandHistoryWindow") == null || myViewElements.getElement("TextEntryBox") == null) {
             return;
         }
-        CommandHistoryWindow chWindow = (CommandHistoryWindow)getElementByClass("CommandHistoryWindow");
-        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        CommandHistoryWindow chWindow = (CommandHistoryWindow) myViewElements.getElement("CommandHistoryWindow");
+        TextEntryBox textBox = (TextEntryBox) myViewElements.getElement("TextEntryBox");
         chWindow.setClickEvent(event -> {
             String selectedCommand= chWindow.getSelectedElement();
             textBox.setText(selectedCommand);
@@ -50,11 +51,11 @@ public class ViewViewController extends InteractionController {
     }
     
     private void setTurtleImageChanger(){
-    	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
+    	if (myViewElements.getElement("SettingsToolBar") == null || myViewElements.getElement("TurtleView") == null) {
             return;
         }
-    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
-        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
+    	SettingsToolBar toolBar = (SettingsToolBar) myViewElements.getElement("SettingsToolBar");
+        TurtleView turtleView = (TurtleView) myViewElements.getElement("TurtleView");
         toolBar.setAltTurtleImageHandler(new EventHandler<ActionEvent>(){
 
 			@Override
@@ -78,11 +79,11 @@ public class ViewViewController extends InteractionController {
     
 
     private void setLineColorChanger(){
-    	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
+    	if (myViewElements.getElement("SettingsToolBar") == null || myViewElements.getElement("TurtleView") == null) {
             return;
         }
-    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
-        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
+    	SettingsToolBar toolBar = (SettingsToolBar) myViewElements.getElement("SettingsToolBar");
+        TurtleView turtleView = (TurtleView) myViewElements.getElement("TurtleView");
         toolBar.setLineColorPickerHandler(event -> {
             turtleView.setLineColor(toolBar.getSelectedLineColor());
         });
@@ -90,11 +91,11 @@ public class ViewViewController extends InteractionController {
     }
 
     private void setBackgroundColorChanger() {
-        if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
+        if (myViewElements.getElement("SettingsToolBar") == null || myViewElements.getElement("TurtleView") == null) {
             return;
         }
-        SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
-        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
+        SettingsToolBar toolBar = (SettingsToolBar) myViewElements.getElement("SettingsToolBar");
+        TurtleView turtleView = (TurtleView) myViewElements.getElement("TurtleView");
         toolBar.setBackgroundColorPickerHandler(event -> {
             turtleView.setBackgroundColor(toolBar.getSelectedBackgroundColor());
         });

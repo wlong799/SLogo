@@ -1,5 +1,6 @@
 package controller;
 
+import view.ViewElementManager;
 import view.element.StartButtons;
 import view.element.Viewable;
 
@@ -13,14 +14,14 @@ public class StartController extends InteractionController{
 
     SLogoController myController;
 
-    public StartController(List<Viewable> elements, SLogoController controller) {
-        super(elements);
+    public StartController(ViewElementManager viewElements, SLogoController controller) {
+        super(viewElements);
         myController = controller;
     }
 
     @Override
     public void setUpInteractions() {
-        StartButtons buttons = (StartButtons)getElementByClass("StartButtons");
+        StartButtons buttons = (StartButtons)myViewElements.getElement("StartButtons");
         buttons.setStartEvent(event -> {
             myController.createNewWorkspace();
             myController.loadCurrentWorkspace();

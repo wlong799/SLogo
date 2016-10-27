@@ -17,7 +17,7 @@ public class SLogoView {
 
     private Scene myScene;
     private ContentManager myCurrentContentManager;
-    private List<Viewable> myViewables;
+    private ViewElementManager myViewElements;
 
     public SLogoView(double width, double height) {
         myWidth = width;
@@ -29,8 +29,8 @@ public class SLogoView {
         return myScene;
     }
 
-    public List<Viewable> getViewElements() {
-        return myViewables;
+    public ViewElementManager getViewElements() {
+        return myViewElements;
     }
 
     public double getWidth() {
@@ -44,6 +44,6 @@ public class SLogoView {
     public void setCurrentContentManager(ContentManager contentManager) {
         myCurrentContentManager = contentManager;
         myScene.setRoot(myCurrentContentManager.getContentLayout());
-        myViewables = myCurrentContentManager.getElements();
+        myViewElements = myCurrentContentManager.getElements();
     }
 }

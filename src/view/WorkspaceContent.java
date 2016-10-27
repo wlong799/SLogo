@@ -14,7 +14,7 @@ public class WorkspaceContent implements ContentManager {
     private static final double BORDER_RATIO = 0.05;
 
     private ContentGrid myContentGrid;
-    private List<Viewable> myViewables;
+    private ViewElementManager myViewElements;
 
     private double myWidth;
     private double myHeight;
@@ -26,7 +26,8 @@ public class WorkspaceContent implements ContentManager {
         myHeight = height;
         double borderSize = Math.min(myHeight, myWidth) * BORDER_RATIO;
         myContentGrid = new ContentGrid(width, height, borderSize);
-        myViewables = new ArrayList<>();
+        myViewElements = new ViewElementManager();
+
         createMainElement();
         createToolBarElement();
         createHelperPanelElement();
@@ -39,8 +40,8 @@ public class WorkspaceContent implements ContentManager {
     }
 
     @Override
-    public List<Viewable> getElements() {
-        return myViewables;
+    public ViewElementManager getElements() {
+        return myViewElements;
     }
 
     public double getWidth() {
@@ -56,7 +57,7 @@ public class WorkspaceContent implements ContentManager {
         double height = myContentGrid.getToolbarHeight();
         SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
         myContentGrid.addToolBarElement(settingsToolBar);
-        myViewables.add(settingsToolBar);
+        myViewElements.addElement(settingsToolBar);
     }
 
     private void createMainElement() {
@@ -64,14 +65,14 @@ public class WorkspaceContent implements ContentManager {
         double height = myContentGrid.getMainElementHeight();
         TurtleView turtleView = new TurtleView(width, height);
         myContentGrid.addMainElement(turtleView);
-        myViewables.add(turtleView);
+        myViewElements.addElement(turtleView);
     }
 
     private void createHelperPanelElement() {
         double width = myContentGrid.getSidePanelWidth();
         double height = myContentGrid.getSidePanelHeight();
         myHelperPanel = new TabbedHelperPanel(width, height);
-        myViewables.add(myHelperPanel);
+        myViewElements.addElement(myHelperPanel);
         myContentGrid.addSidePanelElement(myHelperPanel);
     }
 
@@ -80,7 +81,7 @@ public class WorkspaceContent implements ContentManager {
         double height = myContentGrid.getBottomBarHeight();
         TextEntryBox textEntryBox = new TextEntryBox(width, height);
         myContentGrid.addBottomBarElement(textEntryBox);
-        myViewables.add(textEntryBox);
+        myViewElements.addElement(textEntryBox);
     }
 
     public void addTab(String tabClass) {
@@ -108,6 +109,6 @@ public class WorkspaceContent implements ContentManager {
             return;
         }
         myHelperPanel.placeElementInNewTab(tab);
-        myViewables.add(tab);
+        myViewElements.addElement(tab);
     }
 }
