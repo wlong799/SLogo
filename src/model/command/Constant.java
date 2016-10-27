@@ -12,21 +12,20 @@ public class Constant extends AbstractCommandZeroParameter{
         myValue = value;
     }
     
-    public Constant(List<ExpressionNode> parameters) {
+    public Constant(List<AbstractCommand> parameters) {
         super(parameters);
-        myValue = parameters.get(0).getCommands().get(0).execute();
+        myValue = parameters.get(0).execute();
     }
 
-    // TODO FILIP: isn't this overkill as all constants should have zero parameters?
-
-    @Override
-    public void addParameters(List<ExpressionNode> parameters){
-        myValue = parameters.get(0).getCommands().get(parameters.get(0).getCommands().size()-1).execute();
-    }
     
     @Override
     public double execute() {
         return myValue;
+    }
+    
+    @Override
+    public String toString() {
+        return Double.toString(myValue);
     }
 }
 

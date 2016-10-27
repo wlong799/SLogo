@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GreaterThan extends AbstractCommandTwoParameterBoolean {
 
-    public GreaterThan(List<ExpressionNode> parameters) {
+    public GreaterThan(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

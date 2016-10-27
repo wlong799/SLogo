@@ -8,7 +8,7 @@ public class IsPenDown extends AbstractCommandZeroParameterTurtle {
     private static final double RETURN_PENDOWN = 1;
     private static final double RETURN_PENUP = 0;
 
-    public IsPenDown(List<ExpressionNode> parameters) {
+    public IsPenDown(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

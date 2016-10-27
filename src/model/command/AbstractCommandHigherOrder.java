@@ -9,7 +9,7 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand{
     private CommandVariableStorage myCommands;
     private ValueVariableStorage myVariables;
     
-    public AbstractCommandHigherOrder (List<ExpressionNode> parameters) {
+    public AbstractCommandHigherOrder (List<AbstractCommand> parameters) {
         super(parameters);
         // TODO Auto-generated constructor stub
     }

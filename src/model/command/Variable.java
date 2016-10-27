@@ -13,7 +13,7 @@ public class Variable extends AbstractCommandHigherOrder {
         myVariableName = name;
     }
 
-    public Variable (List<ExpressionNode> parameters) {
+    public Variable (List<AbstractCommand> parameters) {
         super(parameters);
     }
 

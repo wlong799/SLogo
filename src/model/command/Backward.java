@@ -6,7 +6,7 @@ import model.ExpressionNode;
 
 public class Backward extends AbstractMoveTurtle {
 
-    public Backward(List<ExpressionNode> parameters) {
+    public Backward(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

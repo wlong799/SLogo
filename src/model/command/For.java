@@ -9,7 +9,7 @@ public class For extends AbstractCommandHigherOrder {
 
     // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
 
-    public For (List<ExpressionNode> parameters) {
+    public For (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
@@ -22,22 +22,21 @@ public class For extends AbstractCommandHigherOrder {
      */
     @Override
     public double execute () {
-        String repcount_var = getParameterNodes().get(0).getCommands().get(0).toString();
+        List<AbstractCommand> commandParams = getRawParameters();
+        String repcount_var = commandParams.get(0).toString();
+        List<Double> values = commandParams.get(0).getParameters();
+        double start = values.get(1);
+        double end =   values.get(2);
+        double increment = values.get(3);
 
-        double start = getParameterNodes().get(0).getCommands().get(1).execute();
-        double end =   getParameterNodes().get(0).getCommands().get(2).execute();
-        double increment = getParameterNodes().get(0).getCommands().get(3).execute();
-
-        ExpressionNode codeBlock = getParameterNodes().get(1);
+        AbstractCommand codeBlock = commandParams.get(4);
 
         double returnValue = 0;
 
         for (double repcountVar = start; repcountVar <= end; repcountVar += increment) {
             getVariables().setVariable(repcount_var,
                     repcountVar);
-            for (AbstractCommand command : codeBlock.getCommands()) {
-                returnValue = command.execute();
-            }
+            returnValue = codeBlock.execute();
         }
 
         return returnValue;

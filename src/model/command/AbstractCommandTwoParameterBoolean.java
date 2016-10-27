@@ -11,7 +11,7 @@ public abstract class AbstractCommandTwoParameterBoolean extends AbstractCommand
     protected static final double TRUE_RETURN = 1;
     protected static final double FALSE_RETURN = 0;
 
-    public AbstractCommandTwoParameterBoolean(List<ExpressionNode> parameters) {
+    public AbstractCommandTwoParameterBoolean(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

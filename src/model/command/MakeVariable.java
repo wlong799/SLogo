@@ -8,7 +8,7 @@ import java.util.List;
 public class MakeVariable extends AbstractCommandHigherOrder {
     private String myName;
 
-    public MakeVariable (List<ExpressionNode> parameters) {
+    public MakeVariable (List<AbstractCommand> parameters) {
         super(parameters);
         // TODO: look at Filip comment in expression tree
         //myName = parameters.get(PARAMETER_ONE).getCommands().get(PARAMETER_ONE).toString();  // TODO:
@@ -26,7 +26,7 @@ public class MakeVariable extends AbstractCommandHigherOrder {
 
     @Override
     public double execute () {
-        myName = getParametersAsCommands().get(0).toString();
+        myName = getRawParameters().get(0).toString();
         List<Double> givenParameters = getParameters();
         double varValue = givenParameters.get(1);
 

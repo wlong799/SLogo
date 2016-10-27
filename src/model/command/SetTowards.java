@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class SetTowards extends AbstractCommandTwoParameterTurtle {
-    public SetTowards(List<ExpressionNode> parameters) {
+    public SetTowards(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

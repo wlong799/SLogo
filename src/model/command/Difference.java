@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Difference extends AbstractCommandTwoParameterMath {
-    public Difference(List<ExpressionNode> parameters) {
+    public Difference(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

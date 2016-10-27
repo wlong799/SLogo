@@ -9,7 +9,7 @@ public class PenUp extends AbstractCommandZeroParameterTurtle {
     private static final boolean PEN_DOWN_STATUS = false;
 
 
-    public PenUp(List<ExpressionNode> parameters) {
+    public PenUp(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

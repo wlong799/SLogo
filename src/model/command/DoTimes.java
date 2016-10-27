@@ -10,7 +10,7 @@ public class DoTimes extends AbstractCommandHigherOrder {
 
     // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
 
-    public DoTimes (List<ExpressionNode> parameters) {
+    public DoTimes (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
@@ -23,16 +23,16 @@ public class DoTimes extends AbstractCommandHigherOrder {
      */
     @Override
     public double execute () {
-        double numTimes = getParameterNodes().get(0).getCommands().get(1).execute();
-        String repcount_var = getParameterNodes().get(0).getCommands().get(0).toString();
-        ExpressionNode codeBlock = getParameterNodes().get(1);
+        double numTimes = getRawParameters().get(1).execute();
+        String repcount_var = getRawParameters().get(0).toString();
+        List<AbstractCommand> codeBlock = getRawParameters().subList(2, getRawParameters().size());
 
         double returnValue = 0;
 
         for (double repcountVar = START_REPCOUNT; repcountVar <= numTimes; repcountVar++) {
             getVariables().setVariable(repcount_var,
-                    repcountVar);
-            for (AbstractCommand command : codeBlock.getCommands()) {
+                                       repcountVar);
+            for (AbstractCommand command : codeBlock) {
                 returnValue = command.execute();
             }
         }

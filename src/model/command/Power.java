@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Power extends AbstractCommandTwoParameterMath {
-    public Power(List<ExpressionNode> parameters) {
+    public Power(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

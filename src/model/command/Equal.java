@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Equal extends AbstractCommandTwoParameterBoolean {
 
-    public Equal(List<ExpressionNode> parameters) {
+    public Equal(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

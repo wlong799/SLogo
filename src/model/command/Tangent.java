@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Tangent extends AbstractCommandOneParameterMath {
-    public Tangent(List<ExpressionNode> parameters) {
+    public Tangent(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class And extends AbstractCommandTwoParameterBoolean {
 
-    public And(List<ExpressionNode> parameters) {
+    public And(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

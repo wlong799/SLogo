@@ -9,7 +9,7 @@ abstract class AbstractCommandOneParameterTurtle extends AbstractCommandOneParam
 
     protected Turtle myTurtle;
 
-    public AbstractCommandOneParameterTurtle(List<ExpressionNode> parameters) {
+    public AbstractCommandOneParameterTurtle(List<AbstractCommand> parameters) {
         super(parameters);
         //myTurtle = DataStorageManager.get().getTurtle();
     }

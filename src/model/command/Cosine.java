@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Cosine extends AbstractCommandOneParameterMath {
-    public Cosine(List<ExpressionNode> parameters) {
+    public Cosine(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class ArcTangent extends AbstractCommandOneParameterMath {
-    public ArcTangent(List<ExpressionNode> parameters) {
+    public ArcTangent(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

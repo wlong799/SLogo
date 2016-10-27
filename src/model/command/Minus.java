@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Minus extends AbstractCommandOneParameterMath {
-    public Minus(List<ExpressionNode> parameters) {
+    public Minus(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

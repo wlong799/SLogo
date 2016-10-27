@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class NaturalLog extends AbstractCommandOneParameterMath {
-    public NaturalLog(List<ExpressionNode> parameters) {
+    public NaturalLog(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

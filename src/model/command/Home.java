@@ -9,7 +9,7 @@ import model.command.SetPosition;
 
 public class Home extends AbstractTeleportHomeTurtle {
 
-    public Home(List<ExpressionNode> parameters) {
+    public Home(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

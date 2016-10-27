@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Random extends AbstractCommandOneParameterMath {
-    public Random(List<ExpressionNode> parameters) {
+    public Random(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

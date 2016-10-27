@@ -11,7 +11,7 @@ abstract class AbstractCommandThreeParameter extends AbstractCommand {
     static final int PARAMETER_TWO = 1;
     static final int PARAMETER_THREE = 2;
 
-    AbstractCommandThreeParameter(List<ExpressionNode> parameters) {
+    AbstractCommandThreeParameter(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

@@ -7,24 +7,20 @@ import java.util.List;
 
 public class If extends AbstractCommandTwoParameter {
     // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
-    private List<ExpressionNode> myNodes;
 
-    public If(List<ExpressionNode> parameters) {
+    public If(List<AbstractCommand> parameters) {
         super(parameters);
-        myNodes = parameters;
     }
 
     @Override
     public double execute() {
         double returnValue = 0;
-
-        double expr = myNodes.get(PARAMETER_ONE).getCommands().get(PARAMETER_ONE).execute();
-        ExpressionNode codeBlock = myNodes.get(PARAMETER_TWO);
+        List<AbstractCommand> commandParams = getRawParameters();
+        double expr = commandParams.get(PARAMETER_ONE).execute();
+        AbstractCommand codeBlock = commandParams.get(PARAMETER_TWO);
 
         if(expr != 0) {
-            for(AbstractCommand command : codeBlock.getCommands()){
-                returnValue = command.execute();
-            }
+                returnValue = codeBlock.execute();
         }
 
         return returnValue;

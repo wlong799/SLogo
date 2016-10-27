@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public abstract class AbstractCommandOneParameterMath extends AbstractCommandOneParameter {
-    public AbstractCommandOneParameterMath(List<ExpressionNode> parameters) {
+    public AbstractCommandOneParameterMath(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

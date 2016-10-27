@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class YCoordinate extends AbstractCommandZeroParameterTurtle {
-    public YCoordinate(List<ExpressionNode> parameters) {
+    public YCoordinate(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

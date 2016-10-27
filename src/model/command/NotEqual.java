@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NotEqual extends AbstractCommandTwoParameterBoolean {
 
-    public NotEqual(List<ExpressionNode> parameters) {
+    public NotEqual(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

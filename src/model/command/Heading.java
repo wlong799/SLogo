@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Heading extends AbstractCommandZeroParameterTurtle {
-    public Heading(List<ExpressionNode> parameters) {
+    public Heading(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

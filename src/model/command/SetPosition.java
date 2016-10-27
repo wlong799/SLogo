@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SetPosition extends AbstractCommandTwoParameterTurtle {
-    public SetPosition(List<ExpressionNode> parameters) {
+    public SetPosition(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Sine extends AbstractCommandOneParameterMath {
-    public Sine(List<ExpressionNode> parameters) {
+    public Sine(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

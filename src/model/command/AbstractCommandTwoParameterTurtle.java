@@ -10,7 +10,7 @@ public abstract class AbstractCommandTwoParameterTurtle extends AbstractCommandT
 
     protected Turtle myTurtle;
 
-    AbstractCommandTwoParameterTurtle(List<ExpressionNode> parameters) {
+    AbstractCommandTwoParameterTurtle(List<AbstractCommand> parameters) {
         super(parameters);
         //myTurtle = DataStorageManager.get().getTurtle();
     }

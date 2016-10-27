@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Pi extends AbstractCommandZeroParameter {
-    public Pi(List<ExpressionNode> parameters) {
+    public Pi(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

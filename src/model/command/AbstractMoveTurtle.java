@@ -7,7 +7,7 @@ import java.util.List;
 
 abstract class AbstractMoveTurtle extends AbstractCommandOneParameterTurtle {
 
-    AbstractMoveTurtle(List<ExpressionNode> parameters) {
+    AbstractMoveTurtle(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

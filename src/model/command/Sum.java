@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Sum extends AbstractCommandTwoParameterMath {
-    public Sum(List<ExpressionNode> parameters) {
+    public Sum(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

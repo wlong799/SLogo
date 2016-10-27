@@ -8,7 +8,7 @@ public class ShowTurtle extends AbstractCommandZeroParameterTurtle {
     private static final double VISIBILITY_RETURN = 1;
     private static final boolean VISIBILITY_STATUS = true;
 
-    public ShowTurtle(List<ExpressionNode> parameters) {
+    public ShowTurtle(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

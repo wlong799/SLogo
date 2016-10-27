@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Quotient extends AbstractCommandTwoParameterMath {
-    public Quotient(List<ExpressionNode> parameters) {
+    public Quotient(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

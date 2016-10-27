@@ -8,7 +8,7 @@ public class IsShowing extends AbstractCommandZeroParameterTurtle {
     private static final double RETURN_SHOWING = 1;
     private static final double RETURN_NOT_SHOWING = 0;
 
-    public IsShowing(List<ExpressionNode> parameters) {
+    public IsShowing(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

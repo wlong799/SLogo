@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Or extends AbstractCommandTwoParameterBoolean {
 
-    public Or(List<ExpressionNode> parameters) {
+    public Or(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

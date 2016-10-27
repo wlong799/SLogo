@@ -9,7 +9,7 @@ public abstract class AbstractCommandTwoParameter extends AbstractCommand {
     static final int PARAMETER_ONE = 0;
     static final int PARAMETER_TWO = 1;
 
-    public AbstractCommandTwoParameter(List<ExpressionNode> parameters) {
+    public AbstractCommandTwoParameter(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

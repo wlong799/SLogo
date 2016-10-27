@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LessThan extends AbstractCommandTwoParameterBoolean {
 
-    public LessThan(List<ExpressionNode> parameters) {
+    public LessThan(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

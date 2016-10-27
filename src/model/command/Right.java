@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Right extends AbstractTurnTurtle {
 
-    public Right(List<ExpressionNode> parameters) {
+    public Right(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

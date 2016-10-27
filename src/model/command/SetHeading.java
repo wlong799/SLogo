@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SetHeading extends AbstractTurnTurtle{
 
-    public SetHeading(List<ExpressionNode> parameters) {
+    public SetHeading(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

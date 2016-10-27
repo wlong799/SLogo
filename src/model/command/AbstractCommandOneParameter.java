@@ -8,7 +8,7 @@ public abstract class AbstractCommandOneParameter extends AbstractCommand {
     private static final int NUM_PARAMETERS = 1;
     static final int PARAMETER_ONE = 0;
 
-    public AbstractCommandOneParameter(List<ExpressionNode> parameters) {
+    public AbstractCommandOneParameter(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

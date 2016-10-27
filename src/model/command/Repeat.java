@@ -10,11 +10,9 @@ public class Repeat extends AbstractCommandHigherOrder {
     private static final double START_REPCOUNT = 1;
 
     // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
-    private List<ExpressionNode> myNodes;
 
-    public Repeat (List<ExpressionNode> parameters) {
+    public Repeat (List<AbstractCommand> parameters) {
         super(parameters);
-        myNodes = parameters;
     }
 
     /**
@@ -26,17 +24,16 @@ public class Repeat extends AbstractCommandHigherOrder {
      */
     @Override
     public double execute () {
-        double numTimes = getParametersAsCommands().get(0).execute();
-
-        ExpressionNode codeBlock = myNodes.get(1);
+        double numTimes = getRawParameters().get(0).execute();
+        
+        AbstractCommand command = getRawParameters().get(1);
+        //ExpressionNode codeBlock = myNodes.get(1);
         double returnValue = 0;
 
         for (double repcountVar = START_REPCOUNT; repcountVar <= numTimes; repcountVar++) {
             getVariables().setVariable(REPCOUNT_VAR,
                                                                            repcountVar);
-            for (AbstractCommand command : codeBlock.getCommands()) {
-                returnValue = command.execute();
-            }
+            returnValue = command.execute();
         }
 
         return returnValue;

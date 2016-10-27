@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Remainder extends AbstractCommandTwoParameterMath {
-    public Remainder(List<ExpressionNode> parameters) {
+    public Remainder(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

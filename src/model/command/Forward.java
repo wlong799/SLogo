@@ -6,7 +6,7 @@ import model.ExpressionNode;
 
 public class Forward extends AbstractMoveTurtle {
 
-    public Forward(List<ExpressionNode> parameters) {
+    public Forward(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

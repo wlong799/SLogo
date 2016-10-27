@@ -7,7 +7,7 @@ import java.util.List;
 abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
     private static final double CIRCLE_DEGREES = 360;
 
-    AbstractTurnTurtle(List<ExpressionNode> parameters) {
+    AbstractTurnTurtle(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

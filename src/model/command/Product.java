@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Product extends AbstractCommandTwoParameterMath {
-    public Product(List<ExpressionNode> parameters) {
+    public Product(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

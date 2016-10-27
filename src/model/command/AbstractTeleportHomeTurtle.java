@@ -10,7 +10,7 @@ public abstract class AbstractTeleportHomeTurtle extends AbstractCommandZeroPara
     private static final double HOME_X = 0;
     private static final double HOME_Y = 0;
 
-    public AbstractTeleportHomeTurtle(List<ExpressionNode> parameters) {
+    public AbstractTeleportHomeTurtle(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

@@ -9,7 +9,7 @@ import model.command.SetPosition;
 
 public class ClearScreen extends AbstractTeleportHomeTurtle {
 
-    public ClearScreen(List<ExpressionNode> parameters) {
+    public ClearScreen(List<AbstractCommand> parameters) {
         super(parameters);
     }
 
