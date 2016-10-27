@@ -1,51 +1,64 @@
 package dataStorage;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DataStorageManager {
-    private int simulationID;
-    private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
-    private Map<Integer, SubDataStorageManager> mySubDataStorageManagers;
+    private ValueVariableStorage myValueVariableStorage;
+    private CommandHistoryStorage myCommandHistoryStorage;
+    private CommandVariableStorage myCommandVariableStorage;
+    private Notifications myNotifications;
+
+    private List<Integer> myActiveIDs;
+    private static final int DEFAULT_SIM_ID = 1; // default simulation when starting
+    private Map<Integer, Turtle> myTurtleStorage;
     private static DataStorageManager instance = new DataStorageManager();
 
     private DataStorageManager() {
-        simulationID = DEFAULT_SIM_ID;
-        mySubDataStorageManagers = new HashMap<>();
-        SubDataStorageManager defaultSubDataStorageManager = new SubDataStorageManager();
-        mySubDataStorageManagers.put(DEFAULT_SIM_ID, defaultSubDataStorageManager);
+        myValueVariableStorage = new ValueVariableStorage();
+        myCommandVariableStorage = new CommandVariableStorage();
+        myCommandHistoryStorage = new CommandHistoryStorage();
+        myNotifications = new Notifications();
+
+        Turtle defaultTurtle = new Turtle();
+        myTurtleStorage.put(DEFAULT_SIM_ID, defaultTurtle);
+
+        myActiveIDs = new ArrayList<>();
+        myActiveIDs.add(DEFAULT_SIM_ID);
     }
 
     public static DataStorageManager get() {
         return instance;
     }
 
-    // TODO: allow accepting multiple simulationID's
-    public void changeSimulation(int newSimulationID) {
-        if(!(mySubDataStorageManagers.containsKey(newSimulationID))) {
-            SubDataStorageManager newSubDataStorageManager = new SubDataStorageManager();
-            mySubDataStorageManagers.put(newSimulationID, newSubDataStorageManager);
+
+    public void changeSimulation(List<Integer> newSimulationIDs) {
+        myActiveIDs.clear();
+        for(int oneID : newSimulationIDs) {
+            if(!(myTurtleStorage.containsKey(oneID))) {
+                myTurtleStorage.put(oneID, new Turtle());
+            }
         }
-        simulationID = newSimulationID;
+        myActiveIDs = newSimulationIDs;
     }
 
-    public Turtle getTurtle() {
-        return mySubDataStorageManagers.get(simulationID).getTurtle();
+    // TODO: how to do this
+    public Collection<Turtle> getActiveTurtles() {
+        return myTurtleStorage.values();
     }
 
     public ValueVariableStorage getValueVariableStorage() {
-        return mySubDataStorageManagers.get(simulationID).getValueVariableStorage();
+        return myValueVariableStorage;
     }
 
     public CommandHistoryStorage getCommandHistoryStorage() {
-        return mySubDataStorageManagers.get(simulationID).getCommandHistoryStorage();
+        return myCommandHistoryStorage;
     }
 
     public CommandVariableStorage getCommandVariableStorage() {
-        return mySubDataStorageManagers.get(simulationID).getCommandVariableStorage();
+        return myCommandVariableStorage;
     }
 
     public Notifications getNotifications() {
-        return mySubDataStorageManagers.get(simulationID).getNotifications();
+        return myNotifications;
     }
 }
