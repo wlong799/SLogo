@@ -6,7 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 /**
- * Sets up
+ * Sets up layout of workspace using a grid.
  */
 public class ContentGrid implements Viewable {
     private static final double TOOLBAR_RATIO = 0.1;

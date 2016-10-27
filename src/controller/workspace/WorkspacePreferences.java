@@ -8,7 +8,7 @@ import java.util.List;
  * Responsible for loading the initial preferences of a workspace.
  */
 public class WorkspacePreferences {
-    private static final String VIEW_ELEMENT_PACKAGE_PREFIX = "view.element.";
+    private static final String VIEW_ELEMENT_PACKAGE_PREFIX = "view.panel.";
     private static final String[] DEFAULT_OPEN_TABS =
             {"CommandHistoryWindow",
                     "StoredFunctionWindow",

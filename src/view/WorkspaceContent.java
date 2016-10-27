@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
+import view.toolbar.SettingsMenu;
 import view.toolbar.SettingsToolBar;
 import view.turtle.TurtleView;
 
@@ -56,9 +57,10 @@ public class WorkspaceContent implements ContentManager {
     private void createToolBarElement() {
         double width = myContentGrid.getToolbarWidth();
         double height = myContentGrid.getToolbarHeight();
-        SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
-        myContentGrid.addToolBarElement(settingsToolBar);
-        myViewElements.addElement(settingsToolBar);
+        myContentGrid.addToolBarElement(new SettingsMenu(width, height));
+        //SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
+        //myContentGrid.addToolBarElement(settingsToolBar);
+        //myViewElements.addElement(settingsToolBar);
     }
 
     private void createMainElement() {
