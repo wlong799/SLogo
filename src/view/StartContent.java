@@ -7,9 +7,9 @@ import javafx.scene.layout.Pane;
 import view.element.StartButtons;
 import view.element.StartScreen;
 import view.element.Viewable;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class StartContent implements ContentManager {
     private static final double BUTTON_PANE_OFFSET_RATIO = 0.80;
@@ -22,7 +22,7 @@ public class StartContent implements ContentManager {
     private Pane myStartContent;
     private List<Viewable> myElements;
 
-    public StartContent(double width, double height) {
+    public StartContent (double width, double height) {
         myWidth = width;
         myHeight = height;
         myPaneWidth = myWidth * BUTTON_PANE_WIDTH_RATIO;
@@ -39,16 +39,16 @@ public class StartContent implements ContentManager {
     }
 
     @Override
-    public Parent getContentLayout() {
+    public Parent getContentLayout () {
         return myStartContent;
     }
 
     @Override
-    public List<Viewable> getElements() {
+    public List<Viewable> getElements () {
         return myElements;
     }
 
-    private Pane createCenteredButtonPane(StartButtons startButtons) {
+    private Pane createCenteredButtonPane (StartButtons startButtons) {
         Pane pane = new Pane(startButtons.getContent());
         double widthOffset = (myWidth - myPaneWidth) / 2;
         double heightOffset = (myHeight * BUTTON_PANE_OFFSET_RATIO);
