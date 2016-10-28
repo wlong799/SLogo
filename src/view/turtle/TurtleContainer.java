@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import view.ViewElement;
+import view.GUIElement;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -17,7 +17,7 @@ import java.util.Observer;
 /**
  * Container for all current turtles and the lines they've drawn
  */
-public class TurtleContainer extends ViewElement implements Observer {
+public class TurtleContainer extends GUIElement implements Observer {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";

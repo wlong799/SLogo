@@ -5,9 +5,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import view.ViewElement;
+import view.GUIElement;
 
-public class StartButtons extends ViewElement {
+public class StartButtons extends GUIElement {
     private static final double PADDING_RATIO = 0.05;
     private static final double NUM_BUTTONS = 2;
     private static final String NEW_BUTTON_TITLE = "New Workspace";

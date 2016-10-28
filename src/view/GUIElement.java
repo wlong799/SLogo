@@ -1,18 +1,16 @@
 package view;
 
-import view.Viewable;
-
 /**
  * Abstract class for all other elements in view to inherit from.
  */
-public abstract class ViewElement implements Viewable {
+public abstract class GUIElement implements Viewable {
     protected double myWidth, myHeight;
 
-    public ViewElement() {
+    public GUIElement() {
         this(-1, -1);
     }
 
-    public ViewElement(double width, double height) {
+    public GUIElement(double width, double height) {
         myWidth = width;
         myHeight = height;
     }

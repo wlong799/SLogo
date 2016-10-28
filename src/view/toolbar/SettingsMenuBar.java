@@ -11,7 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import view.ViewElement;
+import view.GUIElement;
 
 import java.awt.*;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SettingsMenuBar extends ViewElement {
+public class SettingsMenuBar extends GUIElement {
     private ResourceBundle myUIElements;
     private String myUIElementsPath = "resources/myUIElements";
     private MenuBar myMenuBar;
@@ -35,14 +35,8 @@ public class SettingsMenuBar extends ViewElement {
 
     public SettingsMenuBar() {
         myUIElements = ResourceBundle.getBundle(myUIElementsPath);
-
         myMenuBar = new MenuBar();
-        Menu menuFile = new Menu("File");
-        Menu menuView = new Menu("View");
-        Menu menuWindows = new Menu("Windows");
-        Menu menuHelp = new Menu("Help");
-        myMenuBar.getMenus().addAll(menuFile, menuView, menuWindows, menuHelp);
-
+/*
         myLineColorPicker = new ColorPicker(Color.BLACK);
         MenuItem myLineColorPickerItem = new MenuItem(null, myLineColorPicker);
         menuView.getItems().add(myLineColorPickerItem);
@@ -63,12 +57,16 @@ public class SettingsMenuBar extends ViewElement {
         helpButton = createButton("helpButton");
         MenuItem helpButtonItem = new MenuItem(null, helpButton);
         setHelpButtonHandler();
-        menuHelp.getItems().add(helpButtonItem);
+        menuHelp.getItems().add(helpButtonItem);*/
     }
 
     @Override
     public Node getContent() {
         return myMenuBar;
+    }
+
+    public void addMenu(AbstractMenu element) {
+        myMenuBar.getMenus().add(element.getMenu());
     }
 
     private ComboBox<String> createComboBox(String description, int numberOfOptions) {

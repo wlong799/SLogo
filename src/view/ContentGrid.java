@@ -11,7 +11,7 @@ import view.turtle.TurtleContainer;
 /**
  * Sets up layout of workspace using a grid.
  */
-public class ContentGrid extends ViewElement {
+public class ContentGrid extends GUIElement {
     private static final double MAIN_PANEL_WIDTH_RATIO = 0.70;
     private static final double MAIN_PANEL_HEIGHT_RATIO = 0.85;
     private static final double PADDING_RATIO = 0.02;

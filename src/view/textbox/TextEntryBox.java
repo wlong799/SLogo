@@ -7,13 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import view.ViewElement;
+import view.GUIElement;
 
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class TextEntryBox extends ViewElement {
+public class TextEntryBox extends GUIElement {
     private static final double TEXT_BOX_RATIO = 0.80;
     private static final double PADDING_RATIO = 0.05;
     private static final String SUBMIT_TEXT = "SUBMIT";

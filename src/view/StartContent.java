@@ -14,7 +14,7 @@ public class StartContent implements ContentManager {
     private double myPaneWidth, myPaneHeight;
 
     private Pane myStartContent;
-    private ViewElementManager myViewElements;
+    private ElementManager myViewElements;
 
     public StartContent(double width, double height) {
         myWidth = width;
@@ -22,7 +22,7 @@ public class StartContent implements ContentManager {
         myPaneWidth = myWidth * BUTTON_PANE_WIDTH_RATIO;
         myPaneHeight = myHeight * BUTTON_PANE_HEIGHT_RATIO;
 
-        myViewElements = new ViewElementManager();
+        myViewElements = new ElementManager();
 
         StartScreen startScreen = new StartScreen(myWidth, myHeight);
         StartButtons startButtons = new StartButtons(myPaneWidth, myPaneHeight);
@@ -38,7 +38,7 @@ public class StartContent implements ContentManager {
     }
 
     @Override
-    public ViewElementManager getElements() {
+    public ElementManager getElements() {
         return myViewElements;
     }
 

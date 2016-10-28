@@ -6,5 +6,5 @@ public interface ContentManager {
 
     Parent getContentLayout();
 
-    ViewElementManager getElements();
+    ElementManager getElements();
 }

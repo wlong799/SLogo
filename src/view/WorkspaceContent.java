@@ -4,7 +4,10 @@ import javafx.scene.Parent;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
+import view.toolbar.FileMenu;
+import view.toolbar.HelpMenu;
 import view.toolbar.SettingsMenuBar;
+import view.toolbar.ViewMenu;
 import view.turtle.TurtleContainer;
 
 /**
@@ -15,7 +18,7 @@ public class WorkspaceContent implements ContentManager {
     private static final double BORDER_RATIO = 0.03;
 
     private ContentGrid myContentGrid;
-    private ViewElementManager myViewElements;
+    private ElementManager myElements;
 
     private double myWidth;
     private double myHeight;
@@ -30,7 +33,7 @@ public class WorkspaceContent implements ContentManager {
         myHeight = height;
         double borderSize = Math.min(myHeight, myWidth) * BORDER_RATIO;
         myContentGrid = new ContentGrid(width, height, borderSize);
-        myViewElements = new ViewElementManager();
+        myElements = new ElementManager();
 
         initializeSettingsMenu();
         initializeTurtleView();
@@ -44,8 +47,8 @@ public class WorkspaceContent implements ContentManager {
     }
 
     @Override
-    public ViewElementManager getElements() {
-        return myViewElements;
+    public ElementManager getElements() {
+        return myElements;
     }
 
     public double getWidth() {
@@ -58,11 +61,17 @@ public class WorkspaceContent implements ContentManager {
 
     private void initializeSettingsMenu() {
         mySettingsMenuBar = new SettingsMenuBar();
+        FileMenu fileMenu = new FileMenu();
+        ViewMenu viewMenu = new ViewMenu();
+        HelpMenu helpMenu = new HelpMenu();
+        mySettingsMenuBar.addMenu(fileMenu);
+        mySettingsMenuBar.addMenu(viewMenu);
+        mySettingsMenuBar.addMenu(helpMenu);
         myContentGrid.addMenu(mySettingsMenuBar);
-        myViewElements.addElement(mySettingsMenuBar);
-        //SettingsMenuBar settingsToolBar = new SettingsMenuBar(width, height);
-        //myContentGrid.addMenu(settingsToolBar);
-        //myViewElements.addElement(settingsToolBar);
+        myElements.addElement(mySettingsMenuBar);
+        myElements.addElement(fileMenu);
+        myElements.addElement(viewMenu);
+        myElements.addElement(helpMenu);
     }
 
     private void initializeTurtleView() {
@@ -70,14 +79,14 @@ public class WorkspaceContent implements ContentManager {
         double height = myContentGrid.getTurtleViewHeight();
         myTurtleContainer = new TurtleContainer(width, height);
         myContentGrid.addTurtleView(myTurtleContainer);
-        myViewElements.addElement(myTurtleContainer);
+        myElements.addElement(myTurtleContainer);
     }
 
     private void initializeHelperPanel() {
         double width = myContentGrid.getHelperPanelWidth();
         double height = myContentGrid.getHelperPanelHeight();
         myHelperPanel = new TabbedHelperPanel(width, height);
-        myViewElements.addElement(myHelperPanel);
+        myElements.addElement(myHelperPanel);
         myContentGrid.addHelperPanel(myHelperPanel);
     }
 
@@ -86,7 +95,7 @@ public class WorkspaceContent implements ContentManager {
         double height = myContentGrid.getTextBoxHeight();
         TextEntryBox textEntryBox = new TextEntryBox(width, height);
         myContentGrid.addTextBox(textEntryBox);
-        myViewElements.addElement(textEntryBox);
+        myElements.addElement(textEntryBox);
     }
 
     public void addTab(String tabClass) {
@@ -114,6 +123,6 @@ public class WorkspaceContent implements ContentManager {
             return;
         }
         myHelperPanel.placeElementInNewTab(tab);
-        myViewElements.addElement(tab);
+        myElements.addElement(tab);
     }
 }

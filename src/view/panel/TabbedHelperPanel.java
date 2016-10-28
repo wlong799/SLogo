@@ -3,9 +3,9 @@ package view.panel;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import view.ViewElement;
+import view.GUIElement;
 
-public class TabbedHelperPanel extends ViewElement {
+public class TabbedHelperPanel extends GUIElement {
 
     private TabPane myTabContainer;
 

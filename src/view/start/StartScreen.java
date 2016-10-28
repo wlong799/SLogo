@@ -3,13 +3,13 @@ package view.start;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import view.ViewElement;
+import view.GUIElement;
 
 
 /**
  * Starting screen responsible for loading the initial workspace.
  */
-public class StartScreen extends ViewElement {
+public class StartScreen extends GUIElement {
     private static final String IMAGE_LOCATION = "resources/slogo.png";
 
     private ImageView mySplashScreen;

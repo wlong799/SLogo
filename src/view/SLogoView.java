@@ -12,7 +12,7 @@ public class SLogoView {
 
     private Scene myScene;
     private ContentManager myCurrentContentManager;
-    private ViewElementManager myViewElements;
+    private ElementManager myViewElements;
 
     public SLogoView(double width, double height) {
         myWidth = width;
@@ -24,7 +24,7 @@ public class SLogoView {
         return myScene;
     }
 
-    public ViewElementManager getViewElements() {
+    public ElementManager getViewElements() {
         return myViewElements;
     }
 
