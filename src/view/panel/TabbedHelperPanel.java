@@ -1,31 +1,26 @@
-package view.element;
+package view.panel;
 
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import view.GUIElement;
 
-/**
- * @author Will Long
- * @version 10/19/16
- */
-public class TabbedHelperPanel implements Viewable {
+public class TabbedHelperPanel extends GUIElement {
 
     private TabPane myTabContainer;
 
-    private double myWidth, myHeight;
-
     public TabbedHelperPanel(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-
+        super(width, height);
         myTabContainer = new TabPane();
         myTabContainer.setPrefWidth(myWidth);
         myTabContainer.setPrefHeight(myHeight);
         myTabContainer.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
     }
 
-    public void placeElementInNewTab(String tabName, Viewable element) {
-        Tab newTab = new Tab(tabName, element.getContent());
+    public void placeElementInNewTab(TabElement newTabElement) {
+        String tabName = newTabElement.getTabName();
+        Node tabContent = newTabElement.getContent();
+        Tab newTab = new Tab(tabName, tabContent);
         myTabContainer.getTabs().add(newTab);
     }
 

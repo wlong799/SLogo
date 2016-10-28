@@ -17,6 +17,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import view.Viewable;
 
 
 public class SettingsToolBar implements Viewable {

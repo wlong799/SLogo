@@ -1,26 +1,26 @@
-package view.element;
+package view.start;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import view.GUIElement;
 
-public class StartButtons implements Viewable {
+public class StartButtons extends GUIElement {
     private static final double PADDING_RATIO = 0.05;
     private static final double NUM_BUTTONS = 2;
     private static final String NEW_BUTTON_TITLE = "New Workspace";
     private static final String LOAD_BUTTON_TITLE = "Load Workspace";
 
-    private double myWidth, myHeight, myPadding;
+    private double myPadding;
 
     private HBox buttonContainer;
     private Button newWorkspaceButton, loadWorkspaceButton;
 
     public StartButtons(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-        myPadding = width * PADDING_RATIO;
+        super(width, height);
+        myPadding = myWidth * PADDING_RATIO;
 
         buttonContainer = new HBox(myPadding);
 

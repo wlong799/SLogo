@@ -2,16 +2,21 @@ package controller;
 
 import dataStorage.*;
 import model.SLogoModel;
-import view.element.*;
-
-import java.util.List;
+import view.ElementManager;
+import view.panel.CommandHistoryWindow;
+import view.panel.StoredFunctionWindow;
+import view.panel.StoredVariableWindow;
+import view.textbox.TextEntryBox;
+import view.toolbar.SettingsMenuBar;
+import view.turtle.TurtleContainer;
 
 
 public class ViewModelController extends InteractionController {
     private SLogoModel myModel;
 
-    public ViewModelController(List<Viewable> elements) {
-        super(elements);
+    public ViewModelController(ElementManager viewElements, SLogoModel model) {
+        super(viewElements);
+        myModel = model;
     }
 
     @Override
@@ -21,17 +26,17 @@ public class ViewModelController extends InteractionController {
         linkCommandHistory();
         linkFunctionStorage();
         linkVariableStorage();
-        setLanguageChanger();
+        //setLanguageChanger();
     }
 
     private void linkVariableStorage() {
-        if (getElementByClass("StoredVariableWindow") == null ||
+        if (myViewElements.getGUIElement("StoredVariableWindow") == null ||
                 DataStorageManager.get().getValueVariableStorage() == null) {
             return;
         }
-        StoredVariableWindow varWindow = (StoredVariableWindow) getElementByClass("StoredVariableWindow");
+        StoredVariableWindow varWindow = (StoredVariableWindow) myViewElements.getGUIElement("StoredVariableWindow");
         ValueVariableStorage varStorage = DataStorageManager.get().getValueVariableStorage();
-        varWindow.setStoredVariableList(varStorage.getVariableList());
+        varWindow.setObservedList(varStorage.getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
         varWindow.setEditedEvent(event -> {
             String[] newVals = event.getNewValue().split("\\s+");
@@ -42,13 +47,13 @@ public class ViewModelController extends InteractionController {
     }
 
     private void linkFunctionStorage() {
-        if (getElementByClass("StoredFunctionWindow") == null ||
+        if (myViewElements.getGUIElement("StoredFunctionWindow") == null ||
                 DataStorageManager.get().getCommandVariableStorage() == null) {
             return;
         }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow) getElementByClass("StoredFunctionWindow");
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
         CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
-        funcWindow.setStoredFunctionList(funcStorage.getCommandVariableList());
+        funcWindow.setObservedList(funcStorage.getCommandVariableList());
     }
 
     public void setModel(SLogoModel model) {
@@ -57,21 +62,21 @@ public class ViewModelController extends InteractionController {
 
     private void linkTurtleWithView() {
         Turtle turtle = myModel.getTurtle();
-        if (turtle == null || getElementByClass("TurtleView") == null) {
+        if (turtle == null || myViewElements.getGUIElement("TurtleContainer") == null) {
             return;
         }
-        TurtleView turtleView = (TurtleView) getElementByClass("TurtleView");
+        TurtleContainer turtleContainer = (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
 
-        turtle.addObserver(turtleView);
+        turtle.addObserver(turtleContainer);
         turtle.setVisibility(true);
     }
 
 
     private void linkTextBoxToParser() {
-        if (myModel.noParser() || getElementByClass("TextEntryBox") == null) {
+        if (myModel.noParser() || myViewElements.getGUIElement("TextEntryBox") == null) {
             return;
         }
-        TextEntryBox textEntryBox = (TextEntryBox) getElementByClass("TextEntryBox");
+        TextEntryBox textEntryBox = (TextEntryBox) myViewElements.getGUIElement("TextEntryBox");
         textEntryBox.setSubmitHandler(event -> {
             String entryText = textEntryBox.getEnteredText().trim();
             if (entryText == null || entryText.length() == 0) {
@@ -80,27 +85,27 @@ public class ViewModelController extends InteractionController {
             myModel.parse(entryText);
         });
     }
-    
+
     private void setLanguageChanger(){
-    	if (getElementByClass("SettingsToolBar") == null){
+    	if (myViewElements.getGUIElement("SettingsMenuBar") == null){
     		System.out.println("fail");
     		return;
     	}
-    	
-    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
+
+    	SettingsMenuBar toolBar = (SettingsMenuBar) myViewElements.getGUIElement("SettingsMenuBar");
     	toolBar.setLanguageChooserHandler(event -> {myModel.setLanguage(toolBar.getLanguageSelection());
     	System.out.println("success");});
     	System.out.println("success");
     }
-    
+
     private void linkCommandHistory() {
         if (DataStorageManager.get().getCommandHistoryStorage() == null ||
-                getElementByClass("CommandHistoryWindow") == null) {
+                myViewElements.getGUIElement("CommandHistoryWindow") == null) {
             return;
         }
         CommandHistoryStorage chStorage = DataStorageManager.get().getCommandHistoryStorage();
-        CommandHistoryWindow chWindow = (CommandHistoryWindow) getElementByClass("CommandHistoryWindow");
-        chWindow.setCommandHistory(chStorage.getCommandHistoryList());
+        CommandHistoryWindow chWindow = (CommandHistoryWindow) myViewElements.getGUIElement("CommandHistoryWindow");
+        chWindow.setObservedList(chStorage.getCommandHistoryList());
     }
 
 }
