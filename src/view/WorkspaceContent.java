@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
-import view.toolbar.SettingsMenu;
+import view.toolbar.SettingsMenuBar;
 import view.turtle.TurtleView;
 
 /**
@@ -20,7 +20,7 @@ public class WorkspaceContent implements ContentManager {
     private double myWidth;
     private double myHeight;
 
-    private SettingsMenu mySettingsMenu;
+    private SettingsMenuBar mySettingsMenuBar;
     private TurtleView myTurtleView;
     private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
@@ -57,10 +57,10 @@ public class WorkspaceContent implements ContentManager {
     }
 
     private void initializeSettingsMenu() {
-        mySettingsMenu = new SettingsMenu();
-        myContentGrid.addMenu(mySettingsMenu);
-        myViewElements.addElement(mySettingsMenu);
-        //SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
+        mySettingsMenuBar = new SettingsMenuBar();
+        myContentGrid.addMenu(mySettingsMenuBar);
+        myViewElements.addElement(mySettingsMenuBar);
+        //SettingsMenuBar settingsToolBar = new SettingsMenuBar(width, height);
         //myContentGrid.addMenu(settingsToolBar);
         //myViewElements.addElement(settingsToolBar);
     }

@@ -7,7 +7,7 @@ import view.panel.CommandHistoryWindow;
 import view.panel.StoredFunctionWindow;
 import view.panel.StoredVariableWindow;
 import view.textbox.TextEntryBox;
-import view.toolbar.SettingsToolBar;
+import view.toolbar.SettingsMenuBar;
 import view.turtle.TurtleView;
 
 
@@ -85,19 +85,21 @@ public class ViewModelController extends InteractionController {
             myModel.parse(entryText);
         });
     }
-    
-    private void setLanguageChanger(){
-    	if (myViewElements.getElement("SettingsToolBar") == null){
-    		System.out.println("fail");
-    		return;
-    	}
-    	
-    	SettingsToolBar toolBar = (SettingsToolBar) myViewElements.getElement("SettingsToolBar");
-    	toolBar.setLanguageChooserHandler(event -> {myModel.setLanguage(toolBar.getLanguageSelection());
-    	System.out.println("success");});
-    	System.out.println("success");
+
+    private void setLanguageChanger() {
+        if (myViewElements.getElement("SettingsMenuBar") == null) {
+            System.out.println("fail");
+            return;
+        }
+
+        SettingsMenuBar toolBar = (SettingsMenuBar) myViewElements.getElement("SettingsMenuBar");
+        toolBar.setLanguageChooserHandler(event -> {
+            myModel.setLanguage(toolBar.getLanguageSelection());
+            System.out.println("success");
+        });
+        System.out.println("success");
     }
-    
+
     private void linkCommandHistory() {
         if (DataStorageManager.get().getCommandHistoryStorage() == null ||
                 myViewElements.getElement("CommandHistoryWindow") == null) {

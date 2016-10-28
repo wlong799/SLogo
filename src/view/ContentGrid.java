@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.*;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
-import view.toolbar.SettingsMenu;
+import view.toolbar.SettingsMenuBar;
 import view.turtle.TurtleView;
 
 /**
@@ -22,7 +22,7 @@ public class ContentGrid implements Viewable {
 
     private Pane myContent;
     private GridPane myGrid;
-    private SettingsMenu mySettingsMenu;
+    private SettingsMenuBar mySettingsMenuBar;
     private TurtleView myTurtleView;
     private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
@@ -48,13 +48,13 @@ public class ContentGrid implements Viewable {
         setGridColSizes();
     }
 
-    public void addMenu(SettingsMenu menu) {
-        if (mySettingsMenu != null) {
-            myContent.getChildren().remove(mySettingsMenu);
+    public void addMenu(SettingsMenuBar menu) {
+        if (mySettingsMenuBar != null) {
+            myContent.getChildren().remove(mySettingsMenuBar);
         }
-        mySettingsMenu = menu;
+        mySettingsMenuBar = menu;
         myContent.getChildren().add(menu.getContent());
-        StackPane.setAlignment(mySettingsMenu.getContent(), Pos.TOP_CENTER);
+        StackPane.setAlignment(mySettingsMenuBar.getContent(), Pos.TOP_CENTER);
     }
 
     public void addTurtleView(TurtleView turtleView) {
