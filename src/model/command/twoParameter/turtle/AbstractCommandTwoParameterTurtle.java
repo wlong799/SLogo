@@ -1,14 +1,12 @@
 package model.command.twoParameter.turtle;
 
 import java.util.List;
-
-import dataStorage.DataStorageManager;
-
 import dataStorage.Turtle;
 import model.command.AbstractCommand;
-import model.command.twoParameter.AbstractCommandTwoParameter;
+import model.command.AbstractCommandTurtle;
+import model.command.twoParameter.ITwoParameterCommand;
 
-public abstract class AbstractCommandTwoParameterTurtle extends AbstractCommandTwoParameter{
+public abstract class AbstractCommandTwoParameterTurtle extends AbstractCommandTurtle implements ITwoParameterCommand{
 
     protected Turtle myTurtle;
 
@@ -18,5 +16,9 @@ public abstract class AbstractCommandTwoParameterTurtle extends AbstractCommandT
     }
     public void setTurtle(Turtle turtle){
         myTurtle = turtle;
+    }
+
+    public int getNumParameters() {
+        return NUM_PARAMETERS;
     }
 }

@@ -4,10 +4,10 @@ import java.util.List;
 
 import dataStorage.Turtle;
 import model.command.AbstractCommand;
-import model.command.oneParameter.AbstractCommandOneParameter;
-import dataStorage.DataStorageManager;
+import model.command.AbstractCommandTurtle;
+import model.command.oneParameter.IOneParameterCommand;
 
-abstract class AbstractCommandOneParameterTurtle extends AbstractCommandOneParameter{
+abstract class AbstractCommandOneParameterTurtle extends AbstractCommandTurtle implements IOneParameterCommand{
 
     protected Turtle myTurtle;
 
@@ -18,5 +18,9 @@ abstract class AbstractCommandOneParameterTurtle extends AbstractCommandOneParam
 
     public void setTurtle(Turtle turtle){
         myTurtle = turtle;
+    }
+
+    public int getNumParameters() {
+        return NUM_PARAMETERS;
     }
 }
