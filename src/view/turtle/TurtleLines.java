@@ -34,4 +34,11 @@ public class TurtleLines extends GUIElement implements Stylizable {
     public Node getContent() {
         return myLineCanvas;
     }
+
+    public void drawLine(double x1, double y1, double x2, double y2) {
+        myLineGraphics.strokeLine(x1 + myWidth / 2, y1 + myHeight / 2,
+                x2 + myWidth / 2, y2 + myHeight / 2);
+    }
+
+
 }

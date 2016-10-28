@@ -3,15 +3,14 @@ package view.turtle;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import view.GUIElement;
+import view.Style;
+import view.Stylizable;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class TurtleManager extends GUIElement {
-    private List<TurtleView> myTurtles;
-    private List<TurtleLines> myTurtleLines;
+public class TurtleManager extends GUIElement implements Stylizable {
+    private Map<Integer, TurtleView> myTurtles;
+    private Map<Integer, TurtleLines> myTurtleLines;
     private Set<Integer> myActiveTurtleNums;
 
     private StackPane myContainer;
@@ -19,20 +18,21 @@ public class TurtleManager extends GUIElement {
     public TurtleManager(double width, double height) {
         super(width, height);
         myContainer = new StackPane();
-        myTurtles = new ArrayList<>();
-        myTurtleLines = new ArrayList<>();
+        myTurtles = new HashMap<>();
+        myTurtleLines = new HashMap<>();
         myActiveTurtleNums = new HashSet<>();
     }
 
-    public void addTurtle() {
-        TurtleView turtle = new TurtleView();
-        TurtleLines turtleLines = new TurtleLines(myWidth, myHeight);
-        myTurtles.add(turtle);
-        myTurtleLines.add(turtleLines);
-        myContainer.getChildren().addAll(turtle.getContent(), turtleLines.getContent());
-    }
-
     public void setActiveTurtleNums(List<Integer> nums) {
+        for (int num : nums) {
+            if (! myTurtles.containsKey(num)) {
+                TurtleView turtleView = new TurtleView();
+                TurtleLines turtleLines = new TurtleLines(myWidth, myHeight);
+                myContainer.getChildren().addAll(turtleView.getContent(), turtleLines.getContent());
+                myTurtles.put(num, turtleView);
+                myTurtleLines.put(num, turtleLines);
+            }
+        }
         myActiveTurtleNums.clear();
         myActiveTurtleNums.addAll(nums);
     }
@@ -60,5 +60,15 @@ public class TurtleManager extends GUIElement {
     @Override
     public Node getContent() {
         return myContainer;
+    }
+
+    @Override
+    public void setStyle(Style style) {
+        for (TurtleLines turtleLines : getActiveTurtleLines()) {
+            turtleLines.setStyle(style);
+        }
+        for (TurtleView turtleView : getActiveTurtles()) {
+            turtleView.setStyle(style);
+        }
     }
 }

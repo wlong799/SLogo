@@ -26,16 +26,15 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     private TurtleState prevState, currentState;
     private StackPane myContainer;
     private Rectangle myBackground;
-    private TurtleLines myTurtleLines;
-    private TurtleView myTurtleView;
+    private TurtleManager myTurtleManager;
 
     public TurtleContainer(double width, double height) {
         super(width, height);
         myContainer = new StackPane();
-        myBackground = new Rectangle(width, height, DEFAULT_BG_COLOR);
-        myContainer.getChildren().add(myBackground);
+        myBackground = new Rectangle(myWidth, myHeight, DEFAULT_BG_COLOR);
+        myTurtleManager = new TurtleManager(myWidth, myHeight);
+        myContainer.getChildren().addAll(myBackground, myTurtleManager.getContent());
     }
-
 
     @Override
     public void update(Observable o, Object arg) {
@@ -46,48 +45,26 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
         }
         currentState = (TurtleState) arg;
         draw();
-        return;
     }
-
 
     private void draw() {
         double x1 = currentState.getPosition().getX();
         double y1 = currentState.getPosition().getY();
         double x2 = prevState.getPosition().getX();
         double y2 = prevState.getPosition().getY();
+
+        TurtleView turtleView = myTurtleManager.getActiveTurtles().get(0);
+        TurtleLines turtleLines = myTurtleManager.getActiveTurtleLines().get(0);
+
         if (x1 != x2 || y1 != y2) {
-            updateTurtlePosition(x1, y1);
+            turtleView.setPosition(x1, y1);
             if (currentState.getPenDownStatus()) {
-                drawLine(x1, y1, x2, y2);
+                turtleLines.drawLine(x1, y1, x2, y2);
             }
         }
 
-        updateTurtleHeading(currentState.getHeading());
-        updateTurtleVisibility(currentState.getVisibility());
-    }
-
-    private void updateTurtlePosition(double x, double y) {
-        myTurtleView.getContent().setTranslateX(x);
-        myTurtleView.getContent().setTranslateY(y);
-    }
-
-    private void drawLine(double x1, double y1, double x2, double y2) {
-        //myLineGraphics.strokeLine(x1 + myWidth / 2, y1 + myHeight / 2,
-          //      x2 + myWidth / 2, y2 + myHeight / 2);
-    }
-
-    private void updateTurtleHeading(double heading) {
-        //turtle.setRotate(heading + 90);
-    }
-
-
-    private void updateTurtleVisibility(boolean isVisible) {
-        //turtle.setVisible(isVisible);
-    }
-
-    public void setTurtleImage(String picture_file_path) {
-        Style s = new Style(new Image(picture_file_path));
-        myTurtleView.setStyle(s);
+        turtleView.setTurtleHeading(currentState.getHeading());
+        turtleView.setTurtleVisibility(currentState.getVisibility());
     }
 
     @Override
@@ -101,5 +78,9 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     @Override
     public Node getContent() {
         return myContainer;
+    }
+
+    public TurtleManager getTurtleManager() {
+        return myTurtleManager;
     }
 }

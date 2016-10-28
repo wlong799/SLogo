@@ -1,5 +1,6 @@
 package view;
 
+import dataStorage.Turtle;
 import javafx.scene.Parent;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
@@ -9,6 +10,11 @@ import view.toolbar.HelpMenu;
 import view.toolbar.SettingsMenuBar;
 import view.toolbar.ViewMenu;
 import view.turtle.TurtleContainer;
+import view.turtle.TurtleManager;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * WorkspaceContent just provides a quick setup for the application. Non-resizable, and provides a
@@ -78,8 +84,16 @@ public class WorkspaceContent implements ContentManager {
         double width = myContentGrid.getTurtleViewWidth();
         double height = myContentGrid.getTurtleViewHeight();
         myTurtleContainer = new TurtleContainer(width, height);
+        TurtleManager turtleManager = myTurtleContainer.getTurtleManager();
         myContentGrid.addTurtleView(myTurtleContainer);
+        List<Integer> activeNums = new ArrayList<>();
+        activeNums.add(0);
+        activeNums.add(1);
+        turtleManager.setActiveTurtleNums(activeNums);
+        activeNums.remove(1);
+        turtleManager.setActiveTurtleNums(activeNums);
         myElements.addElement(myTurtleContainer);
+        myElements.addElement(turtleManager);
     }
 
     private void initializeHelperPanel() {
@@ -93,9 +107,9 @@ public class WorkspaceContent implements ContentManager {
     private void initializeTextEntryBox() {
         double width = myContentGrid.getTextBoxWidth();
         double height = myContentGrid.getTextBoxHeight();
-        TextEntryBox textEntryBox = new TextEntryBox(width, height);
-        myContentGrid.addTextBox(textEntryBox);
-        myElements.addElement(textEntryBox);
+        myTextEntryBox = new TextEntryBox(width, height);
+        myContentGrid.addTextBox(myTextEntryBox);
+        myElements.addElement(myTextEntryBox);
     }
 
     public void addTab(String tabClass) {

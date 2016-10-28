@@ -37,4 +37,17 @@ public class TurtleView extends GUIElement implements Stylizable{
     public Node getContent() {
         return myTurtle;
     }
+
+    public void setPosition(double x, double y) {
+        myTurtle.setTranslateX(x);
+        myTurtle.setTranslateY(y);
+    }
+
+    public void setTurtleHeading(double heading) {
+        myTurtle.setRotate(heading + 90);
+    }
+
+    public void setTurtleVisibility(boolean isVisible) {
+        myTurtle.setVisible(isVisible);
+    }
 }

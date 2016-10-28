@@ -14,4 +14,5 @@ public abstract class GUIElement implements Viewable {
         myWidth = width;
         myHeight = height;
     }
+
 }
