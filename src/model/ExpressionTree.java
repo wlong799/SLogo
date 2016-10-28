@@ -7,6 +7,7 @@ import dataStorage.*;
 import model.command.AbstractCommand;
 import model.command.ListCommand;
 import model.command.higherOrderCommands.Variable;
+import model.command.zeroParameter.Constant;
 
 import java.util.*;
 
