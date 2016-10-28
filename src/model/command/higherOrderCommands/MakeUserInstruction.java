@@ -11,7 +11,6 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder {
 
     public MakeUserInstruction (List<AbstractCommand> parameters) {
         super(parameters);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -26,17 +25,13 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder {
 
         String commandString = getRawParameters().get(2).toString();
 
-        CommandVariableStorage commandStorage =
-                DataStorageManager.get().getCommandVariableStorage();
-
-        commandStorage.setCommand(commandName, variableNames, commandString);
+        getData().setCommand(commandName, variableNames, commandString);
         System.out.println("Command string " + commandString);
         return 1;
     }
 
     @Override
     public int getNumParameters () {
-        // TODO Auto-generated method stub
         return 3;
     }
 

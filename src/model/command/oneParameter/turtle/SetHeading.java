@@ -1,17 +1,16 @@
 package model.command.oneParameter.turtle;
 
-
 import java.util.List;
 import model.command.AbstractCommand;
 
 
-public class SetHeading extends AbstractTurnTurtle{
+public class SetHeading extends AbstractTurnTurtle {
 
-    public SetHeading(List<AbstractCommand> parameters) {
+    public SetHeading (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
-    public double execute() {
+    public double turtleExecute () {
         double givenHeading = getParameters().get(PARAMETER_ONE);
 
         double newHeading = correctOverTurns(givenHeading);

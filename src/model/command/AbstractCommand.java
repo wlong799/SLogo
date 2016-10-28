@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
+import dataStorage.TurtleStorage;
 
 
 public abstract class AbstractCommand {
@@ -58,7 +59,7 @@ public abstract class AbstractCommand {
         return myName.toString();
     }
     
-    public void addOtherParameters(DataStorageManager data, Turtle turtle){
+    public void addOtherParameters (DataStorageManager data, TurtleStorage turtles){
         /**
          * Do nothing here. commands that use the variables will override to
          * set their instance variables

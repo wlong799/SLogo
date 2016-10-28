@@ -5,28 +5,27 @@ import dataStorage.*;
 import model.command.AbstractCommand;
 
 
-public abstract class AbstractCommandHigherOrder extends AbstractCommand{
+public abstract class AbstractCommandHigherOrder extends AbstractCommand {
 
-    private CommandVariableStorage myCommands;
-    private ValueVariableStorage myVariables;
-    
+    private DataStorageManager myData;
+
     public AbstractCommandHigherOrder (List<AbstractCommand> parameters) {
         super(parameters);
-        // TODO Auto-generated constructor stub
     }
 
-    public AbstractCommandHigherOrder(){
+    public AbstractCommandHigherOrder () {
         super();
     }
-    public void addVariables(ValueVariableStorage variables, CommandVariableStorage commands){
-        myCommands = commands;
-        myVariables = variables;
+
+    @Override
+    public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
+        myData = data;
     }
+
+    public abstract double execute ();
     
-    public abstract double execute();
-    
-    protected ValueVariableStorage getVariables(){
-        return myVariables;
+    protected DataStorageManager getData() {
+        return myData;
     }
 
 }

@@ -15,7 +15,9 @@ public class ClearScreen extends AbstractTeleportHomeTurtle {
 
     public double execute() {
         double distance = goHome();
-        DataStorageManager.get().getNotifications().setClearScreenFlag();
+        //getData.getNotifications().setClearScreenFlag();
+        
+        //somehow tell front end to clear the screen
         return distance;
     }
 
