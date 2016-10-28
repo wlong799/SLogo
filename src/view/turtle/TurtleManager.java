@@ -1,0 +1,74 @@
+package view.turtle;
+
+import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
+import view.GUIElement;
+import view.Style;
+import view.Stylizable;
+
+import java.util.*;
+
+public class TurtleManager extends GUIElement implements Stylizable {
+    private Map<Integer, TurtleView> myTurtles;
+    private Map<Integer, TurtleLines> myTurtleLines;
+    private Set<Integer> myActiveTurtleNums;
+
+    private StackPane myContainer;
+
+    public TurtleManager(double width, double height) {
+        super(width, height);
+        myContainer = new StackPane();
+        myTurtles = new HashMap<>();
+        myTurtleLines = new HashMap<>();
+        myActiveTurtleNums = new HashSet<>();
+    }
+
+    public void setActiveTurtleNums(List<Integer> nums) {
+        for (int num : nums) {
+            if (! myTurtles.containsKey(num)) {
+                TurtleView turtleView = new TurtleView();
+                TurtleLines turtleLines = new TurtleLines(myWidth, myHeight);
+                myContainer.getChildren().addAll(turtleView.getContent(), turtleLines.getContent());
+                myTurtles.put(num, turtleView);
+                myTurtleLines.put(num, turtleLines);
+            }
+        }
+        myActiveTurtleNums.clear();
+        myActiveTurtleNums.addAll(nums);
+    }
+
+    public List<TurtleView> getActiveTurtles() {
+        List<TurtleView> activeTurtles = new ArrayList<>();
+        for (int num : myActiveTurtleNums) {
+            if (num >= 0 && num < myTurtles.size()) {
+                activeTurtles.add(myTurtles.get(num));
+            }
+        }
+        return activeTurtles;
+    }
+
+    public List<TurtleLines> getActiveTurtleLines() {
+        List<TurtleLines> activeLines = new ArrayList<>();
+        for (int num : myActiveTurtleNums) {
+            if (num >= 0 && num < myTurtleLines.size()) {
+                activeLines.add(myTurtleLines.get(num));
+            }
+        }
+        return activeLines;
+    }
+
+    @Override
+    public Node getContent() {
+        return myContainer;
+    }
+
+    @Override
+    public void setStyle(Style style) {
+        for (TurtleLines turtleLines : getActiveTurtleLines()) {
+            turtleLines.setStyle(style);
+        }
+        for (TurtleView turtleView : getActiveTurtles()) {
+            turtleView.setStyle(style);
+        }
+    }
+}

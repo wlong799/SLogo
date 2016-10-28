@@ -1,43 +1,47 @@
 package view;
 
+import dataStorage.Turtle;
 import javafx.scene.Parent;
-import view.element.*;
+import view.panel.TabElement;
+import view.panel.TabbedHelperPanel;
+import view.textbox.TextEntryBox;
+import view.toolbar.*;
+import view.turtle.TurtleContainer;
+import view.turtle.TurtleManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * WorkspaceContent just provides a quick setup for the application. Non-resizable, and provides a
- * TurtleView, with a TextEntryBox beneath.
+ * TurtleContainer, with a TextEntryBox beneath.
  */
 public class WorkspaceContent implements ContentManager {
-    private static final double MIN_WIDTH = 500;
-    private static final double DEFAULT_WIDTH = 1000;
-    private static final double MAX_WIDTH = 1500;
-    private static final double MIN_HEIGHT = 375;
-    private static final double DEFAULT_HEIGHT = 750;
-    private static final double MAX_HEIGHT = 1125;
-    private static final double BORDER_RATIO = 0.05;
+    private static final double BORDER_RATIO = 0.03;
 
     private ContentGrid myContentGrid;
-    private List<Viewable> myViewables;
+    private ElementManager myElements;
+
     private double myWidth;
     private double myHeight;
 
-    public WorkspaceContent() {
-        this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    }
+    private SettingsMenuBar mySettingsMenuBar;
+    private TurtleContainer myTurtleContainer;
+    private TextEntryBox myTextEntryBox;
+    private TabbedHelperPanel myHelperPanel;
 
     public WorkspaceContent(double width, double height) {
-        myWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, width));
-        myHeight = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, height));
+        myWidth = width;
+        myHeight = height;
         double borderSize = Math.min(myHeight, myWidth) * BORDER_RATIO;
         myContentGrid = new ContentGrid(width, height, borderSize);
-        myViewables = new ArrayList<>();
-        createMainElement();
-        createToolBarElement();
-        createSidePanelElement();
-        createBottomBarElement();
+        myElements = new ElementManager();
+
+        initializeSettingsMenu();
+        initializeTurtleView();
+        initializeHelperPanel();
+        initializeTextEntryBox();
     }
 
     @Override
@@ -46,8 +50,8 @@ public class WorkspaceContent implements ContentManager {
     }
 
     @Override
-    public List<Viewable> getElements() {
-        return myViewables;
+    public ElementManager getElements() {
+        return myElements;
     }
 
     public double getWidth() {
@@ -58,46 +62,94 @@ public class WorkspaceContent implements ContentManager {
         return myHeight;
     }
 
-    private void createToolBarElement() {
-        double width = myContentGrid.getToolbarWidth();
-        double height = myContentGrid.getToolbarHeight();
-        SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
-        myContentGrid.addToolBarElement(settingsToolBar);
-        myViewables.add(settingsToolBar);
+    private void initializeSettingsMenu() {
+        mySettingsMenuBar = new SettingsMenuBar();
+        myContentGrid.addMenu(mySettingsMenuBar);
+        myElements.addElement(mySettingsMenuBar);
+
+        FileMenu fileMenu = new FileMenu();
+        ViewMenu viewMenu = new ViewMenu();
+        HelpMenu helpMenu = new HelpMenu();
+        mySettingsMenuBar.addMenu(fileMenu);
+        mySettingsMenuBar.addMenu(viewMenu);
+        mySettingsMenuBar.addMenu(helpMenu);
+        myElements.addElement(fileMenu);
+        myElements.addElement(viewMenu);
+        myElements.addElement(helpMenu);
+
+        BackgroundColorPicker backgroundColorPicker = new BackgroundColorPicker();
+        LineColorPicker lineColorPicker = new LineColorPicker();
+        LineSizePicker lineSizePicker = new LineSizePicker();
+        LineStylePicker lineStylePicker = new LineStylePicker();
+        TurtleImagePicker turtleImagePicker = new TurtleImagePicker();
+        viewMenu.addMenuElement(backgroundColorPicker);
+        viewMenu.addSeparator();
+        viewMenu.addMenuElement(lineColorPicker);
+        viewMenu.addMenuElement(lineSizePicker);
+        viewMenu.addMenuElement(lineStylePicker);
+        viewMenu.addSeparator();
+        viewMenu.addMenuElement(turtleImagePicker);
+        myElements.addElement(backgroundColorPicker);
+        myElements.addElement(lineColorPicker);
+        myElements.addElement(lineSizePicker);
+        myElements.addElement(lineStylePicker);
+        myElements.addElement(turtleImagePicker);
     }
 
-    private void createMainElement() {
-        double width = myContentGrid.getMainElementWidth();
-        double height = myContentGrid.getMainElementHeight();
-        TurtleView turtleView = new TurtleView(width, height);
-        myContentGrid.addMainElement(turtleView);
-        myViewables.add(turtleView);
+    private void initializeTurtleView() {
+        double width = myContentGrid.getTurtleViewWidth();
+        double height = myContentGrid.getTurtleViewHeight();
+        myTurtleContainer = new TurtleContainer(width, height);
+        TurtleManager turtleManager = myTurtleContainer.getTurtleManager();
+        myContentGrid.addTurtleView(myTurtleContainer);
+        List<Integer> activeNums = new ArrayList<>();
+        activeNums.add(0);
+        turtleManager.setActiveTurtleNums(activeNums);
+        myElements.addElement(myTurtleContainer);
+        myElements.addElement(turtleManager);
     }
 
-    private void createSidePanelElement() {
-        double width = myContentGrid.getSidePanelWidth();
-        double height = myContentGrid.getSidePanelHeight();
-        TabbedHelperPanel tabbedHelperPanel = new TabbedHelperPanel(width, height);
-        double tabWidth = tabbedHelperPanel.getTabWidth();
-        double tabHeight = tabbedHelperPanel.getTabHeight();
-        CommandHistoryWindow commandHistoryWindow = new CommandHistoryWindow(tabWidth, tabHeight);
-        StoredFunctionWindow storedFunctionWindow = new StoredFunctionWindow(tabWidth, tabHeight);
-        StoredVariableWindow storedVariableWindow = new StoredVariableWindow(tabWidth, tabHeight);
-        tabbedHelperPanel.placeElementInNewTab("History", commandHistoryWindow);
-        tabbedHelperPanel.placeElementInNewTab("Functions", storedFunctionWindow);
-        tabbedHelperPanel.placeElementInNewTab("Variables", storedVariableWindow);
-        myContentGrid.addSidePanelElement(tabbedHelperPanel);
-        myViewables.add(tabbedHelperPanel);
-        myViewables.add(commandHistoryWindow);
-        myViewables.add(storedFunctionWindow);
-        myViewables.add(storedVariableWindow);
+    private void initializeHelperPanel() {
+        double width = myContentGrid.getHelperPanelWidth();
+        double height = myContentGrid.getHelperPanelHeight();
+        myHelperPanel = new TabbedHelperPanel(width, height);
+        myElements.addElement(myHelperPanel);
+        myContentGrid.addHelperPanel(myHelperPanel);
     }
 
-    private void createBottomBarElement() {
-        double width = myContentGrid.getBottomBarWidth();
-        double height = myContentGrid.getBottomBarHeight();
-        TextEntryBox textEntryBox = new TextEntryBox(width, height);
-        myContentGrid.addBottomBarElement(textEntryBox);
-        myViewables.add(textEntryBox);
+    private void initializeTextEntryBox() {
+        double width = myContentGrid.getTextBoxWidth();
+        double height = myContentGrid.getTextBoxHeight();
+        myTextEntryBox = new TextEntryBox(width, height);
+        myContentGrid.addTextBox(myTextEntryBox);
+        myElements.addElement(myTextEntryBox);
+    }
+
+    public void addTab(String tabClass) {
+        double tabWidth = myHelperPanel.getTabWidth();
+        double tabHeight = myHelperPanel.getTabHeight();
+        TabElement tab;
+        try {
+            Object obj = Class.forName(tabClass).getConstructor(double.class, double.class).newInstance(tabWidth, tabHeight);
+            if (obj instanceof TabElement) {
+                tab = (TabElement) obj;
+            } else {
+                throw new ClassCastException();
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("Tab class not found: " + tabClass);
+            return;
+        } catch (NoSuchMethodException e) {
+            System.err.println("Constructor not found for class: " + tabClass);
+            return;
+        } catch (ClassCastException e) {
+            System.err.println("Class does not extend TabElement: " + tabClass);
+            return;
+        } catch (Exception e) {
+            System.err.println("Error when instantiating object: " + tabClass);
+            return;
+        }
+        myHelperPanel.placeElementInNewTab(tab);
+        myElements.addElement(tab);
     }
 }

@@ -1,104 +1,58 @@
 package controller;
 
-import view.element.*;
+import view.ElementManager;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.stage.FileChooser;
+import view.Stylizable;
+import view.Stylizer;
+import view.panel.CommandHistoryWindow;
+import view.panel.StoredFunctionWindow;
+import view.textbox.TextEntryBox;
 
 public class ViewViewController extends InteractionController {
+    private static final String[][] STYLE_ELEMENTS_TO_LINK = new String[][]
+            {{"BackgroundColorPicker", "TurtleContainer"},
+                    {"LineColorPicker", "TurtleManager"},
+                    {"TurtleImagePicker", "TurtleManager"}
+            };
 
-    public ViewViewController(List<Viewable> elements) {
-        super(elements);
+    public ViewViewController(ElementManager viewElements) {
+        super(viewElements);
     }
 
     @Override
     public void setUpInteractions() {
-        setBackgroundColorChanger();
-        setLineColorChanger();
         setClickableCommandHistory();
         setClickableFunctionStorage();
-        setTurtleImageChanger();
-        
+        for (String[] linkedElements : STYLE_ELEMENTS_TO_LINK) {
+            Stylizer stylizer = myViewElements.getStylizerElement(linkedElements[0]);
+            Stylizable stylizable = myViewElements.getStylizableElement(linkedElements[1]);
+            if (stylizer != null && stylizable != null) {
+                stylizer.setStylizableTarget(stylizable);
+            }
+        }
     }
 
     private void setClickableFunctionStorage() {
-        if (getElementByClass("StoredFunctionWindow") == null || getElementByClass("TextEntryBox") == null) {
+        if (myViewElements.getGUIElement("StoredFunctionWindow") == null || myViewElements.getGUIElement("TextEntryBox") == null) {
             return;
         }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow)getElementByClass("StoredFunctionWindow");
-        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
+        TextEntryBox textBox = (TextEntryBox) myViewElements.getGUIElement("TextEntryBox");
         funcWindow.setClickEvent(event -> {
-            String selectedFunction = funcWindow.getSelectedFunction().split("\n")[0];
+            String selectedFunction = funcWindow.getSelectedElement().split("\n")[0];
             textBox.setText(selectedFunction);
         });
     }
 
     private void setClickableCommandHistory() {
-        if (getElementByClass("CommandHistoryWindow") == null || getElementByClass("TextEntryBox") == null) {
+        if (myViewElements.getGUIElement("CommandHistoryWindow") == null || myViewElements.getGUIElement("TextEntryBox") == null) {
             return;
         }
-        CommandHistoryWindow chWindow = (CommandHistoryWindow)getElementByClass("CommandHistoryWindow");
-        TextEntryBox textBox = (TextEntryBox)getElementByClass("TextEntryBox");
+        CommandHistoryWindow chWindow = (CommandHistoryWindow) myViewElements.getGUIElement("CommandHistoryWindow");
+        TextEntryBox textBox = (TextEntryBox) myViewElements.getGUIElement("TextEntryBox");
         chWindow.setClickEvent(event -> {
-            String selectedCommand= chWindow.getSelectedCommand();
+            String selectedCommand = chWindow.getSelectedElement();
             textBox.setText(selectedCommand);
         });
     }
-    
-    private void setTurtleImageChanger(){
-    	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
-            return;
-        }
-    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
-        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
-        toolBar.setAltTurtleImageHandler(new EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent arg0) {
-				FileChooser prompt = new FileChooser();
-				prompt.setTitle("Upload Alternate Turtle Image (jpeg, png, or gif only");
-				File image = prompt.showOpenDialog(null);
-				if(image != null){
-					try {
-						String temp = image.toURI().toURL().toString();
-						//System.out.println(temp);
-						turtleView.setTurtleImage(temp);
-					} catch (MalformedURLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}	
-			}
-        });
-    }
-    
-
-    private void setLineColorChanger(){
-    	if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
-            return;
-        }
-    	SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
-        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
-        toolBar.setLineColorPickerHandler(event -> {
-            turtleView.setLineColor(toolBar.getSelectedLineColor());
-        });
-    	
-    }
-
-    private void setBackgroundColorChanger() {
-        if (getElementByClass("SettingsToolBar") == null || getElementByClass("TurtleView") == null) {
-            return;
-        }
-        SettingsToolBar toolBar = (SettingsToolBar)getElementByClass("SettingsToolBar");
-        TurtleView turtleView = (TurtleView)getElementByClass("TurtleView");
-        toolBar.setBackgroundColorPickerHandler(event -> {
-            turtleView.setBackgroundColor(toolBar.getSelectedBackgroundColor());
-        });
-    }
-    
-   
 }

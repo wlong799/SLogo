@@ -1,15 +1,9 @@
 package view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import view.element.StartButtons;
-import view.element.StartScreen;
-import view.element.Viewable;
-import java.util.ArrayList;
-import java.util.List;
-
+import view.start.StartButtons;
+import view.start.StartScreen;
 
 public class StartContent implements ContentManager {
     private static final double BUTTON_PANE_OFFSET_RATIO = 0.80;
@@ -20,7 +14,7 @@ public class StartContent implements ContentManager {
     private double myPaneWidth, myPaneHeight;
 
     private Pane myStartContent;
-    private List<Viewable> myElements;
+    private ElementManager myViewElements;
 
     public StartContent (double width, double height) {
         myWidth = width;
@@ -28,12 +22,12 @@ public class StartContent implements ContentManager {
         myPaneWidth = myWidth * BUTTON_PANE_WIDTH_RATIO;
         myPaneHeight = myHeight * BUTTON_PANE_HEIGHT_RATIO;
 
-        myElements = new ArrayList<>();
+        myViewElements = new ElementManager();
 
         StartScreen startScreen = new StartScreen(myWidth, myHeight);
         StartButtons startButtons = new StartButtons(myPaneWidth, myPaneHeight);
-        myElements.add(startScreen);
-        myElements.add(startButtons);
+        myViewElements.addElement(startScreen);
+        myViewElements.addElement(startButtons);
 
         myStartContent = new Pane(startScreen.getContent(), createCenteredButtonPane(startButtons));
     }
@@ -44,10 +38,9 @@ public class StartContent implements ContentManager {
     }
 
     @Override
-    public List<Viewable> getElements () {
-        return myElements;
+    public ElementManager getElements() {
+        return myViewElements;
     }
-
     private Pane createCenteredButtonPane (StartButtons startButtons) {
         Pane pane = new Pane(startButtons.getContent());
         double widthOffset = (myWidth - myPaneWidth) / 2;

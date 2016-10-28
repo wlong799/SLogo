@@ -1,8 +1,6 @@
 package controller;
 
-import view.element.Viewable;
-
-import java.util.List;
+import view.ElementManager;
 
 /**
  * Takes in elements present in view, and is responsible for setting up how
@@ -11,24 +9,11 @@ import java.util.List;
  */
 public abstract class InteractionController {
 
-    protected List<Viewable> viewables;
+    protected ElementManager myViewElements;
 
-    protected InteractionController(List<Viewable> elements) {
-        viewables = elements;
+    protected InteractionController(ElementManager viewElements) {
+        myViewElements = viewElements;
     }
 
     public abstract void setUpInteractions();
-
-    protected Viewable getElementByClass(String className) {
-        for (Viewable element : viewables) {
-            if (checkClass(element, className)) {
-                return element;
-            }
-        }
-        return null;
-    }
-
-    protected boolean checkClass(Viewable element, String className) {
-        return element.getClass().getSimpleName().equals(className);
-    }
 }

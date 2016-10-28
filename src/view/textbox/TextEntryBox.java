@@ -1,4 +1,4 @@
-package view.element;
+package view.textbox;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,15 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.GUIElement;
 
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class TextEntryBox implements Viewable {
+public class TextEntryBox extends GUIElement {
     private static final double TEXT_BOX_RATIO = 0.80;
     private static final double PADDING_RATIO = 0.05;
-    private static final String DEFAULT_TEXT = "ENTER COMMANDS HERE";
     private static final String SUBMIT_TEXT = "SUBMIT";
     private static final String CLEAR_TEXT = "CLEAR";
 
@@ -24,6 +24,7 @@ public class TextEntryBox implements Viewable {
     private Button mySubmitButton, myClearButton;
 
     public TextEntryBox(double width, double height) {
+        super(width, height);
         double xPadding = width * PADDING_RATIO;
         double yPadding = height * PADDING_RATIO;
 
