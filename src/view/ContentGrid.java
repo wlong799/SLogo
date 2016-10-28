@@ -11,7 +11,7 @@ import view.turtle.TurtleView;
 /**
  * Sets up layout of workspace using a grid.
  */
-public class ContentGrid implements Viewable {
+public class ContentGrid extends ViewElement {
     private static final double MAIN_PANEL_WIDTH_RATIO = 0.70;
     private static final double MAIN_PANEL_HEIGHT_RATIO = 0.85;
     private static final double PADDING_RATIO = 0.02;
@@ -27,13 +27,11 @@ public class ContentGrid implements Viewable {
     private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
 
-    private double myWidth, myHeight;
     private double myXPadding, myYPadding;
     private double myBorderSize;
 
     public ContentGrid(double width, double height, double borderSize) {
-        myWidth = width;
-        myHeight = height;
+        super(width, height);
 
         myXPadding = myWidth * PADDING_RATIO;
         myYPadding = myHeight * PADDING_RATIO;

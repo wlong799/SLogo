@@ -11,7 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import view.Viewable;
+import view.ViewElement;
 
 import java.awt.*;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SettingsMenuBar implements Viewable {
+public class SettingsMenuBar extends ViewElement {
     private ResourceBundle myUIElements;
     private String myUIElementsPath = "resources/myUIElements";
     private MenuBar myMenuBar;
@@ -48,7 +48,7 @@ public class SettingsMenuBar implements Viewable {
         menuView.getItems().add(myLineColorPickerItem);
 
         myBackgroundColorPicker = new ColorPicker();
-        MenuItem myBackgroundColorPickerItem = new MenuItem(null, myBackgroundColorPicker);
+        MenuItem myBackgroundColorPickerItem = new MenuItem("Background" , myBackgroundColorPicker);
         menuView.getItems().add(myBackgroundColorPickerItem);
 
         languageChooser = createComboBox("languageChooser", number_of_languages);

@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import view.Viewable;
+import view.ViewElement;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -18,13 +18,12 @@ import java.util.Observer;
  * @author Will Long
  * @version 10/19/16
  */
-public class TurtleView implements Viewable, Observer {
+public class TurtleView extends ViewElement implements Observer {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
     private static final double TURTLE_SIZE = 50;
 
-    private double myWidth, myHeight;
     private TurtleState prevState, currentState;
     private StackPane myContent;
     private Rectangle background;
@@ -33,9 +32,7 @@ public class TurtleView implements Viewable, Observer {
     private ImageView turtle;
 
     public TurtleView(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-
+        super(width, height);
         background = new Rectangle(width, height, DEFAULT_BG_COLOR);
         lineCanvas = new Canvas(width, height);
         lineGraphics = lineCanvas.getGraphicsContext2D();

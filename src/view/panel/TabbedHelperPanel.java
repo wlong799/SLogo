@@ -3,22 +3,14 @@ package view.panel;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import view.Viewable;
+import view.ViewElement;
 
-/**
- * @author Will Long
- * @version 10/19/16
- */
-public class TabbedHelperPanel implements Viewable {
+public class TabbedHelperPanel extends ViewElement {
 
     private TabPane myTabContainer;
 
-    private double myWidth, myHeight;
-
     public TabbedHelperPanel(double width, double height) {
-        myWidth = width;
-        myHeight = height;
-
+        super(width, height);
         myTabContainer = new TabPane();
         myTabContainer.setPrefWidth(myWidth);
         myTabContainer.setPrefHeight(myHeight);

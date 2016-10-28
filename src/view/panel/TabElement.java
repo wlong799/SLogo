@@ -6,20 +6,17 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
-import view.Viewable;
+import view.ViewElement;
 
 /**
  * Abstract super class for all elements that can be placed in the helper panel as a tab. Introduces a method for
  * getting the proper name of the tab it resides in. Elements all
  */
-public abstract class TabElement implements Viewable {
+public abstract class TabElement extends ViewElement {
     protected ListView<String> myListView;
 
-    protected double myWidth, myHeight;
-
     public TabElement(double width, double height) {
-        myWidth = width;
-        myHeight = height;
+        super(width, height);
         myListView = new ListView<>();
         myListView.setPrefWidth(myWidth);
         myListView.setPrefHeight(myHeight);
