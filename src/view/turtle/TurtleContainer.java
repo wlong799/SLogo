@@ -38,6 +38,8 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println(o);
+        System.out.println(arg);
         if (currentState != null) {
             prevState = currentState;
         } else {

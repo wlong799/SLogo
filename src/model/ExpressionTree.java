@@ -14,15 +14,11 @@ import java.util.*;
 public class ExpressionTree {
     private ResourceBundle myCommandPaths;
     private String myCommandPathsPath = "resources/commandPaths";
-    private Turtle myTurtle;
-    private ValueVariableStorage myVariableStorage;
-    private CommandVariableStorage myCommandStorage;
+    private TurtleStorage myTurtles;
     private DataStorageManager myData;
-    public ExpressionTree (DataStorageManager data) {
+    public ExpressionTree (DataStorageManager data, TurtleStorage turtles) {
         myData = data;
-        myTurtle = turtle;
-        myVariableStorage = variables;
-        myCommandStorage = commands;
+        myTurtles = turtles;
         myCommandPaths = ResourceBundle.getBundle(myCommandPathsPath);
     }
 
@@ -73,7 +69,7 @@ public class ExpressionTree {
                 // return createUserCommand(command);
                 System.out.println("Could not create a constant. Creating variable " + command);
                 Variable var = new Variable(command);
-                var.addVariables(myVariableStorage, myCommandStorage);
+                var.addOtherParameters(myData, myTurtles);
                 return var;
             }
 
@@ -112,8 +108,8 @@ public class ExpressionTree {
     private void addOtherParameters (Class<?> commandClass, Object o) throws Exception {
         Method addOtherParameters =
                 commandClass.getMethod("addOtherParameters", DataStorageManager.class,
-                                       Turtle.class);
-        addOtherParameters.invoke(o, DataStorageManager.get(), myTurtle);
+                                       TurtleStorage.class);
+        addOtherParameters.invoke(o, myData, myTurtles);
     }
 
     private ListCommand makeCommandList (Queue<String> commandQueue) {

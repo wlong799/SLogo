@@ -24,12 +24,16 @@ public class Turtle extends Observable {
         myTurtleVisible = true;
     }
 
+    public int getID() {
+        return myID;
+    }
     private void updateAndCallObserver () {
         TurtleState showOffState =
                 new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
         setChanged();
         notifyObservers(showOffState);
         // clearChanged(); // TODO: Was this removed on purpose?
+        // this was removed because notifyObservers automatically clears changed
     }
 
     //

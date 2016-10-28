@@ -22,10 +22,11 @@ public class CommandParser {
     private List<Entry<String, Pattern>> myCommands;
     private ValueVariableStorage myVariableStorage;
     private CommandVariableStorage myCommandStorage;
-    private List<Turtle> myTurtles;
+    private TurtleStorage myTurtles;
     private DataStorageManager myData;
 
-    public CommandParser (String language, DataStorageManager data, List<Turtle> activeTurtles) {
+    public CommandParser (String language, DataStorageManager data, TurtleStorage turtles) {
+        myTurtles = turtles;
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
         myData = data;
@@ -56,7 +57,7 @@ public class CommandParser {
 
         Queue<String> commandQueue = makeCommandQueue(command);
         ExpressionTree completeCommand =
-                new ExpressionTree(myData);
+                new ExpressionTree(myData, myTurtles);
         AbstractCommand rootCommand = null;
         try {
             rootCommand = completeCommand.makeTree(commandQueue);
@@ -87,7 +88,7 @@ public class CommandParser {
             }
             else {
                 replacement = Double
-                        .toString(new ExpressionTree(myData)
+                        .toString(new ExpressionTree(myData, myTurtles)
                                 .makeSubTree(commands).execute());
             }
             commandString = commandString.replaceAll(s, replacement);
@@ -100,7 +101,7 @@ public class CommandParser {
         Queue<String> finalQueue = new LinkedList<String>();
         while(!commandQueue.isEmpty()){
             String comm = commandQueue.poll();
-            if(DataStorageManager.get().getCommandVariableStorage().hasCommand(comm)){
+            if(myData.hasCommand(comm)){
                 commandQueue.addAll(getUserCommand(comm, commandQueue));
             }
             else{
@@ -125,8 +126,7 @@ public class CommandParser {
                     System.out.println("Throw Invalid Command Exception");
                 }
                 else {
-                    if (!symbol.equals("Command") || !DataStorageManager.get()
-                            .getCommandVariableStorage().hasCommand(rawCommand)) {
+                    if (!symbol.equals("Command") || !myData.hasCommand(rawCommand)) {
                         System.out.println("adding " + rawCommand + " to command queue because " +
                                            (!symbol.equals("command") ? "not a command syntax"
                                                                       : "not in command storage"));
