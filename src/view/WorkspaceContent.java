@@ -5,11 +5,11 @@ import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
 import view.toolbar.SettingsMenuBar;
-import view.turtle.TurtleView;
+import view.turtle.TurtleContainer;
 
 /**
  * WorkspaceContent just provides a quick setup for the application. Non-resizable, and provides a
- * TurtleView, with a TextEntryBox beneath.
+ * TurtleContainer, with a TextEntryBox beneath.
  */
 public class WorkspaceContent implements ContentManager {
     private static final double BORDER_RATIO = 0.03;
@@ -21,7 +21,7 @@ public class WorkspaceContent implements ContentManager {
     private double myHeight;
 
     private SettingsMenuBar mySettingsMenuBar;
-    private TurtleView myTurtleView;
+    private TurtleContainer myTurtleContainer;
     private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
 
@@ -68,9 +68,9 @@ public class WorkspaceContent implements ContentManager {
     private void initializeTurtleView() {
         double width = myContentGrid.getTurtleViewWidth();
         double height = myContentGrid.getTurtleViewHeight();
-        myTurtleView = new TurtleView(width, height);
-        myContentGrid.addTurtleView(myTurtleView);
-        myViewElements.addElement(myTurtleView);
+        myTurtleContainer = new TurtleContainer(width, height);
+        myContentGrid.addTurtleView(myTurtleContainer);
+        myViewElements.addElement(myTurtleContainer);
     }
 
     private void initializeHelperPanel() {

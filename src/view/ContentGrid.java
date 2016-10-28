@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
 import view.toolbar.SettingsMenuBar;
-import view.turtle.TurtleView;
+import view.turtle.TurtleContainer;
 
 /**
  * Sets up layout of workspace using a grid.
@@ -23,7 +23,7 @@ public class ContentGrid extends ViewElement {
     private Pane myContent;
     private GridPane myGrid;
     private SettingsMenuBar mySettingsMenuBar;
-    private TurtleView myTurtleView;
+    private TurtleContainer myTurtleContainer;
     private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
 
@@ -55,12 +55,12 @@ public class ContentGrid extends ViewElement {
         StackPane.setAlignment(mySettingsMenuBar.getContent(), Pos.TOP_CENTER);
     }
 
-    public void addTurtleView(TurtleView turtleView) {
-        if (myTurtleView != null) {
-            myGrid.getChildren().remove(myTurtleView);
+    public void addTurtleView(TurtleContainer turtleContainer) {
+        if (myTurtleContainer != null) {
+            myGrid.getChildren().remove(myTurtleContainer);
         }
-        myTurtleView = turtleView;
-        myGrid.add(myTurtleView.getContent(), COL_1, ROW_1, 1, 1);
+        myTurtleContainer = turtleContainer;
+        myGrid.add(myTurtleContainer.getContent(), COL_1, ROW_1, 1, 1);
     }
 
     public void addHelperPanel(TabbedHelperPanel helperPanel) {

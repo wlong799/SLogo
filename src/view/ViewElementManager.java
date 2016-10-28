@@ -26,6 +26,22 @@ public class ViewElementManager {
         return null;
     }
 
+    public Stylizable getStylizableElement(String className) {
+        ViewElement element = getElement(className);
+        if (element == null || ! (element instanceof Stylizable)) {
+            return null;
+        }
+        return (Stylizable)element;
+    }
+
+    public Stylizer getStylizerElement(String className) {
+        ViewElement element = getElement(className);
+        if (element == null || ! (element instanceof Stylizer)) {
+            return null;
+        }
+        return (Stylizer) element;
+    }
+
     private boolean checkClass(ViewElement element, String className) {
         return element.getClass().getSimpleName().equals(className);
     }

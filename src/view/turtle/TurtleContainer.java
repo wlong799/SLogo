@@ -15,10 +15,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * @author Will Long
- * @version 10/19/16
+ * Container for all current turtles and the lines they've drawn
  */
-public class TurtleView extends ViewElement implements Observer {
+public class TurtleContainer extends ViewElement implements Observer {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
@@ -31,7 +30,7 @@ public class TurtleView extends ViewElement implements Observer {
     private GraphicsContext lineGraphics;
     private ImageView turtle;
 
-    public TurtleView(double width, double height) {
+    public TurtleContainer(double width, double height) {
         super(width, height);
         background = new Rectangle(width, height, DEFAULT_BG_COLOR);
         lineCanvas = new Canvas(width, height);
