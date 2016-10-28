@@ -1,113 +1,138 @@
 package view;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
+import view.panel.TabbedHelperPanel;
+import view.textbox.TextEntryBox;
+import view.toolbar.SettingsMenu;
+import view.turtle.TurtleView;
 
 /**
  * Sets up layout of workspace using a grid.
  */
 public class ContentGrid implements Viewable {
-    private static final double TOOLBAR_RATIO = 0.1;
-    private static final double MAIN_PANEL_RATIO = 0.75;
-    private static final double BOTTOM_BAR_RATIO = 0.15;
-    private static final double HORIZONTAL_RATIO = 0.70;
+    private static final double MAIN_PANEL_WIDTH_RATIO = 0.70;
+    private static final double MAIN_PANEL_HEIGHT_RATIO = 0.85;
     private static final double PADDING_RATIO = 0.02;
+    private static final int ROW_1 = 1;
+    private static final int ROW_2 = 2;
+    private static final int COL_1 = 1;
+    private static final int COL_2 = 2;
 
-    private GridPane myContentGrid;
+    private Pane myContent;
+    private GridPane myGrid;
+    private SettingsMenu mySettingsMenu;
+    private TurtleView myTurtleView;
+    private TextEntryBox myTextEntryBox;
+    private TabbedHelperPanel myHelperPanel;
+
     private double myWidth, myHeight;
     private double myXPadding, myYPadding;
+    private double myBorderSize;
 
     public ContentGrid(double width, double height, double borderSize) {
-        myWidth = width - 2 * borderSize;
-        myHeight = height - 2 * borderSize;
+        myWidth = width;
+        myHeight = height;
 
-        myContentGrid = new GridPane();
-        myContentGrid.setLayoutX(borderSize);
-        myContentGrid.setLayoutY(borderSize);
-        myContentGrid.setStyle("-fx-background-color: white");
         myXPadding = myWidth * PADDING_RATIO;
         myYPadding = myHeight * PADDING_RATIO;
+        myBorderSize = borderSize;
 
-        setPadding();
-        setGridSizing();
+        myContent = new StackPane();
+        myGrid = new GridPane();
+        myContent.getChildren().add(myGrid);
+
+        setGridPadding();
+        setGridRowSizes();
+        setGridColSizes();
     }
 
-    private void setPadding() {
-        myContentGrid.setHgap(myXPadding);
-        myContentGrid.setVgap(myYPadding);
+    public void addMenu(SettingsMenu menu) {
+        if (mySettingsMenu != null) {
+            myContent.getChildren().remove(mySettingsMenu);
+        }
+        mySettingsMenu = menu;
+        myContent.getChildren().add(menu.getContent());
+        StackPane.setAlignment(mySettingsMenu.getContent(), Pos.TOP_CENTER);
     }
 
-    private void setGridSizing() {
-        ColumnConstraints column1 = new ColumnConstraints();
-        ColumnConstraints column2 = new ColumnConstraints();
-        double xSpaceRemaining = myWidth - myXPadding;
-        column1.setPrefWidth(xSpaceRemaining * HORIZONTAL_RATIO);
-        column2.setPrefWidth(xSpaceRemaining * (1 - HORIZONTAL_RATIO));
-        myContentGrid.getColumnConstraints().addAll(column1, column2);
-
-        RowConstraints row1 = new RowConstraints();
-        RowConstraints row2 = new RowConstraints();
-        RowConstraints row3 = new RowConstraints();
-        double ySpaceRemaining = myHeight - 2 * myYPadding;
-        row1.setPrefHeight(ySpaceRemaining * TOOLBAR_RATIO);
-        row2.setPrefHeight(ySpaceRemaining * MAIN_PANEL_RATIO);
-        row3.setPrefHeight(ySpaceRemaining * BOTTOM_BAR_RATIO);
-        myContentGrid.getRowConstraints().addAll(row1, row2, row3);
+    public void addTurtleView(TurtleView turtleView) {
+        if (myTurtleView != null) {
+            myGrid.getChildren().remove(myTurtleView);
+        }
+        myTurtleView = turtleView;
+        myGrid.add(myTurtleView.getContent(), COL_1, ROW_1, 1, 1);
     }
 
-    public void addToolBarElement(Viewable element) {
-        myContentGrid.add(element.getContent(), 0, 0, 2, 1);
+    public void addHelperPanel(TabbedHelperPanel helperPanel) {
+        if (myHelperPanel != null) {
+            myGrid.getChildren().remove(myHelperPanel);
+        }
+        myHelperPanel = helperPanel;
+        myGrid.add(myHelperPanel.getContent(), COL_2, ROW_1, 1, 2);
     }
 
-    public void addMainElement(Viewable element) {
-        myContentGrid.add(element.getContent(), 0, 1, 1, 1);
-    }
-
-    public void addSidePanelElement(Viewable element) {
-        myContentGrid.add(element.getContent(), 1, 1, 1, 2);
-    }
-
-    public void addBottomBarElement(Viewable element) {
-        myContentGrid.add(element.getContent(), 0, 2, 1, 1);
+    public void addTextBox(TextEntryBox textBox) {
+        if (myTextEntryBox != null) {
+            myGrid.getChildren().remove(myTextEntryBox);
+        }
+        myTextEntryBox = textBox;
+        myGrid.add(myTextEntryBox.getContent(), COL_1, ROW_2, 1, 1);
     }
 
     @Override
     public Node getContent() {
-        return myContentGrid;
+        return myContent;
     }
 
-    public double getToolbarWidth() {
-        return myWidth;
+    public double getTurtleViewWidth() {
+        return myGrid.getColumnConstraints().get(COL_1).getPrefWidth();
     }
 
-    public double getToolbarHeight() {
-        return myContentGrid.getRowConstraints().get(0).getPrefHeight();
+    public double getTurtleViewHeight() {
+        return myGrid.getRowConstraints().get(ROW_1).getPrefHeight();
     }
 
-    public double getMainElementWidth() {
-        return myContentGrid.getColumnConstraints().get(0).getPrefWidth();
+    public double getHelperPanelWidth() {
+        return myGrid.getColumnConstraints().get(COL_2).getPrefWidth();
     }
 
-    public double getMainElementHeight() {
-        return myContentGrid.getRowConstraints().get(1).getPrefHeight();
+    public double getHelperPanelHeight() {
+        return myGrid.getRowConstraints().get(ROW_1).getPrefHeight() +
+                myGrid.getRowConstraints().get(ROW_2).getPrefHeight();
     }
 
-    public double getSidePanelWidth() {
-        return myContentGrid.getColumnConstraints().get(1).getPrefWidth();
+    public double getTextBoxWidth() {
+        return myGrid.getColumnConstraints().get(COL_1).getPrefWidth();
     }
 
-    public double getSidePanelHeight() {
-        return myContentGrid.getRowConstraints().get(1).getPrefHeight() +
-                myContentGrid.getRowConstraints().get(2).getPrefHeight();
+    public double getTextBoxHeight() {
+        return myGrid.getRowConstraints().get(ROW_2).getPrefHeight();
     }
 
-    public double getBottomBarWidth() {
-        return myContentGrid.getColumnConstraints().get(0).getPrefWidth();
+    private void setGridPadding() {
+        myGrid.setHgap(myXPadding);
+        myGrid.setVgap(myYPadding);
     }
 
-    public double getBottomBarHeight() {
-        return myContentGrid.getRowConstraints().get(2).getPrefHeight();
+    private void setGridRowSizes() {
+        RowConstraints topBorder = new RowConstraints(myBorderSize);
+        RowConstraints bottomBorder = new RowConstraints(myBorderSize);
+        double ySpaceRemaining = myHeight - (2 * myBorderSize) - (3 * myYPadding);
+        RowConstraints mainRow = new RowConstraints(ySpaceRemaining * MAIN_PANEL_HEIGHT_RATIO);
+        RowConstraints bottomRow = new RowConstraints(ySpaceRemaining * (1 - MAIN_PANEL_HEIGHT_RATIO));
+        myGrid.getRowConstraints().addAll(topBorder, mainRow, bottomRow, bottomBorder);
     }
+
+    private void setGridColSizes() {
+        ColumnConstraints leftBorder = new ColumnConstraints(myBorderSize);
+        ColumnConstraints rightBorder = new ColumnConstraints(myBorderSize);
+        double xSpaceRemaining = myWidth - (2 * myBorderSize) - (3 * myXPadding);
+        ColumnConstraints mainCol = new ColumnConstraints(xSpaceRemaining * MAIN_PANEL_WIDTH_RATIO);
+        ColumnConstraints sideCol = new ColumnConstraints(xSpaceRemaining * (1 - MAIN_PANEL_WIDTH_RATIO));
+        myGrid.getColumnConstraints().addAll(leftBorder, mainCol, sideCol, rightBorder);
+    }
+
+
 }

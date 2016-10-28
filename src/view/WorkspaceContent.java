@@ -5,7 +5,6 @@ import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
 import view.toolbar.SettingsMenu;
-import view.toolbar.SettingsToolBar;
 import view.turtle.TurtleView;
 
 /**
@@ -13,7 +12,7 @@ import view.turtle.TurtleView;
  * TurtleView, with a TextEntryBox beneath.
  */
 public class WorkspaceContent implements ContentManager {
-    private static final double BORDER_RATIO = 0.05;
+    private static final double BORDER_RATIO = 0.03;
 
     private ContentGrid myContentGrid;
     private ViewElementManager myViewElements;
@@ -21,6 +20,9 @@ public class WorkspaceContent implements ContentManager {
     private double myWidth;
     private double myHeight;
 
+    private SettingsMenu mySettingsMenu;
+    private TurtleView myTurtleView;
+    private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
 
     public WorkspaceContent(double width, double height) {
@@ -30,10 +32,10 @@ public class WorkspaceContent implements ContentManager {
         myContentGrid = new ContentGrid(width, height, borderSize);
         myViewElements = new ViewElementManager();
 
-        createMainElement();
-        createToolBarElement();
-        createHelperPanelElement();
-        createBottomBarElement();
+        initializeSettingsMenu();
+        initializeTurtleView();
+        initializeHelperPanel();
+        initializeTextEntryBox();
     }
 
     @Override
@@ -54,36 +56,36 @@ public class WorkspaceContent implements ContentManager {
         return myHeight;
     }
 
-    private void createToolBarElement() {
-        double width = myContentGrid.getToolbarWidth();
-        double height = myContentGrid.getToolbarHeight();
-        myContentGrid.addToolBarElement(new SettingsMenu(width, height));
+    private void initializeSettingsMenu() {
+        mySettingsMenu = new SettingsMenu();
+        myContentGrid.addMenu(mySettingsMenu);
+        myViewElements.addElement(mySettingsMenu);
         //SettingsToolBar settingsToolBar = new SettingsToolBar(width, height);
-        //myContentGrid.addToolBarElement(settingsToolBar);
+        //myContentGrid.addMenu(settingsToolBar);
         //myViewElements.addElement(settingsToolBar);
     }
 
-    private void createMainElement() {
-        double width = myContentGrid.getMainElementWidth();
-        double height = myContentGrid.getMainElementHeight();
-        TurtleView turtleView = new TurtleView(width, height);
-        myContentGrid.addMainElement(turtleView);
-        myViewElements.addElement(turtleView);
+    private void initializeTurtleView() {
+        double width = myContentGrid.getTurtleViewWidth();
+        double height = myContentGrid.getTurtleViewHeight();
+        myTurtleView = new TurtleView(width, height);
+        myContentGrid.addTurtleView(myTurtleView);
+        myViewElements.addElement(myTurtleView);
     }
 
-    private void createHelperPanelElement() {
-        double width = myContentGrid.getSidePanelWidth();
-        double height = myContentGrid.getSidePanelHeight();
+    private void initializeHelperPanel() {
+        double width = myContentGrid.getHelperPanelWidth();
+        double height = myContentGrid.getHelperPanelHeight();
         myHelperPanel = new TabbedHelperPanel(width, height);
         myViewElements.addElement(myHelperPanel);
-        myContentGrid.addSidePanelElement(myHelperPanel);
+        myContentGrid.addHelperPanel(myHelperPanel);
     }
 
-    private void createBottomBarElement() {
-        double width = myContentGrid.getBottomBarWidth();
-        double height = myContentGrid.getBottomBarHeight();
+    private void initializeTextEntryBox() {
+        double width = myContentGrid.getTextBoxWidth();
+        double height = myContentGrid.getTextBoxHeight();
         TextEntryBox textEntryBox = new TextEntryBox(width, height);
-        myContentGrid.addBottomBarElement(textEntryBox);
+        myContentGrid.addTextBox(textEntryBox);
         myViewElements.addElement(textEntryBox);
     }
 

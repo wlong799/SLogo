@@ -7,12 +7,8 @@ import view.Viewable;
 
 public class SettingsMenu implements Viewable{
     private MenuBar myMenuBar;
-    private double myWidth, myHeight;
 
-
-    public SettingsMenu(double width, double height) {
-        myWidth = width;
-        myHeight = height;
+    public SettingsMenu() {
         myMenuBar = new MenuBar();
         Menu menuFile = new Menu("File");
         Menu menuEdit = new Menu("Edit");
