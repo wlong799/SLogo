@@ -1,5 +1,6 @@
 package view.turtle;
 
+import dataStorage.Turtle;
 import dataStorage.TurtleState;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -10,6 +11,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import view.GUIElement;
+import view.Style;
+import view.Stylizable;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -17,36 +20,22 @@ import java.util.Observer;
 /**
  * Container for all current turtles and the lines they've drawn
  */
-public class TurtleContainer extends GUIElement implements Observer {
+public class TurtleContainer extends GUIElement implements Observer, Stylizable {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
-    private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
-    private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
-    private static final double TURTLE_SIZE = 50;
 
     private TurtleState prevState, currentState;
-    private StackPane myContent;
-    private Rectangle background;
-    private Canvas lineCanvas;
-    private GraphicsContext lineGraphics;
-    private ImageView turtle;
+    private StackPane myContainer;
+    private Rectangle myBackground;
+    private TurtleLines myTurtleLines;
+    private TurtleView myTurtleView;
 
     public TurtleContainer(double width, double height) {
         super(width, height);
-        background = new Rectangle(width, height, DEFAULT_BG_COLOR);
-        lineCanvas = new Canvas(width, height);
-        lineGraphics = lineCanvas.getGraphicsContext2D();
-        lineGraphics.setStroke(DEFAULT_LINE_COLOR);
-
-        setTurtleImageInit(TURTLE_IMAGE_LOCATION);
-
-        myContent = new StackPane();
-        myContent.getChildren().addAll(background, lineCanvas, turtle);
+        myContainer = new StackPane();
+        myBackground = new Rectangle(width, height, DEFAULT_BG_COLOR);
+        myContainer.getChildren().add(myBackground);
     }
 
-    @Override
-    public Node getContent() {
-        return myContent;
-    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -59,29 +48,7 @@ public class TurtleContainer extends GUIElement implements Observer {
         draw();
         return;
     }
-    
-    public void setTurtleImage(String picture_file_path){
-    	
-			turtle.setImage(new Image(picture_file_path));
-			turtle.setFitHeight(TURTLE_SIZE);
-			turtle.setFitWidth(TURTLE_SIZE);
-		} 
-    
-    public void setTurtleImageInit(String picture_file_path){
-    	
-		turtle = new ImageView(new Image(picture_file_path));
-		turtle.setFitHeight(TURTLE_SIZE);
-		turtle.setFitWidth(TURTLE_SIZE);
-	} 
-    
-    
-    public void setBackgroundColor(Color color) {
-        background.setFill(color);
-    }
-    
-    public void setLineColor(Color color){
-    	lineGraphics.setStroke(color);
-    }
+
 
     private void draw() {
         double x1 = currentState.getPosition().getX();
@@ -100,21 +67,39 @@ public class TurtleContainer extends GUIElement implements Observer {
     }
 
     private void updateTurtlePosition(double x, double y) {
-        turtle.setTranslateX(x);
-        turtle.setTranslateY(y);
+        myTurtleView.getContent().setTranslateX(x);
+        myTurtleView.getContent().setTranslateY(y);
     }
 
     private void drawLine(double x1, double y1, double x2, double y2) {
-        lineGraphics.strokeLine(x1 + myWidth / 2, y1 + myHeight / 2,
-                x2 + myWidth / 2, y2 + myHeight / 2);
+        //myLineGraphics.strokeLine(x1 + myWidth / 2, y1 + myHeight / 2,
+          //      x2 + myWidth / 2, y2 + myHeight / 2);
     }
 
     private void updateTurtleHeading(double heading) {
-        turtle.setRotate(heading + 90);
+        //turtle.setRotate(heading + 90);
     }
-    
+
 
     private void updateTurtleVisibility(boolean isVisible) {
-        turtle.setVisible(isVisible);
+        //turtle.setVisible(isVisible);
+    }
+
+    public void setTurtleImage(String picture_file_path) {
+        Style s = new Style(new Image(picture_file_path));
+        myTurtleView.setStyle(s);
+    }
+
+    @Override
+    public void setStyle(Style style) {
+        Color color = style.getColor();
+        if (color != null) {
+            myBackground.setFill(color);
+        }
+    }
+
+    @Override
+    public Node getContent() {
+        return myContainer;
     }
 }
