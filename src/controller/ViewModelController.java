@@ -34,15 +34,16 @@ public class ViewModelController extends InteractionController {
                 DataStorageManager.get().getValueVariableStorage() == null) {
             return;
         }
-        StoredVariableWindow varWindow = (StoredVariableWindow) myViewElements.getGUIElement("StoredVariableWindow");
-        ValueVariableStorage varStorage = DataStorageManager.get().getValueVariableStorage();
-        varWindow.setObservedList(varStorage.getVariableList());
+
+        StoredVariableWindow varWindow = (StoredVariableWindow) getElementByClass("StoredVariableWindow");
+        //ValueVariableStorage varStorage = myModel.getData().getVariableList();
+        varWindow.setStoredVariableList(myModel.getData().getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
         varWindow.setEditedEvent(event -> {
             String[] newVals = event.getNewValue().split("\\s+");
             String name = newVals[0];
             double val = Double.parseDouble(newVals[1]);
-            varStorage.setVariable(name, val);
+            myModel.getData().setVariable(name, val);
         });
     }
 
@@ -51,9 +52,10 @@ public class ViewModelController extends InteractionController {
                 DataStorageManager.get().getCommandVariableStorage() == null) {
             return;
         }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
-        CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
-        funcWindow.setObservedList(funcStorage.getCommandVariableList());
+
+        StoredFunctionWindow funcWindow = (StoredFunctionWindow) getElementByClass("StoredFunctionWindow");
+        //CommandVariableStorage funcStorage = DataStorageManager.get().getCommandVariableStorage();
+        funcWindow.setStoredFunctionList(myModel.getData().getCommandList());
     }
 
     public void setModel(SLogoModel model) {
@@ -61,8 +63,8 @@ public class ViewModelController extends InteractionController {
     }
 
     private void linkTurtleWithView() {
-        Turtle turtle = myModel.getTurtle();
-        if (turtle == null || myViewElements.getGUIElement("TurtleContainer") == null) {
+        List<Turtle> turtle = myModel.getActiveTurtles();
+        if (turtle == null || getElementByClass("TurtleView") == null) {
             return;
         }
         TurtleContainer turtleContainer = (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");

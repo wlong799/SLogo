@@ -22,16 +22,13 @@ public class CommandParser {
     private List<Entry<String, Pattern>> myCommands;
     private ValueVariableStorage myVariableStorage;
     private CommandVariableStorage myCommandStorage;
-    private Turtle myTurtle;
+    private List<Turtle> myTurtles;
     private DataStorageManager myData;
 
-    public CommandParser (String language, DataStorageManager data) {
+    public CommandParser (String language, DataStorageManager data, List<Turtle> activeTurtles) {
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
         myData = data;
-        myVariableStorage = data.getValueVariableStorage();
-        myCommandStorage = data.getCommandVariableStorage();
-        myTurtle = data.getTurtle();
         init(language);
 
     }

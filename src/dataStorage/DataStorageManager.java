@@ -3,12 +3,13 @@ package dataStorage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.collections.ObservableList;
 
 
 public class DataStorageManager {
-    private int simulationID;
-    private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
-    private Turtle myTurtle;
+    //private int simulationID;
+    //private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
+    //private Turtle myTurtle;
     private ValueVariableStorage myValueVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
@@ -16,18 +17,12 @@ public class DataStorageManager {
     private static DataStorageManager instance = new DataStorageManager();
 
     public DataStorageManager () {
-        simulationID = DEFAULT_SIM_ID;
-        myTurtle = new Turtle();
         myValueVariableStorage = new ValueVariableStorage();
         myCommandVariableStorage = new CommandVariableStorage();
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
     }
-
-    public Turtle getTurtle () {
-        return myTurtle;
-    }
-
+    
     public Double getVariable (String varName) {
         return myValueVariableStorage.getVariable(varName);
     }
@@ -40,6 +35,13 @@ public class DataStorageManager {
         myCommandVariableStorage.setCommand(commandName, parameterNames, commandString);
     }
 
+    public ObservableList<String> getVariableList () {
+        return myValueVariableStorage.getVariableList();
+    }
+    
+    public ObservableList<String> getCommandList () {
+        return myCommandVariableStorage.getCommandVariableList();
+    }
     public static DataStorageManager get () {
         return instance;
     }
