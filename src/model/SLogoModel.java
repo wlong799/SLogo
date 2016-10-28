@@ -8,20 +8,20 @@ import dataStorage.Turtle;
 public class SLogoModel {
     private static final String DEFAULT_LANGUAGE = "English";
     private CommandParser myCommandParser;
-    private Turtle myTurtle;
-
+    private DataStorageManager myData;
+    
     public SLogoModel () {
-        myTurtle = new Turtle();
-        myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myTurtle);
+        myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myData);
+        myData = new DataStorageManager();
     }
 
     public SLogoModel (String language) {
-        myTurtle = new Turtle();
-        myCommandParser = new CommandParser(language, myTurtle);
+        myData = new DataStorageManager();
+        myCommandParser = new CommandParser(language, myData);
     }
 
     public Turtle getTurtle () {
-        return myTurtle;
+        return myData.getTurtle();
     }
 
     public void parse (String s) {
@@ -40,7 +40,7 @@ public class SLogoModel {
     }
 
     public void setLanguage (String language) {
-        myCommandParser = new CommandParser(language, myTurtle);
+        myCommandParser = new CommandParser(language, myData);
 
     }
 
