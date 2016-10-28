@@ -7,14 +7,11 @@ import javafx.collections.ObservableList;
 
 
 public class DataStorageManager {
-    // private int simulationID;
-    // private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
-    // private Turtle myTurtle;
+
     private ValueVariableStorage myValueVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
     private Notifications myNotifications;
-    private static DataStorageManager instance = new DataStorageManager();
 
     public DataStorageManager () {
         myValueVariableStorage = new ValueVariableStorage();
@@ -43,6 +40,14 @@ public class DataStorageManager {
         return myCommandVariableStorage.hasCommand(command);
     }
 
+    public String getCommand (String command) {
+        return myCommandVariableStorage.getCommand(command);
+    }
+
+    public List<String> getCommandParams (String command) {
+        return myCommandVariableStorage.getCommandParams(command);
+    }
+
     public ObservableList<String> getCommandList () {
         return myCommandVariableStorage.getCommandVariableList();
     }
@@ -50,11 +55,8 @@ public class DataStorageManager {
     public ObservableList<String> getHistoryList () {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
-    public void addHistory(String command){
+
+    public void addHistory (String command) {
         myCommandHistoryStorage.addCommand(command);
     }
-    public static DataStorageManager get () {
-        return instance;
-    }
-
 }

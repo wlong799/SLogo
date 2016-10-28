@@ -58,6 +58,7 @@ public class CommandParser {
         Queue<String> commandQueue = makeCommandQueue(command);
         ExpressionTree completeCommand =
                 new ExpressionTree(myData, myTurtles);
+
         AbstractCommand rootCommand = null;
         try {
             rootCommand = completeCommand.makeTree(commandQueue);
@@ -74,11 +75,9 @@ public class CommandParser {
 
     private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
         System.out.println("Getting custom command " + command);
-        String commandString = myCommandStorage.getCommand(command);
-        
-        List<String> commandParams = myCommandStorage.getCommandParams(command);
+        String commandString = myData.getCommand(command);
+        List<String> commandParams = myData.getCommandParams(command);
         Queue<String> commandQueue = new LinkedList<String>();
-
         for (String s : commandParams) {
             System.out.println("replace " + s + " with value in " + command);
             System.out.println("remaining commands " + commands);
@@ -89,22 +88,23 @@ public class CommandParser {
             else {
                 replacement = Double
                         .toString(new ExpressionTree(myData, myTurtles)
+
                                 .makeSubTree(commands).execute());
             }
             commandString = commandString.replaceAll(s, replacement);
         }
-        
+
         System.out.println(commandString);
         Arrays.asList(commandString.split("\n"))
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
                         .collect(Collectors.toList())));
         Queue<String> finalQueue = new LinkedList<String>();
-        while(!commandQueue.isEmpty()){
+        while (!commandQueue.isEmpty()) {
             String comm = commandQueue.poll();
-            if(myData.hasCommand(comm)){
+            if (myData.hasCommand(comm)) {
                 commandQueue.addAll(getUserCommand(comm, commandQueue));
             }
-            else{
+            else {
                 finalQueue.add(comm);
             }
         }

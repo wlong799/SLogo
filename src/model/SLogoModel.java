@@ -22,9 +22,10 @@ public class SLogoModel {
         myCommandParser = new CommandParser(language, myData, myTurtles);
     }
 
-    public TurtleStorage getTurtles(){
+    public TurtleStorage getTurtles () {
         return myTurtles;
     }
+
     private void init () {
         myTurtles = new TurtleStorage();
         myData = new DataStorageManager();

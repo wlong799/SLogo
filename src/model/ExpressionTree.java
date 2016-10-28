@@ -110,6 +110,7 @@ public class ExpressionTree {
                 commandClass.getMethod("addOtherParameters", DataStorageManager.class,
                                        TurtleStorage.class);
         addOtherParameters.invoke(o, myData, myTurtles);
+
     }
 
     private ListCommand makeCommandList (Queue<String> commandQueue) {
