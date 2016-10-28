@@ -5,10 +5,7 @@ import javafx.scene.Parent;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
-import view.toolbar.FileMenu;
-import view.toolbar.HelpMenu;
-import view.toolbar.SettingsMenuBar;
-import view.toolbar.ViewMenu;
+import view.toolbar.*;
 import view.turtle.TurtleContainer;
 import view.turtle.TurtleManager;
 
@@ -67,17 +64,36 @@ public class WorkspaceContent implements ContentManager {
 
     private void initializeSettingsMenu() {
         mySettingsMenuBar = new SettingsMenuBar();
+        myContentGrid.addMenu(mySettingsMenuBar);
+        myElements.addElement(mySettingsMenuBar);
+
         FileMenu fileMenu = new FileMenu();
         ViewMenu viewMenu = new ViewMenu();
         HelpMenu helpMenu = new HelpMenu();
         mySettingsMenuBar.addMenu(fileMenu);
         mySettingsMenuBar.addMenu(viewMenu);
         mySettingsMenuBar.addMenu(helpMenu);
-        myContentGrid.addMenu(mySettingsMenuBar);
-        myElements.addElement(mySettingsMenuBar);
         myElements.addElement(fileMenu);
         myElements.addElement(viewMenu);
         myElements.addElement(helpMenu);
+
+        BackgroundColorPicker backgroundColorPicker = new BackgroundColorPicker();
+        LineColorPicker lineColorPicker = new LineColorPicker();
+        LineSizePicker lineSizePicker = new LineSizePicker();
+        LineStylePicker lineStylePicker = new LineStylePicker();
+        TurtleImagePicker turtleImagePicker = new TurtleImagePicker();
+        viewMenu.addMenuElement(backgroundColorPicker);
+        viewMenu.addSeparator();
+        viewMenu.addMenuElement(lineColorPicker);
+        viewMenu.addMenuElement(lineSizePicker);
+        viewMenu.addMenuElement(lineStylePicker);
+        viewMenu.addSeparator();
+        viewMenu.addMenuElement(turtleImagePicker);
+        myElements.addElement(backgroundColorPicker);
+        myElements.addElement(lineColorPicker);
+        myElements.addElement(lineSizePicker);
+        myElements.addElement(lineStylePicker);
+        myElements.addElement(turtleImagePicker);
     }
 
     private void initializeTurtleView() {
@@ -88,9 +104,6 @@ public class WorkspaceContent implements ContentManager {
         myContentGrid.addTurtleView(myTurtleContainer);
         List<Integer> activeNums = new ArrayList<>();
         activeNums.add(0);
-        activeNums.add(1);
-        turtleManager.setActiveTurtleNums(activeNums);
-        activeNums.remove(1);
         turtleManager.setActiveTurtleNums(activeNums);
         myElements.addElement(myTurtleContainer);
         myElements.addElement(turtleManager);

@@ -1,6 +1,6 @@
 package controller;
 
-import view.ViewElementManager;
+import view.ElementManager;
 
 /**
  * Takes in elements present in view, and is responsible for setting up how
@@ -9,9 +9,9 @@ import view.ViewElementManager;
  */
 public abstract class InteractionController {
 
-    protected ViewElementManager myViewElements;
+    protected ElementManager myViewElements;
 
-    protected InteractionController(ViewElementManager viewElements) {
+    protected InteractionController(ElementManager viewElements) {
         myViewElements = viewElements;
     }
 

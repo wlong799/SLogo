@@ -13,8 +13,10 @@ import java.util.Map;
 public class TurtleImagePicker extends MenuElement implements Stylizer {
     private static final String NAME = "Select Turtle Image";
     private static final String DEFAULT_IMAGE = "Turtle";
-    private static final String[] IMAGE_NAMES = new String[]{"Turtle"};
-    private static final String[] IMAGE_LOCATIONS = new String[]{"resources/turtle.png"};
+    private static final String[] IMAGE_NAMES = new String[]
+            {"Turtle", "Smiley Face"};
+    private static final String[] IMAGE_LOCATIONS = new String[]
+            {"resources/turtle.png", "resources/smiley.png"};
     private Map<String, Image> myImageMap;
 
     private Menu myMenu;
@@ -32,6 +34,7 @@ public class TurtleImagePicker extends MenuElement implements Stylizer {
             RadioMenuItem myRadioItem = new RadioMenuItem(imageName);
             myRadioItem.setUserData(image);
             myRadioItem.setToggleGroup(myImageGroup);
+            myMenu.getItems().add(myRadioItem);
         }
     }
 
