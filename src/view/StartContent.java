@@ -16,7 +16,7 @@ public class StartContent implements ContentManager {
     private Pane myStartContent;
     private ElementManager myViewElements;
 
-    public StartContent(double width, double height) {
+    public StartContent (double width, double height) {
         myWidth = width;
         myHeight = height;
         myPaneWidth = myWidth * BUTTON_PANE_WIDTH_RATIO;
@@ -33,7 +33,7 @@ public class StartContent implements ContentManager {
     }
 
     @Override
-    public Parent getContentLayout() {
+    public Parent getContentLayout () {
         return myStartContent;
     }
 
@@ -41,8 +41,7 @@ public class StartContent implements ContentManager {
     public ElementManager getElements() {
         return myViewElements;
     }
-
-    private Pane createCenteredButtonPane(StartButtons startButtons) {
+    private Pane createCenteredButtonPane (StartButtons startButtons) {
         Pane pane = new Pane(startButtons.getContent());
         double widthOffset = (myWidth - myPaneWidth) / 2;
         double heightOffset = (myHeight * BUTTON_PANE_OFFSET_RATIO);
