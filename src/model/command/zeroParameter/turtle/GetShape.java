@@ -1,11 +1,11 @@
-package model.command;
+package model.command.zeroParameter.turtle;
 
-import model.ExpressionNode;
+import model.command.AbstractCommand;
 import java.util.List;
 
 
 public class GetShape extends AbstractCommandZeroParameterTurtle {
-    public GetShape(List<ExpressionNode> parameters) {
+    public GetShape(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

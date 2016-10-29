@@ -1,12 +1,12 @@
-package model.command;
+package model.command.oneParameter.turtle;
 
 import java.util.List;
-import model.ExpressionNode;
+import model.command.AbstractCommand;
 
 
 public class SetPenSize extends AbstractCommandOneParameterTurtle {
 
-    public SetPenSize(List<ExpressionNode> parameters) {
+    public SetPenSize(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

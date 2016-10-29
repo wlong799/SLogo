@@ -7,6 +7,7 @@ public class DataStorageManager {
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
     private Notifications myNotifications;
+    private ColorStorage myColorStorage;
 
     private List<Integer> myActiveIDs;
     private static final int DEFAULT_SIM_ID = 1; // default simulation when starting
@@ -18,6 +19,7 @@ public class DataStorageManager {
         myCommandVariableStorage = new CommandVariableStorage();
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
+        myColorStorage = new ColorStorage();
 
         Turtle defaultTurtle = new Turtle(DEFAULT_SIM_ID);
         myTurtleStorage.put(DEFAULT_SIM_ID, defaultTurtle);
@@ -62,5 +64,9 @@ public class DataStorageManager {
 
     public double getNumTurtles() {
         return myTurtleStorage.size();
+    }
+
+    public ColorStorage getColorStorage(){
+        return myColorStorage;
     }
 }

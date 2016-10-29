@@ -9,6 +9,7 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand{
 
     private CommandVariableStorage myCommands;
     private ValueVariableStorage myVariables;
+    private ColorStorage myColors;
     
     public AbstractCommandHigherOrder (List<AbstractCommand> parameters) {
         super(parameters);
@@ -18,9 +19,10 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand{
     public AbstractCommandHigherOrder(){
         super();
     }
-    public void addVariables(ValueVariableStorage variables, CommandVariableStorage commands){
+    public void addVariables(ValueVariableStorage variables, CommandVariableStorage commands, ColorStorage colors){
         myCommands = commands;
         myVariables = variables;
+        myColors = colors;
     }
     
     public abstract double execute();
@@ -29,4 +31,7 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand{
         return myVariables;
     }
 
+    protected ColorStorage getColors() {
+        return myColors;
+    }
 }

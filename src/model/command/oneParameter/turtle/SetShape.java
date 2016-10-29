@@ -1,12 +1,12 @@
-package model.command;
+package model.command.oneParameter.turtle;
 
 import java.util.List;
-import model.ExpressionNode;
+import model.command.AbstractCommand;
 
 
 public class SetShape extends AbstractCommandOneParameterTurtle {
 
-    public SetShape(List<ExpressionNode> parameters) {
+    public SetShape(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

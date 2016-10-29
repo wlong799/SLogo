@@ -1,12 +1,12 @@
-package model.command;
+package model.command.oneParameter.turtle;
 
 import java.util.List;
-import model.ExpressionNode;
+import model.command.AbstractCommand;
 
 
 public class SetPenColor extends AbstractCommandOneParameterTurtle {
 
-    public SetPenColor(List<ExpressionNode> parameters) {
+    public SetPenColor(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

@@ -1,11 +1,11 @@
-package model.command;
+package model.command.zeroParameter.turtle;
 
-import model.ExpressionNode;
+import model.command.AbstractCommand;
 import java.util.List;
 
 
 public class ID extends AbstractCommandZeroParameterTurtle {
-    public ID(List<ExpressionNode> parameters) {
+    public ID(List<AbstractCommand> parameters) {
         super(parameters);
     }
 

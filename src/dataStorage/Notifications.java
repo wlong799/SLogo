@@ -8,10 +8,12 @@ public class Notifications extends Observable {
     private static final boolean FALSE = false;
 
     private boolean myClearScreenFlag;
-    private boolean mySyntaxErrorFlag;
+    private boolean myBackgroundColorFlag;
+    private int myBackgroundColorIndex;
 
     private void updateAndCallObserver() {
-        NotificationsState showOffState = new NotificationsState(myClearScreenFlag, mySyntaxErrorFlag);
+        NotificationsState showOffState = new NotificationsState(myClearScreenFlag, myBackgroundColorFlag,
+                myBackgroundColorIndex);
         setChanged();
         notifyObservers(showOffState);
         // clearChanged(); // TODO: Was this removed on purpose?
@@ -23,9 +25,10 @@ public class Notifications extends Observable {
         myClearScreenFlag = FALSE;
     }
 
-    public void setSyntaxErrorFlag() {
-        mySyntaxErrorFlag = TRUE;
+    public void setNewBackgroundColorIndex(int newIndex) {
+        myBackgroundColorFlag = TRUE;
+        myBackgroundColorIndex = newIndex;
         updateAndCallObserver();
-        mySyntaxErrorFlag = FALSE;
+        myBackgroundColorFlag = FALSE;
     }
 }
