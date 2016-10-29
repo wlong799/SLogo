@@ -2,6 +2,8 @@ package model.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import dataStorage.DataStorageManager;
+import dataStorage.TurtleStorage;
 
 
 public abstract class AbstractCommand {
@@ -42,18 +44,26 @@ public abstract class AbstractCommand {
     protected double distanceFormula (double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
-    
+
     @Override
-    public String toString(){
+    public String toString () {
         StringBuilder myName = new StringBuilder();
-        
+
         myName.append(this.getClass().getSimpleName());
         myName.append(" ");
-        for(AbstractCommand node : myParameters){
+        for (AbstractCommand node : myParameters) {
             myName.append(node.toString().trim());
             myName.append(" ");
         }
         return myName.toString();
+    }
+
+    public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
+
+        /**
+         * Do nothing here. commands that use the variables will override to
+         * set their instance variables
+         */
     }
 
 }

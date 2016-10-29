@@ -1,22 +1,30 @@
 package model.command.oneParameter.turtle;
 
 import java.util.List;
-
 import dataStorage.Turtle;
+import dataStorage.TurtleStorage;
 import model.command.AbstractCommand;
+import model.command.AbstractTurtleCommand;
 import model.command.oneParameter.AbstractCommandOneParameter;
+import model.command.oneParameter.IOneParameterCommand;
 import dataStorage.DataStorageManager;
 
-abstract class AbstractCommandOneParameterTurtle extends AbstractCommandOneParameter{
 
-    protected Turtle myTurtle;
+public abstract class AbstractCommandOneParameterTurtle extends AbstractTurtleCommand
+        implements IOneParameterCommand {
+    
 
-    public AbstractCommandOneParameterTurtle(List<AbstractCommand> parameters) {
+    public AbstractCommandOneParameterTurtle (List<AbstractCommand> parameters) {
         super(parameters);
-        //myTurtle = DataStorageManager.get().getTurtle();
+        // myTurtle = DataStorageManager.get().getTurtle();
     }
 
-    public void setTurtle(Turtle turtle){
-        myTurtle = turtle;
+    
+
+    
+
+    public int getNumParameters () {
+        return NUM_PARAMETERS;
     }
+
 }

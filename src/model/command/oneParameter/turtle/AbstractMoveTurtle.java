@@ -2,10 +2,11 @@ package model.command.oneParameter.turtle;
 
 import dataStorage.Position;
 import model.command.AbstractCommand;
+import model.command.oneParameter.IOneParameterCommand;
 import java.util.List;
 
 
-abstract class AbstractMoveTurtle extends AbstractCommandOneParameterTurtle {
+abstract class AbstractMoveTurtle extends AbstractCommandOneParameterTurtle implements IOneParameterCommand{
 
     AbstractMoveTurtle (List<AbstractCommand> parameters) {
         super(parameters);

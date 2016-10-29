@@ -4,11 +4,8 @@ import java.util.List;
 import model.command.AbstractCommand;
 
 
-public abstract class AbstractCommandOneParameter extends AbstractCommand {
-    
-    protected static final int PARAMETER_ONE = 0;
-    private static final int NUM_PARAMETERS = 1;
-    
+public abstract class AbstractCommandOneParameter extends AbstractCommand
+        implements IOneParameterCommand {
 
     public AbstractCommandOneParameter (List<AbstractCommand> parameters) {
         super(parameters);

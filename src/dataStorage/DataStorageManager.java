@@ -1,50 +1,62 @@
 package dataStorage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javafx.collections.ObservableList;
+
 
 public class DataStorageManager {
-    private int simulationID;
-    private static final int DEFAULT_SIM_ID = 0; // default simulation when starting
-    private Map<Integer, SubDataStorageManager> mySubDataStorageManagers;
-    private static DataStorageManager instance = new DataStorageManager();
 
-    private DataStorageManager() {
-        simulationID = DEFAULT_SIM_ID;
-        mySubDataStorageManagers = new HashMap<>();
-        SubDataStorageManager defaultSubDataStorageManager = new SubDataStorageManager();
-        mySubDataStorageManagers.put(DEFAULT_SIM_ID, defaultSubDataStorageManager);
+    private ValueVariableStorage myValueVariableStorage;
+    private CommandHistoryStorage myCommandHistoryStorage;
+    private CommandVariableStorage myCommandVariableStorage;
+    private Notifications myNotifications;
+
+    public DataStorageManager () {
+        myValueVariableStorage = new ValueVariableStorage();
+        myCommandVariableStorage = new CommandVariableStorage();
+        myCommandHistoryStorage = new CommandHistoryStorage();
+        myNotifications = new Notifications();
     }
 
-    public static DataStorageManager get() {
-        return instance;
+    public Double getVariable (String varName) {
+        return myValueVariableStorage.getVariable(varName);
     }
 
-    public void changeSimulation(int newSimulationID) {
-        if(!(mySubDataStorageManagers.containsKey(newSimulationID))) {
-            SubDataStorageManager newSubDataStorageManager = new SubDataStorageManager();
-            mySubDataStorageManagers.put(newSimulationID, newSubDataStorageManager);
-        }
-        simulationID = newSimulationID;
+    public void setVariable (String varName, double value) {
+        myValueVariableStorage.setVariable(varName, value);
     }
 
-    public Turtle getTurtle() {
-        return mySubDataStorageManagers.get(simulationID).getTurtle();
+    public void setCommand (String commandName, List<String> parameterNames, String commandString) {
+        myCommandVariableStorage.setCommand(commandName, parameterNames, commandString);
     }
 
-    public ValueVariableStorage getValueVariableStorage() {
-        return mySubDataStorageManagers.get(simulationID).getValueVariableStorage();
+    public ObservableList<String> getVariableList () {
+        return myValueVariableStorage.getVariableList();
     }
 
-    public CommandHistoryStorage getCommandHistoryStorage() {
-        return mySubDataStorageManagers.get(simulationID).getCommandHistoryStorage();
+    public boolean hasCommand (String command) {
+        return myCommandVariableStorage.hasCommand(command);
     }
 
-    public CommandVariableStorage getCommandVariableStorage() {
-        return mySubDataStorageManagers.get(simulationID).getCommandVariableStorage();
+    public String getCommand (String command) {
+        return myCommandVariableStorage.getCommand(command);
     }
 
-    public Notifications getNotifications() {
-        return mySubDataStorageManagers.get(simulationID).getNotifications();
+    public List<String> getCommandParams (String command) {
+        return myCommandVariableStorage.getCommandParams(command);
+    }
+
+    public ObservableList<String> getCommandList () {
+        return myCommandVariableStorage.getCommandVariableList();
+    }
+
+    public ObservableList<String> getHistoryList () {
+        return myCommandHistoryStorage.getCommandHistoryList();
+    }
+
+    public void addHistory (String command) {
+        myCommandHistoryStorage.addCommand(command);
     }
 }

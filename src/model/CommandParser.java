@@ -22,14 +22,14 @@ public class CommandParser {
     private List<Entry<String, Pattern>> myCommands;
     private ValueVariableStorage myVariableStorage;
     private CommandVariableStorage myCommandStorage;
-    private Turtle myTurtle;
+    private TurtleStorage myTurtles;
+    private DataStorageManager myData;
 
-    public CommandParser (String language, Turtle turtle) {
+    public CommandParser (String language, DataStorageManager data, TurtleStorage turtles) {
+        myTurtles = turtles;
         mySyntax = new ArrayList<>();
         myCommands = new ArrayList<>();
-        myVariableStorage = DataStorageManager.get().getValueVariableStorage();
-        myCommandStorage = DataStorageManager.get().getCommandVariableStorage();
-        myTurtle = turtle;
+        myData = data;
         init(language);
 
     }
@@ -57,7 +57,8 @@ public class CommandParser {
 
         Queue<String> commandQueue = makeCommandQueue(command);
         ExpressionTree completeCommand =
-                new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage);
+                new ExpressionTree(myData, myTurtles);
+
         AbstractCommand rootCommand = null;
         try {
             rootCommand = completeCommand.makeTree(commandQueue);
@@ -72,42 +73,47 @@ public class CommandParser {
 
     }
 
-    private List<String> getUserCommand (String command, Queue<String> commands) throws Exception {
-        String commandString = myCommandStorage.getCommand(command);
-        List<String> commandParams = myCommandStorage.getCommandParams(command);
-        // ExpressionNode commandStringNode = myCommandStorage.getCommand(command);
-        // String commandString = "";
-        // commandStringNode.getCommands().forEach(comm -> commandString+=comm.toString());
-        List<String> commandQueue = new LinkedList<String>();
-
+    private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
+        System.out.println("Getting custom command " + command);
+        String commandString = myData.getCommand(command);
+        List<String> commandParams = myData.getCommandParams(command);
+        Queue<String> commandQueue = new LinkedList<String>();
         for (String s : commandParams) {
             System.out.println("replace " + s + " with value in " + command);
             System.out.println("remaining commands " + commands);
             String replacement;
-            if(isVariable(commands.peek())){
+            if (isVariable(commands.peek())) {
                 replacement = commands.poll();
             }
-            else{
+            else {
                 replacement = Double
-                        .toString((new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-                                .makeSubTree(commands).execute()));
+                        .toString(new ExpressionTree(myData, myTurtles)
+
+                                .makeSubTree(commands).execute());
             }
             commandString = commandString.replaceAll(s, replacement);
-
-            // myVariableStorage.setVariable(s,
-            // traverse(new ExpressionTree(myTurtle, myVariableStorage, myCommandStorage)
-            // .makeTree(commands)));
         }
+
         System.out.println(commandString);
         Arrays.asList(commandString.split("\n"))
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
                         .collect(Collectors.toList())));
-        return commandQueue;
+        Queue<String> finalQueue = new LinkedList<String>();
+        while (!commandQueue.isEmpty()) {
+            String comm = commandQueue.poll();
+            if (myData.hasCommand(comm)) {
+                commandQueue.addAll(getUserCommand(comm, commandQueue));
+            }
+            else {
+                finalQueue.add(comm);
+            }
+        }
+        System.out.println(finalQueue + " is the command Queue for command " + command);
+        return finalQueue;
     }
 
     private Queue<String> makeCommandQueue (String command) {
         List<String> onOneLine = Arrays.asList(command.split("\\n"));
-
         Queue<String> commands = new LinkedList<String>();
         onOneLine.forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
         Queue<String> commandQueue = new LinkedList<String>();
@@ -118,18 +124,9 @@ public class CommandParser {
                 symbol = getSymbol(rawCommand, true);
                 if (symbol.equals("NO MATCH")) {
                     System.out.println("Throw Invalid Command Exception");
-
                 }
                 else {
-
-                    // if (symbol.equals("Variable")) {
-                    // commandQueue
-                    // .add(Double.toString(myVariableStorage.getVariable(rawCommand)));
-                    // }
-                    // else {
-
-                    if (!symbol.equals("Command") || !DataStorageManager.get()
-                            .getCommandVariableStorage().hasCommand(rawCommand)) {
+                    if (!symbol.equals("Command") || !myData.hasCommand(rawCommand)) {
                         System.out.println("adding " + rawCommand + " to command queue because " +
                                            (!symbol.equals("command") ? "not a command syntax"
                                                                       : "not in command storage"));
@@ -144,7 +141,6 @@ public class CommandParser {
                             System.out.println("exception in custom command");
                         }
                     }
-                    // }
                 }
             }
             else {

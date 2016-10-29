@@ -12,7 +12,7 @@ public class Right extends AbstractTurnTurtle {
     }
 
     @Override
-    public double execute () {
+    public double turtleExecute () {
         return(turn(TurnDirection.Right));
     }
 

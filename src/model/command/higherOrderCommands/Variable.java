@@ -25,12 +25,13 @@ public class Variable extends AbstractCommandHigherOrder {
 
     @Override
     public double execute () {
-        return getVariables().getVariable(myVariableName);
+        return getData().getVariable(myVariableName);
     }
 
     @Override
     public int getNumParameters () {
         return 0;
     }
+
 
 }
