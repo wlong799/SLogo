@@ -30,7 +30,7 @@ public class MakeVariable extends AbstractCommandHigherOrder {
         List<Double> givenParameters = getParameters();
         double varValue = givenParameters.get(1);
 
-        getVariables().setVariable(myName, varValue);
+        getData().setVariable(myName, varValue);
         System.out.println(myName +" = " + varValue);
         return varValue;
     }

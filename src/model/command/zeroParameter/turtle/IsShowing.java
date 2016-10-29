@@ -13,7 +13,8 @@ public class IsShowing extends AbstractCommandZeroParameterTurtle {
         super(parameters);
     }
 
-    public double execute() {
+    @Override
+    protected double turtleExecute() {
         return myTurtle.getVisibility() ? RETURN_SHOWING : RETURN_NOT_SHOWING;
     }
 }

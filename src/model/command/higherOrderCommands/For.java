@@ -35,7 +35,7 @@ public class For extends AbstractCommandHigherOrder {
         double returnValue = 0;
 
         for (double repcountVar = start; repcountVar <= end; repcountVar += increment) {
-            getVariables().setVariable(repcount_var,
+            getData().setVariable(repcount_var,
                     repcountVar);
             returnValue = codeBlock.execute();
         }

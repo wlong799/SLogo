@@ -5,33 +5,31 @@ import dataStorage.*;
 import model.command.AbstractCommand;
 
 
-public abstract class AbstractCommandHigherOrder extends AbstractCommand{
+public abstract class AbstractCommandHigherOrder extends AbstractCommand {
 
-    private CommandVariableStorage myCommands;
-    private ValueVariableStorage myVariables;
-    private ColorStorage myColors;
-    
+    private DataStorageManager myData;
+
     public AbstractCommandHigherOrder (List<AbstractCommand> parameters) {
         super(parameters);
-        // TODO Auto-generated constructor stub
     }
 
-    public AbstractCommandHigherOrder(){
+    public AbstractCommandHigherOrder () {
         super();
     }
-    public void addVariables(ValueVariableStorage variables, CommandVariableStorage commands, ColorStorage colors){
-        myCommands = commands;
-        myVariables = variables;
-        myColors = colors;
-    }
-    
-    public abstract double execute();
-    
-    protected ValueVariableStorage getVariables(){
-        return myVariables;
+
+
+    @Override
+    public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
+        myData = data;
     }
 
-    protected ColorStorage getColors() {
-        return myColors;
+    public abstract double execute ();
+    
+    protected DataStorageManager getData() {
+        return myData;
     }
+
+//    protected ColorStorage getColors() {
+//        return myColors;
+//    }
 }

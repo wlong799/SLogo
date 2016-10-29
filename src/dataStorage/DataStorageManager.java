@@ -1,72 +1,62 @@
 package dataStorage;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javafx.collections.ObservableList;
+
 
 public class DataStorageManager {
+
     private ValueVariableStorage myValueVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
     private Notifications myNotifications;
-    private ColorStorage myColorStorage;
 
-    private List<Integer> myActiveIDs;
-    private static final int DEFAULT_SIM_ID = 1; // default simulation when starting
-    private Map<Integer, Turtle> myTurtleStorage;
-    private static DataStorageManager instance = new DataStorageManager();
-
-    private DataStorageManager() {
+    public DataStorageManager () {
         myValueVariableStorage = new ValueVariableStorage();
         myCommandVariableStorage = new CommandVariableStorage();
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
-        myColorStorage = new ColorStorage();
-
-        Turtle defaultTurtle = new Turtle(DEFAULT_SIM_ID);
-        myTurtleStorage.put(DEFAULT_SIM_ID, defaultTurtle);
-
-        myActiveIDs = new ArrayList<>();
-        myActiveIDs.add(DEFAULT_SIM_ID);
     }
 
-    public static DataStorageManager get() {
-        return instance;
+    public Double getVariable (String varName) {
+        return myValueVariableStorage.getVariable(varName);
     }
 
-    public void changeSimulation(List<Integer> newSimulationIDs) {
-        myActiveIDs.clear();
-        for(int oneID : newSimulationIDs) {
-            if(!(myTurtleStorage.containsKey(oneID))) {
-                myTurtleStorage.put(oneID, new Turtle(oneID));
-            }
-        }
-        myActiveIDs = newSimulationIDs;
+    public void setVariable (String varName, double value) {
+        myValueVariableStorage.setVariable(varName, value);
     }
 
-    public Collection<Turtle> getActiveTurtles() {
-        return myTurtleStorage.values();
+    public void setCommand (String commandName, List<String> parameterNames, String commandString) {
+        myCommandVariableStorage.setCommand(commandName, parameterNames, commandString);
     }
 
-    public ValueVariableStorage getValueVariableStorage() {
-        return myValueVariableStorage;
+    public ObservableList<String> getVariableList () {
+        return myValueVariableStorage.getVariableList();
     }
 
-    public CommandHistoryStorage getCommandHistoryStorage() {
-        return myCommandHistoryStorage;
+    public boolean hasCommand (String command) {
+        return myCommandVariableStorage.hasCommand(command);
     }
 
-    public CommandVariableStorage getCommandVariableStorage() {
-        return myCommandVariableStorage;
+    public String getCommand (String command) {
+        return myCommandVariableStorage.getCommand(command);
     }
 
-    public Notifications getNotifications() {
-        return myNotifications;
+    public List<String> getCommandParams (String command) {
+        return myCommandVariableStorage.getCommandParams(command);
     }
 
-    public double getNumTurtles() {
-        return myTurtleStorage.size();
+    public ObservableList<String> getCommandList () {
+        return myCommandVariableStorage.getCommandVariableList();
     }
 
-    public ColorStorage getColorStorage(){
-        return myColorStorage;
+    public ObservableList<String> getHistoryList () {
+        return myCommandHistoryStorage.getCommandHistoryList();
+    }
+
+    public void addHistory (String command) {
+        myCommandHistoryStorage.addCommand(command);
     }
 }

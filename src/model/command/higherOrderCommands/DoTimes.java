@@ -1,6 +1,5 @@
 package model.command.higherOrderCommands;
 
-
 import java.util.List;
 import dataStorage.DataStorageManager;
 import model.command.AbstractCommand;
@@ -31,8 +30,8 @@ public class DoTimes extends AbstractCommandHigherOrder {
         double returnValue = 0;
 
         for (double repcountVar = START_REPCOUNT; repcountVar <= numTimes; repcountVar++) {
-            getVariables().setVariable(repcount_var,
-                                       repcountVar);
+            getData().setVariable(repcount_var,
+                                  repcountVar);
             for (AbstractCommand command : codeBlock) {
                 returnValue = command.execute();
             }

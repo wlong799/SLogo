@@ -29,7 +29,15 @@ public class TurtleState {
 		myTurtleVisible = isTurtleVisible;
 	}
 
-	public Position getPosition() {
+	public TurtleState (Turtle t) {
+	    myPosition = t.getPosition();
+	    myHeading = t.getHeading();
+	    myPenDown = t.getPenDownStatus();
+	    myTurtleVisible = t.getVisibility();
+        // TODO Auto-generated constructor stub
+    }
+
+    public Position getPosition() {
 		return myPosition;
 	}
 

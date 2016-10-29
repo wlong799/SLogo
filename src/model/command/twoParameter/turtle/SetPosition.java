@@ -11,7 +11,8 @@ public class SetPosition extends AbstractCommandTwoParameterTurtle {
         super(parameters);
     }
 
-    public double execute() {
+    @Override
+    protected double turtleExecute() {
         ArrayList<Double> operationParameters = getParameters();
         double givenX = operationParameters.get(PARAMETER_ONE);
         double givenY = operationParameters.get(PARAMETER_TWO);

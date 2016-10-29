@@ -16,7 +16,7 @@ public class XCoordinate extends AbstractCommandZeroParameterTurtle {
         super(parameters);
     }
 
-    public double execute() {
+    protected double turtleExecute() {
         return myTurtle.getPosition().getX();
     }
 }
