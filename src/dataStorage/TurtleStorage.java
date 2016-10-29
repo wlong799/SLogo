@@ -32,12 +32,15 @@ public class TurtleStorage extends Observable implements Observer {
                 activeTurtles.add(t);
             }
         }
+        updateTurtles();
+    }
+
+    private void updateTurtles () {
         for (Turtle t : activeTurtles) {
             setChanged();
             notifyObservers(new TurtleState(t));
         }
     }
-
     public List<Turtle> getActiveTurtles () {
         return activeTurtles;
     }
@@ -50,7 +53,8 @@ public class TurtleStorage extends Observable implements Observer {
     public void update (Observable o, Object arg) {
         System.out.println("CHANGED");
         System.out.println(o);
-        System.out.println(arg);
+        TurtleState state = (TurtleState)arg;
+        System.out.println(state.getPosition());
         setChanged();
         notifyObservers(arg);
     }

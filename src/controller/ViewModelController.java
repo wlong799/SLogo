@@ -67,16 +67,20 @@ public class ViewModelController extends InteractionController {
     }
 
     private void linkTurtleWithView () {
-        
+        System.out.println("LINK TURTLE");
         TurtleStorage turtles = myModel.getTurtles();
-        if (turtles == null || myViewElements.getGUIElement("TurtleView") == null) {
+        for (Turtle t : turtles.getActiveTurtles()) {
+            System.out.println(t.getPosition());
+        }
+        if (turtles == null || myViewElements.getGUIElement("TurtleContainer") == null) {
             return;
         }
+        
         TurtleContainer turtleContainer =
                 (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
-
+        System.out.println(turtleContainer.getTurtleManager().getActiveTurtles());
         turtles.addObserver(turtleContainer);
-        //turtles.setVisibility(true);
+        // turtles.setVisibility(true);
     }
 
     private void linkTextBoxToParser () {
@@ -114,7 +118,7 @@ public class ViewModelController extends InteractionController {
         }
 
         CommandHistoryWindow chWindow =
-                (CommandHistoryWindow)myViewElements.getGUIElement("CommandHistoryWindow");
+                (CommandHistoryWindow) myViewElements.getGUIElement("CommandHistoryWindow");
         chWindow.setObservedList(myModel.getData().getHistoryList());
     }
 

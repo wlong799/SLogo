@@ -19,7 +19,7 @@ public class Turtle extends Observable {
     public Turtle (int id) {
         myID = id;
         myPosition = new Position(0, 0);
-        myHeading = 90.0;
+        myHeading = -90.0;
         myPenDown = true;
         myTurtleVisible = true;
     }
