@@ -24,9 +24,10 @@ public class Turtle extends Observable {
         myTurtleVisible = true;
     }
 
-    public int getID() {
+    public int getID () {
         return myID;
     }
+
     private void updateAndCallObserver () {
         TurtleState showOffState =
                 new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
