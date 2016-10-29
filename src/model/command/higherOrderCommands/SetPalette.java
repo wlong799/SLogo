@@ -21,7 +21,7 @@ public class SetPalette extends AbstractCommandHigherOrder implements IFourParam
             return index; // so we can keep going. Shouldn't be program-breaking
         }
 
-        getColors().setColor(index, red, green, blue);
+//        getColors().setColor(index, red, green, blue);
 
         return index;
     }

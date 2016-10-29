@@ -16,7 +16,6 @@ public class Notifications extends Observable {
                 myBackgroundColorIndex);
         setChanged();
         notifyObservers(showOffState);
-        // clearChanged(); // TODO: Was this removed on purpose?
     }
 
     public void setClearScreenFlag() {

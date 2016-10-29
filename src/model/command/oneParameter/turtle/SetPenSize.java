@@ -10,8 +10,7 @@ public class SetPenSize extends AbstractCommandOneParameterTurtle {
         super(parameters);
     }
 
-    @Override
-    public double execute() {
+    public double turtleExecute() {
         double newPenSize = getParameters().get(PARAMETER_ONE);
         myTurtle.setPenSize(newPenSize);
         return newPenSize;

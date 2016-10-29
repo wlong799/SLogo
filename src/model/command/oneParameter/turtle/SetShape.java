@@ -10,8 +10,7 @@ public class SetShape extends AbstractCommandOneParameterTurtle {
         super(parameters);
     }
 
-    @Override
-    public double execute() {
+    public double turtleExecute() {
         double newShape = getParameters().get(PARAMETER_ONE);
         myTurtle.setShape(newShape);
         return newShape;

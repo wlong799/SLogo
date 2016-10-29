@@ -9,7 +9,7 @@ public class GetShape extends AbstractCommandZeroParameterTurtle {
         super(parameters);
     }
 
-    public double execute() {
+    public double turtleExecute() {
         return myTurtle.getShape();
     }
 }

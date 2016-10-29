@@ -10,8 +10,7 @@ public class SetPenColor extends AbstractCommandOneParameterTurtle {
         super(parameters);
     }
 
-    @Override
-    public double execute() {
+    public double turtleExecute() {
         double newPenColor = getParameters().get(PARAMETER_ONE);
         myTurtle.setPenColor(newPenColor);
         return newPenColor;

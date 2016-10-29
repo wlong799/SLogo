@@ -9,7 +9,7 @@ public class ID extends AbstractCommandZeroParameterTurtle {
         super(parameters);
     }
 
-    public double execute() {
+    public double turtleExecute() {
         return myTurtle.getID();
     }
 }

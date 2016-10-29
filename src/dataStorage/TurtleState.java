@@ -4,7 +4,6 @@ package dataStorage;
  * TurtleState is a simplified object which only reflects what the Turtle has
  * but without any of the dataStorage's functionality
  * 
- * @author Filip Mazurek
  */
 public class TurtleState {
 
@@ -34,7 +33,6 @@ public class TurtleState {
 	    myHeading = t.getHeading();
 	    myPenDown = t.getPenDownStatus();
 	    myTurtleVisible = t.getVisibility();
-        // TODO Auto-generated constructor stub
     }
 
     public Position getPosition() {

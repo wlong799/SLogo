@@ -9,7 +9,7 @@ public class ColorStorage {
     private static final double DEFAULT_RETURN = 0;
 
     public ColorStorage() {
-        colorMap = importDefaultColorsFromFile();
+//        colorMap = importDefaultColorsFromFile();
     }
 
     public Map<String, Double> getColor(int index) {
@@ -35,9 +35,9 @@ public class ColorStorage {
         colorMap.put(index, colorComponents);
     }
 
-    private Map<Integer, Map<String, Double>> importDefaultColorsFromFile() {
-        /* TODO: Set up a default colors file, maybe. Or just make like three colors here locally and not
-        * deal with the XML file here.
-        */
-    }
+//    private Map<Integer, Map<String, Double>> importDefaultColorsFromFile() {
+//        /* TODO: Set up a default colors file, maybe. Or just make like three colors here locally and not
+//        * deal with the XML file here.
+//        */
+//    }
 }
