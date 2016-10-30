@@ -1,15 +1,18 @@
 package model.command.zeroParameter.turtle;
 
-import model.command.AbstractCommand;
 import java.util.List;
+import model.command.AbstractCommand;
 
 
 public class ID extends AbstractCommandZeroParameterTurtle {
-    public ID(List<AbstractCommand> parameters) {
+
+    public ID (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
-    public double turtleExecute() {
+    @Override
+    protected double turtleExecute () {
         return myTurtle.getID();
     }
+
 }
