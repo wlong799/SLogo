@@ -72,9 +72,6 @@ public class WorkspaceContent implements ContentManager {
         myTurtleContainer = new TurtleContainer(width, height);
         TurtleManager turtleManager = myTurtleContainer.getTurtleManager();
         myContentGrid.addTurtleView(myTurtleContainer);
-        List<Integer> activeNums = new ArrayList<>();
-        activeNums.add(0);
-        turtleManager.setActiveTurtleNums(activeNums);
         myElements.addElement(myTurtleContainer);
         myElements.addElement(turtleManager);
     }

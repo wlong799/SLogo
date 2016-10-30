@@ -18,11 +18,6 @@ public class SLogoModel {
         myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myData, myTurtles);
     }
 
-    public SLogoModel (String language) {
-        init();
-        myCommandParser = new CommandParser(language, myData, myTurtles);
-    }
-
     public TurtleStorage getTurtles () {
         return myTurtles;
     }

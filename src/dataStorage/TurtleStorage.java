@@ -18,8 +18,6 @@ public class TurtleStorage extends Observable implements Observer {
     public TurtleStorage() {
         turtleMap = new HashMap<>();
         activeTurtles = FXCollections.observableArrayList();
-        activeTurtles.add(0);
-        setActiveTurtles(new ArrayList<>(activeTurtles));
     }
 
     public void setActiveTurtles(List<Integer> ids) {
