@@ -12,7 +12,7 @@ public class Forward extends AbstractMoveTurtle {
     }
 
     @Override
-    public double execute () {
+    public double turtleExecute () {
        System.out.println("move forward");
        return(move(MoveDirection.Forward));
     }

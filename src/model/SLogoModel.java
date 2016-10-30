@@ -1,27 +1,35 @@
 package model;
 
+import java.util.List;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
-
+import dataStorage.TurtleStorage;
+import javafx.collections.ObservableList;
 
 
 public class SLogoModel {
     private static final String DEFAULT_LANGUAGE = "English";
     private CommandParser myCommandParser;
-    private Turtle myTurtle;
+    private DataStorageManager myData;
+    private TurtleStorage myTurtles;
 
     public SLogoModel () {
-        myTurtle = new Turtle();
-        myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myTurtle);
+        init();
+        myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myData, myTurtles);
     }
 
     public SLogoModel (String language) {
-        myTurtle = new Turtle();
-        myCommandParser = new CommandParser(language, myTurtle);
+        init();
+        myCommandParser = new CommandParser(language, myData, myTurtles);
     }
 
-    public Turtle getTurtle () {
-        return myTurtle;
+    public TurtleStorage getTurtles () {
+        return myTurtles;
+    }
+
+    private void init () {
+        myTurtles = new TurtleStorage();
+        myData = new DataStorageManager();
     }
 
     public void parse (String s) {
@@ -32,7 +40,7 @@ public class SLogoModel {
         catch (Exception e) {
             command += "\nERROR ENCOUNTERED WHEN PARSING.";
         }
-        DataStorageManager.get().getCommandHistoryStorage().addCommand(command);
+        myData.addHistory(command);
     }
 
     public boolean noParser () {
@@ -40,8 +48,19 @@ public class SLogoModel {
     }
 
     public void setLanguage (String language) {
-        myCommandParser = new CommandParser(language, myTurtle);
+        myCommandParser = new CommandParser(language, myData, myTurtles);
+    }
 
+    public DataStorageManager getData () {
+        return myData;
+    }
+
+    public ObservableList<Integer> getActiveTurtleIDs () {
+        return myTurtles.getActiveTurtleIDs();
+    }
+
+    public List<Turtle> getActiveTurtles () {
+        return myTurtles.getActiveTurtles();
     }
 
 }

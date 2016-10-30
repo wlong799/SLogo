@@ -3,14 +3,15 @@ package model.command.zeroParameter.turtle;
 import java.util.List;
 import model.command.AbstractCommand;
 
+public class ID extends AbstractCommandZeroParameterTurtle {
 
-public class YCoordinate extends AbstractCommandZeroParameterTurtle {
-    public YCoordinate (List<AbstractCommand> parameters) {
+    public ID (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
     @Override
     protected double turtleExecute () {
-        return myTurtle.getPosition().getY();
+        return myTurtle.getID();
     }
+
 }
