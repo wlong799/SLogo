@@ -1,7 +1,7 @@
 package view;
 
-import dataStorage.Turtle;
 import javafx.scene.Parent;
+import javafx.scene.chart.XYChart;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
@@ -10,7 +10,6 @@ import view.turtle.TurtleContainer;
 import view.turtle.TurtleManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,6 +18,21 @@ import java.util.List;
  */
 public class WorkspaceContent implements ContentManager {
     private static final double BORDER_RATIO = 0.03;
+    private static final String FILE_NAME = "File";
+    private static final String VIEW_NAME = "View";
+    private static final String HELP_NAME = "Help";
+    private static final String SEPARATOR = "Separator";
+    private static final String MENU_ELEMENT_PACKAGE = "view.toolbar.";
+    private static final String[] VIEW_MENU_ELEMENTS = new String[]
+            {
+                    "BackgroundColorPicker",
+                    SEPARATOR,
+                    "LineColorPicker",
+                    "LineSizePicker",
+                    "LineStylePicker",
+                    SEPARATOR,
+                    "TurtleImagePicker"
+            };
 
     private ContentGrid myContentGrid;
     private ElementManager myElements;
@@ -67,9 +81,9 @@ public class WorkspaceContent implements ContentManager {
         myContentGrid.addMenu(mySettingsMenuBar);
         myElements.addElement(mySettingsMenuBar);
 
-        BaseMenu fileMenu = new BaseMenu("File");
-        BaseMenu viewMenu = new BaseMenu("View");
-        BaseMenu helpMenu = new BaseMenu("Help");
+        BaseMenu fileMenu = new BaseMenu(FILE_NAME);
+        BaseMenu viewMenu = new BaseMenu(VIEW_NAME);
+        BaseMenu helpMenu = new BaseMenu(HELP_NAME);
         mySettingsMenuBar.addMenu(fileMenu);
         mySettingsMenuBar.addMenu(viewMenu);
         mySettingsMenuBar.addMenu(helpMenu);
@@ -77,23 +91,36 @@ public class WorkspaceContent implements ContentManager {
         myElements.addElement(viewMenu);
         myElements.addElement(helpMenu);
 
-        BackgroundColorPicker backgroundColorPicker = new BackgroundColorPicker();
-        LineColorPicker lineColorPicker = new LineColorPicker();
-        LineSizePicker lineSizePicker = new LineSizePicker();
-        LineStylePicker lineStylePicker = new LineStylePicker();
-        TurtleImagePicker turtleImagePicker = new TurtleImagePicker();
-        viewMenu.addMenuElement(backgroundColorPicker);
-        viewMenu.addSeparator();
-        viewMenu.addMenuElement(lineColorPicker);
-        viewMenu.addMenuElement(lineSizePicker);
-        viewMenu.addMenuElement(lineStylePicker);
-        viewMenu.addSeparator();
-        viewMenu.addMenuElement(turtleImagePicker);
-        myElements.addElement(backgroundColorPicker);
-        myElements.addElement(lineColorPicker);
-        myElements.addElement(lineSizePicker);
-        myElements.addElement(lineStylePicker);
-        myElements.addElement(turtleImagePicker);
+        for (String viewMenuElementClass : VIEW_MENU_ELEMENTS) {
+            if (viewMenuElementClass.equals(SEPARATOR)) {
+                viewMenu.addSeparator();
+                continue;
+            }
+            MenuElement menuElement;
+            viewMenuElementClass = MENU_ELEMENT_PACKAGE + viewMenuElementClass;
+            try {
+                Object obj = Class.forName(viewMenuElementClass).getConstructor().newInstance();
+                if (obj instanceof MenuElement) {
+                    menuElement = (MenuElement) obj;
+                } else {
+                    throw new ClassCastException();
+                }
+            } catch (ClassNotFoundException e) {
+                System.err.println("Menu class not found: " + viewMenuElementClass);
+                continue;
+            } catch (NoSuchMethodException e) {
+                System.err.println("Constructor not found for class: " + viewMenuElementClass);
+                continue;
+            } catch (ClassCastException e) {
+                System.err.println("Class does not extend MenuElement: " + viewMenuElementClass);
+                continue;
+            } catch (Exception e) {
+                System.err.println("Error when instantiating object: " + viewMenuElementClass);
+                continue;
+            }
+            viewMenu.addMenuElement(menuElement);
+            myElements.addElement(menuElement);
+        }
     }
 
     private void initializeTurtleView() {
