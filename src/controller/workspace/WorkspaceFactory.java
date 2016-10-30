@@ -1,5 +1,6 @@
 package controller.workspace;
 
+import dataStorage.TurtleStorage;
 import model.SLogoModel;
 import view.WorkspaceContent;
 
@@ -62,6 +63,12 @@ public class WorkspaceFactory {
 
         SLogoModel model = new SLogoModel();
         Workspace workspace = new Workspace(workspaceContent, model);
+        TurtleStorage turtleStorage = model.getTurtles();
+        List<Integer> idList = new ArrayList<>();
+        for (int i = 0; i < preferences.getNumTurtles(); i++) {
+            idList.add(i);
+        }
+        turtleStorage.setActiveTurtles(idList);
         nextWorkspaceID++;
         return workspace;
     }
