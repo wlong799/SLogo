@@ -16,10 +16,6 @@ public class BaseMenu {
         myMenu.getItems().add(menuElement.getMenuItem());
     }
 
-    public void addSeparator() {
-        myMenu.getItems().add(new SeparatorMenuItem());
-    }
-
     public Menu getMenu() {
         return myMenu;
     }

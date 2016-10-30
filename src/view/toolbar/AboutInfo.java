@@ -2,12 +2,12 @@ package view.toolbar;
 
 import javafx.scene.control.MenuItem;
 
-public class CommandHelpInfo extends MenuElement {
-    private static final String NAME = "Command Help";
+public class AboutInfo extends MenuElement {
+    private static final String NAME = "About";
 
     private MenuItem myMenuItem;
 
-    public CommandHelpInfo() {
+    public AboutInfo() {
         myMenuItem = new MenuItem(NAME);
     }
 

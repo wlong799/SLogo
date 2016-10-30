@@ -17,29 +17,6 @@ import java.util.List;
  */
 public class WorkspaceContent implements ContentManager {
     private static final double BORDER_RATIO = 0.03;
-    private static final String FILE_NAME = "File";
-    private static final String VIEW_NAME = "View";
-    private static final String HELP_NAME = "Help";
-    private static final String SEPARATOR = "Separator";
-    private static final String MENU_ELEMENT_PACKAGE = "view.toolbar.";
-    private static final String[] VIEW_MENU_ELEMENTS = new String[]
-            {
-                    "BackgroundColorPicker",
-                    SEPARATOR,
-                    "LineColorPicker",
-                    "LineSizePicker",
-                    "LineStylePicker",
-                    SEPARATOR,
-                    "TurtleImagePicker"
-            };
-    private static final String[] FILE_MENU_ELEMENTS = new String[]
-            {
-                    "WorkspaceCreator",
-                    "WorkspaceLoader",
-                    "WorkspaceSaver",
-                    "WorkspaceSwitcher",
-                    "WorkspaceCloser"
-            };
 
     private ContentGrid myContentGrid;
     private ElementManager myElements;
@@ -87,21 +64,6 @@ public class WorkspaceContent implements ContentManager {
         mySettingsMenuBar = new SettingsMenuBar();
         myContentGrid.addMenu(mySettingsMenuBar);
         myElements.addElement(mySettingsMenuBar);
-
-        BaseMenu fileMenu = new BaseMenu(FILE_NAME);
-        BaseMenu viewMenu = new BaseMenu(VIEW_NAME);
-        BaseMenu helpMenu = new BaseMenu(HELP_NAME);
-        mySettingsMenuBar.addMenu(fileMenu);
-        mySettingsMenuBar.addMenu(viewMenu);
-        mySettingsMenuBar.addMenu(helpMenu);
-        myElements.addElement(fileMenu);
-        myElements.addElement(viewMenu);
-        myElements.addElement(helpMenu);
-
-        addElementsToMenu(fileMenu, FILE_MENU_ELEMENTS);
-        addElementsToMenu(viewMenu, VIEW_MENU_ELEMENTS);
-
-
     }
 
     private void initializeTurtleView() {
@@ -161,14 +123,12 @@ public class WorkspaceContent implements ContentManager {
         myElements.addElement(tab);
     }
 
-    public void addElementsToMenu(BaseMenu baseMenu, String[] menuElementClasses) {
-        for (String menuElementClass : menuElementClasses) {
-            if (menuElementClass.equals(SEPARATOR)) {
-                baseMenu.addSeparator();
-                continue;
-            }
+    public void addMenuElement(String menuName, String[] subMenuElementClasses) {
+        BaseMenu baseMenu = new BaseMenu(menuName);
+        mySettingsMenuBar.addMenu(baseMenu);
+        myElements.addElement(baseMenu);
+        for (String menuElementClass : subMenuElementClasses) {
             MenuElement menuElement;
-            menuElementClass = MENU_ELEMENT_PACKAGE + menuElementClass;
             try {
                 Object obj = Class.forName(menuElementClass).getConstructor().newInstance();
                 if (obj instanceof MenuElement) {
