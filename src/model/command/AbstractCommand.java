@@ -53,14 +53,19 @@ public abstract class AbstractCommand {
     @Override
     public String toString () {
         StringBuilder myName = new StringBuilder();
-
         myName.append(this.getClass().getSimpleName());
         myName.append(" ");
-        for (AbstractCommand node : myParameters) {
-            myName.append(node.toString().trim());
-            myName.append(" ");
-        }
+        myName.append(parameterNames());
         return myName.toString();
+    }
+    
+    protected String parameterNames () {
+        StringBuilder paramNames = new StringBuilder();
+        for (AbstractCommand node : myParameters) {
+            paramNames.append(node.toString().trim());
+            paramNames.append(" ");
+        }
+        return paramNames.toString();
     }
 
     public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
