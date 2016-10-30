@@ -2,6 +2,11 @@ package model.command;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class ListCommand extends AbstractCommand {
     
     

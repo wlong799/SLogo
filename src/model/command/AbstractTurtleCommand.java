@@ -5,7 +5,11 @@ import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public abstract class AbstractTurtleCommand extends AbstractCommand {
 
     protected Turtle myTurtle;

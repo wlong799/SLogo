@@ -6,6 +6,11 @@ import java.util.Map;
 import javafx.collections.ObservableList;
 
 
+/**
+ * @author Filip Mazurek
+ * @author Michael Schroeder
+ *
+ */
 public class DataStorageManager {
 
     private ValueVariableStorage myValueVariableStorage;

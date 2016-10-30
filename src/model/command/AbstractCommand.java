@@ -5,6 +5,11 @@ import java.util.List;
 import dataStorage.DataStorageManager;
 import dataStorage.TurtleStorage;
 
+/**
+ * @author Filip Mazurek
+ * @author Michael Schroeder
+ *
+ */
 
 public abstract class AbstractCommand {
 

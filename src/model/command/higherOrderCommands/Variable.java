@@ -3,8 +3,11 @@ package model.command.higherOrderCommands;
 import java.util.List;
 import model.command.AbstractCommand;
 
-
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class Variable extends AbstractCommandHigherOrder {
 
     private String myVariableName;

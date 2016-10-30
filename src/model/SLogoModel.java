@@ -6,7 +6,11 @@ import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
 import javafx.collections.ObservableList;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class SLogoModel {
     private static final String DEFAULT_LANGUAGE = "English";
     private CommandParser myCommandParser;

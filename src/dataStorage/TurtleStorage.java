@@ -8,7 +8,11 @@ import java.util.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class TurtleStorage extends Observable implements Observer {
 
     private HashMap<Integer, Turtle> turtleMap;
