@@ -7,6 +7,10 @@ import org.xml.sax.SAXException;
 
 public class XmlParser {
 
+
+
+
+
     /**
      * Builds a map of the XML file to access all given rules
      * @param file
@@ -25,7 +29,7 @@ public class XmlParser {
             Node root = doc.getDocumentElement();
             HashMap<String, Object> rules = new HashMap<String, Object>();
 
-            rules.put(root.getNodeName(), childMapper(root));
+            rules.put(root.getNodeName(), childMapper(root, null));
             return rules;
 
         } catch (ParserConfigurationException e) {
@@ -34,18 +38,21 @@ public class XmlParser {
         }
     }
 
-    private Object childMapper(Node current) {
-        if (current.getNodeType() == Node.ELEMENT_NODE) {
-            return current.getTextContent().trim();
-        }
+    private Object childMapper(Node root, Node parent) {
+        if (root.hasChildNodes())
+        {
+            System.out.println(root.getNodeName());
+            NodeList childrens = root.getChildNodes();
+            for (int i = 0; i < childrens.getLength(); i++)
+            {
+                childMapper(childrens.item(i), root);
+            }//for
+        }//fi:root_childrens
+        else {
+            String nodeValue = root.getNodeValue().trim();
+            if (nodeValue.length() > 0){
+                System.out.println(parent.getNodeName() + "::" + nodeValue);
+            }
 
-        HashMap<String, Object> childMap = new HashMap<String, Object>();
-        NodeList nList = current.getChildNodes();
-
-        for(int i = 0; i < nList.getLength(); i++) {
-            Node oneChild = nList.item(i);
-            childMap.put(oneChild.getNodeName(), childMapper(oneChild));
         }
-        return childMap;
-    }
 }
