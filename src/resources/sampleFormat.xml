@@ -24,7 +24,7 @@
   <function_storage>
     <function_1>
       <name>mover</name>
-      <parameters>[ :distance :angle ]</parameters>
+      <parameters>:distance :angle</parameters>
       <body>forward :distance right :angle</body>
     </function_1>
   </function_storage>
