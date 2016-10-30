@@ -4,6 +4,7 @@ import java.util.List;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
+import javafx.collections.ObservableList;
 
 
 public class SLogoModel {
@@ -52,6 +53,10 @@ public class SLogoModel {
 
     public DataStorageManager getData () {
         return myData;
+    }
+
+    public ObservableList<Integer> getActiveTurtleIDs () {
+        return myTurtles.getActiveTurtleIDs();
     }
 
     public List<Turtle> getActiveTurtles () {
