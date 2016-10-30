@@ -25,7 +25,7 @@ public class TurtleManager extends GUIElement implements Stylizable {
 
     public void setActiveTurtleNums(List<Integer> nums) {
         for (int num : nums) {
-            if (! myTurtles.containsKey(num)) {
+            if (!myTurtles.containsKey(num)) {
                 TurtleView turtleView = new TurtleView();
                 TurtleLines turtleLines = new TurtleLines(myWidth, myHeight);
                 myContainer.getChildren().addAll(turtleView.getContent(), turtleLines.getContent());
@@ -37,25 +37,14 @@ public class TurtleManager extends GUIElement implements Stylizable {
         myActiveTurtleNums.addAll(nums);
     }
 
-    public List<TurtleView> getActiveTurtles() {
-        List<TurtleView> activeTurtles = new ArrayList<>();
-        for (int num : myActiveTurtleNums) {
-            if (num >= 0 && num < myTurtles.size()) {
-                activeTurtles.add(myTurtles.get(num));
-            }
-        }
-        return activeTurtles;
+    public TurtleView getTurtle(int id) {
+        return myTurtles.get(id);
     }
 
-    public List<TurtleLines> getActiveTurtleLines() {
-        List<TurtleLines> activeLines = new ArrayList<>();
-        for (int num : myActiveTurtleNums) {
-            if (num >= 0 && num < myTurtleLines.size()) {
-                activeLines.add(myTurtleLines.get(num));
-            }
-        }
-        return activeLines;
+    public TurtleLines getTurtleLines(int id) {
+        return myTurtleLines.get(id);
     }
+
 
     @Override
     public Node getContent() {
@@ -71,4 +60,25 @@ public class TurtleManager extends GUIElement implements Stylizable {
             turtleView.setStyle(style);
         }
     }
+
+    private List<TurtleView> getActiveTurtles() {
+        List<TurtleView> activeTurtles = new ArrayList<>();
+        for (int num : myActiveTurtleNums) {
+            if (num >= 0 && num < myTurtles.size()) {
+                activeTurtles.add(myTurtles.get(num));
+            }
+        }
+        return activeTurtles;
+    }
+
+    private List<TurtleLines> getActiveTurtleLines() {
+        List<TurtleLines> activeLines = new ArrayList<>();
+        for (int num : myActiveTurtleNums) {
+            if (num >= 0 && num < myTurtleLines.size()) {
+                activeLines.add(myTurtleLines.get(num));
+            }
+        }
+        return activeLines;
+    }
+
 }

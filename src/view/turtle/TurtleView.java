@@ -43,6 +43,14 @@ public class TurtleView extends GUIElement implements Stylizable{
         myTurtle.setTranslateY(y);
     }
 
+    public double getX() {
+        return myTurtle.getTranslateX();
+    }
+
+    public double getY() {
+        return myTurtle.getTranslateY();
+    }
+
     public void setTurtleHeading(double heading) {
         myTurtle.setRotate(heading + 90);
     }

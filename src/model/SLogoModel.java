@@ -55,12 +55,4 @@ public class SLogoModel {
         return myData;
     }
 
-    public ObservableList<Integer> getActiveTurtleIDs () {
-        return myTurtles.getActiveTurtleIDs();
-    }
-
-    public List<Turtle> getActiveTurtles () {
-        return myTurtles.getActiveTurtles();
-    }
-
 }

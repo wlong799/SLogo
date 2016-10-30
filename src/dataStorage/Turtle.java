@@ -10,7 +10,7 @@ public class Turtle extends Observable {
 
     /* The dataStorage's current position */
     private Position myPosition;
-    private double myHeading; // use unit circle-style direction
+    private double myHeading;
     private int myID;
     /* Current status */
     private boolean myPenDown;
@@ -30,17 +30,12 @@ public class Turtle extends Observable {
 
     private void updateAndCallObserver () {
         TurtleState showOffState =
-                new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
+                new TurtleState(this);
         setChanged();
         notifyObservers(showOffState);
-        // clearChanged(); // TODO: Was this removed on purpose?
-        // this was removed because notifyObservers automatically clears changed
     }
 
-    //
-    //
     /* Getter and Setter methods */
-    //
     public Position getPosition () {
         return myPosition;
     }
