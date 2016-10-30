@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.Parent;
-import javafx.scene.chart.XYChart;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
 import view.textbox.TextEntryBox;
@@ -32,6 +31,14 @@ public class WorkspaceContent implements ContentManager {
                     "LineStylePicker",
                     SEPARATOR,
                     "TurtleImagePicker"
+            };
+    private static final String[] FILE_MENU_ELEMENTS = new String[]
+            {
+                    "WorkspaceCreator",
+                    "WorkspaceLoader",
+                    "WorkspaceSaver",
+                    "WorkspaceSwitcher",
+                    "WorkspaceCloser"
             };
 
     private ContentGrid myContentGrid;
@@ -91,36 +98,10 @@ public class WorkspaceContent implements ContentManager {
         myElements.addElement(viewMenu);
         myElements.addElement(helpMenu);
 
-        for (String viewMenuElementClass : VIEW_MENU_ELEMENTS) {
-            if (viewMenuElementClass.equals(SEPARATOR)) {
-                viewMenu.addSeparator();
-                continue;
-            }
-            MenuElement menuElement;
-            viewMenuElementClass = MENU_ELEMENT_PACKAGE + viewMenuElementClass;
-            try {
-                Object obj = Class.forName(viewMenuElementClass).getConstructor().newInstance();
-                if (obj instanceof MenuElement) {
-                    menuElement = (MenuElement) obj;
-                } else {
-                    throw new ClassCastException();
-                }
-            } catch (ClassNotFoundException e) {
-                System.err.println("Menu class not found: " + viewMenuElementClass);
-                continue;
-            } catch (NoSuchMethodException e) {
-                System.err.println("Constructor not found for class: " + viewMenuElementClass);
-                continue;
-            } catch (ClassCastException e) {
-                System.err.println("Class does not extend MenuElement: " + viewMenuElementClass);
-                continue;
-            } catch (Exception e) {
-                System.err.println("Error when instantiating object: " + viewMenuElementClass);
-                continue;
-            }
-            viewMenu.addMenuElement(menuElement);
-            myElements.addElement(menuElement);
-        }
+        addElementsToMenu(fileMenu, FILE_MENU_ELEMENTS);
+        addElementsToMenu(viewMenu, VIEW_MENU_ELEMENTS);
+
+
     }
 
     private void initializeTurtleView() {
@@ -178,5 +159,38 @@ public class WorkspaceContent implements ContentManager {
         }
         myHelperPanel.placeElementInNewTab(tab);
         myElements.addElement(tab);
+    }
+
+    public void addElementsToMenu(BaseMenu baseMenu, String[] menuElementClasses) {
+        for (String menuElementClass : menuElementClasses) {
+            if (menuElementClass.equals(SEPARATOR)) {
+                baseMenu.addSeparator();
+                continue;
+            }
+            MenuElement menuElement;
+            menuElementClass = MENU_ELEMENT_PACKAGE + menuElementClass;
+            try {
+                Object obj = Class.forName(menuElementClass).getConstructor().newInstance();
+                if (obj instanceof MenuElement) {
+                    menuElement = (MenuElement) obj;
+                } else {
+                    throw new ClassCastException();
+                }
+            } catch (ClassNotFoundException e) {
+                System.err.println("Menu class not found: " + menuElementClass);
+                continue;
+            } catch (NoSuchMethodException e) {
+                System.err.println("Constructor not found for class: " + menuElementClass);
+                continue;
+            } catch (ClassCastException e) {
+                System.err.println("Class does not extend MenuElement: " + menuElementClass);
+                continue;
+            } catch (Exception e) {
+                System.err.println("Error when instantiating object: " + menuElementClass);
+                continue;
+            }
+            baseMenu.addMenuElement(menuElement);
+            myElements.addElement(menuElement);
+        }
     }
 }
