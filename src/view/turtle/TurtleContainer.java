@@ -18,7 +18,6 @@ import java.util.Observer;
 public class TurtleContainer extends GUIElement implements Observer, Stylizable {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
 
-    private TurtleState prevState, currentState;
     private StackPane myContainer;
     private Rectangle myBackground;
     private TurtleManager myTurtleManager;
@@ -33,37 +32,25 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println(o);
-        System.out.println(arg);
-        System.out.println("update turtle");
-        if (currentState != null) {
-            prevState = currentState;
-        } else {
-            prevState = (TurtleState) arg;
-            System.out.println(prevState.getPosition() + " position");
+        if (! (arg instanceof TurtleState)) {
+            return;
         }
-        currentState = (TurtleState) arg;
-        draw();
+        draw((TurtleState) arg);
     }
 
-    private void draw() {
-        double x1 = currentState.getPosition().getX();
-        double y1 = currentState.getPosition().getY();
-        double x2 = prevState.getPosition().getX();
-        double y2 = prevState.getPosition().getY();
+    private void draw(TurtleState turtleState) {
+        TurtleView turtleView = myTurtleManager.getTurtle(turtleState.getID());
+        TurtleLines turtleLines = myTurtleManager.getTurtleLines(turtleState.getID());
 
-        TurtleView turtleView = myTurtleManager.getActiveTurtles().get(0);
-        TurtleLines turtleLines = myTurtleManager.getActiveTurtleLines().get(0);
+        double x1 = turtleView.getX();
+        double y1 = turtleView.getY();
+        double x2 = turtleState.getPosition().getX();
+        double y2 = turtleState.getPosition().getY();
 
-        if (x1 != x2 || y1 != y2) {
-            turtleView.setPosition(x1, y1);
-            if (currentState.getPenDownStatus()) {
-                turtleLines.drawLine(x1, y1, x2, y2);
-            }
-        }
-
-        turtleView.setTurtleHeading(currentState.getHeading());
-        turtleView.setTurtleVisibility(currentState.getVisibility());
+        turtleView.setPosition(x2, y2);
+        turtleLines.drawLine(x1, y1, x2, y2);
+        turtleView.setTurtleHeading(turtleState.getHeading());
+        turtleView.setTurtleVisibility(turtleState.getVisibility());
     }
 
     @Override

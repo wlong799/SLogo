@@ -11,7 +11,7 @@ import model.command.AbstractCommand;
  */
 public class AskWith extends AbstractCommandTwoParameterTurtle {
 
-    AskWith (List<AbstractCommand> parameters) {
+    public AskWith (List<AbstractCommand> parameters) {
         super(parameters);
     }
 

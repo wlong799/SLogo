@@ -65,7 +65,7 @@ public class SettingsMenuBar extends GUIElement {
         return myMenuBar;
     }
 
-    public void addMenu(AbstractMenu element) {
+    public void addMenu(BaseMenu element) {
         myMenuBar.getMenus().add(element.getMenu());
     }
 
