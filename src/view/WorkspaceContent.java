@@ -67,9 +67,9 @@ public class WorkspaceContent implements ContentManager {
         myContentGrid.addMenu(mySettingsMenuBar);
         myElements.addElement(mySettingsMenuBar);
 
-        FileMenu fileMenu = new FileMenu();
-        ViewMenu viewMenu = new ViewMenu();
-        HelpMenu helpMenu = new HelpMenu();
+        BaseMenu fileMenu = new BaseMenu("File");
+        BaseMenu viewMenu = new BaseMenu("View");
+        BaseMenu helpMenu = new BaseMenu("Help");
         mySettingsMenuBar.addMenu(fileMenu);
         mySettingsMenuBar.addMenu(viewMenu);
         mySettingsMenuBar.addMenu(helpMenu);
