@@ -68,10 +68,18 @@ public class TurtleView extends GUIElement implements Stylizable{
     }
 
     public double getCorrectOpacity(boolean visible) {
-        return visible ? 1.0 : 0.0;
+        return visible ? VISIBLE_OPACITY : INVISIBLE_OPACITY;
     }
 
     public double getHeading() {
         return myContent.getRotate();
+    }
+
+    public void setActiveStatus(boolean active) {
+        if (active) {
+            myHighlightBox.setOpacity(HIGHLIGHT_OPACITY);
+        } else {
+            myHighlightBox.setOpacity(INVISIBLE_OPACITY);
+        }
     }
 }
