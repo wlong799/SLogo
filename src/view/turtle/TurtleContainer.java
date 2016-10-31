@@ -9,6 +9,7 @@ import view.GUIElement;
 import view.Style;
 import view.Stylizable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -30,8 +31,10 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
         myContainer = new StackPane();
         myBackground = new Rectangle(myWidth, myHeight, DEFAULT_BG_COLOR);
         myTurtleManager = new TurtleManager(myWidth, myHeight);
-        myTurtleAnimator = new TurtleAnimator();
-        new Thread(myTurtleAnimator).start();
+        myTurtleAnimator = new TurtleAnimator(myTurtleManager);
+        Thread thread = new Thread(myTurtleAnimator);
+        thread.setDaemon(true);
+        thread.start();
         myContainer.getChildren().addAll(myBackground, myTurtleManager.getContent());
     }
 
@@ -40,27 +43,14 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
         if (!(arg instanceof List)) {
             return;
         }
+        List<TurtleState> copiedList = new ArrayList<>();
         for (Object obj : (List)arg) {
             if (!(obj instanceof TurtleState)) {
                 return;
             }
-            draw((TurtleState) obj);
+            copiedList.add((TurtleState) obj);
         }
-    }
-
-    private void draw (TurtleState turtleState) {
-        TurtleView turtleView = myTurtleManager.getTurtle(turtleState.getID());
-        TurtleLines turtleLines = myTurtleManager.getTurtleLines(turtleState.getID());
-
-        double x1 = turtleView.getX();
-        double y1 = turtleView.getY();
-        double x2 = turtleState.getPosition().getX();
-        double y2 = turtleState.getPosition().getY();
-
-        turtleView.setPosition(x2, y2);
-        turtleLines.drawLine(x1, y1, x2, y2);
-        turtleView.setTurtleHeading(turtleState.getHeading());
-        turtleView.setTurtleVisibility(turtleState.getVisibility());
+        myTurtleAnimator.addEvent(copiedList);
     }
 
     @Override
