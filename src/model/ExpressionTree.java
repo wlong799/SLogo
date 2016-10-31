@@ -8,8 +8,8 @@ import model.command.AbstractCommand;
 import model.command.ListCommand;
 import model.command.higherOrderCommands.Variable;
 import model.command.zeroParameter.Constant;
-
 import java.util.*;
+
 
 /**
  * 
@@ -51,7 +51,6 @@ public class ExpressionTree {
         return new ListCommand(commandList);
     }
 
-
     /**
      * This makes a single tree (rather than a list) that will be executed by executing the returned
      * root command
@@ -67,10 +66,31 @@ public class ExpressionTree {
         if (command.equals("[")) {
             return makeCommandList(commands);
         }
+//        else if (command.equals("(")) {
+//            return makeUnlimitedCommand(commands);
+//        }
         else {
             return makeCommand(commands, command);
         }
     }
+//
+//    private AbstractCommand makeUnlimitedCommand (Queue<String> commands) {
+//        String commandString = commands.poll();
+//        Queue<String> newQueue = new LinkedList<String>();
+//        int size = commands.size();
+//        for (int i = 0; i < size - 2; i++) {
+//            newQueue.add(commandString);
+//            newQueue.add(commands.poll());
+//        }
+//        newQueue.add(commands.poll());
+//        try {
+//            AbstractCommand command = makeSubTree(newQueue);
+//            return makeSubTree(newQueue);
+//        }
+//        catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     private AbstractCommand makeCommand (Queue<String> commands, String command) {
         try {
@@ -158,7 +178,7 @@ public class ExpressionTree {
                 // openBrackets++;
                 commandList.add(makeCommandList(commandQueue));
             }
-            else if (next.equals(" ")){
+            else if (next.equals(" ")) {
                 continue;
             }
             else {
