@@ -27,5 +27,10 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand {
     protected DataStorageManager getData() {
         return myData;
     }
+    
+    @Override
+    public int getNumParameters () {
+        return 2;
+    }
 
 }
