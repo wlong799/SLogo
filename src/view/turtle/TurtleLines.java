@@ -18,6 +18,9 @@ import view.Stylizable;
 
 public class TurtleLines extends GUIElement implements Stylizable {
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
+    private static final double DEFAULT_STROKE_SIZE = 1;
+    private static final double[] DOT_SIZE = new double[] {2.5, 7.5};
+    private static final double DASH_SIZE = 15.0;
 
     private Canvas myLineCanvas;
     private GraphicsContext myLineGraphics;
@@ -27,6 +30,7 @@ public class TurtleLines extends GUIElement implements Stylizable {
         myLineCanvas = new Canvas(myWidth, myHeight);
         myLineGraphics = myLineCanvas.getGraphicsContext2D();
         myLineGraphics.setStroke(DEFAULT_LINE_COLOR);
+        myLineGraphics.setLineWidth(DEFAULT_STROKE_SIZE);
     }
 
     @Override
@@ -42,38 +46,7 @@ public class TurtleLines extends GUIElement implements Stylizable {
         return myLineCanvas;
     }
 
-    public void animateLine(double x1, double y1, double x2, double y2, double timeMillis) {
-        if (Math.abs(x1 - x2) < 1 && Math.abs(y1 - y2) < 1) {
-            return;
-        }
-        DoubleProperty x = new SimpleDoubleProperty();
-        DoubleProperty y = new SimpleDoubleProperty();
-
-        AnimationTimer timer = new AnimationTimer() {
-            double prevX = x1;
-            double prevY = y1;
-
-            @Override
-            public void handle(long now) {
-                myLineGraphics.strokeLine(prevX + (myWidth / 2), prevY + myHeight / 2,
-                        x.get() + myWidth / 2, y.get() + myHeight / 2);
-                prevX = x.get();
-                prevY = y.get();
-            }
-        };
-
-        EventHandler onFinished = event -> timer.stop();
-        KeyFrame startFrame = new KeyFrame(Duration.millis(0),
-                new KeyValue(x, x1),
-                new KeyValue(y, y1));
-        KeyFrame endFrame = new KeyFrame(Duration.millis(timeMillis),
-                onFinished,
-                new KeyValue(x, x2),
-                new KeyValue(y, y2));
-
-        Timeline timeline = new Timeline(startFrame, endFrame);
-
-        timeline.play();
-        timer.start();
+    public void drawLine(double x1, double y1, double x2, double y2) {
+        myLineGraphics.strokeLine(x1, y1, x2, y2);
     }
 }

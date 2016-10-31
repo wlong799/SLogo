@@ -7,6 +7,7 @@ import view.Style;
 import view.Stylizable;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class TurtleManager extends GUIElement implements Stylizable {
     private Map<Integer, TurtleView> myTurtles;
@@ -24,17 +25,17 @@ public class TurtleManager extends GUIElement implements Stylizable {
     }
 
     public void setActiveTurtleNums(List<Integer> nums) {
-        for (int num : nums) {
-            if (!myTurtles.containsKey(num)) {
-                TurtleView turtleView = new TurtleView();
-                TurtleLines turtleLines = new TurtleLines(myWidth, myHeight);
-                myContainer.getChildren().addAll(turtleView.getContent(), turtleLines.getContent());
-                myTurtles.put(num, turtleView);
-                myTurtleLines.put(num, turtleLines);
-            }
-        }
+        nums.stream().filter(num -> !myTurtles.containsKey(num)).forEach(num -> {
+            TurtleView turtleView = new TurtleView();
+            TurtleLines turtleLines = new TurtleLines(myWidth, myHeight);
+            myContainer.getChildren().addAll(turtleView.getContent(), turtleLines.getContent());
+            myTurtles.put(num, turtleView);
+            myTurtleLines.put(num, turtleLines);
+        });
+        myActiveTurtleNums.stream().map(i -> myTurtles.get(i)).forEach(turtleView -> turtleView.setActiveStatus(false));
         myActiveTurtleNums.clear();
         myActiveTurtleNums.addAll(nums);
+        myActiveTurtleNums.stream().map(i -> myTurtles.get(i)).forEach(turtleView -> turtleView.setActiveStatus(true));
     }
 
     public TurtleView getTurtle(int id) {
@@ -80,5 +81,4 @@ public class TurtleManager extends GUIElement implements Stylizable {
         }
         return activeLines;
     }
-
 }

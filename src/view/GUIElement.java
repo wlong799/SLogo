@@ -15,4 +15,12 @@ public abstract class GUIElement implements Viewable {
         myHeight = height;
     }
 
+    public double getWidth() {
+        return myWidth;
+    }
+
+    public double getHeight() {
+        return myHeight;
+    }
+
 }
