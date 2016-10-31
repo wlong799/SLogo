@@ -46,6 +46,7 @@ public abstract class AbstractTurtleCommand extends AbstractCommand {
         activeSingleTurtles.clear();
         activeTurtles.stream().forEach(t -> activeSingleTurtles.add(t.getID()));
         getTurtles().setActiveTurtles(activeSingleTurtles);
+        getTurtles().updateTurtles();
         return output;
     }
 }

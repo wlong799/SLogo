@@ -14,7 +14,7 @@ public class BackgroundColorPicker extends MenuElement implements Stylizer{
     private MenuItem myMenuItem;
     private ColorPicker myBGColorPicker;
 
-    public BackgroundColorPicker() {
+    public BackgroundColorPicker () {
         myBGColorPicker = new ColorPicker(DEFAULT_COLOR);
         myMenuItem = new MenuItem(NAME, myBGColorPicker);
     }
