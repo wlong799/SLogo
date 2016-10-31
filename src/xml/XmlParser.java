@@ -1,3 +1,5 @@
+package xml;
+
 import java.util.*;
 import javax.xml.parsers.*;
 import java.io.File;
@@ -8,7 +10,7 @@ import org.xml.sax.SAXException;
 public class XmlParser {
 
 
-    public Map<String, Object> XMLparse(File file) throws SAXException, IOException {
+    public Map<String, Object> XmlParse(File file) throws SAXException, IOException {
         DocumentBuilderFactory dbFactory =
                 DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
