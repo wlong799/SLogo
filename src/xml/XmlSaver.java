@@ -1,4 +1,7 @@
+package xml;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
@@ -17,12 +20,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class XmlSaver {
-
+    private static final String COMMANDS_VARIABLES_FILENAME = "CommandsAndVariables";
+    private static final String SEPARATOR = "_";
     private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
     private ResourceBundle myResources;
 
-    public XmlSaver(String language) {
-        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
+    public XmlSaver() {
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
     }
 
     private Element createElementWithData(String nodeName, String information, Document doc) {
@@ -103,7 +107,10 @@ public class XmlSaver {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("savedState.xml"));
+
+            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+            String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
+            StreamResult result = new StreamResult(new File(savedFileName));
 
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);

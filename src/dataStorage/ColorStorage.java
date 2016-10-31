@@ -10,14 +10,13 @@ public class ColorStorage {
     private static final int DEFAULT_RETURN = 0;
     private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
     private ResourceBundle myResources;
-    private String language = "English";
     private ObservableList<Integer> myColor;
     private static final String COLOR_PATHS = "resources/colors";
 
 
     public ColorStorage() {
         myColorMap = new HashMap<>();
-        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
         myColor = FXCollections.observableArrayList();
         init();
     }
