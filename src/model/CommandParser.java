@@ -105,9 +105,9 @@ public class CommandParser {
         }
         commands.poll();
         Queue<String> newQueue = new LinkedList<String>();
-
+        
         int size = parenExpression.size();
-        for (int i = 0; i < size - 2; i++) {
+        for (int i = 0; i < size - 1; i++) {
             newQueue.add(commandString);
             newQueue.add(parenExpression.poll());
         }
