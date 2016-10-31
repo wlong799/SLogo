@@ -1,5 +1,4 @@
 import dataStorage.*;
-import javafx.beans.binding.IntegerBinding;
 
 import java.util.*;
 
@@ -63,11 +62,11 @@ public class XmlDataSetter {
 
         for(String oneColorKey : colorMap.keySet()) {
             Map<String, String> oneColorMap = colorMap.get(oneColorKey);
-            newColorStorage.setColor(
+            newColorStorage.addColor(
                     Integer.parseInt(oneColorMap.get("index")),
-                    Double.parseDouble(oneColorMap.get("red")),
-                    Double.parseDouble(oneColorMap.get("green")),
-                    Double.parseDouble(oneColorMap.get("blue"))
+                    Integer.parseInt(oneColorMap.get("red")),
+                    Integer.parseInt(oneColorMap.get("green")),
+                    Integer.parseInt(oneColorMap.get("blue"))
             );
         }
         return newColorStorage;
