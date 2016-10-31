@@ -1,13 +1,18 @@
 import dataStorage.*;
 import javafx.beans.binding.IntegerBinding;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class XmlDataSetter {
     private static final int ONLY_ITEM = 0;
+    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
+
+    private ResourceBundle myResources;
+
+    public XmlDataSetter(String language) {
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
+    }
+
 
     /**
      *

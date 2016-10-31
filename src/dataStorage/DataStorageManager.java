@@ -12,12 +12,14 @@ public class DataStorageManager {
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandVariableStorage myCommandVariableStorage;
     private Notifications myNotifications;
+    private ColorStorage myColorStorage;
 
     public DataStorageManager () {
         myValueVariableStorage = new ValueVariableStorage();
         myCommandVariableStorage = new CommandVariableStorage();
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
+        myColorStorage = new ColorStorage();
     }
 
     public Double getVariable (String varName) {
@@ -58,5 +60,31 @@ public class DataStorageManager {
 
     public void addHistory (String command) {
         myCommandHistoryStorage.addCommand(command);
+    }
+
+    public Map<Integer, Map<String, Double>> getColorMap() {
+        return myColorStorage.getColorMap();
+    }
+
+    public Map<String, Double> getValueVariableMap() {
+        return myValueVariableStorage.getVariableMap();
+    }
+
+    public CommandVariableStorage getCommandStorage() {
+        return myCommandVariableStorage;
+    }
+
+    /* functions for setting information using the XML content setter */
+
+    public void setValueVariableStorage(ValueVariableStorage variableStorage) {
+        myValueVariableStorage = variableStorage;
+    }
+
+    public void setCommandVariableStorage(CommandVariableStorage commandStorage) {
+        myCommandVariableStorage = commandStorage;
+    }
+
+    public void setColorStorage(ColorStorage colorStorage) {
+        myColorStorage = colorStorage;
     }
 }

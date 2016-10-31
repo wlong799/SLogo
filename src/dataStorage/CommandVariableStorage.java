@@ -45,4 +45,8 @@ public class CommandVariableStorage {
     public ObservableList<String> getCommandVariableList () {
         return commandStorageList;
     }
+
+    public Map<String, String> getCommandMap() {
+        return commandMap;
+    }
 }

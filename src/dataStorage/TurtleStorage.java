@@ -1,10 +1,7 @@
 package dataStorage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -61,6 +58,10 @@ public class TurtleStorage extends Observable implements Observer {
 
     public Turtle getTurtle (int id) {
         return turtleMap.get(id);
+    }
+
+    public Set<Integer> getAllTurtleIDs() {
+        return turtleMap.keySet();
     }
 
     @Override

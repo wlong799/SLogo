@@ -44,4 +44,8 @@ public class ValueVariableStorage {
     public ObservableList<String> getVariableList() {
         return variableList;
     }
+
+    public Map<String, Double> getVariableMap() {
+        return variableMap;
+    }
 }
