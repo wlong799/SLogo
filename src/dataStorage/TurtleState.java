@@ -19,13 +19,14 @@ public class TurtleState {
 	/* Turtle status */
 	private boolean myTurtleVisible;
 	private double myShape;
-
+	private int myID;
 	
-	public TurtleState(Position position, double heading, boolean isPenDown, boolean isTurtleVisible) {
+	public TurtleState(Position position, double heading, boolean isPenDown, boolean isTurtleVisible, int id) {
 		myPosition = position;
 		myHeading = heading;
 		myPenDown = isPenDown;
 		myTurtleVisible = isTurtleVisible;
+		myID = id;
 	}
 
 	public TurtleState (Turtle t) {
@@ -57,5 +58,9 @@ public class TurtleState {
 
     public double getShape() {
         return myShape;
+    }
+    
+    public int getID() {
+        return myID;
     }
 }

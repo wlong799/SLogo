@@ -2,6 +2,7 @@ package dataStorage;
 
 import java.util.List;
 import javafx.collections.ObservableList;
+import java.util.*;
 
 
 /**
@@ -13,7 +14,6 @@ public class DataStorageManager {
     private VariableStorage myVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandStorage myCommandStorage;
-    private ColorStorage myColorStorage;
     private Notifications myNotifications;
     private ColorStorage myColorStorage;
 
@@ -32,7 +32,7 @@ public class DataStorageManager {
     public Notifications getNotifications () {
         return myNotifications;
     }
-    
+
     public void setVariable (String varName, double value) {
         myVariableStorage.setVariable(varName, value);
     }
@@ -65,12 +65,14 @@ public class DataStorageManager {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
 
-    public ObservableList<Integer> getBackgroundColor () {
-        return myColorStorage.getColor();
-    }
+    /*
+     * public ObservableList<Integer> getBackgroundColor () {
+     * return myColorStorage.getColor();
+     * }
+     */
 
     public int setColor (int index) {
-        myColorStorage.setColor(index);
+        // myColorStorage.setColor(index);
         return index;
     }
 
@@ -78,29 +80,29 @@ public class DataStorageManager {
         myCommandHistoryStorage.addCommand(command);
     }
 
-    public Map<Integer, Map<String, Double>> getColorMap() {
+    public Map<Integer, Map<String, Double>> getColorMap () {
         return myColorStorage.getColorMap();
     }
 
-    public Map<String, Double> getValueVariableMap() {
-        return myValueVariableStorage.getVariableMap();
+    public Map<String, Double> getValueVariableMap () {
+        return myVariableStorage.getVariableMap();
     }
 
-    public CommandVariableStorage getCommandStorage() {
-        return myCommandVariableStorage;
+    public CommandStorage getCommandStorage () {
+        return myCommandStorage;
     }
 
     /* functions for setting information using the XML content setter */
 
-    public void setValueVariableStorage(ValueVariableStorage variableStorage) {
-        myValueVariableStorage = variableStorage;
+    public void setVariableStorage (VariableStorage variableStorage) {
+        myVariableStorage = variableStorage;
     }
 
-    public void setCommandVariableStorage(CommandVariableStorage commandStorage) {
-        myCommandVariableStorage = commandStorage;
+    public void setCommandStorage (CommandStorage commandStorage) {
+        myCommandStorage = commandStorage;
     }
 
-    public void setColorStorage(ColorStorage colorStorage) {
+    public void setColorStorage (ColorStorage colorStorage) {
         myColorStorage = colorStorage;
     }
 }

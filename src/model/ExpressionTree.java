@@ -51,9 +51,7 @@ public class ExpressionTree {
         return new ListCommand(commandList);
     }
 
-<<<<<<< HEAD
 
-=======
     /**
      * This makes a single tree (rather than a list) that will be executed by executing the returned
      * root command
@@ -62,7 +60,6 @@ public class ExpressionTree {
      * @return - AbstractCommand that is the root of the expression tree.
      * @throws ClassNotFoundException
      */
->>>>>>> master
     public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException {
         String command = commands.poll();
         System.out.println("parsing string: " + command);
