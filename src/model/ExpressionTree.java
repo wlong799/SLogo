@@ -8,6 +8,7 @@ import model.command.AbstractCommand;
 import model.command.ListCommand;
 import model.command.higherOrderCommands.Variable;
 import model.command.zeroParameter.Constant;
+
 import java.util.*;
 
 /**
@@ -50,6 +51,9 @@ public class ExpressionTree {
         return new ListCommand(commandList);
     }
 
+<<<<<<< HEAD
+
+=======
     /**
      * This makes a single tree (rather than a list) that will be executed by executing the returned
      * root command
@@ -58,6 +62,7 @@ public class ExpressionTree {
      * @return - AbstractCommand that is the root of the expression tree.
      * @throws ClassNotFoundException
      */
+>>>>>>> master
     public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException {
         String command = commands.poll();
         System.out.println("parsing string: " + command);
@@ -89,6 +94,7 @@ public class ExpressionTree {
         }
         catch (Exception e) {
             System.out.println("Could not create command of class " + command);
+            e.printStackTrace();
             try {
                 System.out.println("Trying to create constant " + command);
                 return new Constant(Double.parseDouble(command));
@@ -106,7 +112,6 @@ public class ExpressionTree {
 
     /**
      * @param commands
-     * @param parameters
      * @param commandClass
      * @param ctor
      * @return
@@ -130,6 +135,7 @@ public class ExpressionTree {
         }
         addOtherParameters(commandClass, o);
         System.out.println(o.getClass());
+        System.out.println(parameters);
         return o;
     }
 
@@ -154,6 +160,9 @@ public class ExpressionTree {
             else if (next.equals("[")) {
                 // openBrackets++;
                 commandList.add(makeCommandList(commandQueue));
+            }
+            else if (next.equals(" ")){
+                continue;
             }
             else {
                 commandList.add(makeCommand(commandQueue, next));

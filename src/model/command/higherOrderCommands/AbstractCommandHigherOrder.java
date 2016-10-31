@@ -17,6 +17,7 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand {
         super();
     }
 
+
     @Override
     public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
         myData = data;
@@ -33,4 +34,7 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand {
         return 2;
     }
 
+//    protected ColorStorage getColors() {
+//        return myColors;
+//    }
 }

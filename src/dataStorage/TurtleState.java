@@ -4,42 +4,58 @@ package dataStorage;
  * TurtleState is a simplified object which only reflects what the Turtle has
  * but without any of the dataStorage's functionality
  *
- * @author Filip Mazurek
  */
 public class TurtleState {
-    private int myID;
-    private Position myPosition;
-    private double myHeading;
-    private boolean myPenDown;
-    private boolean myTurtleVisible;
 
-    public TurtleState(Turtle t) {
-        myID = t.getID();
-        myPosition = t.getPosition();
-        myHeading = t.getHeading();
-        myPenDown = t.getPenDownStatus();
-        myTurtleVisible = t.getVisibility();
-    }
+	/* The Turtle's current position */
+	private Position myPosition;
+	private double myHeading; // use unit circle-style direction
 
-    public int getID() {
-        return myID;
+	/* Pen status */
+	private boolean myPenDown;
+	private double myPenColor;
+	private double myPenSize;
+
+	/* Turtle status */
+	private boolean myTurtleVisible;
+	private double myShape;
+
+	
+	public TurtleState(Position position, double heading, boolean isPenDown, boolean isTurtleVisible) {
+		myPosition = position;
+		myHeading = heading;
+		myPenDown = isPenDown;
+		myTurtleVisible = isTurtleVisible;
+	}
+
+	public TurtleState (Turtle t) {
+	    myPosition = t.getPosition();
+	    myHeading = t.getHeading();
+	    myPenDown = t.getPenDownStatus();
+	    myTurtleVisible = t.getVisibility();
     }
 
     public Position getPosition() {
-        return myPosition;
+		return myPosition;
+	}
+
+	public double getHeading() {
+		return myHeading;
+	}
+	
+	public boolean getPenDownStatus() {
+		return myPenDown;
+	}
+
+    public double getPenSize() {
+        return myPenSize;
     }
 
-    public double getHeading() {
-        return myHeading;
-    }
+	public boolean getVisibility() {
+		return myTurtleVisible;
+	}
 
-    public boolean getPenDownStatus() {
-        return myPenDown;
+    public double getShape() {
+        return myShape;
     }
-
-    public boolean getVisibility() {
-        return myTurtleVisible;
-    }
-
 }
-
