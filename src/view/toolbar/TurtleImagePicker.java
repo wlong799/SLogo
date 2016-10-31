@@ -2,7 +2,6 @@ package view.toolbar;
 
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import view.Style;
 import view.Stylizable;
 import view.Stylizer;
@@ -39,7 +38,7 @@ public class TurtleImagePicker extends MenuElement implements Stylizer {
     }
 
     @Override
-    public MenuItem getMenuItem() {
+    public MenuItem getMenuItem(){
         return myMenu;
     }
 

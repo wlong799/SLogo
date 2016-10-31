@@ -1,6 +1,5 @@
 package view;
 
-import dataStorage.Turtle;
 import javafx.scene.Parent;
 import view.panel.TabElement;
 import view.panel.TabbedHelperPanel;
@@ -10,7 +9,6 @@ import view.turtle.TurtleContainer;
 import view.turtle.TurtleManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,34 +64,6 @@ public class WorkspaceContent implements ContentManager {
         mySettingsMenuBar = new SettingsMenuBar();
         myContentGrid.addMenu(mySettingsMenuBar);
         myElements.addElement(mySettingsMenuBar);
-
-        FileMenu fileMenu = new FileMenu();
-        ViewMenu viewMenu = new ViewMenu();
-        HelpMenu helpMenu = new HelpMenu();
-        mySettingsMenuBar.addMenu(fileMenu);
-        mySettingsMenuBar.addMenu(viewMenu);
-        mySettingsMenuBar.addMenu(helpMenu);
-        myElements.addElement(fileMenu);
-        myElements.addElement(viewMenu);
-        myElements.addElement(helpMenu);
-
-        BackgroundColorPicker backgroundColorPicker = new BackgroundColorPicker();
-        LineColorPicker lineColorPicker = new LineColorPicker();
-        LineSizePicker lineSizePicker = new LineSizePicker();
-        LineStylePicker lineStylePicker = new LineStylePicker();
-        TurtleImagePicker turtleImagePicker = new TurtleImagePicker();
-        viewMenu.addMenuElement(backgroundColorPicker);
-        viewMenu.addSeparator();
-        viewMenu.addMenuElement(lineColorPicker);
-        viewMenu.addMenuElement(lineSizePicker);
-        viewMenu.addMenuElement(lineStylePicker);
-        viewMenu.addSeparator();
-        viewMenu.addMenuElement(turtleImagePicker);
-        myElements.addElement(backgroundColorPicker);
-        myElements.addElement(lineColorPicker);
-        myElements.addElement(lineSizePicker);
-        myElements.addElement(lineStylePicker);
-        myElements.addElement(turtleImagePicker);
     }
 
     private void initializeTurtleView() {
@@ -102,9 +72,6 @@ public class WorkspaceContent implements ContentManager {
         myTurtleContainer = new TurtleContainer(width, height);
         TurtleManager turtleManager = myTurtleContainer.getTurtleManager();
         myContentGrid.addTurtleView(myTurtleContainer);
-        List<Integer> activeNums = new ArrayList<>();
-        activeNums.add(0);
-        turtleManager.setActiveTurtleNums(activeNums);
         myElements.addElement(myTurtleContainer);
         myElements.addElement(turtleManager);
     }
@@ -151,5 +118,36 @@ public class WorkspaceContent implements ContentManager {
         }
         myHelperPanel.placeElementInNewTab(tab);
         myElements.addElement(tab);
+    }
+
+    public void addMenuElement(String menuName, String[] subMenuElementClasses) {
+        BaseMenu baseMenu = new BaseMenu(menuName);
+        mySettingsMenuBar.addMenu(baseMenu);
+        myElements.addElement(baseMenu);
+        for (String menuElementClass : subMenuElementClasses) {
+            MenuElement menuElement;
+            try {
+                Object obj = Class.forName(menuElementClass).getConstructor().newInstance();
+                if (obj instanceof MenuElement) {
+                    menuElement = (MenuElement) obj;
+                } else {
+                    throw new ClassCastException();
+                }
+            } catch (ClassNotFoundException e) {
+                System.err.println("Menu class not found: " + menuElementClass);
+                continue;
+            } catch (NoSuchMethodException e) {
+                System.err.println("Constructor not found for class: " + menuElementClass);
+                continue;
+            } catch (ClassCastException e) {
+                System.err.println("Class does not extend MenuElement: " + menuElementClass);
+                continue;
+            } catch (Exception e) {
+                System.err.println("Error when instantiating object: " + menuElementClass);
+                continue;
+            }
+            baseMenu.addMenuElement(menuElement);
+            myElements.addElement(menuElement);
+        }
     }
 }

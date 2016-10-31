@@ -5,8 +5,9 @@ import java.util.Observable;
 
 public class Turtle extends Observable{
 
-	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
+    private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
+    /* The dataStorage's current position */
     private int myID;
 
 	/* The Turtle's current position */
@@ -31,13 +32,12 @@ public class Turtle extends Observable{
 		myTurtleVisible = true;
 	}
 
-	private void updateAndCallObserver() {
-        TurtleState showOffState = new TurtleState(myPosition, myHeading, myPenDown, myTurtleVisible);
 
+    private void updateAndCallObserver () {
+        TurtleState showOffState =
+                new TurtleState(this);
         setChanged();
         notifyObservers(showOffState);
-        // clearChanged(); // TODO: Was this removed on purpose?
-        // this was removed because notifyObservers automatically clears changed
     }
 
 

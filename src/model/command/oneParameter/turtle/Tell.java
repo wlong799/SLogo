@@ -7,6 +7,11 @@ import model.command.AbstractCommand;
 import model.command.ListCommand;
 import dataStorage.Turtle;
 
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 
 public class Tell extends AbstractCommandOneParameterTurtle {
 

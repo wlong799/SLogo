@@ -8,12 +8,12 @@ import javafx.collections.ObservableList;
 
 
 
-public class ValueVariableStorage {
+public class VariableStorage {
     private static final double DEFAULT_RETURN = 0;
     private Map<String, Double> variableMap;
     private ObservableList<String> variableList;
 
-    public ValueVariableStorage() {
+    public VariableStorage() {
         variableMap = new HashMap<>();
         variableList = FXCollections.observableArrayList();
     }

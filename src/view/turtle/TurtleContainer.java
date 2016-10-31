@@ -9,8 +9,11 @@ import view.GUIElement;
 import view.Style;
 import view.Stylizable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 
 /**
  * Container for all current turtles and the lines they've drawn
@@ -18,56 +21,40 @@ import java.util.Observer;
 public class TurtleContainer extends GUIElement implements Observer, Stylizable {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
 
-    private TurtleState prevState, currentState;
     private StackPane myContainer;
     private Rectangle myBackground;
     private TurtleManager myTurtleManager;
+    private TurtleAnimator myTurtleAnimator;
 
-    public TurtleContainer(double width, double height) {
+    public TurtleContainer (double width, double height) {
         super(width, height);
         myContainer = new StackPane();
         myBackground = new Rectangle(myWidth, myHeight, DEFAULT_BG_COLOR);
         myTurtleManager = new TurtleManager(myWidth, myHeight);
+        myTurtleAnimator = new TurtleAnimator(myTurtleManager);
+        Thread thread = new Thread(myTurtleAnimator);
+        thread.setDaemon(true);
+        thread.start();
         myContainer.getChildren().addAll(myBackground, myTurtleManager.getContent());
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        System.out.println(o);
-        System.out.println(arg);
-        System.out.println("update turtle");
-        if (currentState != null) {
-            prevState = currentState;
-        } else {
-            prevState = (TurtleState) arg;
-            System.out.println(prevState.getPosition() + " position");
+    public void update (Observable o, Object arg) {
+        if (!(arg instanceof List)) {
+            return;
         }
-        currentState = (TurtleState) arg;
-        draw();
-    }
-
-    private void draw() {
-        double x1 = currentState.getPosition().getX();
-        double y1 = currentState.getPosition().getY();
-        double x2 = prevState.getPosition().getX();
-        double y2 = prevState.getPosition().getY();
-
-        TurtleView turtleView = myTurtleManager.getActiveTurtles().get(0);
-        TurtleLines turtleLines = myTurtleManager.getActiveTurtleLines().get(0);
-
-        if (x1 != x2 || y1 != y2) {
-            turtleView.setPosition(x1, y1);
-            if (currentState.getPenDownStatus()) {
-                turtleLines.drawLine(x1, y1, x2, y2);
+        List<TurtleState> copiedList = new ArrayList<>();
+        for (Object obj : (List)arg) {
+            if (!(obj instanceof TurtleState)) {
+                return;
             }
+            copiedList.add((TurtleState) obj);
         }
-
-        turtleView.setTurtleHeading(currentState.getHeading());
-        turtleView.setTurtleVisibility(currentState.getVisibility());
+        myTurtleAnimator.addEvent(copiedList);
     }
 
     @Override
-    public void setStyle(Style style) {
+    public void setStyle (Style style) {
         Color color = style.getColor();
         if (color != null) {
             myBackground.setFill(color);
@@ -75,11 +62,11 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     }
 
     @Override
-    public Node getContent() {
+    public Node getContent () {
         return myContainer;
     }
 
-    public TurtleManager getTurtleManager() {
+    public TurtleManager getTurtleManager () {
         return myTurtleManager;
     }
 }

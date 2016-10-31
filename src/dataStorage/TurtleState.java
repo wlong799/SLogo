@@ -3,7 +3,7 @@ package dataStorage;
 /**
  * TurtleState is a simplified object which only reflects what the Turtle has
  * but without any of the dataStorage's functionality
- * 
+ *
  */
 public class TurtleState {
 

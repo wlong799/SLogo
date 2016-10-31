@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import dataStorage.*;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import model.SLogoModel;
 import view.ElementManager;
 import view.panel.CommandHistoryWindow;
@@ -10,18 +14,19 @@ import view.panel.StoredVariableWindow;
 import view.textbox.TextEntryBox;
 import view.toolbar.SettingsMenuBar;
 import view.turtle.TurtleContainer;
+import view.turtle.TurtleManager;
 
 
 public class ViewModelController extends InteractionController {
     private SLogoModel myModel;
 
-    public ViewModelController (ElementManager viewElements, SLogoModel model) {
+    public ViewModelController(ElementManager viewElements, SLogoModel model) {
         super(viewElements);
         myModel = model;
     }
 
     @Override
-    public void setUpInteractions () {
+    public void setUpInteractions() {
         linkTextBoxToParser();
         linkTurtleWithView();
         linkCommandHistory();
@@ -30,15 +35,15 @@ public class ViewModelController extends InteractionController {
         // setLanguageChanger();
     }
 
-    private void linkVariableStorage () {
+    private void linkVariableStorage() {
         if (myViewElements.getGUIElement("StoredVariableWindow") == null ||
-            myModel.getData() == null) {
+                myModel.getData() == null) {
             return;
         }
 
         StoredVariableWindow varWindow =
                 (StoredVariableWindow) myViewElements.getGUIElement("StoredVariableWindow");
-        // ValueVariableStorage varStorage = myModel.getData().getVariableList();
+        // VariableStorage varStorage = myModel.getData().getVariableList();
         varWindow.setObservedList(myModel.getData().getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
         varWindow.setEditedEvent(event -> {
@@ -49,41 +54,45 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void linkFunctionStorage () {
+    private void linkFunctionStorage() {
         if (myViewElements.getGUIElement("StoredFunctionWindow") == null ||
-            myModel.getData() == null) {
+                myModel.getData() == null) {
             return;
         }
 
         StoredFunctionWindow funcWindow =
                 (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
-        // CommandVariableStorage funcStorage =
+        // CommandStorage funcStorage =
         // DataStorageManager.get().getCommandVariableStorage();
         funcWindow.setObservedList(myModel.getData().getCommandList());
     }
 
-    public void setModel (SLogoModel model) {
+    public void setModel(SLogoModel model) {
         myModel = model;
     }
 
-    private void linkTurtleWithView () {
-        System.out.println("LINK TURTLE");
-        TurtleStorage turtles = myModel.getTurtles();
-        for (Turtle t : turtles.getActiveTurtles()) {
-            System.out.println(t.getPosition());
-        }
-        if (turtles == null || myViewElements.getGUIElement("TurtleContainer") == null) {
+    private void linkTurtleWithView() {
+        TurtleStorage turtleStorage = myModel.getTurtles();
+        if (turtleStorage == null || myViewElements.getGUIElement("TurtleContainer") == null) {
             return;
         }
-        
-        TurtleContainer turtleContainer =
-                (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
-        System.out.println(turtleContainer.getTurtleManager().getActiveTurtles());
-        turtles.addObserver(turtleContainer);
-        // turtles.setVisibility(true);
+        TurtleContainer turtleContainer = (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
+        turtleStorage.addObserver(turtleContainer);
+        if (myViewElements.getGUIElement("TurtleManager") == null) {
+            return;
+        }
+        TurtleManager turtleManager = (TurtleManager) myViewElements.getGUIElement("TurtleManager");
+        turtleStorage.getActiveTurtleIDs().addListener(new ListChangeListener<Integer>() {
+            @Override
+            public void onChanged(Change<? extends Integer> c) {
+                List<Integer> newList = new ArrayList<>();
+                newList.addAll(c.getList());
+                turtleManager.setActiveTurtleNums(newList);
+            }
+        });
     }
 
-    private void linkTextBoxToParser () {
+    private void linkTextBoxToParser() {
         if (myModel.noParser() || myViewElements.getGUIElement("TextEntryBox") == null) {
             return;
         }
@@ -97,7 +106,7 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void setLanguageChanger () {
+    private void setLanguageChanger() {
         if (myViewElements.getGUIElement("SettingsMenuBar") == null) {
             System.out.println("fail");
             return;
@@ -111,9 +120,9 @@ public class ViewModelController extends InteractionController {
         System.out.println("success");
     }
 
-    private void linkCommandHistory () {
+    private void linkCommandHistory() {
         if (myModel.getData() == null ||
-            myViewElements.getGUIElement("CommandHistoryWindow") == null) {
+                myViewElements.getGUIElement("CommandHistoryWindow") == null) {
             return;
         }
 

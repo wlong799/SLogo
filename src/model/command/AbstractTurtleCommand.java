@@ -1,11 +1,16 @@
 package model.command;
 
+import java.util.ArrayList;
 import java.util.List;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public abstract class AbstractTurtleCommand extends AbstractCommand {
 
     protected Turtle myTurtle;
@@ -28,11 +33,20 @@ public abstract class AbstractTurtleCommand extends AbstractCommand {
     @Override
     public double execute () {
         double output = 0.0;
-        for (Turtle t : getTurtles().getActiveTurtles()) {
+        List<Turtle> activeTurtles = new ArrayList<Turtle>(getTurtles().getActiveTurtles());
+        List<Integer> activeSingleTurtles = new ArrayList<Integer>();
+        for (Turtle t : activeTurtles) {
+            activeSingleTurtles.clear();
+            activeSingleTurtles.add(t.getID());
+            getTurtles().setActiveTurtles(activeSingleTurtles);
             myTurtle = t;
             System.out.println(t.getID());
             output = turtleExecute();
         }
+        activeSingleTurtles.clear();
+        activeTurtles.stream().forEach(t -> activeSingleTurtles.add(t.getID()));
+        getTurtles().setActiveTurtles(activeSingleTurtles);
+        getTurtles().updateTurtles();
         return output;
     }
 }

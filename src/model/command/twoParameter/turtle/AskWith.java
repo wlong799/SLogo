@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import model.command.AbstractCommand;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class AskWith extends AbstractCommandTwoParameterTurtle {
 
-    AskWith (List<AbstractCommand> parameters) {
+    public AskWith (List<AbstractCommand> parameters) {
         super(parameters);
     }
 

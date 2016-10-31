@@ -11,18 +11,38 @@ import model.command.zeroParameter.Constant;
 
 import java.util.*;
 
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 
 public class ExpressionTree {
     private ResourceBundle myCommandPaths;
     private String myCommandPathsPath = "resources/commandPaths";
     private TurtleStorage myTurtles;
     private DataStorageManager myData;
+
+    /**
+     * Creates an Expression Tree with variables, commands and turtles
+     * 
+     * @param data - the container for all variables, commands and notifications
+     * @param turtles - the container for all Turtles, both active and inactive
+     */
     public ExpressionTree (DataStorageManager data, TurtleStorage turtles) {
         myData = data;
         myTurtles = turtles;
         myCommandPaths = ResourceBundle.getBundle(myCommandPathsPath);
     }
 
+    /**
+     * Creates the expression tree from the command queue
+     * 
+     * @param commands - list of commands to create the tree from
+     * @return - AbstractCommand that is a list of all of the command trees. Executing this
+     *         command executes the entire tree of commands
+     * @throws ClassNotFoundException
+     */
     public AbstractCommand makeTree (Queue<String> commands) throws ClassNotFoundException {
         List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
         while (!commands.isEmpty()) {
@@ -31,7 +51,18 @@ public class ExpressionTree {
         return new ListCommand(commandList);
     }
 
+<<<<<<< HEAD
 
+=======
+    /**
+     * This makes a single tree (rather than a list) that will be executed by executing the returned
+     * root command
+     * 
+     * @param commands - list of commands to create the tree from
+     * @return - AbstractCommand that is the root of the expression tree.
+     * @throws ClassNotFoundException
+     */
+>>>>>>> master
     public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException {
         String command = commands.poll();
         System.out.println("parsing string: " + command);

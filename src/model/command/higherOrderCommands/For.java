@@ -43,9 +43,5 @@ public class For extends AbstractCommandHigherOrder {
         return returnValue;
     }
 
-    @Override
-    public int getNumParameters () {
-        return 2;
-    }
 
 }

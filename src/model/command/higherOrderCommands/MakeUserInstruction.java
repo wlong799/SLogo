@@ -2,7 +2,7 @@ package model.command.higherOrderCommands;
 
 import java.util.ArrayList;
 import java.util.List;
-import dataStorage.CommandVariableStorage;
+import dataStorage.CommandStorage;
 import dataStorage.DataStorageManager;
 import model.command.AbstractCommand;
 

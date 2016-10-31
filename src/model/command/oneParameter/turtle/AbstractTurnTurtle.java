@@ -16,8 +16,8 @@ abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
         double givenTurnDegrees = getParameters().get(PARAMETER_ONE);
         double turnDegrees = givenTurnDegrees;
 
-        if(dir == TurnDirection.Right) {
-            turnDegrees = -givenTurnDegrees;
+        if(dir == TurnDirection.Left) {
+            turnDegrees = -1 * givenTurnDegrees;
         }
 
         double newHeading = myTurtle.getHeading() + turnDegrees;

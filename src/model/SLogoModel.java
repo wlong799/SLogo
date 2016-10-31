@@ -6,7 +6,11 @@ import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
 import javafx.collections.ObservableList;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class SLogoModel {
     private static final String DEFAULT_LANGUAGE = "English";
     private CommandParser myCommandParser;
@@ -16,11 +20,6 @@ public class SLogoModel {
     public SLogoModel () {
         init();
         myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myData, myTurtles);
-    }
-
-    public SLogoModel (String language) {
-        init();
-        myCommandParser = new CommandParser(language, myData, myTurtles);
     }
 
     public TurtleStorage getTurtles () {
@@ -53,14 +52,6 @@ public class SLogoModel {
 
     public DataStorageManager getData () {
         return myData;
-    }
-
-    public ObservableList<Integer> getActiveTurtleIDs () {
-        return myTurtles.getActiveTurtleIDs();
-    }
-
-    public List<Turtle> getActiveTurtles () {
-        return myTurtles.getActiveTurtles();
     }
 
 }

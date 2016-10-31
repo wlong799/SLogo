@@ -6,18 +6,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class TurtleStorage extends Observable implements Observer {
 
     private HashMap<Integer, Turtle> turtleMap;
     private ObservableList<Integer> activeTurtles;
+    private List<TurtleState> changedTurtles;
 
     public TurtleStorage () {
-        turtleMap = new HashMap<Integer, Turtle>();
+        turtleMap = new HashMap<>();
         activeTurtles = FXCollections.observableArrayList();
-        Turtle t = new Turtle(0);
-        t.addObserver(this);
-        activeTurtles.add(0);
-        turtleMap.put(0, t);
+        changedTurtles = new ArrayList<TurtleState>();
     }
 
     public void setActiveTurtles (List<Integer> ids) {
@@ -30,22 +33,16 @@ public class TurtleStorage extends Observable implements Observer {
             }
             else {
                 Turtle t = new Turtle(id);
+                t.addObserver(this);
                 turtleMap.put(id, t);
                 activeTurtles.add(id);
+                t.setVisibility(true);
             }
-        }
-        updateTurtles();
-    }
-
-    private void updateTurtles () {
-        for (int i : activeTurtles) {
-            setChanged();
-            notifyObservers(new TurtleState(turtleMap.get(i)));
         }
     }
 
     public List<Turtle> getActiveTurtles () {
-        List<Turtle> turtles = new ArrayList<Turtle>();
+        List<Turtle> turtles = new ArrayList<>();
         for (int i : activeTurtles) {
             turtles.add(turtleMap.get(i));
         }
@@ -70,7 +67,14 @@ public class TurtleStorage extends Observable implements Observer {
         System.out.println(o);
         TurtleState state = (TurtleState) arg;
         System.out.println(state.getPosition());
+        changedTurtles.add(state);
+        // setChanged();
+        // notifyObservers(arg);
+    }
+
+    public void updateTurtles () {
         setChanged();
-        notifyObservers(arg);
+        notifyObservers(changedTurtles);
+        changedTurtles.clear();
     }
 }

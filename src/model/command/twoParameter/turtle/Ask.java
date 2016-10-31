@@ -6,6 +6,11 @@ import dataStorage.TurtleStorage;
 import model.command.AbstractCommand;
 import model.command.ListCommand; 
 
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 
 public class Ask extends AbstractCommandTwoParameterTurtle {
 

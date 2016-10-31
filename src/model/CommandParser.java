@@ -16,15 +16,26 @@ import dataStorage.*;
 import model.command.*;
 
 
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
+
 public class CommandParser {
 
     private List<Entry<String, Pattern>> mySyntax;
     private List<Entry<String, Pattern>> myCommands;
-    private ValueVariableStorage myVariableStorage;
-    private CommandVariableStorage myCommandStorage;
     private TurtleStorage myTurtles;
     private DataStorageManager myData;
 
+    /**
+     * Constructs a CommandParser with a specified language, data, and turtles
+     * 
+     * @param language - language to parse commands in
+     * @param data - custom defined variables and functions
+     * @param turtles - container for all Turtles, both active and inactive
+     */
     public CommandParser (String language, DataStorageManager data, TurtleStorage turtles) {
         myTurtles = turtles;
         mySyntax = new ArrayList<>();
@@ -34,12 +45,12 @@ public class CommandParser {
 
     }
 
-    public void init (String language) {
+    private void init (String language) {
         mySyntax = getPatterns("resources/languages/Syntax");
         myCommands = getPatterns("resources/languages/" + language);
     }
 
-    public List<Entry<String, Pattern>> getPatterns (String syntax) {
+    private List<Entry<String, Pattern>> getPatterns (String syntax) {
         ResourceBundle resources = ResourceBundle.getBundle(syntax);
         List<Entry<String, Pattern>> patterns = new ArrayList<Entry<String, Pattern>>();
         Enumeration<String> iter = resources.getKeys();
@@ -53,6 +64,14 @@ public class CommandParser {
         return patterns;
     }
 
+    /**
+     * This method is called by the SLogoModel's parse method, which is called by pressing the
+     * submit button the front end. This interaction is set up in ViewModelController
+     * 
+     * @param command - Command string to parse
+     * @return - a double that represents the value obtained by executing the root command
+     * @throws Exception
+     */
     public double parse (String command) throws Exception {
 
         Queue<String> commandQueue = makeCommandQueue(command);
@@ -164,7 +183,7 @@ public class CommandParser {
     }
 
     // returns the language's type associated with the given text if one exists
-    public String getSymbol (String text, boolean syntax) {
+    private String getSymbol (String text, boolean syntax) {
         final String ERROR = "NO MATCH";
         List<Entry<String, Pattern>> myMatchStrings = syntax ? mySyntax : myCommands;
         for (Entry<String, Pattern> e : myMatchStrings) {

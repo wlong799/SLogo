@@ -1,9 +1,9 @@
 package dataStorage;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 
 public class ColorStorage {
     private Map<Integer, Map<String, Double>> colorMap;
@@ -51,4 +51,5 @@ public class ColorStorage {
 //        * deal with the XML file here.
 //        */
 //    }
+
 }
