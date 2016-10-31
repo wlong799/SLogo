@@ -7,6 +7,7 @@ import dataStorage.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import model.SLogoModel;
+import view.Commander;
 import view.ElementManager;
 import view.panel.CommandHistoryWindow;
 import view.panel.StoredFunctionWindow;
@@ -18,6 +19,12 @@ import view.turtle.TurtleManager;
 
 
 public class ViewModelController extends InteractionController {
+    private static final String[] COMMANDER_ELEMENTS = new String[]
+            {
+                    "TextEntryBox",
+                    "TurtleManager"
+            };
+
     private SLogoModel myModel;
 
     public ViewModelController(ElementManager viewElements, SLogoModel model) {
@@ -27,12 +34,24 @@ public class ViewModelController extends InteractionController {
 
     @Override
     public void setUpInteractions() {
-        linkTextBoxToParser();
+        linkCommanders();
         linkTurtleWithView();
         linkCommandHistory();
         linkFunctionStorage();
         linkVariableStorage();
         // setLanguageChanger();
+    }
+
+    private void linkCommanders() {
+        for (String commandClassName : COMMANDER_ELEMENTS) {
+            Commander commander = myViewElements.getCommanderElement(commandClassName);
+            if (commander != null) {
+                commander.setCommandTrigger(event -> {
+                    String text = commander.getCommandText(myModel.getLanguage());
+                    myModel.parse(text, commander.storeHistory());
+                });
+            }
+        }
     }
 
     private void linkVariableStorage() {
@@ -92,19 +111,6 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void linkTextBoxToParser() {
-        if (myModel.noParser() || myViewElements.getGUIElement("TextEntryBox") == null) {
-            return;
-        }
-        TextEntryBox textEntryBox = (TextEntryBox) myViewElements.getGUIElement("TextEntryBox");
-        textEntryBox.setSubmitHandler(event -> {
-            String entryText = textEntryBox.getEnteredText().trim();
-            if (entryText == null || entryText.length() == 0) {
-                return;
-            }
-            myModel.parse(entryText);
-        });
-    }
 
     private void setLanguageChanger() {
         if (myViewElements.getGUIElement("SettingsMenuBar") == null) {
