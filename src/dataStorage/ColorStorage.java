@@ -1,50 +1,55 @@
 package dataStorage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
 
 
 public class ColorStorage {
+    private Map<Integer, Map<String, Double>> colorMap;
+    private static final double DEFAULT_RETURN = 0;
 
-    private static final String COLOR_PATHS = "resources/colors";
-    private Map<Integer, List<Integer>> myColorMap;
-    private ObservableList<Integer> myColor;
+    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
+    private ResourceBundle myResources;
+    private String language = "English";
 
-    public ColorStorage () {
-        myColorMap = new HashMap<Integer, List<Integer>>();
-        myColor = FXCollections.observableArrayList();
-        init();
+    public ColorStorage() {
+        colorMap = new HashMap<>();
+//        colorMap = importDefaultColorsFromFile();
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
     }
 
-    private void init () {
-        myColor.addAll(255, 255, 255);
-        ResourceBundle defaultColors = ResourceBundle.getBundle(COLOR_PATHS);
-        for (String s : defaultColors.keySet()) {
-            String colorList = defaultColors.getString(s);
-            String[] rgb = colorList.split(",");
-            List<Integer> rgbList = new ArrayList<Integer>();
-            rgbList.add(Integer.parseInt(rgb[0]));
-            rgbList.add(Integer.parseInt(rgb[1]));
-            rgbList.add(Integer.parseInt(rgb[2]));
-            myColorMap.put(Integer.parseInt(s), rgbList);
+    public Map<String, Double> getColor(int index) {
+        try {
+            return colorMap.get(index);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            // TODO: How can I access the Notifications to set a colorNotSpecifiedFlag?
+            Map<String, Double> colorComponents = new HashMap<>();
+            colorComponents.put(myResources.getString("color_red"), DEFAULT_RETURN);
+            colorComponents.put(myResources.getString("color_green"), DEFAULT_RETURN);
+            colorComponents.put(myResources.getString("color_blue"), DEFAULT_RETURN);
+            return colorComponents;
         }
     }
 
-    public void setColor (int index) {
-        if (myColorMap.containsKey(index)) {
-            myColor.clear();
-            myColor.addAll(myColorMap.get(index));
-        }
+    public void setColor(int index, double red, double green, double blue) {
+        Map<String, Double> colorComponents = new HashMap<>();
+        colorComponents.put(myResources.getString("color_red"), red);
+        colorComponents.put(myResources.getString("color_green"), green);
+        colorComponents.put(myResources.getString("color_blue"), blue);
+        colorMap.put(index, colorComponents);
     }
 
-    public ObservableList<Integer> getColor () {
-        return myColor;
+    public Map<Integer, Map<String, Double>> getColorMap() {
+        return colorMap;
     }
+
+//    private Map<Integer, Map<String, Double>> importDefaultColorsFromFile() {
+//        /* TODO: Set up a default colors file, maybe. Or just make like three colors here locally and not
+//        * deal with the XML file here.
+//        */
+//    }
+
 }

@@ -5,8 +5,7 @@ package model.command.zeroParameter;
 import java.util.List;
 import model.command.AbstractCommand;
 
-public abstract class AbstractCommandZeroParameter extends AbstractCommand {
-    private static final int NUM_PARAMETERS = 0;
+public abstract class AbstractCommandZeroParameter extends AbstractCommand implements IZeroParameterCommand{
 
     public AbstractCommandZeroParameter(List<AbstractCommand> parameters) {
         super(parameters);
