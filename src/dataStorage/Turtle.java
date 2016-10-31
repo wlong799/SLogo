@@ -45,7 +45,7 @@ public class Turtle extends Observable{
 	/* Getter and Setter methods */
 	//
 
-    public double getID() {
+    public int getID() {
         return myID;
     }
 
