@@ -16,7 +16,6 @@ public class ListCommand extends AbstractCommand {
 
     @Override
     public int getNumParameters () {
-        // TODO Auto-generated method stub
         return 1;
     }
 

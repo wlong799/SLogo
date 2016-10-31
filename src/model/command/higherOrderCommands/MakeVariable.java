@@ -35,8 +35,4 @@ public class MakeVariable extends AbstractCommandHigherOrder {
         return varValue;
     }
 
-    
-    public int getNumParameters () {
-        return 2;
-    }
 }

@@ -62,6 +62,7 @@ public class WorkspaceFactory {
                 s -> TOOLBAR_PACKAGE + s).toArray(size -> new String[size]));
 
         SLogoModel model = new SLogoModel();
+        
         Workspace workspace = new Workspace(workspaceContent, model);
         TurtleStorage turtleStorage = model.getTurtles();
         List<Integer> idList = new ArrayList<>();
