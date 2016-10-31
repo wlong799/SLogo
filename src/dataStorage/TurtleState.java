@@ -6,6 +6,7 @@ package dataStorage;
  *
  */
 public class TurtleState {
+	private int myID;
 
 	/* The Turtle's current position */
 	private Position myPosition;
@@ -20,20 +21,21 @@ public class TurtleState {
 	private boolean myTurtleVisible;
 	private double myShape;
 
-	
-	public TurtleState(Position position, double heading, boolean isPenDown, boolean isTurtleVisible) {
-		myPosition = position;
-		myHeading = heading;
-		myPenDown = isPenDown;
-		myTurtleVisible = isTurtleVisible;
+
+	public TurtleState(Turtle t) {
+		myID = t.getID();
+		myPosition = t.getPosition();
+		myHeading = t.getHeading();
+		myPenDown = t.getPenDownStatus();
+		myPenColor = t.getPenColor();
+		myPenSize = t.getPenSize();
+		myTurtleVisible = t.getVisibility();
+		myShape = t.getShape();
 	}
 
-	public TurtleState (Turtle t) {
-	    myPosition = t.getPosition();
-	    myHeading = t.getHeading();
-	    myPenDown = t.getPenDownStatus();
-	    myTurtleVisible = t.getVisibility();
-    }
+	public int getID() {
+		return myID;
+	}
 
     public Position getPosition() {
 		return myPosition;

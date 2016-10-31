@@ -66,8 +66,8 @@ public class DataStorageManager {
 //        return myColorStorage.getColor();
 //    }
 
-//    public int setColor (int index) {
-//        myColorStorage.setColor(index);
+//    public int addColor (int index) {
+//        myColorStorage.addColor(index);
 //        return index;
 //    }
 
@@ -75,7 +75,7 @@ public class DataStorageManager {
         myCommandHistoryStorage.addCommand(command);
     }
 
-    public Map<Integer, Map<String, Double>> getColorMap() {
+    public Map<Integer, Map<String, Integer>> getColorMap() {
         return myColorStorage.getColorMap();
     }
 
@@ -99,5 +99,10 @@ public class DataStorageManager {
 
     public void setColorStorage(ColorStorage colorStorage) {
         myColorStorage = colorStorage;
+    }
+
+    public int setColor (int index) {
+        myColorStorage.setColor(index);
+        return index;
     }
 }
