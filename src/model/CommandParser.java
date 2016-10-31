@@ -92,6 +92,32 @@ public class CommandParser {
 
     }
 
+    private Queue<String> getUnlimitedParamCommand (Queue<String> commands) {
+        String commandString = commands.poll();
+        if (!commands.contains(")")) {
+            System.out.println("ERROR");
+            return null;
+        }
+
+        Queue<String> parenExpression = new LinkedList<String>();
+        while (!commands.peek().equals(")")) {
+            parenExpression.add(commands.poll());
+        }
+        commands.poll();
+        Queue<String> newQueue = new LinkedList<String>();
+
+        int size = parenExpression.size();
+        for (int i = 0; i < size - 2; i++) {
+            newQueue.add(commandString);
+            newQueue.add(parenExpression.poll());
+        }
+        newQueue.add(parenExpression.poll());
+        newQueue.addAll(commands);
+        commands.clear();
+        commands.addAll(newQueue);
+        return newQueue;
+    }
+
     private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
         System.out.println("Getting custom command " + command);
         String commandString = myData.getCommand(command);
@@ -146,10 +172,18 @@ public class CommandParser {
                 }
                 else {
                     if (!symbol.equals("Command") || !myData.hasCommand(rawCommand)) {
-                        System.out.println("adding " + rawCommand + " to command queue because " +
-                                           (!symbol.equals("command") ? "not a command syntax"
-                                                                      : "not in command storage"));
-                        commandQueue.add(rawCommand);
+                        if (rawCommand.equals("(")) {
+
+                            getUnlimitedParamCommand(commands);
+                            System.out.println(commandQueue);
+                        }
+                        else {
+                            System.out
+                                    .println("adding " + rawCommand + " to command queue because " +
+                                             (!symbol.equals("command") ? "not a command syntax"
+                                                                        : "not in command storage"));
+                            commandQueue.add(rawCommand);
+                        }
                     }
                     else {
                         try {
