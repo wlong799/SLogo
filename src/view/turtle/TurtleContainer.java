@@ -8,6 +8,8 @@ import javafx.scene.shape.Rectangle;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
+
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,21 +23,29 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     private StackPane myContainer;
     private Rectangle myBackground;
     private TurtleManager myTurtleManager;
+    private TurtleAnimator myTurtleAnimator;
 
     public TurtleContainer (double width, double height) {
         super(width, height);
         myContainer = new StackPane();
         myBackground = new Rectangle(myWidth, myHeight, DEFAULT_BG_COLOR);
         myTurtleManager = new TurtleManager(myWidth, myHeight);
+        myTurtleAnimator = new TurtleAnimator();
+        new Thread(myTurtleAnimator).start();
         myContainer.getChildren().addAll(myBackground, myTurtleManager.getContent());
     }
 
     @Override
     public void update (Observable o, Object arg) {
-        if (!(arg instanceof TurtleState)) {
+        if (!(arg instanceof List)) {
             return;
         }
-        draw((TurtleState) arg);
+        for (Object obj : (List)arg) {
+            if (!(obj instanceof TurtleState)) {
+                return;
+            }
+            draw((TurtleState) obj);
+        }
     }
 
     private void draw (TurtleState turtleState) {

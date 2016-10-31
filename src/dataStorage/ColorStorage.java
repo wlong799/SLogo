@@ -8,11 +8,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 
 public class ColorStorage {
 
-    private static final String COLOR_PATHS = "resources/color";
+    private static final String COLOR_PATHS = "resources/colors";
     private Map<Integer, List<Integer>> myColorMap;
     private ObservableList<Integer> myColor;
 
