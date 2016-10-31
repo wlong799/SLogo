@@ -9,7 +9,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import dataStorage.CommandVariableStorage;
+import dataStorage.CommandStorage;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
@@ -143,7 +143,7 @@ public class XmlSaver {
 
             int functionNum = 1;
 
-            CommandVariableStorage commandStorage = dataStorage.getCommandStorage();
+            CommandStorage commandStorage = dataStorage.getCommandStorage();
 
             Map<String, String> functionMap = commandStorage.getCommandMap();
 

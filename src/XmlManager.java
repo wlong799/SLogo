@@ -16,10 +16,6 @@ public class XmlManager {
     public static void main(String[] args) {
         ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + LANGUAGE);
 
-//        System.out.println(RESOURCE_PACKAGE + LANGUAGE);
-//        System.out.println(myResources.keySet());
-//        System.out.println(myResources.getString("color_storage"));
-
         XmlParser parser = new XmlParser();
         File file = new File("src/resources/sampleFormat.xml");
         try {
@@ -57,9 +53,5 @@ public class XmlManager {
         catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 }
