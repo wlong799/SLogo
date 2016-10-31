@@ -73,8 +73,8 @@ public class XmlDataSetter {
         return newColorStorage;
     }
 
-    public ValueVariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) {
-        ValueVariableStorage newValueVariableStorage = new ValueVariableStorage();
+    public VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) {
+        VariableStorage newValueVariableStorage = new VariableStorage();
 
         for(String oneVariableKey : valueVariableMap.keySet()) {
             Map<String, String> oneValueVariableMap = valueVariableMap.get(oneVariableKey);
@@ -88,8 +88,8 @@ public class XmlDataSetter {
         return newValueVariableStorage;
     }
 
-    public CommandVariableStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) {
-        CommandVariableStorage newCommandVariableStorage = new CommandVariableStorage();
+    public CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) {
+        CommandStorage newCommandVariableStorage = new CommandStorage();
 
         for(String oneVariableKey : commandVariableMap.keySet()) {
             Map<String, String> oneCommandVariableMap = commandVariableMap.get(oneVariableKey);

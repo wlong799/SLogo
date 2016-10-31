@@ -1,6 +1,8 @@
 package dataStorage;
 
 import java.util.List;
+import java.util.Map;
+
 import javafx.collections.ObservableList;
 import java.util.*;
 
@@ -65,16 +67,16 @@ public class DataStorageManager {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
 
-    /*
-     * public ObservableList<Integer> getBackgroundColor () {
-     * return myColorStorage.getColor();
-     * }
-     */
 
-    public int setColor (int index) {
-        // myColorStorage.setColor(index);
-        return index;
-    }
+//    public ObservableList<Integer> getBackgroundColor () {
+//        return myColorStorage.getColor();
+//    }
+
+//    public int setColor (int index) {
+//        myColorStorage.setColor(index);
+//        return index;
+//    }
+
 
     public void addHistory (String command) {
         myCommandHistoryStorage.addCommand(command);
@@ -84,11 +86,12 @@ public class DataStorageManager {
         return myColorStorage.getColorMap();
     }
 
-    public Map<String, Double> getValueVariableMap () {
+
+    public Map<String, Double> getValueVariableMap() {
         return myVariableStorage.getVariableMap();
     }
 
-    public CommandStorage getCommandStorage () {
+    public CommandStorage getCommandStorage() {
         return myCommandStorage;
     }
 
