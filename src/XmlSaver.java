@@ -94,7 +94,7 @@ public class XmlSaver {
 
             int colorNum = 1;
 
-            Map<Integer, Map<String, Double>> colorMap = dataStorage.getColorMap();
+            Map<Integer, Map<String, Integer>> colorMap = dataStorage.getColorMap();
 
             for(int colorIndex : colorMap.keySet()) {
                 Element colorElement = doc.createElement(myResources.getString("color_") + Integer.toString(colorNum));
