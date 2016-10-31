@@ -2,9 +2,7 @@ package dataStorage;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class ColorStorage {
@@ -14,16 +12,33 @@ public class ColorStorage {
     private ResourceBundle myResources;
     private String language = "English";
     private ObservableList<Integer> myColor;
+    private static final String COLOR_PATHS = "resources/colors";
 
-    public ColorStorage () {
+
+    public ColorStorage() {
         myColorMap = new HashMap<>();
-        // colorMap = importDefaultColorsFromFile();
+        init();
         myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
         myColor = FXCollections.observableArrayList();
 
     }
 
-    public Map<String, Integer> getColor (int index) {
+    private void init () {
+        myColor.addAll(255, 255, 255);
+        ResourceBundle defaultColors = ResourceBundle.getBundle(COLOR_PATHS);
+        for (String s : defaultColors.keySet()) {
+            String colorList = defaultColors.getString(s);
+            String[] rgb = colorList.split(",");
+            Map<String, Integer> colorComponents = new HashMap<>();
+            colorComponents.put(myResources.getString("color_red"), Integer.parseInt(rgb[0]));
+            colorComponents.put(myResources.getString("color_green"), Integer.parseInt(rgb[1]));
+            colorComponents.put(myResources.getString("color_blue"), Integer.parseInt(rgb[2]));
+            myColorMap.put(Integer.parseInt(s), colorComponents);
+        }
+    }
+
+
+    public Map<String, Integer> getColor(int index) {
         try {
             return myColorMap.get(index);
         }
@@ -55,13 +70,9 @@ public class ColorStorage {
         }
     }
 
-    public Map<Integer, Map<String, Integer>> getColorMap () {
+
+    public Map<Integer, Map<String, Integer>> getColorMap() {
         return myColorMap;
     }
-    // private Map<Integer, Map<String, Double>> importDefaultColorsFromFile() {
-    // /* TODO: Set up a default colors file, maybe. Or just make like three colors here locally and
-    // not
-    // * deal with the XML file here.
-    // */
-    // }
+
 }
