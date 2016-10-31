@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class XmlManager {
+public class XmlTester {
     private static final String LANGUAGE = "English";
 
     private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
@@ -48,7 +48,7 @@ public class XmlManager {
 
             XmlSaver fakeSaver = new XmlSaver(LANGUAGE);
 
-            fakeSaver.saveAsXml(fakeStorageManager, fakeTurtleStorage);
+//            fakeSaver.saveAsXml(fakeStorageManager, fakeTurtleStorage);
         }
         catch (Exception e) {
             e.printStackTrace();
