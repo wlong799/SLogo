@@ -89,6 +89,7 @@ public class ExpressionTree {
         }
         catch (Exception e) {
             System.out.println("Could not create command of class " + command);
+            e.printStackTrace();
             try {
                 System.out.println("Trying to create constant " + command);
                 return new Constant(Double.parseDouble(command));
