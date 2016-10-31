@@ -34,13 +34,14 @@ public class SLogoModel {
 
     public void parse(String s, boolean storeHistory) {
         String command = s;
+        String output = "";
         try {
-            myCommandParser.parse(s);
+            output = "OUTPUT: " + (myCommandParser.parse(s));
         } catch (Exception e) {
-            command += "\nERROR ENCOUNTERED WHEN PARSING.";
+            output = "ERROR ENCOUNTERED WHEN PARSING.";
         }
         if (storeHistory) {
-            myData.addHistory(command);
+            myData.addHistory(command + "\n" + output);
         }
     }
 
