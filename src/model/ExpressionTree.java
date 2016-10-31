@@ -8,8 +8,8 @@ import model.command.AbstractCommand;
 import model.command.ListCommand;
 import model.command.higherOrderCommands.Variable;
 import model.command.zeroParameter.Constant;
-
 import java.util.*;
+
 
 /**
  * 
@@ -66,10 +66,31 @@ public class ExpressionTree {
         if (command.equals("[")) {
             return makeCommandList(commands);
         }
+//        else if (command.equals("(")) {
+//            return makeUnlimitedCommand(commands);
+//        }
         else {
             return makeCommand(commands, command);
         }
     }
+//
+//    private AbstractCommand makeUnlimitedCommand (Queue<String> commands) {
+//        String commandString = commands.poll();
+//        Queue<String> newQueue = new LinkedList<String>();
+//        int size = commands.size();
+//        for (int i = 0; i < size - 2; i++) {
+//            newQueue.add(commandString);
+//            newQueue.add(commands.poll());
+//        }
+//        newQueue.add(commands.poll());
+//        try {
+//            AbstractCommand command = makeSubTree(newQueue);
+//            return makeSubTree(newQueue);
+//        }
+//        catch (Exception e) {
+//            return null;
+//        }
+//    }
 
     private AbstractCommand makeCommand (Queue<String> commands, String command) {
         try {
@@ -90,6 +111,7 @@ public class ExpressionTree {
         }
         catch (Exception e) {
             System.out.println("Could not create command of class " + command);
+            e.printStackTrace();
             try {
                 System.out.println("Trying to create constant " + command);
                 return new Constant(Double.parseDouble(command));
@@ -156,7 +178,7 @@ public class ExpressionTree {
                 // openBrackets++;
                 commandList.add(makeCommandList(commandQueue));
             }
-            else if (next.equals(" ")){
+            else if (next.equals(" ")) {
                 continue;
             }
             else {
