@@ -43,7 +43,7 @@ public class ViewModelController extends InteractionController {
 
         StoredVariableWindow varWindow =
                 (StoredVariableWindow) myViewElements.getGUIElement("StoredVariableWindow");
-        // ValueVariableStorage varStorage = myModel.getData().getVariableList();
+        // VariableStorage varStorage = myModel.getData().getVariableList();
         varWindow.setObservedList(myModel.getData().getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
         varWindow.setEditedEvent(event -> {
@@ -62,7 +62,7 @@ public class ViewModelController extends InteractionController {
 
         StoredFunctionWindow funcWindow =
                 (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
-        // CommandVariableStorage funcStorage =
+        // CommandStorage funcStorage =
         // DataStorageManager.get().getCommandVariableStorage();
         funcWindow.setObservedList(myModel.getData().getCommandList());
     }

@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 
 public class ColorStorage {
 
-    private static final String COLOR_PATHS = "resources/colors";
+    private static final String COLOR_PATHS = "resources/color";
     private Map<Integer, List<Integer>> myColorMap;
     private ObservableList<Integer> myColor;
 
