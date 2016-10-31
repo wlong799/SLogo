@@ -28,6 +28,10 @@ public class DataStorageManager {
         return myVariableStorage.getVariable(varName);
     }
 
+    public Notifications getNotifications () {
+        return myNotifications;
+    }
+    
     public void setVariable (String varName, double value) {
         myVariableStorage.setVariable(varName, value);
     }
