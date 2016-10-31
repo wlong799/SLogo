@@ -17,10 +17,9 @@ public class ColorStorage {
 
     public ColorStorage() {
         myColorMap = new HashMap<>();
-        init();
         myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
         myColor = FXCollections.observableArrayList();
-
+        init();
     }
 
     private void init () {
