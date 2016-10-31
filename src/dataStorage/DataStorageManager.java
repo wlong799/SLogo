@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import java.util.*;
 
 
 /**
@@ -28,6 +29,10 @@ public class DataStorageManager {
 
     public Double getVariable (String varName) {
         return myVariableStorage.getVariable(varName);
+    }
+
+    public Notifications getNotifications () {
+        return myNotifications;
     }
 
     public void setVariable (String varName, double value) {
@@ -62,6 +67,7 @@ public class DataStorageManager {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
 
+
 //    public ObservableList<Integer> getBackgroundColor () {
 //        return myColorStorage.getColor();
 //    }
@@ -71,13 +77,16 @@ public class DataStorageManager {
 //        return index;
 //    }
 
+
     public void addHistory (String command) {
         myCommandHistoryStorage.addCommand(command);
     }
 
+
     public Map<Integer, Map<String, Integer>> getColorMap() {
         return myColorStorage.getColorMap();
     }
+
 
     public Map<String, Double> getValueVariableMap() {
         return myVariableStorage.getVariableMap();
@@ -89,15 +98,15 @@ public class DataStorageManager {
 
     /* functions for setting information using the XML content setter */
 
-    public void setValueVariableStorage(VariableStorage variableStorage) {
+    public void setVariableStorage (VariableStorage variableStorage) {
         myVariableStorage = variableStorage;
     }
 
-    public void setCommandVariableStorage(CommandStorage commandStorage) {
+    public void setCommandStorage (CommandStorage commandStorage) {
         myCommandStorage = commandStorage;
     }
 
-    public void setColorStorage(ColorStorage colorStorage) {
+    public void setColorStorage (ColorStorage colorStorage) {
         myColorStorage = colorStorage;
     }
 
