@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 
-public class CommandVariableStorage {
+public class CommandStorage {
 
     private Map<String, List<String>> commandParamMap;
     private Map<String, String> commandMap;
     private ObservableList<String> commandStorageList;
 
-    public CommandVariableStorage () {
+    public CommandStorage () {
         commandParamMap = new HashMap<>();
         commandMap = new HashMap<>();
         commandStorageList = FXCollections.observableArrayList();
