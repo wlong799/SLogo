@@ -2,26 +2,37 @@ package view.turtle;
 
 import dataStorage.TurtleState;
 import javafx.animation.Animation;
-import javafx.animation.ParallelTransition;
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class TurtleAnimator implements Runnable {
     private static final double DEFAULT_DURATION = 1000;
-    private static final long SLEEP_TIME = 1000;
+    private static final long SLEEP_TIME = 250;
 
     private TurtleManager myTurtleManager;
     private double myDurationMilliseconds;
     private Queue<List<TurtleState>> myEventQueue;
+    private TurtleView myCurrentTurtleView;
+    private TurtleLines myCurrentTurtleLines;
+    private double xOffset, yOffset;
+    private List<Animation> upcomingAnimations;
 
     public TurtleAnimator(TurtleManager manager) {
         myDurationMilliseconds = DEFAULT_DURATION;
         myTurtleManager = manager;
         myEventQueue = new LinkedList<>();
+        xOffset = myTurtleManager.getWidth() / 2;
+        yOffset = myTurtleManager.getHeight() / 2;
     }
 
     public void addEvent(List<TurtleState> turtleStateList) {
@@ -40,22 +51,62 @@ public class TurtleAnimator implements Runnable {
                 continue;
             }
             List<TurtleState> turtleStateList = myEventQueue.poll();
+            upcomingAnimations = new ArrayList<>();
             turtleStateList.forEach(this::draw);
+            upcomingAnimations.forEach(Animation::play);
         }
     }
 
-    private void draw (TurtleState turtleState) {
-        TurtleView turtleView = myTurtleManager.getTurtle(turtleState.getID());
-        TurtleLines turtleLines = myTurtleManager.getTurtleLines(turtleState.getID());
+    private void draw(TurtleState turtleState) {
+        myCurrentTurtleView = myTurtleManager.getTurtle(turtleState.getID());
+        myCurrentTurtleLines = myTurtleManager.getTurtleLines(turtleState.getID());
 
-        double x1 = turtleView.getX();
-        double y1 = turtleView.getY();
-        double x2 = turtleState.getPosition().getX();
-        double y2 = turtleState.getPosition().getY();
+        double x = turtleState.getPosition().getX();
+        double y = turtleState.getPosition().getY();
 
-        turtleView.animatePosition(x2, y2, myDurationMilliseconds);
-        turtleView.animateVisibility(turtleState.getVisibility(), myDurationMilliseconds);
-        turtleView.animateHeading(turtleState.getHeading(), myDurationMilliseconds);
-        turtleLines.animateLine(x1, y1, x2, y2, myDurationMilliseconds);
+        addAnimatePosition(x, y);
+        addAnimateVisibility(turtleState.getVisibility());
+        addAnimateHeading(turtleState.getHeading());
+        //turtleLines.animateLine(x1, y1, x2, y2, myDurationMilliseconds);
     }
+
+    private void addAnimatePosition(double xEnd, double yEnd) {
+        double xStart = myCurrentTurtleView.getX() + xOffset;
+        double yStart = myCurrentTurtleView.getY() + yOffset;
+        xEnd += xOffset;
+        yEnd += yOffset;
+        if (Math.abs(xStart - xEnd) < 1 && Math.abs(yStart - yEnd) < 1) {
+            return;
+        }
+        MoveTo moveTo = new MoveTo(xStart, yStart);
+        LineTo lineTo = new LineTo(xEnd, yEnd);
+        Path path = new Path(moveTo, lineTo);
+        upcomingAnimations.add(new PathTransition(Duration.millis(myDurationMilliseconds), path,
+                myCurrentTurtleView.getContent()));
+    }
+
+    private void addAnimateVisibility(boolean visible) {
+        if ((visible && myCurrentTurtleView.isVisible()) || (!visible && !myCurrentTurtleView.isVisible())) {
+            return;
+        }
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(myDurationMilliseconds),
+                myCurrentTurtleView.getContent());
+        fadeTransition.setFromValue(myCurrentTurtleView.getCorrectOpacity(myCurrentTurtleView.isVisible()));
+        fadeTransition.setToValue(myCurrentTurtleView.getCorrectOpacity(visible));
+        upcomingAnimations.add(fadeTransition);
+    }
+
+    public void addAnimateHeading(double heading) {
+        heading += 90;
+        if (heading == myCurrentTurtleView.getHeading()) {
+            return;
+        }
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(myDurationMilliseconds),
+                myCurrentTurtleView.getContent());
+        rotateTransition.setFromAngle(myCurrentTurtleView.getHeading());
+        rotateTransition.setByAngle(heading);
+        upcomingAnimations.add(rotateTransition);
+    }
+
+
 }
