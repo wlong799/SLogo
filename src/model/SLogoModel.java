@@ -37,7 +37,7 @@ public class SLogoModel {
             myCommandParser.parse(s);
         }
         catch (Exception e) {
-            command += "\nERROR ENCOUNTERED WHEN PARSING.";
+            command += "\n" + e.getMessage();
         }
         myData.addHistory(command);
     }

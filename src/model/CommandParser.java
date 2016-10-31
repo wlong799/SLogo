@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.*;
+import exceptions.CustomCommandException;
+import exceptions.InvalidCommandException;
 
 
 /**
@@ -79,14 +81,8 @@ public class CommandParser {
                 new ExpressionTree(myData, myTurtles);
 
         AbstractCommand rootCommand = null;
-        try {
-            rootCommand = completeCommand.makeTree(commandQueue);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Couldnt make tree");
-            return 0.0;
-        }
+
+        rootCommand = completeCommand.makeTree(commandQueue);
 
         return rootCommand.execute();
 
@@ -105,7 +101,7 @@ public class CommandParser {
         }
         commands.poll();
         Queue<String> newQueue = new LinkedList<String>();
-        
+
         int size = parenExpression.size();
         for (int i = 0; i < size - 1; i++) {
             newQueue.add(commandString);
@@ -120,6 +116,7 @@ public class CommandParser {
 
     private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
         System.out.println("Getting custom command " + command);
+
         String commandString = myData.getCommand(command);
         List<String> commandParams = myData.getCommandParams(command);
         Queue<String> commandQueue = new LinkedList<String>();
@@ -131,10 +128,15 @@ public class CommandParser {
                 replacement = commands.poll();
             }
             else {
-                replacement = Double
-                        .toString(new ExpressionTree(myData, myTurtles)
+                try {
+                    replacement = Double
+                            .toString(new ExpressionTree(myData, myTurtles)
 
-                                .makeSubTree(commands).execute());
+                                    .makeSubTree(commands).execute());
+                }
+                catch (ClassNotFoundException ex) {
+                    throw new CustomCommandException(command, commandString);
+                }
             }
             commandString = commandString.replaceAll(s, replacement);
         }
@@ -157,10 +159,11 @@ public class CommandParser {
         return finalQueue;
     }
 
-    private Queue<String> makeCommandQueue (String command) {
+    private Queue<String> makeCommandQueue (String command) throws Exception {
         List<String> onOneLine = Arrays.asList(command.split("\\n"));
         Queue<String> commands = new LinkedList<String>();
-        onOneLine.forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
+        onOneLine.stream().filter(s -> !s.startsWith("#"))
+                .forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
         Queue<String> commandQueue = new LinkedList<String>();
         while (!commands.isEmpty()) {
             String rawCommand = commands.poll();
@@ -168,31 +171,29 @@ public class CommandParser {
             if (symbol.equals("NO MATCH")) {
                 symbol = getSymbol(rawCommand, true);
                 if (symbol.equals("NO MATCH")) {
-                    System.out.println("Throw Invalid Command Exception");
+                    throw new InvalidCommandException(rawCommand);
+                    // System.out.println("Throw Invalid Command Exception");
                 }
                 else {
                     if (!symbol.equals("Command") || !myData.hasCommand(rawCommand)) {
                         if (rawCommand.equals("(")) {
-
                             getUnlimitedParamCommand(commands);
                             System.out.println(commandQueue);
                         }
                         else {
-                            System.out
-                                    .println("adding " + rawCommand + " to command queue because " +
-                                             (!symbol.equals("command") ? "not a command syntax"
-                                                                        : "not in command storage"));
+                            // if (isConstant(rawCommand) || isVariable(rawCommand)) {
                             commandQueue.add(rawCommand);
+                            // }
+                            // else {
+                            // throw new InvalidCommandException(rawCommand);
+                            // }
                         }
                     }
                     else {
-                        try {
-                            System.out.println("custom!");
-                            commandQueue.addAll(getUserCommand(rawCommand, commands));
-                        }
-                        catch (Exception ex) {
-                            System.out.println("exception in custom command");
-                        }
+
+                        System.out.println("custom!");
+                        commandQueue.addAll(getUserCommand(rawCommand, commands));
+
                     }
                 }
             }
