@@ -3,7 +3,11 @@ package model.command.zeroParameter;
 import java.util.List;
 import model.command.AbstractCommand;
 
-
+/**
+ * 
+ * @author Michael Schroeder
+ *
+ */
 public class Constant extends AbstractCommandZeroParameter{
 
     private double myValue;

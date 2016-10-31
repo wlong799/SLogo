@@ -40,9 +40,4 @@ public class DoTimes extends AbstractCommandHigherOrder {
         return returnValue;
     }
 
-    @Override
-    public int getNumParameters () {
-        return 2;
-    }
-
 }

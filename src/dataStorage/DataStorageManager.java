@@ -1,59 +1,72 @@
 package dataStorage;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.collections.ObservableList;
 
 
+/**
+ * @author Filip Mazurek
+ * @author Michael Schroeder
+ */
 public class DataStorageManager {
 
-    private ValueVariableStorage myValueVariableStorage;
+    private VariableStorage myVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
-    private CommandVariableStorage myCommandVariableStorage;
+    private CommandStorage myCommandStorage;
+    private ColorStorage myColorStorage;
     private Notifications myNotifications;
 
     public DataStorageManager () {
-        myValueVariableStorage = new ValueVariableStorage();
-        myCommandVariableStorage = new CommandVariableStorage();
+        myVariableStorage = new VariableStorage();
+        myCommandStorage = new CommandStorage();
         myCommandHistoryStorage = new CommandHistoryStorage();
         myNotifications = new Notifications();
+        myColorStorage = new ColorStorage();
     }
 
     public Double getVariable (String varName) {
-        return myValueVariableStorage.getVariable(varName);
+        return myVariableStorage.getVariable(varName);
     }
 
     public void setVariable (String varName, double value) {
-        myValueVariableStorage.setVariable(varName, value);
+        myVariableStorage.setVariable(varName, value);
     }
 
     public void setCommand (String commandName, List<String> parameterNames, String commandString) {
-        myCommandVariableStorage.setCommand(commandName, parameterNames, commandString);
+        myCommandStorage.setCommand(commandName, parameterNames, commandString);
     }
 
     public ObservableList<String> getVariableList () {
-        return myValueVariableStorage.getVariableList();
+        return myVariableStorage.getVariableList();
     }
 
     public boolean hasCommand (String command) {
-        return myCommandVariableStorage.hasCommand(command);
+        return myCommandStorage.hasCommand(command);
     }
 
     public String getCommand (String command) {
-        return myCommandVariableStorage.getCommand(command);
+        return myCommandStorage.getCommand(command);
     }
 
     public List<String> getCommandParams (String command) {
-        return myCommandVariableStorage.getCommandParams(command);
+        return myCommandStorage.getCommandParams(command);
     }
 
     public ObservableList<String> getCommandList () {
-        return myCommandVariableStorage.getCommandVariableList();
+        return myCommandStorage.getCommandVariableList();
     }
 
     public ObservableList<String> getHistoryList () {
         return myCommandHistoryStorage.getCommandHistoryList();
+    }
+
+    public ObservableList<Integer> getBackgroundColor () {
+        return myColorStorage.getColor();
+    }
+
+    public int setColor (int index) {
+        myColorStorage.setColor(index);
+        return index;
     }
 
     public void addHistory (String command) {
