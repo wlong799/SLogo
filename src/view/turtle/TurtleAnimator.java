@@ -1,6 +1,10 @@
 package view.turtle;
 
 import dataStorage.TurtleState;
+import javafx.animation.Animation;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.util.Duration;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,9 +53,9 @@ public class TurtleAnimator implements Runnable {
         double x2 = turtleState.getPosition().getX();
         double y2 = turtleState.getPosition().getY();
 
-        turtleView.setPosition(x2, y2);
-        turtleLines.drawLine(x1, y1, x2, y2);
-        turtleView.setTurtleHeading(turtleState.getHeading());
-        turtleView.setTurtleVisibility(turtleState.getVisibility());
+        turtleView.animatePosition(x2, y2, myDurationMilliseconds);
+        turtleView.animateVisibility(turtleState.getVisibility(), myDurationMilliseconds);
+        turtleView.animateHeading(turtleState.getHeading(), myDurationMilliseconds);
+        turtleLines.animateLine(x1, y1, x2, y2, myDurationMilliseconds);
     }
 }

@@ -1,8 +1,13 @@
 package view.turtle;
 
+import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
@@ -38,9 +43,33 @@ public class TurtleView extends GUIElement implements Stylizable{
         return myTurtle;
     }
 
-    public void setPosition(double x, double y) {
-        myTurtle.setTranslateX(x);
-        myTurtle.setTranslateY(y);
+    public void animatePosition(double x, double y, double timeMillis) {
+        if (Math.abs(x - getX()) < 1 && Math.abs(y - getY()) < 1) {
+            return;
+        }
+        MoveTo moveTo = new MoveTo(getX() + myWidth / 2, getY() + myHeight / 2);
+        LineTo lineTo = new LineTo(x + myWidth / 2, y + myHeight / 2);
+        Path path = new Path(moveTo, lineTo);
+        new PathTransition(Duration.millis(timeMillis), path, myTurtle).play();
+    }
+
+    public void animateVisibility(boolean visible, double timeMillis) {
+        if ((visible && myTurtle.getOpacity() == 1.0) || (!visible && myTurtle.getOpacity() == 0.0)) {
+            return;
+        }
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(timeMillis), myTurtle);
+        fadeTransition.setFromValue(myTurtle.getOpacity());
+        fadeTransition.setToValue(visible ? 1.0 : 0.0);
+        fadeTransition.play();
+    }
+
+    public void animateHeading(double heading, double timeMillis) {
+        if (heading + 90 == myTurtle.getRotate()) {
+            return;
+        }
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(timeMillis), myTurtle);
+        rotateTransition.setByAngle((heading + 90) - myTurtle.getRotate());
+        rotateTransition.play();
     }
 
     public double getX() {
@@ -49,13 +78,5 @@ public class TurtleView extends GUIElement implements Stylizable{
 
     public double getY() {
         return myTurtle.getTranslateY();
-    }
-
-    public void setTurtleHeading(double heading) {
-        myTurtle.setRotate(heading + 90);
-    }
-
-    public void setTurtleVisibility(boolean isVisible) {
-        myTurtle.setVisible(isVisible);
     }
 }
