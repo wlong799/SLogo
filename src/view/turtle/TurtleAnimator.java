@@ -1,10 +1,10 @@
 package view.turtle;
 
 import dataStorage.TurtleState;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -67,7 +67,7 @@ public class TurtleAnimator implements Runnable {
         addAnimatePosition(x, y);
         addAnimateVisibility(turtleState.getVisibility());
         addAnimateHeading(turtleState.getHeading());
-        //turtleLines.animateLine(x1, y1, x2, y2, myDurationMilliseconds);
+        addAnimateLine(x, y);
     }
 
     private void addAnimatePosition(double xEnd, double yEnd) {
@@ -96,7 +96,7 @@ public class TurtleAnimator implements Runnable {
         upcomingAnimations.add(fadeTransition);
     }
 
-    public void addAnimateHeading(double heading) {
+    private void addAnimateHeading(double heading) {
         heading += 90;
         if (heading == myCurrentTurtleView.getHeading()) {
             return;
@@ -104,9 +104,40 @@ public class TurtleAnimator implements Runnable {
         RotateTransition rotateTransition = new RotateTransition(Duration.millis(myDurationMilliseconds),
                 myCurrentTurtleView.getContent());
         rotateTransition.setFromAngle(myCurrentTurtleView.getHeading());
-        rotateTransition.setByAngle(heading);
+        rotateTransition.setToAngle(heading);
         upcomingAnimations.add(rotateTransition);
     }
 
+    private void addAnimateLine(double xEnd, double yEnd) {
+        double xStart = myCurrentTurtleView.getX() + xOffset;
+        double yStart = myCurrentTurtleView.getY() + yOffset;
+        xEnd += xOffset;
+        yEnd += yOffset;
+        if (Math.abs(xStart - xEnd) < 1 && Math.abs(yStart - yEnd) < 1) {
+            return;
+        }
+        DoubleProperty x = new SimpleDoubleProperty();
+        DoubleProperty y = new SimpleDoubleProperty();
 
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                myCurrentTurtleLines.drawLine(xStart, yStart, x.get(), y.get());
+            }
+        };
+
+        EventHandler onFinished = event -> timer.stop();
+        KeyFrame startFrame = new KeyFrame(Duration.millis(0),
+                new KeyValue(x, xStart),
+                new KeyValue(y, yStart));
+        KeyFrame endFrame = new KeyFrame(Duration.millis(myDurationMilliseconds),
+                onFinished,
+                new KeyValue(x, xEnd),
+                new KeyValue(y, yEnd));
+
+        Timeline timeline = new Timeline(startFrame, endFrame);
+
+        timeline.play();
+        timer.start();
+    }
 }
