@@ -8,9 +8,9 @@ import javafx.scene.shape.Rectangle;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
-
 import java.util.Observable;
 import java.util.Observer;
+
 
 /**
  * Container for all current turtles and the lines they've drawn
@@ -22,7 +22,7 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     private Rectangle myBackground;
     private TurtleManager myTurtleManager;
 
-    public TurtleContainer(double width, double height) {
+    public TurtleContainer (double width, double height) {
         super(width, height);
         myContainer = new StackPane();
         myBackground = new Rectangle(myWidth, myHeight, DEFAULT_BG_COLOR);
@@ -31,14 +31,14 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        if (! (arg instanceof TurtleState)) {
+    public void update (Observable o, Object arg) {
+        if (!(arg instanceof TurtleState)) {
             return;
         }
         draw((TurtleState) arg);
     }
 
-    private void draw(TurtleState turtleState) {
+    private void draw (TurtleState turtleState) {
         TurtleView turtleView = myTurtleManager.getTurtle(turtleState.getID());
         TurtleLines turtleLines = myTurtleManager.getTurtleLines(turtleState.getID());
 
@@ -54,7 +54,7 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     }
 
     @Override
-    public void setStyle(Style style) {
+    public void setStyle (Style style) {
         Color color = style.getColor();
         if (color != null) {
             myBackground.setFill(color);
@@ -62,11 +62,11 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     }
 
     @Override
-    public Node getContent() {
+    public Node getContent () {
         return myContainer;
     }
 
-    public TurtleManager getTurtleManager() {
+    public TurtleManager getTurtleManager () {
         return myTurtleManager;
     }
 }
