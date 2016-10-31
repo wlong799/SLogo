@@ -13,7 +13,7 @@ public class CommandStorage {
     private Map<String, String> commandMap;
     private ObservableList<String> commandStorageList;
 
-    public CommandStorage() {
+    public CommandStorage () {
         commandParamMap = new HashMap<>();
         commandMap = new HashMap<>();
         commandStorageList = FXCollections.observableArrayList();
