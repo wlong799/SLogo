@@ -2,7 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import dataStorage.*;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,13 +19,13 @@ import view.turtle.TurtleManager;
 public class ViewModelController extends InteractionController {
     private SLogoModel myModel;
 
-    public ViewModelController(ElementManager viewElements, SLogoModel model) {
+    public ViewModelController (ElementManager viewElements, SLogoModel model) {
         super(viewElements);
         myModel = model;
     }
 
     @Override
-    public void setUpInteractions() {
+    public void setUpInteractions () {
         linkTextBoxToParser();
         linkTurtleWithView();
         linkCommandHistory();
@@ -35,9 +34,9 @@ public class ViewModelController extends InteractionController {
         // setLanguageChanger();
     }
 
-    private void linkVariableStorage() {
+    private void linkVariableStorage () {
         if (myViewElements.getGUIElement("StoredVariableWindow") == null ||
-                myModel.getData() == null) {
+            myModel.getData() == null) {
             return;
         }
 
@@ -54,9 +53,9 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void linkFunctionStorage() {
+    private void linkFunctionStorage () {
         if (myViewElements.getGUIElement("StoredFunctionWindow") == null ||
-                myModel.getData() == null) {
+            myModel.getData() == null) {
             return;
         }
 
@@ -67,16 +66,17 @@ public class ViewModelController extends InteractionController {
         funcWindow.setObservedList(myModel.getData().getCommandList());
     }
 
-    public void setModel(SLogoModel model) {
+    public void setModel (SLogoModel model) {
         myModel = model;
     }
 
-    private void linkTurtleWithView() {
+    private void linkTurtleWithView () {
         TurtleStorage turtleStorage = myModel.getTurtles();
         if (turtleStorage == null || myViewElements.getGUIElement("TurtleContainer") == null) {
             return;
         }
-        TurtleContainer turtleContainer = (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
+        TurtleContainer turtleContainer =
+                (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
         turtleStorage.addObserver(turtleContainer);
         if (myViewElements.getGUIElement("TurtleManager") == null) {
             return;
@@ -84,7 +84,7 @@ public class ViewModelController extends InteractionController {
         TurtleManager turtleManager = (TurtleManager) myViewElements.getGUIElement("TurtleManager");
         turtleStorage.getActiveTurtleIDs().addListener(new ListChangeListener<Integer>() {
             @Override
-            public void onChanged(Change<? extends Integer> c) {
+            public void onChanged (Change<? extends Integer> c) {
                 List<Integer> newList = new ArrayList<>();
                 newList.addAll(c.getList());
                 turtleManager.setActiveTurtleNums(newList);
@@ -92,7 +92,7 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void linkTextBoxToParser() {
+    private void linkTextBoxToParser () {
         if (myModel.noParser() || myViewElements.getGUIElement("TextEntryBox") == null) {
             return;
         }
@@ -106,7 +106,7 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void setLanguageChanger() {
+    private void setLanguageChanger () {
         if (myViewElements.getGUIElement("SettingsMenuBar") == null) {
             System.out.println("fail");
             return;
@@ -120,9 +120,9 @@ public class ViewModelController extends InteractionController {
         System.out.println("success");
     }
 
-    private void linkCommandHistory() {
+    private void linkCommandHistory () {
         if (myModel.getData() == null ||
-                myViewElements.getGUIElement("CommandHistoryWindow") == null) {
+            myViewElements.getGUIElement("CommandHistoryWindow") == null) {
             return;
         }
 
