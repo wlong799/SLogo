@@ -39,8 +39,8 @@ public class WorkspaceFactory {
     private static final String[] HELP_MENU_ELEMENTS = new String[]
             {
                     "AboutInfo",
-                    "CommandHelpInfo",
-                    "AdvancedCommandHelpInfo"
+                    "CommandHelpInfo"
+                    
             };
     private static int nextWorkspaceID = 1;
 

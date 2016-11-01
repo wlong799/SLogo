@@ -14,17 +14,20 @@ import javafx.stage.Stage;
 
 public class CommandHelpInfo extends MenuElement {
    
-	private static final String NAME = "Basic Command Help";
+	private static final String NAME = "Command Help";
     private MenuItem myMenuItem;
 
     public CommandHelpInfo () {
     	
         myMenuItem = new MenuItem(NAME);
-        myMenuItem.setOnAction(i->{
-            try {
-                Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/compsci308/fall16/assign/03_slogo/commands.php"));
-            } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
+        myMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle (ActionEvent e) {
+                Stage s = new Stage();
+                //Scene scene = new Scene();
+                s.centerOnScreen();
+                
+                s.show();
             }
         });
             
