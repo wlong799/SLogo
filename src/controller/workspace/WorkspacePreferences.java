@@ -14,7 +14,8 @@ public class WorkspacePreferences {
             {
                     "CommandHistoryWindow",
                     "StoredFunctionWindow",
-                    "StoredVariableWindow"
+                    "StoredVariableWindow",
+                    "ActiveTurtlesWindow"
             };
 
     private List<String> myOpenTabs;

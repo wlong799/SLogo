@@ -12,6 +12,8 @@ public class ViewViewController extends InteractionController {
     private static final String[][] STYLE_ELEMENTS_TO_LINK = new String[][]
             {{"BackgroundColorPicker", "TurtleContainer"},
                     {"LineColorPicker", "TurtleManager"},
+                    {"LineStylePicker", "TurtleManager"},
+                    {"LineSizePicker", "TurtleManager"},
                     {"TurtleImagePicker", "TurtleManager"}
             };
 
@@ -55,4 +57,7 @@ public class ViewViewController extends InteractionController {
             textBox.setText(selectedCommand);
         });
     }
+    
+
+    
 }
