@@ -2,6 +2,7 @@ package controller.workspace;
 
 import controller.ViewModelController;
 import controller.ViewViewController;
+import controller.WorkspaceController;
 import model.SLogoModel;
 import view.ContentManager;
 
@@ -15,19 +16,10 @@ public class Workspace {
     public Workspace(ContentManager content, SLogoModel model) {
         myContent = content;
         myModel = model;
-        setUpInteractions();
     }
 
     public ContentManager getContentManager() {
         return myContent;
-    }
-
-    private void setUpInteractions() {
-        ViewModelController vmController = new ViewModelController(myContent.getElements(), myModel);
-        vmController.setUpInteractions();
-
-        ViewViewController vvController = new ViewViewController(myContent.getElements());
-        vvController.setUpInteractions();
     }
 
 }

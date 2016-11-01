@@ -1,5 +1,8 @@
 package controller.workspace;
 
+import controller.ViewModelController;
+import controller.ViewViewController;
+import controller.WorkspaceController;
 import dataStorage.TurtleStorage;
 import model.SLogoModel;
 import view.WorkspaceContent;
@@ -43,7 +46,7 @@ public class WorkspaceFactory {
             };
     private static int nextWorkspaceID = 1;
 
-    public static Workspace createWorkspace(double width, double height) {
+    public static Workspace createWorkspace(double width, double height, WorkspaceManager workspaceManager) {
         WorkspaceContent workspaceContent = new WorkspaceContent(width, height);
         WorkspacePreferences preferences = new WorkspacePreferences();
 
@@ -62,7 +65,10 @@ public class WorkspaceFactory {
                 s -> TOOLBAR_PACKAGE + s).toArray(size -> new String[size]));
 
         SLogoModel model = new SLogoModel();
-        
+        new ViewViewController(workspaceContent.getElements()).setUpInteractions();
+        new ViewModelController(workspaceContent.getElements(), model).setUpInteractions();
+        new WorkspaceController(workspaceContent.getElements(), workspaceManager).setUpInteractions();
+
         Workspace workspace = new Workspace(workspaceContent, model);
         TurtleStorage turtleStorage = model.getTurtles();
         List<Integer> idList = new ArrayList<>();

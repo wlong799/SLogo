@@ -27,7 +27,7 @@ public class SLogoController {
     public void createNewWorkspace() {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
-        myWorkspaceManager.addWorkspace(WorkspaceFactory.createWorkspace(width, height));
+        myWorkspaceManager.addWorkspace(WorkspaceFactory.createWorkspace(width, height, myWorkspaceManager));
     }
 
     public void loadCurrentWorkspace() {
