@@ -2,9 +2,9 @@ package view.toolbar;
 
 import controller.workspace.WorkspaceManager;
 import javafx.scene.control.MenuItem;
-import view.WorkspaceEditor;
+import view.WorkspaceInteractor;
 
-public class WorkspaceSwitcher extends MenuElement implements WorkspaceEditor{
+public class WorkspaceSwitcher extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "Switch Workspace";
 
     private MenuItem myMenuItem;
@@ -14,7 +14,7 @@ public class WorkspaceSwitcher extends MenuElement implements WorkspaceEditor{
     }
 
     @Override
-    public void setWorkspaceManager(WorkspaceManager manager) {
+    public void setWorkspaceInteractions(WorkspaceManager workspaceManager) {
         return;
     }
 
