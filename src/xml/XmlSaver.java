@@ -45,7 +45,7 @@ public class XmlSaver {
 
             // root element
             Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement(myResources.getString("saved_workspace"));
+            Element rootElement = doc.createElement(myResources.getString("saved_commands_variables"));
             doc.appendChild(rootElement);
 
             // value variable

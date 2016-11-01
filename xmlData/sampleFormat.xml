@@ -1,0 +1,19 @@
+<saved_commands_variables>
+  <variable_storage>
+    <variable_1>
+      <name>:distance</name>
+      <value>50</value>
+    </variable_1>
+    <variable_2>
+      <name>:twenty</name>
+      <value>20</value>
+    </variable_2>
+  </variable_storage>
+  <function_storage>
+    <function_1>
+      <name>mover</name>
+      <parameters>:distance :angle</parameters>
+      <body>forward :distance right :angle</body>
+    </function_1>
+  </function_storage>
+</saved_commands_variables>
