@@ -43,6 +43,14 @@ public class ElementManager {
         return (Stylizer) element;
     }
 
+    public Commander getCommanderElement(String className) {
+        Object element = getElement(className);
+        if (element == null || ! (element instanceof Commander)) {
+            return null;
+        }
+        return (Commander) element;
+    }
+
     private Object getElement(String className) {
         for (Object element : myElements) {
             if (checkClass(element, className)) {

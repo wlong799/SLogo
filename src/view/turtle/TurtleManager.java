@@ -1,7 +1,11 @@
 package view.turtle;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import view.Commander;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
@@ -9,10 +13,13 @@ import view.Stylizable;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class TurtleManager extends GUIElement implements Stylizable {
+public class TurtleManager extends GUIElement implements Stylizable, Commander {
+    private static final double CLICK_RANGE = 15;
+
     private Map<Integer, TurtleView> myTurtles;
     private Map<Integer, TurtleLines> myTurtleLines;
     private Set<Integer> myActiveTurtleNums;
+    private Set<Integer> nextActiveTurtleNums;
 
     private StackPane myContainer;
 
@@ -80,5 +87,42 @@ public class TurtleManager extends GUIElement implements Stylizable {
             }
         }
         return activeLines;
+    }
+
+    @Override
+    public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
+        myContainer.setOnMouseClicked(event -> {
+            nextActiveTurtleNums = new HashSet<>(myActiveTurtleNums);
+            double xClick = event.getX() - myWidth / 2;
+            double yClick = event.getY() - myHeight / 2;
+            for (int id : myTurtles.keySet()) {
+                TurtleView turtle = myTurtles.get(id);
+                if (Math.abs(turtle.getX() - xClick) < CLICK_RANGE &&
+                        Math.abs(turtle.getY() - yClick) < CLICK_RANGE) {
+                    if (myActiveTurtleNums.contains(id)) {
+                        nextActiveTurtleNums.remove(id);
+                    } else {
+                        nextActiveTurtleNums.add(id);
+                    }
+                }
+            }
+            eventHandler.handle(new ActionEvent());
+        });
+    }
+
+    @Override
+    public String getCommandText(String language) {
+        ResourceBundle languageResource = ResourceBundle.getBundle("resources/languages/" + language);
+        String tellCommand = languageResource.getString("Tell");
+        String activeTurtles = "";
+        for (int id : nextActiveTurtleNums) {
+            activeTurtles += " " + id;
+        }
+        return tellCommand + " [" + activeTurtles + " ]";
+    }
+
+    @Override
+    public boolean storeHistory() {
+        return false;
     }
 }
