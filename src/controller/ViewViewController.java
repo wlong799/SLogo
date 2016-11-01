@@ -58,13 +58,6 @@ public class ViewViewController extends InteractionController {
         });
     }
     
-    private void setClickableTurtleWindow(){
-    	if (myViewElements.getGUIElement("ActiveTurtlesWindow")== null){
-    		return;
-    	}
-    	ActiveTurtlesWindow turWindow = (ActiveTurtlesWindow) myViewElements.getGUIElement("ActiveTurtlesWindow");
-    	
-    	
-    }
+
     
 }
