@@ -19,6 +19,8 @@ import java.util.*;
  */
 
 public class ExpressionTree {
+    
+    private static final String LIST_START = "[";
     private ResourceBundle myCommandPaths;
     private String myCommandPathsPath = "resources/commandPaths";
     private TurtleStorage myTurtles;
@@ -47,12 +49,20 @@ public class ExpressionTree {
      */
     public AbstractCommand makeTree (Queue<String> commands)
                                                              throws ClassNotFoundException,
-                                                             InvalidCommandException {
-        List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
+                                                            InvalidCommandException {
+        
+        /*List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
         while (!commands.isEmpty()) {
             commandList.add(makeSubTree(commands));
         }
         return new ListCommand(commandList);
+        */
+                                                             
+       AbstractCommand rootCommand = makeSubTree(commands);
+       if(!commands.isEmpty()){
+           throw new InvalidCommandException(rootCommand.toString());
+       }
+       return rootCommand;
     }
 
     /**
@@ -69,7 +79,7 @@ public class ExpressionTree {
         String command = commands.poll();
         System.out.println("parsing string: " + command);
         // AbstractCommand rootCommands = null;
-        if (command.equals("[")) {
+        if (command.equals(LIST_START)) {
             return makeCommandList(commands);
         }
         // else if (command.equals("(")) {
@@ -104,15 +114,12 @@ public class ExpressionTree {
             Class<?> commandClass = Class.forName(myCommandPaths.getString(command));
             Constructor<?> ctor = commandClass.getDeclaredConstructor(List.class);
             try {
-
                 Object o = createCommandObject(commands, commandClass, ctor);
                 return (AbstractCommand) o;
             }
             catch (Exception e) {
-
                 throw new InvalidCommandException(command);
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -185,7 +192,7 @@ public class ExpressionTree {
             if (next.equals("]")) {
                 closedBrackets++;
             }
-            else if (next.equals("[")) {
+            else if (next.equals(LIST_START)) {
                 // openBrackets++;
                 commandList.add(makeCommandList(commandQueue));
             }
