@@ -1,7 +1,10 @@
 package dataStorage;
 
 import java.util.List;
+import java.util.Map;
+
 import javafx.collections.ObservableList;
+import java.util.*;
 
 
 /**
@@ -13,8 +16,8 @@ public class DataStorageManager {
     private VariableStorage myVariableStorage;
     private CommandHistoryStorage myCommandHistoryStorage;
     private CommandStorage myCommandStorage;
-    private ColorStorage myColorStorage;
     private Notifications myNotifications;
+    private ColorStorage myColorStorage;
 
     public DataStorageManager () {
         myVariableStorage = new VariableStorage();
@@ -26,6 +29,10 @@ public class DataStorageManager {
 
     public Double getVariable (String varName) {
         return myVariableStorage.getVariable(varName);
+    }
+
+    public Notifications getNotifications () {
+        return myNotifications;
     }
 
     public void setVariable (String varName, double value) {
@@ -60,16 +67,51 @@ public class DataStorageManager {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
 
-    public ObservableList<Integer> getBackgroundColor () {
-        return myColorStorage.getColor();
+
+//    public ObservableList<Integer> getBackgroundColor () {
+//        return myColorStorage.getColor();
+//    }
+
+//    public int addColor (int index) {
+//        myColorStorage.addColor(index);
+//        return index;
+//    }
+
+
+    public void addHistory (String command) {
+        myCommandHistoryStorage.addCommand(command);
+    }
+
+
+    public Map<Integer, Map<String, Integer>> getColorMap() {
+        return myColorStorage.getColorMap();
+    }
+
+
+    public Map<String, Double> getValueVariableMap() {
+        return myVariableStorage.getVariableMap();
+    }
+
+    public CommandStorage getCommandStorage() {
+        return myCommandStorage;
+    }
+
+    /* functions for setting information using the XML content setter */
+
+    public void setVariableStorage (VariableStorage variableStorage) {
+        myVariableStorage = variableStorage;
+    }
+
+    public void setCommandStorage (CommandStorage commandStorage) {
+        myCommandStorage = commandStorage;
+    }
+
+    public void setColorStorage (ColorStorage colorStorage) {
+        myColorStorage = colorStorage;
     }
 
     public int setColor (int index) {
         myColorStorage.setColor(index);
         return index;
-    }
-
-    public void addHistory (String command) {
-        myCommandHistoryStorage.addCommand(command);
     }
 }

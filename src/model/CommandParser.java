@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 import dataStorage.Turtle;
 import dataStorage.*;
 import model.command.*;
+import exceptions.CustomCommandException;
+import exceptions.InvalidCommandException;
+import exceptions.InvalidParenthesesException;
 
 
 /**
@@ -24,6 +27,10 @@ import model.command.*;
 
 public class CommandParser {
 
+    private static final String CLOSE_PAREN = ")";
+    private static final String CUSTOM_COMMAND = "MakeUserInstruction";
+    private static final String COMMAND = "Command";
+    private static final String NO_MATCH = "NO MATCH";
     private List<Entry<String, Pattern>> mySyntax;
     private List<Entry<String, Pattern>> myCommands;
     private TurtleStorage myTurtles;
@@ -79,17 +86,40 @@ public class CommandParser {
                 new ExpressionTree(myData, myTurtles);
 
         AbstractCommand rootCommand = null;
-        try {
-            rootCommand = completeCommand.makeTree(commandQueue);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Couldnt make tree");
-            return 0.0;
-        }
 
+        rootCommand = completeCommand.makeTree(commandQueue);
+        System.out.println(rootCommand.toString());
         return rootCommand.execute();
 
+    }
+
+    private Queue<String> getUnlimitedParamCommand (Queue<String> commands)
+                                                                            throws InvalidParenthesesException {
+        String commandString = commands.poll();
+        if (!commands.contains(CLOSE_PAREN)) {
+            StringBuilder command = new StringBuilder();
+            command.append("( " + commandString);
+            commands.stream().forEach(s -> command.append(" " + s));
+            throw new InvalidParenthesesException(command.toString());
+        }
+
+        Queue<String> parenExpression = new LinkedList<String>();
+        while (!commands.peek().equals(CLOSE_PAREN)) {
+            parenExpression.add(commands.poll());
+        }
+        commands.poll();
+        Queue<String> newQueue = new LinkedList<String>();
+
+        int size = parenExpression.size();
+        for (int i = 0; i < size - 1; i++) {
+            newQueue.add(commandString);
+            newQueue.add(parenExpression.poll());
+        }
+        newQueue.add(parenExpression.poll());
+        newQueue.addAll(commands);
+        commands.clear();
+        commands.addAll(newQueue);
+        return newQueue;
     }
 
     private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
@@ -98,25 +128,36 @@ public class CommandParser {
         List<String> commandParams = myData.getCommandParams(command);
         Queue<String> commandQueue = new LinkedList<String>();
         for (String s : commandParams) {
-            System.out.println("replace " + s + " with value in " + command);
-            System.out.println("remaining commands " + commands);
             String replacement;
             if (isVariable(commands.peek())) {
                 replacement = commands.poll();
             }
             else {
-                replacement = Double
-                        .toString(new ExpressionTree(myData, myTurtles)
-
-                                .makeSubTree(commands).execute());
+                try {
+                    replacement = Double
+                            .toString(new ExpressionTree(myData, myTurtles)
+                                    .makeSubTree(commands).execute());
+                }
+                catch (ClassNotFoundException ex) {
+                    throw new CustomCommandException(command, commandString);
+                }
             }
             commandString = commandString.replaceAll(s, replacement);
         }
-
-        System.out.println(commandString);
         Arrays.asList(commandString.split("\n"))
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
                         .collect(Collectors.toList())));
+        Queue<String> finalQueue = createCustomQueue(commandQueue);
+        System.out.println(finalQueue + " is the command Queue for command " + command);
+        return finalQueue;
+    }
+
+    /**
+     * @param commandQueue
+     * @return
+     * @throws Exception
+     */
+    private Queue<String> createCustomQueue (Queue<String> commandQueue) throws Exception {
         Queue<String> finalQueue = new LinkedList<String>();
         while (!commandQueue.isEmpty()) {
             String comm = commandQueue.poll();
@@ -127,64 +168,76 @@ public class CommandParser {
                 finalQueue.add(comm);
             }
         }
-        System.out.println(finalQueue + " is the command Queue for command " + command);
         return finalQueue;
     }
 
-    private Queue<String> makeCommandQueue (String command) {
-        List<String> onOneLine = Arrays.asList(command.split("\\n"));
-        Queue<String> commands = new LinkedList<String>();
-        onOneLine.forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
+    private Queue<String> makeCommandQueue (String command) throws Exception {
+        Queue<String> commands = processCommand(command);
         Queue<String> commandQueue = new LinkedList<String>();
+        String prevCommand = "";
         while (!commands.isEmpty()) {
             String rawCommand = commands.poll();
             String symbol = getSymbol(rawCommand, false);
-            if (symbol.equals("NO MATCH")) {
+            if (symbol.equals(NO_MATCH)) {
                 symbol = getSymbol(rawCommand, true);
-                if (symbol.equals("NO MATCH")) {
-                    System.out.println("Throw Invalid Command Exception");
+                if (symbol.equals(NO_MATCH)) {
+                    throw new InvalidCommandException(rawCommand);
                 }
                 else {
-                    if (!symbol.equals("Command") || !myData.hasCommand(rawCommand)) {
-                        System.out.println("adding " + rawCommand + " to command queue because " +
-                                           (!symbol.equals("command") ? "not a command syntax"
-                                                                      : "not in command storage"));
-                        commandQueue.add(rawCommand);
+                    if (!symbol.equals(COMMAND) || !myData.hasCommand(rawCommand)) {
+                        if (rawCommand.equals("(")) {
+                            getUnlimitedParamCommand(commands);
+                        }
+                        else if (symbol.equals(COMMAND) &&
+                                 !prevCommand.equals(CUSTOM_COMMAND)) {
+                            throw new InvalidCommandException(rawCommand);
+                        }
+                        else {
+                            commandQueue.add(rawCommand);
+                        }
                     }
                     else {
-                        try {
-                            System.out.println("custom!");
-                            commandQueue.addAll(getUserCommand(rawCommand, commands));
-                        }
-                        catch (Exception ex) {
-                            System.out.println("exception in custom command");
-                        }
+                        System.out.println("custom!");
+                        commandQueue.addAll(getUserCommand(rawCommand, commands));
                     }
                 }
             }
             else {
                 commandQueue.add(symbol);
             }
+            prevCommand = symbol;
         }
         return commandQueue;
+    }
+
+    /**
+     * @param command
+     * @return
+     */
+    private Queue<String> processCommand (String command) {
+        List<String> onOneLine = Arrays.asList(command.split("\\n"));
+        Queue<String> commands = new LinkedList<String>();
+        onOneLine.stream().filter(s -> !s.startsWith("#"))
+                .forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
+        return commands;
     }
 
     private boolean isVariable (String command) {
         return command.startsWith(":");
     }
-
-    private boolean isConstant (String command) {
-        for (Entry<String, Pattern> e : mySyntax) {
-            if (match(command, e.getValue())) {
-                return e.getKey().equals("Constant");
-            }
-        }
-        return false;
-    }
+//
+//    private boolean isConstant (String command) {
+//        for (Entry<String, Pattern> e : mySyntax) {
+//            if (match(command, e.getValue())) {
+//                return e.getKey().equals("Constant");
+//            }
+//        }
+//        return false;
+//    }
 
     // returns the language's type associated with the given text if one exists
     private String getSymbol (String text, boolean syntax) {
-        final String ERROR = "NO MATCH";
+        final String ERROR = NO_MATCH;
         List<Entry<String, Pattern>> myMatchStrings = syntax ? mySyntax : myCommands;
         for (Entry<String, Pattern> e : myMatchStrings) {
             if (match(text, e.getValue())) {

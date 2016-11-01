@@ -3,19 +3,26 @@ package dataStorage;
 
 public class NotificationsState {
     private boolean myClearScreenFlag;
-    private boolean mySyntaxErrorFlag;
+    private boolean myBackgroundColorFlag;
+    private int myBackgroundColorIndex;
 
-    public NotificationsState(boolean clearScreenFlag, boolean syntaxErrorFlag) {
+    public NotificationsState(boolean clearScreenFlag, boolean backgroundColorFlag, int backgroundColorIndex) {
         myClearScreenFlag = clearScreenFlag;
-        mySyntaxErrorFlag = syntaxErrorFlag;
+        myBackgroundColorFlag = backgroundColorFlag;
+        myBackgroundColorIndex = backgroundColorIndex;
     }
 
     public boolean getClearScreenFlag() {
         return myClearScreenFlag;
     }
 
-    public boolean getSyntaxErrorFlag() {
-        return mySyntaxErrorFlag;
+    public boolean getBackgroundColorFlag() {
+        return myBackgroundColorFlag;
+    }
+
+
+    public int getBackgroundColorIndex() {
+        return myBackgroundColorIndex;
     }
 
 }

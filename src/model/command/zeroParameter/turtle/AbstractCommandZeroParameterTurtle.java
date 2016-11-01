@@ -21,5 +21,4 @@ public abstract class AbstractCommandZeroParameterTurtle extends AbstractTurtleC
     public int getNumParameters () {
         return NUM_PARAMETERS;
     }
-
 }
