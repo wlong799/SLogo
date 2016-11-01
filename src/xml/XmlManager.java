@@ -6,17 +6,9 @@ import exceptions.XmlFormatException;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 
-public class XmlManager {
-    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
-    private static final ResourceBundle MY_RESOURCES = ResourceBundle.getBundle(RESOURCE_PACKAGE);
-
-    private static final String SAVED_WORKSPACE = MY_RESOURCES.getString("saved_workspace");
-    private static final String SAVED_COMMANDS_VARIABLES = MY_RESOURCES.getString("saved_commands_variables");
-    private static final String VARIABLE_STORAGE = MY_RESOURCES.getString("variable_storage");
-    private static final String COMMAND_STORAGE = MY_RESOURCES.getString("command_storage");
+public class XmlManager implements IXmlStrings {
 
     public void saveCommandsVariables(DataStorageManager dataStorage) {
         XmlSaver saver = new XmlSaver();
@@ -62,10 +54,10 @@ public class XmlManager {
 
         Map<String, Map<String, String>> commandMap = new HashMap<>();
         try {
-            commandMap = (Map<String, Map<String, String>>) tempMap.get(COMMAND_STORAGE);
+            commandMap = (Map<String, Map<String, String>>) tempMap.get(FUNCTION_STORAGE);
         }
         catch(NullPointerException e) {
-            throw new XmlFormatException(COMMAND_STORAGE);
+            throw new XmlFormatException(FUNCTION_STORAGE);
         }
 
         XmlDataSetter setter = new XmlDataSetter();

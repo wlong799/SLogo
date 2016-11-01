@@ -3,27 +3,10 @@ package xml;
 import controller.workspace.WorkspaceLoadPreferences;
 import dataStorage.*;
 import exceptions.XmlFormatException;
-
 import java.util.*;
 
-public class XmlDataSetter {
-    private static final int ONLY_ITEM = 0;
-    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
-    private static final ResourceBundle MY_RESOURCES = ResourceBundle.getBundle(RESOURCE_PACKAGE);
 
-    private static final String NAME = MY_RESOURCES.getString("variable_name");
-    private static final String VALUE = MY_RESOURCES.getString("value");
-
-    private static final String BACKGROUND_COLOR = MY_RESOURCES.getString("background_color");
-    private static final String LINE_COLOR = MY_RESOURCES.getString("line_color");
-    private static final String STARTING_IMAGE = MY_RESOURCES.getString("starting_image");
-    private static final String COMMAND_LANGUAGE = MY_RESOURCES.getString("command_language");
-
-    private static final String PARAMETERS = MY_RESOURCES.getString("function_parameters");
-    private static final String SPACE = " ";
-    private static final String FUNCTION_NAME = MY_RESOURCES.getString("function_name");
-    private static final String FUNCTION_BODY = MY_RESOURCES.getString("function_body");
-
+public class XmlDataSetter implements IXmlStrings{
 
     public VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) throws XmlFormatException{
         VariableStorage newValueVariableStorage = new VariableStorage();
@@ -32,19 +15,19 @@ public class XmlDataSetter {
             Map<String, String> oneValueVariableMap = valueVariableMap.get(oneVariableKey);
             String name;
             try {
-                name = oneValueVariableMap.get(NAME);
+                name = oneValueVariableMap.get(VARIABLE_NAME);
             }
             catch (NullPointerException e) {
-                throw new XmlFormatException(NAME);
+                throw new XmlFormatException(VARIABLE_NAME);
             }
 
             String value;
 
             try {
-                value = oneValueVariableMap.get(VALUE);
+                value = oneValueVariableMap.get(VARIABLE_VALUE);
             }
             catch(NullPointerException e) {
-                throw new XmlFormatException(VALUE);
+                throw new XmlFormatException(VARIABLE_VALUE);
             }
 
             newValueVariableStorage.setVariable(
@@ -62,7 +45,7 @@ public class XmlDataSetter {
         for(String oneVariableKey : commandVariableMap.keySet()) {
             Map<String, String> oneCommandVariableMap = commandVariableMap.get(oneVariableKey);
 
-            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get(PARAMETERS).split(SPACE));
+            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
 
             String functionName;
             try{
