@@ -2,14 +2,13 @@ package xml;
 
 import controller.workspace.WorkspaceLoadPreferences;
 import dataStorage.DataStorageManager;
+import exceptions.XmlFormatException;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 
-public class XmlManager {
-    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
-    private ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
+public class XmlManager implements IXmlStrings {
 
     public void saveCommandsVariables(DataStorageManager dataStorage) {
         XmlSaver saver = new XmlSaver();
@@ -20,7 +19,13 @@ public class XmlManager {
         XmlParser parser = new XmlParser();
         Map<String, Object> parsedMap = parser.XmlParse(givenXml);
 
-        Map<String, Object> workspaceMap = (Map<String, Object>) parsedMap.get(myResources.getString("saved_workspace"));
+        Map<String, Object> workspaceMap = new HashMap<>();
+        try {
+            workspaceMap = (Map<String, Object>) parsedMap.get(SAVED_WORKSPACE);
+        }
+        catch (NullPointerException e) {
+            throw new XmlFormatException(SAVED_WORKSPACE);
+        }
 
         XmlDataSetter setter = new XmlDataSetter();
 
@@ -31,10 +36,29 @@ public class XmlManager {
         XmlParser parser = new XmlParser();
         Map<String, Object> parsedMap = parser.XmlParse(givenXml);
 
-        Map<String, Object> tempMap = (Map<String, Object>) parsedMap.get(myResources.getString("saved_workspace"));
+        Map<String, Object> tempMap = new HashMap<>();
+        try {
+            tempMap = (Map<String, Object>) parsedMap.get(SAVED_COMMANDS_VARIABLES);
+        }
+        catch(NullPointerException e) {
+            throw new XmlFormatException(SAVED_COMMANDS_VARIABLES);
+        }
 
-        Map<String,  Map<String, String>> variableMap = (Map<String,  Map<String, String>>) tempMap.get(myResources.getString("variable_storage"));
-        Map<String, Map<String, String>> commandMap = (Map<String, Map<String, String>>) tempMap.get(myResources.getString("command_storage"));
+        Map<String,  Map<String, String>> variableMap = new HashMap<>();
+        try{
+            variableMap = (Map<String,  Map<String, String>>) tempMap.get(VARIABLE_STORAGE);
+        }
+        catch(NullPointerException e) {
+            throw new XmlFormatException(VARIABLE_STORAGE);
+        }
+
+        Map<String, Map<String, String>> commandMap = new HashMap<>();
+        try {
+            commandMap = (Map<String, Map<String, String>>) tempMap.get(FUNCTION_STORAGE);
+        }
+        catch(NullPointerException e) {
+            throw new XmlFormatException(FUNCTION_STORAGE);
+        }
 
         XmlDataSetter setter = new XmlDataSetter();
 

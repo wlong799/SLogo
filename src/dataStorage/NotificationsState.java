@@ -20,7 +20,6 @@ public class NotificationsState {
         return myBackgroundColorFlag;
     }
 
-
     public int getBackgroundColorIndex() {
         return myBackgroundColorIndex;
     }
