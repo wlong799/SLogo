@@ -11,7 +11,7 @@ public class XmlDataSetter {
     private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
     private static final ResourceBundle MY_RESOURCES = ResourceBundle.getBundle(RESOURCE_PACKAGE);
 
-    private static final String NAME = MY_RESOURCES.getString("name");
+    private static final String NAME = MY_RESOURCES.getString("variable_name");
     private static final String VALUE = MY_RESOURCES.getString("value");
 
     private static final String BACKGROUND_COLOR = MY_RESOURCES.getString("background_color");
@@ -19,35 +19,71 @@ public class XmlDataSetter {
     private static final String STARTING_IMAGE = MY_RESOURCES.getString("starting_image");
     private static final String COMMAND_LANGUAGE = MY_RESOURCES.getString("command_language");
 
+    private static final String PARAMETERS = MY_RESOURCES.getString("function_parameters");
+    private static final String SPACE = " ";
+    private static final String FUNCTION_NAME = MY_RESOURCES.getString("function_name");
+    private static final String FUNCTION_BODY = MY_RESOURCES.getString("function_body");
 
-    public VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) {
+
+    public VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) throws XmlFormatException{
         VariableStorage newValueVariableStorage = new VariableStorage();
 
         for(String oneVariableKey : valueVariableMap.keySet()) {
             Map<String, String> oneValueVariableMap = valueVariableMap.get(oneVariableKey);
+            String name;
+            try {
+                name = oneValueVariableMap.get(NAME);
+            }
+            catch (NullPointerException e) {
+                throw new XmlFormatException(NAME);
+            }
 
+            String value;
+
+            try {
+                value = oneValueVariableMap.get(VALUE);
+            }
+            catch(NullPointerException e) {
+                throw new XmlFormatException(VALUE);
+            }
 
             newValueVariableStorage.setVariable(
-                    oneValueVariableMap.get(NAME),
-                    Double.parseDouble(oneValueVariableMap.get(VALUE))
+                    name,
+                    Double.parseDouble(value)
             );
         }
 
         return newValueVariableStorage;
     }
 
-    public CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) {
+    public CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) throws XmlFormatException {
         CommandStorage newCommandVariableStorage = new CommandStorage();
 
         for(String oneVariableKey : commandVariableMap.keySet()) {
             Map<String, String> oneCommandVariableMap = commandVariableMap.get(oneVariableKey);
 
-            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get("parameters").split(" "));
+            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get(PARAMETERS).split(SPACE));
+
+            String functionName;
+            try{
+                functionName = oneCommandVariableMap.get(FUNCTION_NAME);
+            }
+            catch(NullPointerException e) {
+                throw new XmlFormatException(FUNCTION_NAME);
+            }
+
+            String functionBody;
+            try{
+                functionBody = oneCommandVariableMap.get(FUNCTION_BODY);
+            }
+            catch(NullPointerException e) {
+                throw new XmlFormatException(FUNCTION_BODY);
+            }
 
             newCommandVariableStorage.setCommand(
-                    oneCommandVariableMap.get("name"),
+                    functionName,
                     parameterList,
-                    oneCommandVariableMap.get("body")
+                    functionBody
             );
 
         }
@@ -75,7 +111,7 @@ public class XmlDataSetter {
         try {
             lineColorMap = (Map<String, String>) workspaceMap.get(LINE_COLOR);
         }
-        catch(NullPointerException e) {
+        catch(Exception e) {
             throw new XmlFormatException(LINE_COLOR);
         }
 
