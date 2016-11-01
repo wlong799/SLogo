@@ -7,13 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.CommandParser;
+import view.Commander;
 import view.GUIElement;
 
 /**
  * @author Will Long
  * @version 10/19/16
  */
-public class TextEntryBox extends GUIElement {
+public class TextEntryBox extends GUIElement implements Commander {
     private static final double TEXT_BOX_RATIO = 0.80;
     private static final double PADDING_RATIO = 0.05;
     private static final String SUBMIT_TEXT = "SUBMIT";
@@ -75,5 +77,24 @@ public class TextEntryBox extends GUIElement {
 
     private void clearText() {
         myTextBox.clear();
+    }
+
+    @Override
+    public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
+        mySubmitButton.setOnAction(eventHandler);
+    }
+
+    @Override
+    public String getCommandText(String language) {
+        String entryText = myTextBox.getText().trim();
+        if (entryText == null || entryText.length() == 0) {
+            return null;
+        }
+        return entryText;
+    }
+
+    @Override
+    public boolean storeHistory() {
+        return true;
     }
 }

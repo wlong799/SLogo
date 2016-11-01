@@ -1,4 +1,8 @@
+package xml;
+
+import controller.workspace.WorkspaceLoadPreferences;
 import dataStorage.*;
+import sun.applet.resources.MsgAppletViewer;
 
 import java.util.*;
 
@@ -8,8 +12,8 @@ public class XmlDataSetter {
 
     private ResourceBundle myResources;
 
-    public XmlDataSetter(String language) {
-        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE + language);
+    public XmlDataSetter() {
+        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
     }
 
 
@@ -105,4 +109,25 @@ public class XmlDataSetter {
         return newCommandVariableStorage;
     }
 
+    public WorkspaceLoadPreferences setWorkspaceLoadPreferences(Map<String, Object> workspaceMap) {
+        List<Integer> backgroundColor = new ArrayList<>();
+        List<Integer> lineColor = new ArrayList<>();
+
+        Map<String, String> colorMap = (Map<String, String>) workspaceMap.get(myResources.getString("background_color"));
+
+        for(String colorKey : colorMap.keySet()){
+            backgroundColor.add(Integer.parseInt(colorMap.get(colorKey)));
+        }
+
+        Map<String, String> lineColorMap = (Map<String, String>) workspaceMap.get(myResources.getString("line_color"));
+
+        for(String colorKey : lineColorMap.keySet()){
+            lineColor.add(Integer.parseInt(colorMap.get(colorKey)));
+        }
+
+        String startingImage = (String) workspaceMap.get(myResources.getString("starting_image"));
+        String commandLanguage = (String) workspaceMap.get(myResources.getString("command_language"));
+        return new WorkspaceLoadPreferences(backgroundColor, lineColor, startingImage, commandLanguage);
+
+    }
 }
