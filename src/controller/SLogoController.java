@@ -2,49 +2,54 @@ package controller;
 
 import controller.workspace.Workspace;
 import controller.workspace.WorkspaceFactory;
-import controller.workspace.WorkspaceManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import view.*;
-import model.SLogoModel;
 import view.SLogoView;
-import model.SLogoModel;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
 
 
 public class SLogoController {
-    private WorkspaceManager myWorkspaceManager;
     private SLogoView mySLogoView;
+    private int myNextWorkspaceNum;
+    private int myCurrentWorkspaceNum;
+    private Map<Integer, Workspace> myWorkspaceMap;
+    private ObservableList<Integer> myActiveWorkspaceNums;
 
     public SLogoController(double width, double height) {
         mySLogoView = new SLogoView(width, height);
-        myWorkspaceManager = new WorkspaceManager();
-
-        launchStartScreen();
+        myWorkspaceMap = new HashMap<>();
+        myActiveWorkspaceNums = FXCollections.observableArrayList();
+        myNextWorkspaceNum = 1;
+        myCurrentWorkspaceNum = -1;
     }
 
     public SLogoView getSLogoView() {
         return mySLogoView;
     }
 
-    public void createNewWorkspace() {
+    public void launchStartScreen() {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
-        myWorkspaceManager.addWorkspace(WorkspaceFactory.createWorkspace(width, height, myWorkspaceManager));
+        Workspace workspace = WorkspaceFactory.createWorkspace(width, height, this, true);
+        setCurrentWorkspace(workspace);
     }
 
-    public void loadCurrentWorkspace() {
-        Workspace currentWorkspace = myWorkspaceManager.getCurrentWorkspace();
-        if (currentWorkspace == null) {
-            launchStartScreen();
-        } else {
-            mySLogoView.setCurrentContentManager(currentWorkspace.getContentManager());
-        }
-    }
-
-    private void launchStartScreen() {
+    public void newWorkspace() {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
-        mySLogoView.setCurrentContentManager(new StartContent(width, height));
-        StartController startController = new StartController(mySLogoView.getViewElements(), this);
-        startController.setUpInteractions();
+        Workspace workspace = WorkspaceFactory.createWorkspace(width, height, this, false);
+        myCurrentWorkspaceNum = myNextWorkspaceNum;
+        myActiveWorkspaceNums.add(myCurrentWorkspaceNum);
+        myWorkspaceMap.put(myCurrentWorkspaceNum, workspace);
+        myNextWorkspaceNum++;
+        setCurrentWorkspace(workspace);
     }
 
+    private void setCurrentWorkspace(Workspace workspace) {
+        mySLogoView.setCurrentContentManager(workspace.getContentManager());
+    }
 }

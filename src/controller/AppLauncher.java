@@ -19,6 +19,7 @@ public class AppLauncher extends Application {
         stage.setScene(slogoView.getScene());
         stage.setResizable(false);
         stage.show();
+        slogoController.launchStartScreen();
     }
 
     public static void main(String[] args) {

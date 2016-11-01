@@ -1,6 +1,6 @@
 package view.toolbar;
 
-import controller.workspace.WorkspaceManager;
+import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
@@ -14,7 +14,7 @@ public class WorkspaceLoader extends MenuElement implements WorkspaceInteractor 
     }
 
     @Override
-    public void setWorkspaceInteractions(WorkspaceManager workspaceManager) {
+    public void setWorkspaceInteractions(SLogoController slogoController) {
         return;
     }
 

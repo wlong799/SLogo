@@ -1,10 +1,12 @@
 package controller.workspace;
 
+import controller.SLogoController;
 import controller.ViewModelController;
 import controller.ViewViewController;
 import controller.WorkspaceController;
 import dataStorage.TurtleStorage;
 import model.SLogoModel;
+import view.StartContent;
 import view.WorkspaceContent;
 
 import java.lang.reflect.Array;
@@ -44,9 +46,11 @@ public class WorkspaceFactory {
                     "AboutInfo",
                     "CommandHelpInfo"
             };
-    private static int nextWorkspaceID = 1;
 
-    public static Workspace createWorkspace(double width, double height, WorkspaceManager workspaceManager) {
+    public static Workspace createWorkspace(double width, double height, SLogoController slogoController, boolean isStart) {
+        if (isStart) {
+            return createStartContent(width, height, slogoController);
+        }
         WorkspaceContent workspaceContent = new WorkspaceContent(width, height);
         WorkspacePreferences preferences = new WorkspacePreferences();
 
@@ -67,7 +71,7 @@ public class WorkspaceFactory {
         SLogoModel model = new SLogoModel();
         new ViewViewController(workspaceContent.getElements()).setUpInteractions();
         new ViewModelController(workspaceContent.getElements(), model).setUpInteractions();
-        new WorkspaceController(workspaceContent.getElements(), workspaceManager).setUpInteractions();
+        new WorkspaceController(workspaceContent.getElements(), slogoController).setUpInteractions();
 
         Workspace workspace = new Workspace(workspaceContent, model);
         TurtleStorage turtleStorage = model.getTurtles();
@@ -76,8 +80,12 @@ public class WorkspaceFactory {
             idList.add(i);
         }
         turtleStorage.setActiveTurtles(idList);
-        nextWorkspaceID++;
         return workspace;
     }
 
+    private static Workspace createStartContent(double width, double height, SLogoController slogoController) {
+        StartContent startContent = new StartContent(width, height);
+        new WorkspaceController(startContent.getElements(), slogoController).setUpInteractions();
+        return new Workspace(startContent, null);
+    }
 }

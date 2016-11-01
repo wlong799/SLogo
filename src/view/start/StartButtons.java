@@ -1,13 +1,15 @@
 package view.start;
 
+import controller.SLogoController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import view.GUIElement;
+import view.WorkspaceInteractor;
 
-public class StartButtons extends GUIElement {
+public class StartButtons extends GUIElement implements WorkspaceInteractor {
     private static final double PADDING_RATIO = 0.05;
     private static final double NUM_BUTTONS = 2;
     private static final String NEW_BUTTON_TITLE = "New Workspace";
@@ -42,9 +44,12 @@ public class StartButtons extends GUIElement {
         return button;
     }
 
-    public void setStartEvent(EventHandler<ActionEvent> startEvent) {
-        newWorkspaceButton.setOnAction(startEvent);
-        loadWorkspaceButton.setOnAction(startEvent);
+    @Override
+    public void setWorkspaceInteractions(SLogoController slogoController) {
+        System.out.println(slogoController == null);
+        System.out.println(newWorkspaceButton == null);
+        System.out.println(loadWorkspaceButton == null);
+        newWorkspaceButton.setOnAction(event -> slogoController.newWorkspace());
+        loadWorkspaceButton.setOnAction(event -> slogoController.newWorkspace());
     }
-
 }

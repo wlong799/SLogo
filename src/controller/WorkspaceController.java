@@ -1,8 +1,6 @@
 package controller;
 
-import controller.workspace.WorkspaceManager;
 import view.ElementManager;
-import view.toolbar.WorkspaceCreator;
 
 import java.util.Arrays;
 
@@ -12,6 +10,7 @@ import java.util.Arrays;
 public class WorkspaceController extends InteractionController {
     private static final String[] WORKSPACE_INTERACTOR_LIST = new String[]
             {
+                    "StartButtons",
                     "WorkspaceCreator",
                     "WorkspaceLoader",
                     "WorkspaceSaver",
@@ -20,17 +19,17 @@ public class WorkspaceController extends InteractionController {
             };
 
 
-    private WorkspaceManager myWorkspaceManager;
+    private SLogoController mySlogoController;
 
-    public WorkspaceController(ElementManager elementManager, WorkspaceManager workspaceManager) {
+    public WorkspaceController(ElementManager elementManager, SLogoController slogoController) {
         super(elementManager);
-        myWorkspaceManager = workspaceManager;
+        mySlogoController = slogoController;
     }
 
     @Override
     public void setUpInteractions() {
         Arrays.stream(WORKSPACE_INTERACTOR_LIST).map(className -> myViewElements.getWorkspaceInteractorElement(className)).filter(
                 workspaceInteractor -> workspaceInteractor != null).forEach(
-                workspaceInteractor -> workspaceInteractor.setWorkspaceInteractions(myWorkspaceManager));
+                workspaceInteractor -> workspaceInteractor.setWorkspaceInteractions(mySlogoController));
     }
 }
