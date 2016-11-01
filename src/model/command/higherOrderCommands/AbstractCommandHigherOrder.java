@@ -8,6 +8,7 @@ import model.command.AbstractCommand;
 public abstract class AbstractCommandHigherOrder extends AbstractCommand {
 
     private DataStorageManager myData;
+    private TurtleStorage myTurtles;
 
     public AbstractCommandHigherOrder (List<AbstractCommand> parameters) {
         super(parameters);
@@ -21,12 +22,17 @@ public abstract class AbstractCommandHigherOrder extends AbstractCommand {
     @Override
     public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
         myData = data;
+        myTurtles = turtles;
     }
 
     public abstract double execute ();
     
     protected DataStorageManager getData() {
         return myData;
+    }
+
+    protected TurtleStorage getTurtles() {
+        return myTurtles;
     }
     
     @Override
