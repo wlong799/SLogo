@@ -24,6 +24,8 @@ public class TurtleLines extends GUIElement implements Stylizable {
 
     private Canvas myLineCanvas;
     private GraphicsContext myLineGraphics;
+    
+    
 
     public TurtleLines(double width, double height) {
         super(width, height);
@@ -36,8 +38,11 @@ public class TurtleLines extends GUIElement implements Stylizable {
     @Override
     public void setStyle(Style style) {
         Color color = style.getColor();
+        Double width = style.getWidth();
         if (color != null) {
             myLineGraphics.setStroke(color);
+        }else if (width != null){
+        	myLineGraphics.setLineWidth(width);
         }
     }
 

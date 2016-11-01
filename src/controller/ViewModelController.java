@@ -105,7 +105,7 @@ public class ViewModelController extends InteractionController {
             myModel.parse(entryText);
         });
     }
-
+    //TODO: Implement Language Chooser
     private void setLanguageChanger() {
         if (myViewElements.getGUIElement("SettingsMenuBar") == null) {
             System.out.println("fail");
