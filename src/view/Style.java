@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 public class Style {
     private Image myImage;
     private Color myColor;
+    private double myLineWidth;
 
     public Style (Image img) {
         myImage = img;
@@ -21,6 +22,10 @@ public class Style {
     public Style (Color color) {
         myColor = color;
     }
+    
+    public Style (double num){
+    	myLineWidth = num;
+    }
 
     public Image getImage () {
         return myImage;
@@ -28,5 +33,9 @@ public class Style {
 
     public Color getColor () {
         return myColor;
+    }
+    
+    public double getWidth(){
+    	return myLineWidth;
     }
 }
