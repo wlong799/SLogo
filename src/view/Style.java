@@ -15,6 +15,7 @@ public class Style {
     private Color myColor;
     private double myLineWidth;
     private boolean myBool;
+    private String myLineType;
 
     public Style (Image img) {
         myImage = img;
@@ -30,7 +31,10 @@ public class Style {
     
     public Style(boolean bool){
     	myBool = bool;
-    	
+    }
+    
+    public Style(String line){
+    	myLineType = line;
     }
 
     public Image getImage () {
@@ -47,5 +51,9 @@ public class Style {
     
     public double getWidth(){
     	return myLineWidth;
+    }
+    
+    public String getLineType(){
+    	return myLineType;
     }
 }

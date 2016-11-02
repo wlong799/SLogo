@@ -15,7 +15,8 @@ public class ViewViewController extends InteractionController {
                     {"LineStylePicker", "TurtleManager"},
                     {"LineSizePicker", "TurtleManager"},
                     {"PenDownToggle", "TurtleManager"},
-                    {"TurtleImagePicker", "TurtleManager"}
+                    {"TurtleImagePicker", "TurtleManager"},
+                    {"CustomTurtleImageInput", "TurtleManager"}
             };
 
     public ViewViewController(ElementManager viewElements) {

@@ -27,13 +27,13 @@ public class CommandHelpInfo extends MenuElement {
             @Override
             public void handle (ActionEvent e) {
                 Stage s = new Stage();
-                URL url = getClass().getResource("resources/SlogoHelp");
+                String url = getClass().getResource("/resources/SlogoHelp.html").toExternalForm();
          	   	WebView view = new WebView();
-         	   	WebEngine browser = view.getEngine();
-         	   	browser.load(url.toString());
+         	   	view.getEngine().load(url);
          	   	Scene scene = new Scene(view);
                 s.centerOnScreen();
                 s.setScene(scene);
+                s.sizeToScene();
                 s.show();
             }
         });
