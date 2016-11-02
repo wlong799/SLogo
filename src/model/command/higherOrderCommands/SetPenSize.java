@@ -1,18 +1,19 @@
-package model.command.oneParameter.turtle;
+package model.command.higherOrderCommands;
 
 import java.util.List;
 import model.command.AbstractCommand;
+import model.command.oneParameter.turtle.AbstractCommandOneParameterTurtle;
 
 
-public class SetPenSize extends AbstractCommandOneParameterTurtle {
+public class SetPenSize extends AbstractCommandHigherOrder {
 
-    public SetPenSize(List<AbstractCommand> parameters) {
+    public SetPenSize (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
-    public double turtleExecute() {
-        double newPenSize = getParameters().get(PARAMETER_ONE);
-        myTurtle.setPenSize(newPenSize);
+    public double execute () {
+        double newPenSize = getParameters().get(0);
+        getData().getColors().setPenSize(newPenSize);
         return newPenSize;
     }
 }
