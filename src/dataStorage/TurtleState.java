@@ -1,5 +1,10 @@
 package dataStorage;
 
+/**
+ * 
+ * @author michael
+ *
+ */
 public interface TurtleState {
 
     int getID ();

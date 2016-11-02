@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import model.SLogoModel;
 import view.ElementManager;
 import view.panel.TabElement;
-import view.toolbar.SettingsMenuBar;
+import view.toolbar.LanguageChooser;
 import view.turtle.TurtleContainer;
 import view.turtle.TurtleManager;
 
@@ -36,6 +36,7 @@ public class ViewModelController extends InteractionController {
         linkCommanders();
         setObservableLists();
         linkTurtleWithView();
+        linkLanguageChooser();
     }
 
     private void linkCommanders() {
@@ -99,5 +100,18 @@ public class ViewModelController extends InteractionController {
         });
         ColorStorage colorStorage = myModel.getData().getColors();
         colorStorage.addObserver(turtleContainer);
+    }
+
+    private void linkLanguageChooser() {
+        if (myViewElements.getGUIElement("LanguageChooser") == null) {
+            return;
+        }
+        LanguageChooser languageChooser = (LanguageChooser)myViewElements.getGUIElement("LanguageChooser");
+        languageChooser.setEventHandler(event -> {
+            String language = languageChooser.getSelectedLanguage();
+            if (language != null) {
+                myModel.setLanguage(language);
+            }
+        });
     }
 }

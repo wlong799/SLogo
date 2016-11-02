@@ -4,7 +4,6 @@ import view.panel.TabElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -21,16 +20,8 @@ public class ElementManager {
         myElements.add(element);
     }
 
-    public GUIElement getGUIElement(String className) {
-        Object element = getElement(className);
-        if (element == null || !(element instanceof GUIElement)) {
-            return null;
-        }
-        return (GUIElement) element;
-    }
-
     public Stylizable getStylizableElement(String className) {
-        Object element = getElement(className);
+        Object element = getGUIElement(className);
         if (element == null || !(element instanceof Stylizable)) {
             return null;
         }
@@ -38,7 +29,7 @@ public class ElementManager {
     }
 
     public Stylizer getStylizerElement(String className) {
-        Object element = getElement(className);
+        Object element = getGUIElement(className);
         if (element == null || !(element instanceof Stylizer)) {
             return null;
         }
@@ -46,7 +37,7 @@ public class ElementManager {
     }
 
     public TabElement getTabElement(String className) {
-        Object element = getElement(className);
+        Object element = getGUIElement(className);
         if (element == null || !(element instanceof TabElement)) {
             return null;
         }
@@ -68,7 +59,7 @@ public class ElementManager {
                 object -> (AnimationController) object).collect(Collectors.toList());
     }
 
-    private Object getElement(String className) {
+    public Object getGUIElement(String className) {
         for (Object element : myElements) {
             if (checkClass(element, className)) {
                 return element;
