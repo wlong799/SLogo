@@ -44,6 +44,9 @@ public class WorkspaceSwitcher extends MenuElement implements WorkspaceInteracto
         myToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (myToggleGroup.getSelectedToggle() != null) {
                 int selectedWorkspace = (Integer)myToggleGroup.getSelectedToggle().getUserData();
+                if (selectedWorkspace == slogoController.getCurrentWorkspaceNum().get()) {
+                    return;
+                }
                 slogoController.setCurrentWorkspaceNum(selectedWorkspace);
             }
         });
