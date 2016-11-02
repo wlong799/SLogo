@@ -39,6 +39,18 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
 
     @Override
     public void update (Observable o, Object arg) {
+        if (arg instanceof String[]) {
+            String[] array = (String[]) arg;
+            Color bgColor = Color.web(array[0]);
+            Color lineColor = Color.web(array[1]);
+            double lineSize = Double.parseDouble(array[2]);
+
+            setStyle(new Style(bgColor));
+            myTurtleManager.setStyle(new Style(lineColor));
+            myTurtleManager.setStyle(new Style(lineSize));
+            return;
+        }
+
         if (!(arg instanceof List)) {
             if (arg instanceof Boolean) {
                 System.out.println("CLEARING THE LINES");

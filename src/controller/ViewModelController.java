@@ -97,5 +97,7 @@ public class ViewModelController extends InteractionController {
                 turtleManager.setActiveTurtleNums(newList);
             }
         });
+        ColorStorage colorStorage = myModel.getData().getColors();
+        colorStorage.addObserver(turtleContainer);
     }
 }
