@@ -46,7 +46,7 @@ class XmlDataSetter implements IXmlStrings{
             Map<String, String> oneCommandVariableMap = commandVariableMap.get(oneVariableKey);
 
             List<String> parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
-
+            System.out.println(parameterList);
             String functionName;
             try{
                 functionName = oneCommandVariableMap.get(FUNCTION_NAME);
