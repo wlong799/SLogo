@@ -14,7 +14,7 @@ public class AnimationStepper extends MenuElement implements AnimationController
     }
     @Override
     public void setAnimationControl(TurtleAnimator animator) {
-
+        myMenuItem.setOnAction(event -> animator.step());
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class TurtleAnimator implements Runnable {
-    private static final double DEFAULT_DURATION = 1000;
+    private static final double DEFAULT_DURATION = 1500;
     private static final long SLEEP_TIME = 250;
 
     private TurtleManager myTurtleManager;
@@ -28,6 +28,7 @@ public class TurtleAnimator implements Runnable {
     private double xOffset, yOffset;
     private List<Animation> upcomingAnimations;
     private boolean isCurrentlyAnimating, isRunning;
+    private double myRate;
 
     public TurtleAnimator(TurtleManager manager) {
         myDurationMilliseconds = DEFAULT_DURATION;
@@ -37,6 +38,7 @@ public class TurtleAnimator implements Runnable {
         yOffset = myTurtleManager.getHeight() / 2;
         isCurrentlyAnimating = false;
         isRunning = true;
+        myRate = 1;
     }
 
     public void addEvent(List<TurtleState> turtleStateList) {
@@ -62,7 +64,19 @@ public class TurtleAnimator implements Runnable {
         isRunning = running;
     }
 
+    public void setRate(double rate) {
+        myRate = rate;
+    }
+
+    public void step() {
+        if (myEventQueue.isEmpty() || isCurrentlyAnimating || isRunning) {
+            return;
+        }
+        runAnimation(myEventQueue.poll());
+    }
+
     private void runAnimation(List<TurtleState> turtleStates) {
+        myDurationMilliseconds = DEFAULT_DURATION / myRate;
         isCurrentlyAnimating = true;
         upcomingAnimations = new ArrayList<>();
         turtleStates.forEach(this::addAnimations);
@@ -160,4 +174,5 @@ public class TurtleAnimator implements Runnable {
         timeline.play();
         timer.start();
     }
+
 }

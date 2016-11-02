@@ -1,6 +1,5 @@
 package view.toolbar;
 
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
 import view.AnimationController;

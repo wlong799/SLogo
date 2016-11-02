@@ -2,17 +2,15 @@ package view.toolbar;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
 import view.Style;
 import view.Stylizable;
 import view.Stylizer;
 
 public class LineSizePicker extends MenuElement implements Stylizer{
     private static final String NAME = "Change Line Size";
-    private static final double Default_Size = 1.0; 
+    private static final double DEFAULT_SIZE = 1.0;
    
     private MenuItem myMenuItem;
     private Slider mySizeSlider;
@@ -24,7 +22,7 @@ public class LineSizePicker extends MenuElement implements Stylizer{
     }
     
     private void SliderCreator(){
-    	mySizeSlider = new Slider(0,20.0, Default_Size);
+    	mySizeSlider = new Slider(0,20.0, DEFAULT_SIZE);
     	mySizeSlider.setShowTickLabels(true);
     	mySizeSlider.setShowTickMarks(true);
     	mySizeSlider.setSnapToTicks(true);
