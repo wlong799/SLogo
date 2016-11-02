@@ -10,6 +10,6 @@ public class GetPenColor extends AbstractCommandZeroParameterTurtle {
     }
 
     public double turtleExecute() {
-        return myTurtle.getPenColor();
+        return myTurtle.getColorIndex();
     }
 }
