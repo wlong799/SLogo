@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class XmlSaver implements IXmlStrings {
+    private static final String FILE_PATH = "src/resources/xmlData/";
 
     private Element createElementWithData(String nodeName, String information, Document doc) {
         Element element = doc.createElement(nodeName);
@@ -104,7 +105,7 @@ public class XmlSaver implements IXmlStrings {
 
         SimpleDateFormat currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT);
         String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
-        StreamResult result = new StreamResult(new File(savedFileName));
+        StreamResult result = new StreamResult(new File(FILE_PATH + savedFileName));
 
         // Output to console for testing
         // StreamResult result = new StreamResult(System.out);
