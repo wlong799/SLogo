@@ -215,25 +215,30 @@ public class CommandParser {
      * @return
      */
     private Queue<String> processCommand (String command) {
-        List<String> onOneLine = Arrays.asList(command.split("\\n"));
-        Queue<String> commands = new LinkedList<String>();
-        onOneLine.stream().filter(s -> !s.startsWith("#"))
-                .forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
+        command = command.replaceAll("\n", " ");
+
+        //List<String> onOneLine = Arrays.asList(command.split("\\n"));
+        Queue<String> commands =
+                Arrays.asList(command.split("\\s+")).stream().filter(s -> !s.startsWith("#"))
+                        .collect(Collectors.toCollection(LinkedList::new));
+
+        //onOneLine.stream().filter(s -> !s.startsWith("#"))
+         //       .forEach(s -> commands.addAll(Arrays.asList(s.split("\\s+"))));
         return commands;
     }
 
     private boolean isVariable (String command) {
         return command.startsWith(":");
     }
-//
-//    private boolean isConstant (String command) {
-//        for (Entry<String, Pattern> e : mySyntax) {
-//            if (match(command, e.getValue())) {
-//                return e.getKey().equals("Constant");
-//            }
-//        }
-//        return false;
-//    }
+    //
+    // private boolean isConstant (String command) {
+    // for (Entry<String, Pattern> e : mySyntax) {
+    // if (match(command, e.getValue())) {
+    // return e.getKey().equals("Constant");
+    // }
+    // }
+    // return false;
+    // }
 
     // returns the language's type associated with the given text if one exists
     private String getSymbol (String text, boolean syntax) {
