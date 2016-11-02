@@ -215,25 +215,29 @@ public class CommandParser {
      * @return
      */
     private Queue<String> processCommand (String command) {
-        List<String> onOneLine = Arrays.asList(command.split("\\n"));
-        Queue<String> commands = new LinkedList<String>();
-        onOneLine.stream().filter(s -> !s.startsWith("#"))
-                .forEach(s -> commands.addAll(Arrays.asList(s.split(" "))));
+        List<String> removeComments =
+                Arrays.asList(command.split("\n")).stream().filter(s -> !s.trim().startsWith("#"))
+                        .collect(Collectors.toCollection(LinkedList::new));
+        String comm = String.join("\n", removeComments);
+        comm = comm.replaceAll("\n", " ");
+        Queue<String> commands =
+                Arrays.asList(comm.split("\\s+")).stream()
+                        .collect(Collectors.toCollection(LinkedList::new));
         return commands;
     }
 
     private boolean isVariable (String command) {
         return command.startsWith(":");
     }
-//
-//    private boolean isConstant (String command) {
-//        for (Entry<String, Pattern> e : mySyntax) {
-//            if (match(command, e.getValue())) {
-//                return e.getKey().equals("Constant");
-//            }
-//        }
-//        return false;
-//    }
+    //
+    // private boolean isConstant (String command) {
+    // for (Entry<String, Pattern> e : mySyntax) {
+    // if (match(command, e.getValue())) {
+    // return e.getKey().equals("Constant");
+    // }
+    // }
+    // return false;
+    // }
 
     // returns the language's type associated with the given text if one exists
     private String getSymbol (String text, boolean syntax) {
