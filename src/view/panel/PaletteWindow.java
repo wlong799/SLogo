@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
+import java.util.ResourceBundle;
+
 /**
  * 
  * @author michael
@@ -37,7 +39,11 @@ public class PaletteWindow extends TabElement {
         if (index == -1) {
             return null;
         }
-        return "setbackground " + index;
+        String setBGCommand = ResourceBundle.getBundle("resources/languages/" + language).getString("SetBackground");
+        if (setBGCommand.contains("|")) {
+            setBGCommand = setBGCommand.split("\\|")[0];
+        }
+        return setBGCommand + " " + index;
     }
 
     @Override

@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.cell.TextFieldListCell;
 import view.Commander;
 
-public class StoredFunctionWindow extends TabElement implements Commander {
+public class StoredFunctionWindow extends TabElement {
     private static final String MY_NAME = "Functions";
     private String tempParamStorage;
 

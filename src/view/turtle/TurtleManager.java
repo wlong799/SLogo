@@ -122,6 +122,9 @@ public class TurtleManager extends GUIElement implements Stylizable, Commander {
     public String getCommandText(String language) {
         ResourceBundle languageResource = ResourceBundle.getBundle("resources/languages/" + language);
         String tellCommand = languageResource.getString("Tell");
+        if (tellCommand.contains("|")) {
+            tellCommand = tellCommand.split("\\|")[0];
+        }
         String activeTurtles = "";
         for (int id : nextActiveTurtleNums) {
             activeTurtles += " " + id;

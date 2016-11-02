@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
 
+import java.util.ResourceBundle;
+
 public class StoredVariableWindow extends TabElement {
     private static final String MY_NAME = "Variables";
     private double tempVal;
@@ -44,7 +46,11 @@ public class StoredVariableWindow extends TabElement {
             return null;
         }
         String variableName = text.split("\\s")[0];
-        return "set " + variableName + " " + tempVal;
+        String setCommand = ResourceBundle.getBundle("resources/languages/" + language).getString("MakeVariable");
+        if (setCommand.contains("|")) {
+            setCommand = setCommand.split("\\|")[0];
+        }
+        return setCommand + " " + variableName + " " + tempVal;
     }
 
     @Override
