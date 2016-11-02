@@ -30,14 +30,6 @@ public abstract class TabElement extends GUIElement implements Commander{
         myListView.setItems(observedList);
     }
 
-    public void setClickEvent(EventHandler<MouseEvent> mouseEventHandler) {
-        myListView.setOnMouseClicked(mouseEventHandler);
-    }
-
-    public String getSelectedElement() {
-        return myListView.getSelectionModel().getSelectedItem();
-    }
-
     @Override
     public Node getContent() {
         return myListView;

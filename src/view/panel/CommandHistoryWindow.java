@@ -17,16 +17,28 @@ public class CommandHistoryWindow extends TabElement {
 
     @Override
     public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
-        return;
+        myListView.setOnMouseClicked(event -> eventHandler.handle(new ActionEvent()));
     }
 
     @Override
     public String getCommandText(String language) {
-        return null;
+        String text = myListView.getSelectionModel().getSelectedItem();
+        if (text == null || text.length() == 0) {
+            return null;
+        }
+        String[] arr = myListView.getSelectionModel().getSelectedItem().split("\n");
+        if (arr.length == 1) {
+            return arr[0];
+        }
+        StringBuilder sBuilder = new StringBuilder();
+        for (int i = 0; i < arr.length - 1; i++) {
+            sBuilder.append(arr[i]);
+        }
+        return sBuilder.toString();
     }
 
     @Override
     public boolean storeHistory() {
-        return false;
+        return true;
     }
 }

@@ -23,7 +23,7 @@ public class StoredFunctionWindow extends TabElement implements Commander {
 
     @Override
     public String getCommandText(String language) {
-        return getSelectedElement();
+        return null;
     }
 
     @Override

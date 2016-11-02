@@ -36,7 +36,7 @@ public class ViewViewController extends InteractionController {
             }
         }
     }
-
+/*
     private void setClickableCommandHistory() {
         if (myViewElements.getGUIElement("CommandHistoryWindow") == null || myViewElements.getGUIElement("TextEntryBox") == null) {
             return;
@@ -47,7 +47,7 @@ public class ViewViewController extends InteractionController {
             String selectedCommand = chWindow.getSelectedElement();
             textBox.setText(selectedCommand);
         });
-    }
+    }*/
 
 
 }

@@ -1,5 +1,7 @@
 package view;
 
+import view.panel.TabElement;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -43,9 +45,17 @@ public class ElementManager {
         return (Stylizer) element;
     }
 
+    public TabElement getTabElement(String className) {
+        Object element = getElement(className);
+        if (element == null || !(element instanceof TabElement)) {
+            return null;
+        }
+        return (TabElement) element;
+    }
+
     public List<Commander> getCommanderElements() {
         return myElements.stream().filter(object -> object instanceof Commander).map(
-                object -> (Commander)object).collect(Collectors.toList());
+                object -> (Commander) object).collect(Collectors.toList());
     }
 
     public WorkspaceInteractor getWorkspaceInteractorElement(String className) {
