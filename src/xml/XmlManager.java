@@ -52,6 +52,9 @@ public class XmlManager implements IXmlStrings {
         try {
             variableMap = (Map<String, Map<String, String>>) tempMap.get(VARIABLE_STORAGE);
         }
+        catch(ClassCastException e) {
+            // do nothing, but give an empty variableMap
+        }
         catch (NullPointerException e) {
             throw new XmlFormatException(VARIABLE_STORAGE);
         }
@@ -59,6 +62,9 @@ public class XmlManager implements IXmlStrings {
         Map<String, Map<String, String>> commandMap = new HashMap<>();
         try {
             commandMap = (Map<String, Map<String, String>>) tempMap.get(FUNCTION_STORAGE);
+        }
+        catch(ClassCastException e) {
+            // do nothing, but give empty commandMap
         }
         catch (NullPointerException e) {
             throw new XmlFormatException(FUNCTION_STORAGE);

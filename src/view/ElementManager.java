@@ -1,9 +1,11 @@
 package view;
 
-import view.toolbar.MenuElement;
+import view.panel.TabElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Responsible for storing all current elements present within the GUI, and providing access to them.
@@ -43,20 +45,22 @@ public class ElementManager {
         return (Stylizer) element;
     }
 
-    public Commander getCommanderElement(String className) {
+    public TabElement getTabElement(String className) {
         Object element = getElement(className);
-        if (element == null || !(element instanceof Commander)) {
+        if (element == null || !(element instanceof TabElement)) {
             return null;
         }
-        return (Commander) element;
+        return (TabElement) element;
     }
 
-    public WorkspaceInteractor getWorkspaceInteractorElement(String className) {
-        Object element = getElement(className);
-        if (element == null || !(element instanceof WorkspaceInteractor)) {
-            return null;
-        }
-        return (WorkspaceInteractor) element;
+    public List<Commander> getCommanderElements() {
+        return myElements.stream().filter(object -> object instanceof Commander).map(
+                object -> (Commander) object).collect(Collectors.toList());
+    }
+
+    public List<WorkspaceInteractor> getWorkspaceInteractorElements() {
+        return myElements.stream().filter(object -> object instanceof WorkspaceInteractor).map(
+                object -> (WorkspaceInteractor) object).collect(Collectors.toList());
     }
 
     private Object getElement(String className) {

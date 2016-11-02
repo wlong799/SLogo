@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import view.Commander;
 import view.GUIElement;
 import view.Style;
@@ -29,6 +30,7 @@ public class TurtleManager extends GUIElement implements Stylizable, Commander {
         myTurtles = new HashMap<>();
         myTurtleLines = new HashMap<>();
         myActiveTurtleNums = new HashSet<>();
+        myContainer.setClip(new Rectangle(width, height));
     }
 
     public void setActiveTurtleNums(List<Integer> nums) {
