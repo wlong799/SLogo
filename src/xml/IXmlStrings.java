@@ -3,7 +3,7 @@ package xml;
 
 import java.util.ResourceBundle;
 
-public interface IXmlStrings {
+interface IXmlStrings {
     String COMMANDS_VARIABLES_FILENAME = "CommandsAndVariables";
     String SEPARATOR = "_";
     String TIME_SAVING_FORMAT = "HH:mm:ss";
@@ -15,7 +15,7 @@ public interface IXmlStrings {
     String VARIABLE_STORAGE = MY_RESOURCES.getString("variable_storage");
     String VARIABLE_ = MY_RESOURCES.getString("variable_");
     String VARIABLE_NAME = MY_RESOURCES.getString("variable_name");
-    String VARIABLE_VALUE = MY_RESOURCES.getString("value");
+    String VARIABLE_VALUE = MY_RESOURCES.getString("variable_value");
     String FUNCTION_NAME = MY_RESOURCES.getString("function_name");
     String FUNCTION_BODY = MY_RESOURCES.getString("function_body");
     String FUNCTION_PARAMETERS = MY_RESOURCES.getString("function_parameters");
