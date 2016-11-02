@@ -11,41 +11,38 @@ import javafx.util.Callback;
 
 public class PaletteWindow extends TabElement {
 
-    public PaletteWindow (double width, double height) {
+    public PaletteWindow(double width, double height) {
         super(width, height);
-        this.myListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-
-            @Override
-            public ListCell<String> call (ListView<String> param) {
-                return new ColorCell();
-            }
-
-        });
+        this.myListView.setCellFactory(param -> new ColorCell());
     }
 
     @Override
-    public String getTabName () {
+    public String getTabName() {
         return "Palette";
     }
 
     @Override
     public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
-        return;
+        myListView.setOnMouseClicked(event -> eventHandler.handle(new ActionEvent()));
     }
 
     @Override
     public String getCommandText(String language) {
-        return null;
+        int index = myListView.getSelectionModel().getSelectedIndex();
+        if (index == -1) {
+            return null;
+        }
+        return "setbackground " + index;
     }
 
     @Override
     public boolean storeHistory() {
-        return false;
+        return true;
     }
 
     private class ColorCell extends ListCell<String> {
         @Override
-        public void updateItem (String item, boolean empty) {
+        public void updateItem(String item, boolean empty) {
             System.out.println("add color");
             System.out.println(item);
 
@@ -54,8 +51,7 @@ public class PaletteWindow extends TabElement {
             if (empty || item == null) {
                 setGraphic(null);
                 setText(null);
-            }
-            else {
+            } else {
                 String[] indexAndColor = item.split(" ");
                 rect.setFill(Color.web(indexAndColor[1]));
                 setGraphic(rect);

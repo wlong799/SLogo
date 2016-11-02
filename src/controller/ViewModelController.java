@@ -36,10 +36,6 @@ public class ViewModelController extends InteractionController {
         linkCommanders();
         setObservableLists();
         linkTurtleWithView();
-        //linkCommandHistory();
-        //linkFunctionStorage();
-        //linkVariableStorage();
-        //linkColorStorage();
         // setLanguageChanger();
     }
 
@@ -81,52 +77,6 @@ public class ViewModelController extends InteractionController {
         }
     }
 
-    /*
-        private void linkVariableStorage() {
-            if (myViewElements.getGUIElement("StoredVariableWindow") == null ||
-                    myModel.getData() == null) {
-                return;
-            }
-
-            StoredVariableWindow varWindow =
-                    (StoredVariableWindow) myViewElements.getGUIElement("StoredVariableWindow");
-            varWindow.setObservedList(myModel.getData().getVariableList());
-            varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
-            varWindow.setEditedEvent(event -> {
-                String[] newVals = event.getNewValue().split("\\s+");
-                String name = newVals[0];
-                double val = Double.parseDouble(newVals[1]);
-                myModel.getData().setVariable(name, val);
-            });
-        }
-
-        private void linkColorStorage() {
-            if (myViewElements.getGUIElement("PaletteWindow") == null ||
-                    myModel.getData() == null) {
-                System.out.println("NULL BITCH");
-                return;
-            }
-            PaletteWindow colorWindow = (PaletteWindow) myViewElements.getGUIElement("PaletteWindow");
-            colorWindow.setObservedList(myModel.getData().getColorList());
-        }
-
-        private void linkFunctionStorage() {
-            if (myViewElements.getGUIElement("StoredFunctionWindow") == null ||
-                    myModel.getData() == null) {
-                return;
-            }
-
-            StoredFunctionWindow funcWindow =
-                    (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
-            // CommandStorage funcStorage =
-            // DataStorageManager.get().getCommandVariableStorage();
-            funcWindow.setObservedList(myModel.getData().getCommandList());
-        }
-
-        public void setModel(SLogoModel model) {
-            myModel = model;
-        }
-    */
     private void linkTurtleWithView() {
         TurtleStorage turtleStorage = myModel.getTurtles();
         if (turtleStorage == null || myViewElements.getGUIElement("TurtleContainer") == null) {
@@ -162,16 +112,4 @@ public class ViewModelController extends InteractionController {
         });
         System.out.println("success");
     }
-/*
-    private void linkCommandHistory() {
-        if (myModel.getData() == null ||
-                myViewElements.getGUIElement("CommandHistoryWindow") == null) {
-            return;
-        }
-
-        CommandHistoryWindow chWindow =
-                (CommandHistoryWindow) myViewElements.getGUIElement("CommandHistoryWindow");
-        chWindow.setObservedList(myModel.getData().getHistoryList());
-    }
-*/
 }

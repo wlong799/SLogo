@@ -7,6 +7,7 @@ import javafx.scene.control.cell.TextFieldListCell;
 
 public class StoredVariableWindow extends TabElement {
     private static final String MY_NAME = "Variables";
+    private double tempVal;
 
     public StoredVariableWindow(double width, double height) {
         super(width, height);
@@ -30,12 +31,20 @@ public class StoredVariableWindow extends TabElement {
 
     @Override
     public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
-        return;
+        myListView.setOnEditCommit(event -> {
+            tempVal = Double.parseDouble(event.getNewValue());
+            eventHandler.handle(new ActionEvent());
+        });
     }
 
     @Override
     public String getCommandText(String language) {
-        return null;
+        String text = myListView.getSelectionModel().getSelectedItem();
+        if (text == null) {
+            return null;
+        }
+        String variableName = text.split("\\s")[0];
+        return "set " + variableName + " " + tempVal;
     }
 
     @Override

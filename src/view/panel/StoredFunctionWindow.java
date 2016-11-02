@@ -40,6 +40,6 @@ public class StoredFunctionWindow extends TabElement implements Commander {
 
     @Override
     public boolean storeHistory() {
-        return true;
+        return false;
     }
 }
