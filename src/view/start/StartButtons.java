@@ -46,9 +46,6 @@ public class StartButtons extends GUIElement implements WorkspaceInteractor {
 
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
-        System.out.println(slogoController == null);
-        System.out.println(newWorkspaceButton == null);
-        System.out.println(loadWorkspaceButton == null);
         newWorkspaceButton.setOnAction(event -> slogoController.newWorkspace());
         loadWorkspaceButton.setOnAction(event -> slogoController.newWorkspace());
     }

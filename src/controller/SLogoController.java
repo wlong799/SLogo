@@ -2,8 +2,12 @@ package controller;
 
 import controller.workspace.Workspace;
 import controller.workspace.WorkspaceFactory;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.SimpleStyleableIntegerProperty;
 import view.*;
 import view.SLogoView;
 
@@ -15,7 +19,7 @@ import java.util.Observable;
 public class SLogoController {
     private SLogoView mySLogoView;
     private int myNextWorkspaceNum;
-    private int myCurrentWorkspaceNum;
+    private SimpleIntegerProperty myCurrentWorkspaceNum;
     private Map<Integer, Workspace> myWorkspaceMap;
     private ObservableList<Integer> myActiveWorkspaceNums;
 
@@ -24,7 +28,7 @@ public class SLogoController {
         myWorkspaceMap = new HashMap<>();
         myActiveWorkspaceNums = FXCollections.observableArrayList();
         myNextWorkspaceNum = 1;
-        myCurrentWorkspaceNum = -1;
+        myCurrentWorkspaceNum = new SimpleIntegerProperty(-1);
     }
 
     public SLogoView getSLogoView() {
@@ -35,21 +39,34 @@ public class SLogoController {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
         Workspace workspace = WorkspaceFactory.createWorkspace(width, height, this, true);
-        setCurrentWorkspace(workspace);
+        mySLogoView.setCurrentContentManager(workspace.getContentManager());
     }
 
     public void newWorkspace() {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
         Workspace workspace = WorkspaceFactory.createWorkspace(width, height, this, false);
-        myCurrentWorkspaceNum = myNextWorkspaceNum;
-        myActiveWorkspaceNums.add(myCurrentWorkspaceNum);
-        myWorkspaceMap.put(myCurrentWorkspaceNum, workspace);
+        myActiveWorkspaceNums.add(myNextWorkspaceNum);
+        myWorkspaceMap.put(myNextWorkspaceNum, workspace);
+        setCurrentWorkspaceNum(myNextWorkspaceNum);
         myNextWorkspaceNum++;
-        setCurrentWorkspace(workspace);
     }
 
-    private void setCurrentWorkspace(Workspace workspace) {
+    public SimpleIntegerProperty getCurrentWorkspaceNum() {
+        return myCurrentWorkspaceNum;
+    }
+
+    public void setCurrentWorkspaceNum(int num) {
+        if (!myWorkspaceMap.containsKey(num)) {
+            return;
+        }
+        myCurrentWorkspaceNum.set(myNextWorkspaceNum);
+        myCurrentWorkspaceNum.set(num);
+        Workspace workspace = myWorkspaceMap.get(num);
         mySLogoView.setCurrentContentManager(workspace.getContentManager());
+    }
+
+    public ObservableList<Integer> getActiveWorkspaceNums() {
+        return myActiveWorkspaceNums;
     }
 }
