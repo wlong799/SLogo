@@ -10,7 +10,8 @@ import view.textbox.TextEntryBox;
 
 public class ViewViewController extends InteractionController {
     private static final String[][] STYLE_ELEMENTS_TO_LINK = new String[][]
-            {{"BackgroundColorPicker", "TurtleContainer"},
+            {
+                    {"BackgroundColorPicker", "TurtleContainer"},
                     {"LineColorPicker", "TurtleManager"},
                     {"LineStylePicker", "TurtleManager"},
                     {"LineSizePicker", "TurtleManager"},
@@ -24,8 +25,9 @@ public class ViewViewController extends InteractionController {
 
     @Override
     public void setUpInteractions() {
-        setClickableCommandHistory();
-        setClickableFunctionStorage();
+        //setClickableCommandHistory();
+        //setClickableFunctionStorage();
+        //linkStyleElements();
         for (String[] linkedElements : STYLE_ELEMENTS_TO_LINK) {
             Stylizer stylizer = myViewElements.getStylizerElement(linkedElements[0]);
             Stylizable stylizable = myViewElements.getStylizableElement(linkedElements[1]);
@@ -33,18 +35,6 @@ public class ViewViewController extends InteractionController {
                 stylizer.setStylizableTarget(stylizable);
             }
         }
-    }
-
-    private void setClickableFunctionStorage() {
-        if (myViewElements.getGUIElement("StoredFunctionWindow") == null || myViewElements.getGUIElement("TextEntryBox") == null) {
-            return;
-        }
-        StoredFunctionWindow funcWindow = (StoredFunctionWindow) myViewElements.getGUIElement("StoredFunctionWindow");
-        TextEntryBox textBox = (TextEntryBox) myViewElements.getGUIElement("TextEntryBox");
-        funcWindow.setClickEvent(event -> {
-            String selectedFunction = funcWindow.getSelectedElement().split("\n")[0];
-            textBox.setText(selectedFunction);
-        });
     }
 
     private void setClickableCommandHistory() {
@@ -58,7 +48,6 @@ public class ViewViewController extends InteractionController {
             textBox.setText(selectedCommand);
         });
     }
-    
 
-    
+
 }

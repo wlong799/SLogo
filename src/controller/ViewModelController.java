@@ -2,10 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import dataStorage.*;
 import javafx.collections.ListChangeListener;
 import model.SLogoModel;
-import view.Commander;
 import view.ElementManager;
 import view.panel.CommandHistoryWindow;
 import view.panel.PaletteWindow;
@@ -17,20 +17,15 @@ import view.turtle.TurtleManager;
 
 
 public class ViewModelController extends InteractionController {
-    private static final String[] COMMANDER_ELEMENTS = new String[] {
-                                                                      "TextEntryBox",
-                                                                      "TurtleManager"
-    };
-
     private SLogoModel myModel;
 
-    public ViewModelController (ElementManager viewElements, SLogoModel model) {
+    public ViewModelController(ElementManager viewElements, SLogoModel model) {
         super(viewElements);
         myModel = model;
     }
 
     @Override
-    public void setUpInteractions () {
+    public void setUpInteractions() {
         linkCommanders();
         linkTurtleWithView();
         linkCommandHistory();
@@ -40,27 +35,23 @@ public class ViewModelController extends InteractionController {
         // setLanguageChanger();
     }
 
-    private void linkCommanders () {
-        for (String commandClassName : COMMANDER_ELEMENTS) {
-            Commander commander = myViewElements.getCommanderElement(commandClassName);
-            if (commander != null) {
-                commander.setCommandTrigger(event -> {
-                    String text = commander.getCommandText(myModel.getLanguage());
-                    myModel.parse(text, commander.storeHistory());
-                });
-            }
-        }
+    private void linkCommanders() {
+        myViewElements.getCommanderElements().stream().forEach(commander -> {
+            commander.setCommandTrigger(event -> {
+                String text = commander.getCommandText(myModel.getLanguage());
+                myModel.parse(text, commander.storeHistory());
+            });
+        });
     }
 
-    private void linkVariableStorage () {
+    private void linkVariableStorage() {
         if (myViewElements.getGUIElement("StoredVariableWindow") == null ||
-            myModel.getData() == null) {
+                myModel.getData() == null) {
             return;
         }
 
         StoredVariableWindow varWindow =
                 (StoredVariableWindow) myViewElements.getGUIElement("StoredVariableWindow");
-        // VariableStorage varStorage = myModel.getData().getVariableList();
         varWindow.setObservedList(myModel.getData().getVariableList());
         varWindow.setClickEvent(event -> varWindow.editSelectedVariable());
         varWindow.setEditedEvent(event -> {
@@ -71,9 +62,9 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void linkColorStorage () {
+    private void linkColorStorage() {
         if (myViewElements.getGUIElement("PaletteWindow") == null ||
-            myModel.getData() == null) {
+                myModel.getData() == null) {
             System.out.println("NULL BITCH");
             return;
         }
@@ -81,9 +72,9 @@ public class ViewModelController extends InteractionController {
         colorWindow.setObservedList(myModel.getData().getColorList());
     }
 
-    private void linkFunctionStorage () {
+    private void linkFunctionStorage() {
         if (myViewElements.getGUIElement("StoredFunctionWindow") == null ||
-            myModel.getData() == null) {
+                myModel.getData() == null) {
             return;
         }
 
@@ -94,11 +85,11 @@ public class ViewModelController extends InteractionController {
         funcWindow.setObservedList(myModel.getData().getCommandList());
     }
 
-    public void setModel (SLogoModel model) {
+    public void setModel(SLogoModel model) {
         myModel = model;
     }
 
-    private void linkTurtleWithView () {
+    private void linkTurtleWithView() {
         TurtleStorage turtleStorage = myModel.getTurtles();
         if (turtleStorage == null || myViewElements.getGUIElement("TurtleContainer") == null) {
             return;
@@ -112,7 +103,7 @@ public class ViewModelController extends InteractionController {
         TurtleManager turtleManager = (TurtleManager) myViewElements.getGUIElement("TurtleManager");
         turtleStorage.getActiveTurtleIDs().addListener(new ListChangeListener<Integer>() {
             @Override
-            public void onChanged (Change<? extends Integer> c) {
+            public void onChanged(Change<? extends Integer> c) {
                 List<Integer> newList = new ArrayList<>();
                 newList.addAll(c.getList());
                 turtleManager.setActiveTurtleNums(newList);
@@ -120,7 +111,7 @@ public class ViewModelController extends InteractionController {
         });
     }
 
-    private void setLanguageChanger () {
+    private void setLanguageChanger() {
         if (myViewElements.getGUIElement("SettingsMenuBar") == null) {
             System.out.println("fail");
             return;
@@ -134,9 +125,9 @@ public class ViewModelController extends InteractionController {
         System.out.println("success");
     }
 
-    private void linkCommandHistory () {
+    private void linkCommandHistory() {
         if (myModel.getData() == null ||
-            myViewElements.getGUIElement("CommandHistoryWindow") == null) {
+                myViewElements.getGUIElement("CommandHistoryWindow") == null) {
             return;
         }
 

@@ -1,9 +1,5 @@
 package controller.workspace;
 
-import controller.SLogoController;
-import controller.ViewModelController;
-import controller.ViewViewController;
-import controller.WorkspaceController;
 import model.SLogoModel;
 import view.ContentManager;
 

@@ -1,5 +1,7 @@
 package view.panel;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
@@ -24,6 +26,21 @@ public class PaletteWindow extends TabElement {
     @Override
     public String getTabName () {
         return "Palette";
+    }
+
+    @Override
+    public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
+        return;
+    }
+
+    @Override
+    public String getCommandText(String language) {
+        return null;
+    }
+
+    @Override
+    public boolean storeHistory() {
+        return false;
     }
 
     private class ColorCell extends ListCell<String> {
