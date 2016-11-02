@@ -16,13 +16,18 @@ public class ClearScreen extends AbstractTeleportHomeTurtle {
 
     @Override
     public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
+        setTurtleStorage(turtles);
         myData = data;
     }
 
+    @Override
     protected double turtleExecute () {
+        boolean penDown = myTurtle.getPenDownStatus();
+        myTurtle.setPenDownStatus(false);
+        System.out.println("CLEAR SCREEN");
         double distance = goHome();
         myData.getNotifications().setClearScreenFlag();
-
+        //myTurtle.setPenDownStatus(penDown);
         // somehow tell front end to clear the screen
         return distance;
     }

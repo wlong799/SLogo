@@ -43,7 +43,9 @@ public class TurtleStorage extends Observable implements Observer {
 
     public List<Turtle> getActiveTurtles () {
         List<Turtle> turtles = new ArrayList<>();
+        System.out.println("getting active turtles");
         for (int i : activeTurtles) {
+            System.out.println(i);
             turtles.add(turtleMap.get(i));
         }
         return turtles;

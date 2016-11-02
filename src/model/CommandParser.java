@@ -88,7 +88,7 @@ public class CommandParser {
         AbstractCommand rootCommand = null;
 
         rootCommand = completeCommand.makeTree(commandQueue);
-        System.out.println(rootCommand.toString());
+        System.out.println(rootCommand.toString() + " in parse");
         return rootCommand.execute();
 
     }

@@ -106,6 +106,7 @@ public class ViewModelController extends InteractionController {
         TurtleContainer turtleContainer =
                 (TurtleContainer) myViewElements.getGUIElement("TurtleContainer");
         turtleStorage.addObserver(turtleContainer);
+        myModel.getData().getNotifications().addObserver(turtleContainer);
         if (myViewElements.getGUIElement("TurtleManager") == null) {
             return;
         }

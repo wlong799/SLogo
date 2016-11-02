@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -41,10 +40,14 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     @Override
     public void update (Observable o, Object arg) {
         if (!(arg instanceof List)) {
-            return;
+            if (arg instanceof Boolean) {
+                System.out.println("CLEARING THE LINES");
+                myTurtleManager.clearScreen();
+            }
+                return;
         }
         List<TurtleState> copiedList = new ArrayList<>();
-        for (Object obj : (List)arg) {
+        for (Object obj : (List) arg) {
             if (!(obj instanceof TurtleState)) {
                 return;
             }
