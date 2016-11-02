@@ -17,7 +17,7 @@ public class AnimationToggler extends MenuElement implements AnimationController
     }
     @Override
     public void setAnimationControl(TurtleAnimator animator) {
-
+        myMenuItem.selectedProperty().addListener((observable, oldValue, newValue) -> animator.setRunning(newValue));
     }
 
     @Override

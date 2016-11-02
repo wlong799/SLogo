@@ -27,7 +27,7 @@ public class TurtleAnimator implements Runnable {
     private TurtleLines myCurrentTurtleLines;
     private double xOffset, yOffset;
     private List<Animation> upcomingAnimations;
-    boolean isAnimating;
+    private boolean isCurrentlyAnimating, isRunning;
 
     public TurtleAnimator(TurtleManager manager) {
         myDurationMilliseconds = DEFAULT_DURATION;
@@ -35,7 +35,8 @@ public class TurtleAnimator implements Runnable {
         myEventQueue = new LinkedList<>();
         xOffset = myTurtleManager.getWidth() / 2;
         yOffset = myTurtleManager.getHeight() / 2;
-        isAnimating = false;
+        isCurrentlyAnimating = false;
+        isRunning = true;
     }
 
     public void addEvent(List<TurtleState> turtleStateList) {
@@ -45,7 +46,7 @@ public class TurtleAnimator implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (myEventQueue.isEmpty() || isAnimating) {
+            if (myEventQueue.isEmpty() || isCurrentlyAnimating || !isRunning) {
                 try {
                     Thread.sleep(SLEEP_TIME);
                 } catch (InterruptedException e) {
@@ -57,14 +58,18 @@ public class TurtleAnimator implements Runnable {
         }
     }
 
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
+
     private void runAnimation(List<TurtleState> turtleStates) {
-        isAnimating = true;
+        isCurrentlyAnimating = true;
         upcomingAnimations = new ArrayList<>();
         turtleStates.forEach(this::addAnimations);
         ParallelTransition mainAnimation = new ParallelTransition();
         mainAnimation.getChildren().addAll(upcomingAnimations);
         mainAnimation.setOnFinished(event -> {
-            isAnimating = false;
+            isCurrentlyAnimating = false;
         });
         mainAnimation.play();
     }
