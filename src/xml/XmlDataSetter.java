@@ -99,7 +99,7 @@ class XmlDataSetter implements IXmlStrings{
         }
 
         for(String colorKey : lineColorMap.keySet()){
-            lineColor.add(Integer.parseInt(colorMap.get(colorKey)));
+            lineColor.add(Integer.parseInt(lineColorMap.get(colorKey)));
         }
 
         String startingImage;

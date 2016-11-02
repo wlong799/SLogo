@@ -29,15 +29,15 @@ public class ElementManager {
 
     public Stylizable getStylizableElement(String className) {
         Object element = getElement(className);
-        if (element == null || ! (element instanceof Stylizable)) {
+        if (element == null || !(element instanceof Stylizable)) {
             return null;
         }
-        return (Stylizable)element;
+        return (Stylizable) element;
     }
 
     public Stylizer getStylizerElement(String className) {
         Object element = getElement(className);
-        if (element == null || ! (element instanceof Stylizer)) {
+        if (element == null || !(element instanceof Stylizer)) {
             return null;
         }
         return (Stylizer) element;
@@ -45,10 +45,18 @@ public class ElementManager {
 
     public Commander getCommanderElement(String className) {
         Object element = getElement(className);
-        if (element == null || ! (element instanceof Commander)) {
+        if (element == null || !(element instanceof Commander)) {
             return null;
         }
         return (Commander) element;
+    }
+
+    public WorkspaceInteractor getWorkspaceInteractorElement(String className) {
+        Object element = getElement(className);
+        if (element == null || !(element instanceof WorkspaceInteractor)) {
+            return null;
+        }
+        return (WorkspaceInteractor) element;
     }
 
     private Object getElement(String className) {

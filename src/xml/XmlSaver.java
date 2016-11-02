@@ -2,6 +2,7 @@ package xml;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,13 +12,13 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import dataStorage.CommandStorage;
 import dataStorage.DataStorageManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
-class XmlSaver implements IXmlStrings{
+public class XmlSaver implements IXmlStrings {
 
     private Element createElementWithData(String nodeName, String information, Document doc) {
         Element element = doc.createElement(nodeName);
@@ -26,7 +27,7 @@ class XmlSaver implements IXmlStrings{
         return element;
     }
 
-    void saveCommandsVariables(DataStorageManager dataStorage) throws Exception {
+    public void saveCommandsVariables(DataStorageManager dataStorage) throws Exception {
 
 //        http://www.mkyong.com/java/how-to-create-xml-file-in-java-dom/
 
@@ -42,11 +43,12 @@ class XmlSaver implements IXmlStrings{
         Element variableStorage = doc.createElement(VARIABLE_STORAGE);
         rootElement.appendChild(variableStorage);
 
+
         int variableNum = 1;
 
         Map<String, Double> variableMap = dataStorage.getValueVariableMap();
 
-        for(String variableName : variableMap.keySet()) {
+        for (String variableName : variableMap.keySet()) {
             Element variableElement = doc.createElement(VARIABLE_ + Integer.toString(variableNum));
 
             variableElement.appendChild(createElementWithData
@@ -70,7 +72,8 @@ class XmlSaver implements IXmlStrings{
 
         Map<String, String> functionMap = commandStorage.getCommandMap();
 
-        for(String functionName : functionMap.keySet()) {
+
+        for (String functionName : functionMap.keySet()) {
             Element functionElement = doc.createElement(FUNCTION_ + Integer.toString(functionNum));
 
             functionElement.appendChild(createElementWithData
@@ -78,13 +81,14 @@ class XmlSaver implements IXmlStrings{
 
             StringBuilder parameters = new StringBuilder();
 
-            for(String oneParameter : commandStorage.getCommandParams(functionName)) {
+            for (String oneParameter : commandStorage.getCommandParams(functionName)) {
                 parameters.append(oneParameter);
                 parameters.append(' ');
             }
 
             functionElement.appendChild(createElementWithData
                     (FUNCTION_PARAMETERS, parameters.toString().trim(), doc));
+
 
             functionElement.appendChild(createElementWithData
                     (FUNCTION_BODY, functionMap.get(functionName), doc));
@@ -107,7 +111,6 @@ class XmlSaver implements IXmlStrings{
 
         transformer.transform(source, result);
 
-        // TODO: Set a notification so that the front end can display file saved
         System.out.println("File saved!");
     }
 }

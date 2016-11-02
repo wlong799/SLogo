@@ -1,10 +1,10 @@
 package view.toolbar;
 
-import controller.workspace.WorkspaceManager;
+import controller.SLogoController;
 import javafx.scene.control.MenuItem;
-import view.WorkspaceEditor;
+import view.WorkspaceInteractor;
 
-public class WorkspaceCloser extends MenuElement implements WorkspaceEditor{
+public class WorkspaceCloser extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "Close Workspace";
 
     private MenuItem myMenuItem;
@@ -14,8 +14,8 @@ public class WorkspaceCloser extends MenuElement implements WorkspaceEditor{
     }
 
     @Override
-    public void setWorkspaceManager(WorkspaceManager manager) {
-        return;
+    public void setWorkspaceInteractions(SLogoController slogoController) {
+        myMenuItem.setOnAction(event -> slogoController.removeWorkspace());
     }
 
     @Override

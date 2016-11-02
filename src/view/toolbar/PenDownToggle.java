@@ -35,5 +35,3 @@ public class PenDownToggle extends MenuElement implements Stylizer{
 		});
 		}
 	}
-
-

@@ -10,7 +10,7 @@
     <blue>0</blue>
   </line_color>
   <starting_image>
-    turtle.png
+    resources/turtle.png
   </starting_image>
   <command_language>
     English

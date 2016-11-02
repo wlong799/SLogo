@@ -4,18 +4,18 @@ import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
-public class WorkspaceLoader extends MenuElement implements WorkspaceInteractor {
-    private static final String NAME = "Load Workspace";
+public class WorkspaceVariableLoader extends MenuElement implements WorkspaceInteractor {
+    private static final String NAME = "Load Workspace Variables";
 
     private MenuItem myMenuItem;
 
-    public WorkspaceLoader() {
+    public WorkspaceVariableLoader() {
         myMenuItem = new MenuItem(NAME);
     }
 
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
-        myMenuItem.setOnAction(event -> slogoController.loadWorkspace());
+        myMenuItem.setOnAction(event -> slogoController.loadWorkspaceVariables());
     }
 
     @Override
