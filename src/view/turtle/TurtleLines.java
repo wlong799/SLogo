@@ -19,15 +19,14 @@ import view.Stylizable;
 public class TurtleLines extends GUIElement implements Stylizable {
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final double DEFAULT_STROKE_SIZE = 1;
-    private static final double[] DOT_SIZE = new double[] {2.5, 7.5};
+    private static final double[] DOT_SIZE = new double[]{2.5, 7.5};
     private static final double DASH_SIZE = 15.0;
 
     private Canvas myLineCanvas;
     private GraphicsContext myLineGraphics;
     private boolean isPenDown;
     private String myLineType;
-    
-    
+
 
     public TurtleLines(double width, double height) {
         super(width, height);
@@ -48,14 +47,14 @@ public class TurtleLines extends GUIElement implements Stylizable {
         if (color != null) {
             myLineGraphics.setStroke(color);
         }
-        if (width != null){
-        	myLineGraphics.setLineWidth(width);
+        if (width != null) {
+            myLineGraphics.setLineWidth(width);
         }
-        if (bool != null){
-        	isPenDown = bool;
+        if (bool != null) {
+            isPenDown = bool;
         }
-        if(lineType != null){
-        	/*if( lineType.equals("Solid")){
+        if (lineType != null) {
+            /*if( lineType.equals("Solid")){
         		myLineGraphics.setLineDashes(null);
         		myLineGraphics.setLineDashOffset(0.0);
         		
@@ -69,8 +68,8 @@ public class TurtleLines extends GUIElement implements Stylizable {
         		
         		
         	}*/
-        	
-        	myLineType = lineType;
+
+            myLineType = lineType;
         }
     }
 
@@ -78,13 +77,13 @@ public class TurtleLines extends GUIElement implements Stylizable {
     public Node getContent() {
         return myLineCanvas;
     }
-    
-    public boolean getIsPenDown(){
-    	return isPenDown;
+
+    public boolean getIsPenDown() {
+        return isPenDown;
     }
-    
-    public String getMyLineType(){
-    	return myLineType;
+
+    public String getMyLineType() {
+        return myLineType;
     }
 
     public void clearLines() {
@@ -92,6 +91,6 @@ public class TurtleLines extends GUIElement implements Stylizable {
     }
     public void drawLine(double x1, double y1, double x2, double y2) {
         myLineGraphics.strokeLine(x1, y1, x2, y2);
-        
+
     }
 }
