@@ -88,6 +88,15 @@ public class ColorStorage extends Observable {
         updateObservers();
     }
 
+    public int getColorIndex () {
+        for (Map.Entry<Integer, String> e : myColorMap.entrySet()) {
+            if (e.getValue().equals(myPenColor)) {
+                return e.getKey();
+            }
+        }
+        return 0;
+    }
+
     public Map<Integer, String> getColorMap () {
         return myColorMap;
     }

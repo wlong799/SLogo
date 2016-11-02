@@ -3,13 +3,13 @@ package dataStorage;
 import java.util.List;
 import java.util.Map;
 import javafx.collections.ObservableList;
-import java.util.*;
 
 
 /**
  * @author Filip Mazurek
  * @author Michael Schroeder
  */
+
 public class DataStorageManager {
 
     private VariableStorage myVariableStorage;
