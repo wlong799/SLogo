@@ -215,15 +215,14 @@ public class CommandParser {
      * @return
      */
     private Queue<String> processCommand (String command) {
-        command = command.replaceAll("\n", " ");
-
-        //List<String> onOneLine = Arrays.asList(command.split("\\n"));
-        Queue<String> commands =
-                Arrays.asList(command.split("\\s+")).stream().filter(s -> !s.startsWith("#"))
+        List<String> removeComments =
+                Arrays.asList(command.split("\n")).stream().filter(s -> !s.trim().startsWith("#"))
                         .collect(Collectors.toCollection(LinkedList::new));
-
-        //onOneLine.stream().filter(s -> !s.startsWith("#"))
-         //       .forEach(s -> commands.addAll(Arrays.asList(s.split("\\s+"))));
+        String comm = String.join("\n", removeComments);
+        comm = comm.replaceAll("\n", " ");
+        Queue<String> commands =
+                Arrays.asList(comm.split("\\s+")).stream()
+                        .collect(Collectors.toCollection(LinkedList::new));
         return commands;
     }
 
