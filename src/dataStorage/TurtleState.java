@@ -1,74 +1,23 @@
 package dataStorage;
 
-/**
- * TurtleState is a simplified object which only reflects what the Turtle has
- * but without any of the dataStorage's functionality
- *
- */
-public class TurtleState {
+public interface TurtleState {
 
-    /* The Turtle's current position */
-    private Position myPosition;
-    private double myHeading; // use unit circle-style direction
+    int getID ();
 
-    /* Pen status */
-    private boolean myPenDown;
-    private double myPenColor;
-    private double myPenSize;
+    Position getPosition ();
 
-    /* Turtle status */
-    private boolean myTurtleVisible;
-    private double myShape;
-    private int myID;
+    double getHeading ();
 
-    public TurtleState (Position position,
-                        double heading,
-                        boolean isPenDown,
-                        boolean isTurtleVisible,
-                        int id) {
-        myPosition = position;
-        myHeading = heading;
-        myPenDown = isPenDown;
-        myTurtleVisible = isTurtleVisible;
-        myID = id;
-    }
+    boolean getPenDownStatus ();
 
-    public TurtleState (Turtle t) {
-        myID = t.getID();
-        myPosition = t.getPosition();
-        myHeading = t.getHeading();
-        myPenDown = t.getPenDownStatus();
-        myPenColor = t.getPenColor();
-        myPenSize = t.getPenSize();
-        myTurtleVisible = t.getVisibility();
-        myShape = t.getShape();
-    }
+    String getPenColor ();
 
-    public Position getPosition () {
-        return myPosition;
-    }
+    int getColorIndex ();
 
-    public double getHeading () {
-        return myHeading;
-    }
+    double getPenSize ();
 
-    public boolean getPenDownStatus () {
-        return myPenDown;
-    }
+    boolean getVisibility ();
 
-    public double getPenSize () {
-        return myPenSize;
-    }
+    double getShape ();
 
-    public boolean getVisibility () {
-        return myTurtleVisible;
-    }
-
-    public double getShape () {
-        return myShape;
-    }
-
-    public int getID () {
-        return myID;
-    }
 }
