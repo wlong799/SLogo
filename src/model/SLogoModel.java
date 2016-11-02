@@ -1,11 +1,11 @@
 package model;
 
 import java.util.List;
-
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
 import javafx.collections.ObservableList;
+
 
 /**
  * @author Michael Schroeder
@@ -17,27 +17,31 @@ public class SLogoModel {
     private TurtleStorage myTurtles;
     private String myLanguage;
 
-    public SLogoModel() {
+    public SLogoModel () {
         init();
         myCommandParser = new CommandParser(DEFAULT_LANGUAGE, myData, myTurtles);
         myLanguage = DEFAULT_LANGUAGE;
     }
 
-    public TurtleStorage getTurtles() {
+    public TurtleStorage getTurtles () {
         return myTurtles;
     }
 
-    private void init() {
+    private void init () {
         myTurtles = new TurtleStorage();
         myData = new DataStorageManager();
     }
 
-    public void parse(String s, boolean storeHistory) {
+    public void parse (String s, boolean storeHistory) {
+        if (s == null || s.trim().length() == 0) {
+            return;
+        }
         String command = s;
         String output = "";
         try {
             output = "OUTPUT: " + (myCommandParser.parse(s));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             output = e.getMessage();
         }
         if (storeHistory) {
@@ -45,19 +49,19 @@ public class SLogoModel {
         }
     }
 
-    public boolean noParser() {
+    public boolean noParser () {
         return myCommandParser == null;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage (String language) {
         myCommandParser = new CommandParser(language, myData, myTurtles);
     }
 
-    public DataStorageManager getData() {
+    public DataStorageManager getData () {
         return myData;
     }
 
-    public String getLanguage() {
+    public String getLanguage () {
         return myLanguage;
     }
 }
