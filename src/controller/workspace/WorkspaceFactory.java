@@ -34,7 +34,8 @@ public class WorkspaceFactory {
                     "LineStylePicker",
                     "PenDownToggle",
                     "SeparatorElement",
-                    "TurtleImagePicker"
+                    "TurtleImagePicker",
+                    "CustomTurtleImageInput"
             };
 
     private static final String[] HELP_MENU_ELEMENTS = new String[]
