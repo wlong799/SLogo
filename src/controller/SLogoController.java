@@ -2,15 +2,21 @@ package controller;
 
 import controller.workspace.Workspace;
 import controller.workspace.WorkspaceFactory;
+import controller.workspace.WorkspaceLoadPreferences;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import view.SLogoView;
+import xml.XmlManager;
 
+import java.io.File;
 import java.util.*;
 
 
 public class SLogoController {
+    private static final String FILE_CHOOSER_TITLE = "Choose a workspace XML file";
     private SLogoView mySLogoView;
     private int myNextWorkspaceNum;
     private Stack<Integer> myPrevWorkspaceNumStack;
@@ -43,6 +49,27 @@ public class SLogoController {
         mySLogoView.setCurrentContentManager(workspace.getContentManager());
     }
 
+    public void loadWorkspace() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(FILE_CHOOSER_TITLE);
+        File xmlFile = fileChooser.showOpenDialog(mySLogoView.getScene().getWindow());
+        WorkspaceLoadPreferences preferences;
+        try {
+        preferences = new XmlManager().loadWorkspacePreferences(xmlFile);
+        } catch (Exception e) {
+            System.out.println("Could not parse file... Loading defaults");
+            newWorkspace();
+            return;
+        }
+        double width = mySLogoView.getWidth();
+        double height = mySLogoView.getHeight();
+        Workspace workspace = WorkspaceFactory.createWorkspace(width, height, this, preferences);
+        myActiveWorkspaceNums.add(myNextWorkspaceNum);
+        myWorkspaceMap.put(myNextWorkspaceNum, workspace);
+        setCurrentWorkspaceNum(myNextWorkspaceNum);
+        myNextWorkspaceNum++;
+    }
+
     public void newWorkspace() {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
@@ -56,7 +83,7 @@ public class SLogoController {
     public void removeWorkspace() {
         myActiveWorkspaceNums.remove(new Integer(myCurrentWorkspaceNum.get()));
         myWorkspaceMap.remove(myCurrentWorkspaceNum.get());
-        while(!myPrevWorkspaceNumStack.empty()) {
+        while (!myPrevWorkspaceNumStack.empty()) {
             int num = myPrevWorkspaceNumStack.pop();
             if (myWorkspaceMap.containsKey(num)) {
                 setCurrentWorkspaceNum(num);

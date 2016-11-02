@@ -15,7 +15,7 @@ public class WorkspaceLoader extends MenuElement implements WorkspaceInteractor 
 
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
-        return;
+        myMenuItem.setOnAction(event -> slogoController.loadWorkspace());
     }
 
     @Override

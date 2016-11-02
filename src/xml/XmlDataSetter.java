@@ -122,7 +122,7 @@ public class XmlDataSetter {
         Map<String, String> lineColorMap = (Map<String, String>) workspaceMap.get(myResources.getString("line_color"));
 
         for(String colorKey : lineColorMap.keySet()){
-            lineColor.add(Integer.parseInt(colorMap.get(colorKey)));
+            lineColor.add(Integer.parseInt(lineColorMap.get(colorKey)));
         }
 
         String startingImage = (String) workspaceMap.get(myResources.getString("starting_image"));

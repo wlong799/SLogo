@@ -5,9 +5,14 @@ import controller.ViewModelController;
 import controller.ViewViewController;
 import controller.WorkspaceController;
 import dataStorage.TurtleStorage;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import model.SLogoModel;
+import view.ElementManager;
 import view.StartContent;
+import view.Style;
 import view.WorkspaceContent;
+import view.turtle.TurtleContainer;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -80,6 +85,22 @@ public class WorkspaceFactory {
             idList.add(i);
         }
         turtleStorage.setActiveTurtles(idList);
+        return workspace;
+    }
+
+    public static Workspace createWorkspace(double width, double height, SLogoController controller, WorkspaceLoadPreferences preferences) {
+        Workspace workspace = createWorkspace(width, height, controller, false);
+        ElementManager viewElements = workspace.getContentManager().getElements();
+        List<Integer> rgb = preferences.getBackgroundColor();
+        Color bgColor = new Color(rgb.get(0)/255., rgb.get(1)/255., rgb.get(2)/255., 1.0);
+        viewElements.getStylizableElement("TurtleContainer").setStyle(new Style(bgColor));
+        rgb = preferences.getLineColor();
+        Color lineColor = new Color(rgb.get(0)/255.0, rgb.get(1)/255.0, rgb.get(2)/255.0, 1.0);
+        System.out.println(lineColor.getRed());
+        viewElements.getStylizableElement("TurtleManager").setStyle(new Style(lineColor));
+        Image startImage = new Image(preferences.getStartImage());
+        viewElements.getStylizableElement("TurtleManager").setStyle(new Style(startImage));
+        workspace.getModel().setLanguage(preferences.getCommandLanguage());
         return workspace;
     }
 

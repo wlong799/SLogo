@@ -1,5 +1,6 @@
 package controller.workspace;
 
+import controller.SLogoController;
 import controller.ViewModelController;
 import controller.ViewViewController;
 import controller.WorkspaceController;
@@ -22,4 +23,7 @@ public class Workspace {
         return myContent;
     }
 
+    public SLogoModel getModel() {
+        return myModel;
+    }
 }
