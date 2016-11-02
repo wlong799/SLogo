@@ -1,7 +1,7 @@
 package dataStorage;
 
-
 import java.util.Observable;
+
 
 public class Notifications extends Observable {
     private static final boolean TRUE = true;
@@ -10,10 +10,11 @@ public class Notifications extends Observable {
     private boolean myClearScreenFlag;
     private boolean myBackgroundColorFlag;
     private int myBackgroundColorIndex;
+    private boolean myFileSavedFlag;
 
     private void updateAndCallObserver() {
         NotificationsState showOffState = new NotificationsState(myClearScreenFlag, myBackgroundColorFlag,
-                myBackgroundColorIndex);
+                myBackgroundColorIndex, myFileSavedFlag);
         setChanged();
         notifyObservers(showOffState);
     }
@@ -29,5 +30,11 @@ public class Notifications extends Observable {
         myBackgroundColorIndex = newIndex;
         updateAndCallObserver();
         myBackgroundColorFlag = FALSE;
+    }
+
+    public void setFileSavedFlag() {
+        myFileSavedFlag = TRUE;
+        updateAndCallObserver();
+        myFileSavedFlag = FALSE;
     }
 }

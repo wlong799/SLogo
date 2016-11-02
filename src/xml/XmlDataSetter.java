@@ -6,9 +6,9 @@ import exceptions.XmlFormatException;
 import java.util.*;
 
 
-public class XmlDataSetter implements IXmlStrings{
+class XmlDataSetter implements IXmlStrings{
 
-    public VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) throws XmlFormatException{
+    VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) throws XmlFormatException{
         VariableStorage newValueVariableStorage = new VariableStorage();
 
         for(String oneVariableKey : valueVariableMap.keySet()) {
@@ -39,7 +39,7 @@ public class XmlDataSetter implements IXmlStrings{
         return newValueVariableStorage;
     }
 
-    public CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) throws XmlFormatException {
+    CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) throws XmlFormatException {
         CommandStorage newCommandVariableStorage = new CommandStorage();
 
         for(String oneVariableKey : commandVariableMap.keySet()) {
@@ -73,7 +73,7 @@ public class XmlDataSetter implements IXmlStrings{
         return newCommandVariableStorage;
     }
 
-    public WorkspaceLoadPreferences setWorkspaceLoadPreferences(Map<String, Object> workspaceMap) throws XmlFormatException {
+    WorkspaceLoadPreferences setWorkspaceLoadPreferences(Map<String, Object> workspaceMap) throws XmlFormatException {
         List<Integer> backgroundColor = new ArrayList<>();
         List<Integer> lineColor = new ArrayList<>();
 

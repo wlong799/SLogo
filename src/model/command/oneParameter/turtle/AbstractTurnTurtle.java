@@ -5,8 +5,7 @@ import java.util.List;
 import model.command.AbstractCommand;
 
 
-abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
-    private static final double CIRCLE_DEGREES = 360;
+public abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
 
     AbstractTurnTurtle(List<AbstractCommand> parameters) {
         super(parameters);
@@ -25,19 +24,6 @@ abstract class AbstractTurnTurtle extends AbstractCommandOneParameterTurtle{
         myTurtle.setHeading(correctOverTurns(newHeading));
 
         return givenTurnDegrees;
-    }
-
-    protected double correctOverTurns(double degrees) {
-        int overByNumTurns = 0;
-        if(Math.abs(degrees) >= CIRCLE_DEGREES) {
-            overByNumTurns = (int) (degrees / CIRCLE_DEGREES);
-        }
-        double newDegrees =  degrees - overByNumTurns * CIRCLE_DEGREES;
-
-        if(newDegrees < 0) {
-            newDegrees += CIRCLE_DEGREES;
-        }
-        return newDegrees;
     }
 
 }

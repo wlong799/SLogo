@@ -10,8 +10,6 @@ public class Repeat extends AbstractCommandHigherOrder {
     private static final String REPCOUNT_VAR = ":repcount";
     private static final double START_REPCOUNT = 1;
 
-    // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
-
     public Repeat (List<AbstractCommand> parameters) {
         super(parameters);
     }

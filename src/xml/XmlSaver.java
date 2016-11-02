@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
-public class XmlSaver implements IXmlStrings{
+class XmlSaver implements IXmlStrings{
 
     private Element createElementWithData(String nodeName, String information, Document doc) {
         Element element = doc.createElement(nodeName);
@@ -26,97 +26,88 @@ public class XmlSaver implements IXmlStrings{
         return element;
     }
 
-    public void saveCommandsVariables(DataStorageManager dataStorage) {
+    void saveCommandsVariables(DataStorageManager dataStorage) throws Exception {
 
-        try {
+//        http://www.mkyong.com/java/how-to-create-xml-file-in-java-dom/
 
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-            // root element
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement(SAVED_COMMANDS_VARIABLES);
-            doc.appendChild(rootElement);
+        // root element
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement(SAVED_COMMANDS_VARIABLES);
+        doc.appendChild(rootElement);
 
-            // value variable
-            Element variableStorage = doc.createElement(VARIABLE_STORAGE);
-            rootElement.appendChild(variableStorage);
+        // value variable
+        Element variableStorage = doc.createElement(VARIABLE_STORAGE);
+        rootElement.appendChild(variableStorage);
 
-            int variableNum = 1;
+        int variableNum = 1;
 
-            Map<String, Double> variableMap = dataStorage.getValueVariableMap();
+        Map<String, Double> variableMap = dataStorage.getValueVariableMap();
 
-            for(String variableName : variableMap.keySet()) {
-                Element variableElement = doc.createElement(VARIABLE_ + Integer.toString(variableNum));
+        for(String variableName : variableMap.keySet()) {
+            Element variableElement = doc.createElement(VARIABLE_ + Integer.toString(variableNum));
 
-                variableElement.appendChild(createElementWithData
-                        (VARIABLE_NAME, variableName, doc));
+            variableElement.appendChild(createElementWithData
+                    (VARIABLE_NAME, variableName, doc));
 
-                variableElement.appendChild(createElementWithData
-                        (VARIABLE_VALUE, Double.toString(variableMap.get(variableName)), doc));
+            variableElement.appendChild(createElementWithData
+                    (VARIABLE_VALUE, Double.toString(variableMap.get(variableName)), doc));
 
-                variableStorage.appendChild(variableElement);
+            variableStorage.appendChild(variableElement);
 
-                variableNum++;
-            }
-
-            // command variable
-            Element functionStorage = doc.createElement(FUNCTION_STORAGE);
-            rootElement.appendChild(functionStorage);
-
-            int functionNum = 1;
-
-            CommandStorage commandStorage = dataStorage.getCommandStorage();
-
-            Map<String, String> functionMap = commandStorage.getCommandMap();
-
-            for(String functionName : functionMap.keySet()) {
-                Element functionElement = doc.createElement(FUNCTION_ + Integer.toString(functionNum));
-
-                functionElement.appendChild(createElementWithData
-                        (FUNCTION_NAME, functionName, doc));
-
-                StringBuilder parameters = new StringBuilder();
-
-                for(String oneParameter : commandStorage.getCommandParams(functionName)) {
-                    parameters.append(oneParameter);
-                    parameters.append(' ');
-                }
-
-                functionElement.appendChild(createElementWithData
-                        (FUNCTION_PARAMETERS, parameters.toString().trim(), doc));
-
-                functionElement.appendChild(createElementWithData
-                        (FUNCTION_BODY, functionMap.get(functionName), doc));
-
-                functionStorage.appendChild(functionElement);
-                functionNum++;
-            }
-
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-
-            SimpleDateFormat currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT);
-            String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
-            StreamResult result = new StreamResult(new File(savedFileName));
-
-            // Output to console for testing
-            // StreamResult result = new StreamResult(System.out);
-
-            transformer.transform(source, result);
-
-            System.out.println("File saved!");
-
-            // TODO: print to the front end that can't load the file properly
-        } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
-        } catch (TransformerException tfe) {
-            tfe.printStackTrace();
+            variableNum++;
         }
 
+        // command variable
+        Element functionStorage = doc.createElement(FUNCTION_STORAGE);
+        rootElement.appendChild(functionStorage);
 
+        int functionNum = 1;
 
+        CommandStorage commandStorage = dataStorage.getCommandStorage();
+
+        Map<String, String> functionMap = commandStorage.getCommandMap();
+
+        for(String functionName : functionMap.keySet()) {
+            Element functionElement = doc.createElement(FUNCTION_ + Integer.toString(functionNum));
+
+            functionElement.appendChild(createElementWithData
+                    (FUNCTION_NAME, functionName, doc));
+
+            StringBuilder parameters = new StringBuilder();
+
+            for(String oneParameter : commandStorage.getCommandParams(functionName)) {
+                parameters.append(oneParameter);
+                parameters.append(' ');
+            }
+
+            functionElement.appendChild(createElementWithData
+                    (FUNCTION_PARAMETERS, parameters.toString().trim(), doc));
+
+            functionElement.appendChild(createElementWithData
+                    (FUNCTION_BODY, functionMap.get(functionName), doc));
+
+            functionStorage.appendChild(functionElement);
+            functionNum++;
+        }
+
+        // write the content into xml file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+
+        SimpleDateFormat currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT);
+        String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
+        StreamResult result = new StreamResult(new File(savedFileName));
+
+        // Output to console for testing
+        // StreamResult result = new StreamResult(System.out);
+
+        transformer.transform(source, result);
+
+        // TODO: Set a notification so that the front end can display file saved
+        System.out.println("File saved!");
     }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class XmlManager implements IXmlStrings {
 
-    public void saveCommandsVariables(DataStorageManager dataStorage) {
+    public void saveCommandsVariables(DataStorageManager dataStorage) throws Exception{
         XmlSaver saver = new XmlSaver();
         saver.saveCommandsVariables(dataStorage);
     }
