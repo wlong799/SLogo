@@ -23,11 +23,18 @@ public class PenDownToggle extends MenuElement implements Stylizer{
 	
 	@Override
 	public MenuItem getMenuItem() {
+<<<<<<< HEAD
+		return null;
+=======
 		return myMenuItem;
+>>>>>>> master
 	}
 
 	@Override
 	public void setStylizableTarget(Stylizable stylizableTarget) {
+<<<<<<< HEAD
+
+=======
 		myCheckBox.setOnAction(i ->{
 			boolean boxStatus = myCheckBox.isSelected();
 			Style style = new Style(boxStatus);
@@ -36,6 +43,7 @@ public class PenDownToggle extends MenuElement implements Stylizer{
 		}
 		
 		
+>>>>>>> master
 	}
 
 

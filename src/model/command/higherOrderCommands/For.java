@@ -8,8 +8,6 @@ import model.command.AbstractCommand;
 
 public class For extends AbstractCommandHigherOrder {
 
-    // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
-
     public For (List<AbstractCommand> parameters) {
         super(parameters);
     }

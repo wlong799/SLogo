@@ -42,7 +42,6 @@ public class LineSizePicker extends MenuElement implements Stylizer{
     	mySizeSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-				// TODO Auto-generated method stub
 				double lineWidth = mySizeSlider.getValue();
                 Style style = new Style(lineWidth);
                 stylizableTarget.setStyle(style);
