@@ -8,6 +8,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 
+/**
+ * 
+ * @author michael
+ *
+ */
 
 public class PaletteWindow extends TabElement {
 

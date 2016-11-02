@@ -6,7 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 
+ * @author michael
+ *
+ */
 public class CommandStorage {
 
     private Map<String, List<String>> commandParamMap;
