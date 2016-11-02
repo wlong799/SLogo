@@ -35,10 +35,19 @@ public class Turtle extends Observable implements TurtleState {
         myColorIndex = 0;
         
     }
-
+    
+    private Turtle(Turtle t){
+        myID = t.myID;
+        myPosition = t.myPosition;
+        myHeading = t.myHeading;
+        myPenDown = t.myPenDown;
+        myTurtleVisible = t.myTurtleVisible;
+        myPenColor = t.myPenColor;
+        myColorIndex = t.myColorIndex;
+    }
     private void updateAndCallObserver () {
         setChanged();
-        notifyObservers(this);
+        notifyObservers(new Turtle(this));
     }
 
     //
