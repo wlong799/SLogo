@@ -34,8 +34,4 @@ public class PenDownToggle extends MenuElement implements Stylizer{
 			stylizableTarget.setStyle(style);
 		});
 		}
-		
-		
 	}
-
-
