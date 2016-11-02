@@ -52,7 +52,7 @@ public class TurtleAnimator implements Runnable {
                 try {
                     Thread.sleep(SLEEP_TIME);
                 } catch (InterruptedException e) {
-                    System.out.println("Animation thread interrupted");
+                    ////System.out.println("Animation thread interrupted");
                 }
                 continue;
             }

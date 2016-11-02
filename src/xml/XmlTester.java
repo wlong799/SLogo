@@ -20,7 +20,7 @@
 //        try {
 //            Map<String, Object> parsedMap =
 //                    (Map<String, Object>) parser.XMLparse(file).get("saved_workspace");
-//            System.out.println(parsedMap);
+//            ////System.out.println(parsedMap);
 //
 //            /* Now set the parsed Data */
 //            XmlDataSetter dataSetter = new XmlDataSetter(LANGUAGE);

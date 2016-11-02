@@ -14,13 +14,13 @@ public abstract class AbstractTeleportHomeTurtle extends AbstractCommandZeroPara
     }
 
     protected double goHome () {
-        System.out.println("GO HOME");
+        ////System.out.println("GO HOME");
         Position turtlePos = myTurtle.getPosition();
         double turtleX = turtlePos.getX();
         double turtleY = turtlePos.getY();
 
         myTurtle.setPosition(new Position(HOME_X, HOME_Y));
-        System.out.println(myTurtle.getPosition());
+        ////System.out.println(myTurtle.getPosition());
         return distanceFormula(turtleX, turtleY, HOME_X, HOME_Y);
     }
     

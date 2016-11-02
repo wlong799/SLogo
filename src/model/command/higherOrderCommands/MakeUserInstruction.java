@@ -26,7 +26,7 @@ public class MakeUserInstruction extends AbstractCommandHigherOrder {
         String commandString = getRawParameters().get(2).toString();
 
         getData().setCommand(commandName, variableNames, commandString);
-        System.out.println("Command string " + commandString);
+        ////System.out.println("Command string " + commandString);
         return 1;
     }
 

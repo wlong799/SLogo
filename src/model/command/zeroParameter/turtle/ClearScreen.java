@@ -24,7 +24,7 @@ public class ClearScreen extends AbstractTeleportHomeTurtle {
     protected double turtleExecute () {
         boolean penDown = myTurtle.getPenDownStatus();
         myTurtle.setPenDownStatus(false);
-        System.out.println("CLEAR SCREEN");
+        ////System.out.println("CLEAR SCREEN");
         double distance = goHome();
         myData.getNotifications().setClearScreenFlag();
         myTurtle.setHeading(-90);

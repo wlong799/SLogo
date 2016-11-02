@@ -76,7 +76,7 @@ public class XmlManager implements IXmlStrings {
         addDataToStorage(dataStorage, variables, commands);
         // dataStorage.setVariableStorage(setter.setValueVariables(variableMap));
         // dataStorage.setCommandStorage(setter.setCommandVariables(commandMap));
-        System.out.println("Set new Variables and commands from file");
+        ////System.out.println("Set new Variables and commands from file");
     }
 
     /**

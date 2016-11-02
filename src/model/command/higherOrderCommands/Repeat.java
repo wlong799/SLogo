@@ -24,7 +24,7 @@ public class Repeat extends AbstractCommandHigherOrder {
     @Override
     public double execute () {
         double numTimes = getRawParameters().get(0).execute();
-        System.out.println("Repeat " + numTimes + " times");
+        ////System.out.println("Repeat " + numTimes + " times");
         AbstractCommand command = getRawParameters().get(1);
         //ExpressionNode codeBlock = myNodes.get(1);
         double returnValue = 0;
@@ -33,8 +33,8 @@ public class Repeat extends AbstractCommandHigherOrder {
             //getVariables().setVariable(REPCOUNT_VAR,
              //                                                              repcountVar);
             returnValue = command.execute();
-            System.out.println(returnValue);
-            System.out.println("REPEAT " + (numTimes-repcountVar) + " more times");
+            ////System.out.println(returnValue);
+            ////System.out.println("REPEAT " + (numTimes-repcountVar) + " more times");
         }
 
         return returnValue;

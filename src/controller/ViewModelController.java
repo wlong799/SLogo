@@ -65,13 +65,13 @@ public class ViewModelController extends InteractionController {
                 }
                 observableList = (ObservableList<String>) obj;
             } catch (IllegalAccessException e) {
-                System.out.println("Do not have access to method: " + methodName);
+                ////System.out.println("Do not have access to method: " + methodName);
             } catch (InvocationTargetException e) {
-                System.out.println("Method invoked on incorrect target: " + data);
+                ////System.out.println("Method invoked on incorrect target: " + data);
             } catch (NoSuchMethodException e) {
-                System.out.println("Method does not exist: " + methodName);
+                ////System.out.println("Method does not exist: " + methodName);
             } catch (ClassCastException e) {
-                System.out.println("Method does not return an ObservableList: " + methodName);
+                ////System.out.println("Method does not return an ObservableList: " + methodName);
             }
             observer.setObservedList(observableList);
         }

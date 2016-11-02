@@ -49,7 +49,7 @@ public class XmlSaver implements IXmlStrings {
 
         Map<String, Double> variableMap = dataStorage.getValueVariableMap();
 
-        System.out.println(variableMap.keySet());
+        ////System.out.println(variableMap.keySet());
 
         for (String variableName : variableMap.keySet()) {
             Element variableElement = doc.createElement(VARIABLE_ + Integer.toString(variableNum));
@@ -125,6 +125,6 @@ public class XmlSaver implements IXmlStrings {
 
         transformer.transform(source, result);
 
-        System.out.println("File saved!");
+        ////System.out.println("File saved!");
     }
 }

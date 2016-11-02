@@ -21,7 +21,7 @@ public class MakeVariable extends AbstractCommandHigherOrder {
         double varValue = givenParameters.get(1);
 
         getData().setVariable(myName, varValue);
-        System.out.println(myName +" = " + varValue);
+        ////System.out.println(myName +" = " + varValue);
         return varValue;
     }
 

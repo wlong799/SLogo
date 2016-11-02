@@ -31,14 +31,14 @@ class XmlParser {
     // http://stackoverflow.com/questions/15759796/xml-recursive-node-parser
     private Object childMapper (Node root, Node parent) {
         if (root == null) {
-            System.out.println("root is null");
+            ////System.out.println("root is null");
             return null;
         }
         if (root.hasChildNodes()) {
 
             HashMap<String, Object> childMap = new HashMap<String, Object>();
 
-            // System.out.println(root.getNodeName());
+            // ////System.out.println(root.getNodeName());
             NodeList children = root.getChildNodes();
             for (int i = 0; i < children.getLength(); i++) {
                 if (!(children.item(i).getNodeName().equals(BAD_TEXT_NODE))) {
@@ -49,7 +49,7 @@ class XmlParser {
                 if (children.item(i).getNodeName().equals(BAD_TEXT_NODE)) {
                     String nodeValue = children.item(i).getNodeValue().trim();
                     if (nodeValue.length() > 0) {
-                        // System.out.println(parent.getNodeName() + "::" + nodeValue);
+                        // ////System.out.println(parent.getNodeName() + "::" + nodeValue);
                         return childMapper(children.item(i), root);
                     }
                 }
@@ -58,10 +58,10 @@ class XmlParser {
             return childMap;
         }
         else {
-            System.out.println(root.getNodeValue());
+            ////System.out.println(root.getNodeValue());
             String nodeValue = root.getNodeValue().trim();
             if (nodeValue.length() > 0) {
-                // System.out.println(parent.getNodeName() + "::" + nodeValue);
+                // ////System.out.println(parent.getNodeName() + "::" + nodeValue);
                 return nodeValue;
             }
         }

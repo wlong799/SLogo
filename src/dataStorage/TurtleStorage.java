@@ -25,9 +25,9 @@ public class TurtleStorage extends Observable implements Observer {
 
     public void setActiveTurtles (List<Integer> ids) {
         activeTurtles.clear();
-        System.out.println("Active turtles cleared. Active turtles = " + activeTurtles);
+        ////System.out.println("Active turtles cleared. Active turtles = " + activeTurtles);
         for (int id : ids) {
-            System.out.println("Adding turtle " + id + " to active");
+            ////System.out.println("Adding turtle " + id + " to active");
             if (turtleMap.containsKey(id)) {
                 activeTurtles.add(id);
             }
@@ -43,9 +43,9 @@ public class TurtleStorage extends Observable implements Observer {
 
     public List<Turtle> getActiveTurtles () {
         List<Turtle> turtles = new ArrayList<>();
-        System.out.println("getting active turtles");
+        ////System.out.println("getting active turtles");
         for (int i : activeTurtles) {
-            System.out.println(i);
+            ////System.out.println(i);
             turtles.add(turtleMap.get(i));
         }
         return turtles;
@@ -65,10 +65,10 @@ public class TurtleStorage extends Observable implements Observer {
 
     @Override
     public void update (Observable o, Object arg) {
-        System.out.println("CHANGED");
-        System.out.println(o);
+        ////System.out.println("CHANGED");
+        ////System.out.println(o);
         TurtleState state = (TurtleState) arg;
-        System.out.println(state.getPosition());
+        ////System.out.println(state.getPosition());
         changedTurtles.add(state);
         // setChanged();
         // notifyObservers(arg);

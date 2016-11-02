@@ -77,7 +77,7 @@ public class ExpressionTree {
     public AbstractCommand makeSubTree (Queue<String> commands) throws ClassNotFoundException,
                                                                 InvalidCommandException {
         String command = commands.poll();
-        System.out.println("parsing string: " + command);
+        //////System.out.println("parsing string: " + command);
         // AbstractCommand rootCommands = null;
         if (command.equals(LIST_START)) {
             return makeCommandList(commands);
@@ -123,14 +123,14 @@ public class ExpressionTree {
         }
         catch (Exception e) {
             //e.printStackTrace();
-            System.out.println("Could not create command of class " + command);
+            //////System.out.println("Could not create command of class " + command);
             try {
-                System.out.println("Trying to create constant " + command);
+                //////System.out.println("Trying to create constant " + command);
                 return new Constant(Double.parseDouble(command));
             }
             catch (NumberFormatException ex) {
                 // return createUserCommand(command);
-                System.out.println("Could not create a constant. Creating variable " + command);
+                //////System.out.println("Could not create a constant. Creating variable " + command);
                 Variable var = new Variable(command);
                 var.addOtherParameters(myData, myTurtles);
                 return var;
@@ -152,9 +152,9 @@ public class ExpressionTree {
         try {
             List<AbstractCommand> parameters = new ArrayList<AbstractCommand>();
             Object o = ctor.newInstance(parameters);
-            System.out.println(o.getClass());
+            //////System.out.println(o.getClass());
             Method getNumParams = commandClass.getMethod("getNumParameters");
-            System.out.println("get num params");
+            //////System.out.println("get num params");
             int paramNum = (int) getNumParams.invoke(o);
             if (paramNum > 0) {
                 for (; paramNum > 0; paramNum--) {
@@ -164,8 +164,8 @@ public class ExpressionTree {
                 addParams.invoke(o, parameters);
             }
             addOtherParameters(commandClass, o);
-            System.out.println(o.getClass());
-            System.out.println(parameters);
+            //////System.out.println(o.getClass());
+            //////System.out.println(parameters);
             return o;
         }
         catch (Exception e) {
@@ -185,7 +185,7 @@ public class ExpressionTree {
     private ListCommand makeCommandList (Queue<String> commandQueue) throws InvalidCommandException {
         int openBrackets = 1;
         int closedBrackets = 0;
-        System.out.println("Creating command list of " + commandQueue);
+        //////System.out.println("Creating command list of " + commandQueue);
         List<AbstractCommand> commandList = new ArrayList<AbstractCommand>();
         while (closedBrackets != openBrackets) {
             String next = commandQueue.poll();

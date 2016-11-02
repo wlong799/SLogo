@@ -19,7 +19,7 @@ public class ID extends AbstractCommandZeroParameterTurtle {
 
     @Override
     protected double turtleExecute () {
-        System.out.println(myTurtle.getID() +" ID");
+        ////System.out.println(myTurtle.getID() +" ID");
         return (double)myTurtle.getID();
     }
 

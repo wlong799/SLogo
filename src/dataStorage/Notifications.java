@@ -15,7 +15,7 @@ public class Notifications extends Observable {
     }
 
     public void setClearScreenFlag () {
-        System.out.println("set clear screene flag");
+        ////System.out.println("set clear screene flag");
         myClearScreenFlag = TRUE;
         updateAndCallObserver();
         myClearScreenFlag = FALSE;

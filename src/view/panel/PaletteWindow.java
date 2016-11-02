@@ -54,8 +54,8 @@ public class PaletteWindow extends TabElement {
     private class ColorCell extends ListCell<String> {
         @Override
         public void updateItem(String item, boolean empty) {
-            System.out.println("add color");
-            System.out.println(item);
+            ////System.out.println("add color");
+            ////System.out.println(item);
 
             super.updateItem(item, empty);
             Rectangle rect = new Rectangle(100, 20);

@@ -35,7 +35,7 @@ public class ColorStorage extends Observable {
         }
         myPenColor = myColorMap.get(0);
         myBackgroundColor = myColorMap.get(1);
-        System.out.println(myColorMap.values());
+        ////System.out.println(myColorMap.values());
     }
 
     private String addRGB(String color) {
@@ -68,9 +68,9 @@ public class ColorStorage extends Observable {
         }
         String colorString = toColorString(red, green, blue);
         myColorMap.put(index, colorString);
-        // System.out.println(myColorMap.values());
+        // ////System.out.println(myColorMap.values());
         myColorList.add(index + " " + colorString);
-        System.out.println(myColorList + " color list");
+        ////System.out.println(myColorList + " color list");
     }
 
     public void setPenColor(int index) {
@@ -101,7 +101,7 @@ public class ColorStorage extends Observable {
     }
 
     public ObservableList<String> getColorList() {
-        System.out.println(myColorList + " my color list");
+        ////System.out.println(myColorList + " my color list");
         return myColorList;
     }
 

@@ -29,7 +29,7 @@ abstract class AbstractMoveTurtle extends AbstractCommandOneParameterTurtle impl
                 new Position(prevPosition.getX() + xMove, prevPosition.getY() + yMove);
 
         myTurtle.setPosition(nextPosition);
-        System.out.println(dir + " " + givenMoveDistance);
+        ////System.out.println(dir + " " + givenMoveDistance);
         return givenMoveDistance;
     }
 }

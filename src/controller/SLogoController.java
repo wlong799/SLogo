@@ -61,7 +61,7 @@ public class SLogoController {
         try {
             preferences = new XmlManager().loadWorkspacePreferences(xmlFile);
         } catch (Exception e) {
-            System.out.println("Could not parse file... Loading defaults");
+            ////System.out.println("Could not parse file... Loading defaults");
             newWorkspace();
             return;
         }
@@ -108,11 +108,11 @@ public class SLogoController {
             }
             return;
         }
-        System.out.println("SETTING TO " + num);
+        ////System.out.println("SETTING TO " + num);
         myPrevWorkspaceNumStack.push(myCurrentWorkspaceNum.get());
         myCurrentWorkspaceNum.set(num);
-        System.out.println("PREVIOUS " + myPrevWorkspaceNumStack);
-        System.out.println("CURRENT " + myCurrentWorkspaceNum);
+        ////System.out.println("PREVIOUS " + myPrevWorkspaceNumStack);
+        ////System.out.println("CURRENT " + myCurrentWorkspaceNum);
         Workspace workspace = myWorkspaceMap.get(num);
         mySLogoView.setCurrentContentManager(workspace.getContentManager());
     }
@@ -127,7 +127,7 @@ public class SLogoController {
             new XmlSaver().saveCommandsVariables(workspace.getModel().getData());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Couldn't save file.");
+            ////System.out.println("Couldn't save file.");
         }
     }
 
@@ -143,7 +143,7 @@ public class SLogoController {
             new XmlManager().loadAndSetVariablesCommands(xmlFile, data);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Could not load variables from file.");
+            ////System.out.println("Could not load variables from file.");
         }
     }
 }

@@ -22,7 +22,7 @@ public class SetPalette extends AbstractCommandHigherOrder implements IFourParam
         int green = parameterValues.get(PARAMETER_THREE).intValue();
         int blue = parameterValues.get(PARAMETER_FOUR).intValue();
 
-        System.out.println("adding palette");
+        ////System.out.println("adding palette");
         if (!(isValidColor(red) && isValidColor(green) && isValidColor(blue))) {
             // // TODO: set an invalid color range flag in Notifications
             // // TODO: getNotifications().setColorFlag();

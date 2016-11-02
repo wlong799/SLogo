@@ -53,7 +53,7 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
 
         if (!(arg instanceof List)) {
             if (arg instanceof Boolean) {
-                System.out.println("CLEARING THE LINES");
+                ////System.out.println("CLEARING THE LINES");
                 myTurtleManager.clearScreen();
             }
                 return;

@@ -88,7 +88,7 @@ public class CommandParser {
         AbstractCommand rootCommand = null;
 
         rootCommand = completeCommand.makeTree(commandQueue);
-        System.out.println(rootCommand.toString() + " in parse");
+        //////System.out.println(rootCommand.toString() + " in parse");
         return rootCommand.execute();
 
     }
@@ -123,7 +123,7 @@ public class CommandParser {
     }
 
     private Queue<String> getUserCommand (String command, Queue<String> commands) throws Exception {
-        System.out.println("Getting custom command " + command);
+        //////System.out.println("Getting custom command " + command);
         String commandString = myData.getCommand(command);
         List<String> commandParams = myData.getCommandParams(command);
         Queue<String> commandQueue = new LinkedList<String>();
@@ -148,7 +148,7 @@ public class CommandParser {
                 .forEach(s -> commandQueue.addAll(Arrays.asList(s.split(" ")).stream()
                         .collect(Collectors.toList())));
         Queue<String> finalQueue = createCustomQueue(commandQueue);
-        System.out.println(finalQueue + " is the command Queue for command " + command);
+        //////System.out.println(finalQueue + " is the command Queue for command " + command);
         return finalQueue;
     }
 
@@ -197,7 +197,7 @@ public class CommandParser {
                         }
                     }
                     else {
-                        System.out.println("custom!");
+                        //////System.out.println("custom!");
                         commandQueue.addAll(getUserCommand(rawCommand, commands));
                     }
                 }

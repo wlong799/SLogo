@@ -38,20 +38,20 @@ public abstract class AbstractTurtleCommand extends AbstractCommand {
 
     @Override
     public double execute () {
-        System.out.println(this.getClass());
-        //System.out.println(myTurtles.getClass());
-        System.out.println("BLAH");
+        ////System.out.println(this.getClass());
+        //////System.out.println(myTurtles.getClass());
+        ////System.out.println("BLAH");
         double output = 0.0;
         List<Turtle> activeTurtles = new ArrayList<Turtle>(myTurtles.getActiveTurtles());
-        System.out.println(activeTurtles.size());
+        ////System.out.println(activeTurtles.size());
         List<Integer> activeSingleTurtles = new ArrayList<Integer>();
         for (Turtle t : activeTurtles) {
-            System.out.println(this.getClass() + " turtle command");
+            ////System.out.println(this.getClass() + " turtle command");
             activeSingleTurtles.clear();
             activeSingleTurtles.add(t.getID());
             getTurtles().setActiveTurtles(activeSingleTurtles);
             myTurtle = t;
-            System.out.println(t.getID());
+            ////System.out.println(t.getID());
             output = turtleExecute();
         }
         activeSingleTurtles.clear();
