@@ -32,6 +32,7 @@ public class WorkspaceFactory {
                     "LineColorPicker",
                     "LineSizePicker",
                     "LineStylePicker",
+                    "PenDownToggle",
                     "SeparatorElement",
                     "TurtleImagePicker"
             };
@@ -40,6 +41,7 @@ public class WorkspaceFactory {
             {
                     "AboutInfo",
                     "CommandHelpInfo"
+                    
             };
     private static int nextWorkspaceID = 1;
 
