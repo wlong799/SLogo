@@ -1,11 +1,9 @@
 package view.panel;
 
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.input.MouseEvent;
 import view.Commander;
 import view.GUIElement;
 

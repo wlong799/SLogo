@@ -1,7 +1,6 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +58,6 @@ public class ViewModelController extends InteractionController {
             String methodName = linkedObserverAndList[1];
             TabElement observer = myViewElements.getTabElement(tabElementName);
             if (observer == null) {
-                System.out.println("NULL OBSERVER");
                 return;
             }
             DataStorageManager data = myModel.getData();
