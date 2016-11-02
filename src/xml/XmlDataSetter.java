@@ -3,6 +3,8 @@ package xml;
 import controller.workspace.WorkspaceLoadPreferences;
 import dataStorage.*;
 import exceptions.XmlFormatException;
+
+import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -10,6 +12,9 @@ class XmlDataSetter implements IXmlStrings{
 
     VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) throws XmlFormatException{
         VariableStorage newValueVariableStorage = new VariableStorage();
+        if(valueVariableMap.isEmpty()) {
+            return newValueVariableStorage;
+        }
 
         for(String oneVariableKey : valueVariableMap.keySet()) {
             Map<String, String> oneValueVariableMap = valueVariableMap.get(oneVariableKey);
@@ -41,12 +46,21 @@ class XmlDataSetter implements IXmlStrings{
 
     CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) throws XmlFormatException {
         CommandStorage newCommandVariableStorage = new CommandStorage();
+        if(commandVariableMap.isEmpty()) {
+            return newCommandVariableStorage;
+        }
 
         for(String oneVariableKey : commandVariableMap.keySet()) {
             Map<String, String> oneCommandVariableMap = commandVariableMap.get(oneVariableKey);
 
-            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
-            System.out.println(parameterList);
+            List<String> parameterList = new ArrayList<>();
+            try {
+                parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
+            }
+            catch (NullPointerException e) {
+                // do nothing and keep going
+            }
+
             String functionName;
             try{
                 functionName = oneCommandVariableMap.get(FUNCTION_NAME);

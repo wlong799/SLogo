@@ -49,6 +49,8 @@ public class XmlSaver implements IXmlStrings {
 
         Map<String, Double> variableMap = dataStorage.getValueVariableMap();
 
+        System.out.println(variableMap.keySet());
+
         for (String variableName : variableMap.keySet()) {
             Element variableElement = doc.createElement(VARIABLE_ + Integer.toString(variableNum));
 
@@ -61,6 +63,10 @@ public class XmlSaver implements IXmlStrings {
             variableStorage.appendChild(variableElement);
 
             variableNum++;
+        }
+
+        if(!(variableStorage.hasChildNodes())) {
+            variableStorage.setTextContent("EMPTY");
         }
 
         // command variable
@@ -87,6 +93,9 @@ public class XmlSaver implements IXmlStrings {
                 parameters.append(' ');
             }
 
+            if(parameters.length() <= 0) {
+                parameters.append("EMPTY");
+            }
             functionElement.appendChild(createElementWithData
                     (FUNCTION_PARAMETERS, parameters.toString().trim(), doc));
 
@@ -96,6 +105,10 @@ public class XmlSaver implements IXmlStrings {
 
             functionStorage.appendChild(functionElement);
             functionNum++;
+        }
+
+        if(!(functionStorage.hasChildNodes())) {
+            functionStorage.setTextContent("EMPTY");
         }
 
         // write the content into xml file

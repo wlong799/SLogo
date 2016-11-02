@@ -34,6 +34,7 @@ public class XmlManager implements IXmlStrings {
 
     public void loadAndSetVariablesCommands(File givenXml, DataStorageManager dataStorage) throws Exception {
         XmlParser parser = new XmlParser();
+        XmlDataSetter setter = new XmlDataSetter();
         Map<String, Object> parsedMap = parser.XmlParse(givenXml);
 
         Map<String, Object> tempMap = new HashMap<>();
@@ -48,7 +49,10 @@ public class XmlManager implements IXmlStrings {
         try{
             variableMap = (Map<String,  Map<String, String>>) tempMap.get(VARIABLE_STORAGE);
         }
-        catch(NullPointerException e) {
+        catch(ClassCastException e) {
+            // do nothing, but give an empty variableMap
+        }
+        catch (NullPointerException e) {
             throw new XmlFormatException(VARIABLE_STORAGE);
         }
 
@@ -56,11 +60,14 @@ public class XmlManager implements IXmlStrings {
         try {
             commandMap = (Map<String, Map<String, String>>) tempMap.get(FUNCTION_STORAGE);
         }
+        catch(ClassCastException e) {
+            // do nothing, but give empty commandMap
+        }
         catch(NullPointerException e) {
             throw new XmlFormatException(FUNCTION_STORAGE);
         }
 
-        XmlDataSetter setter = new XmlDataSetter();
+
 
         dataStorage.setVariableStorage(setter.setValueVariables(variableMap));
         dataStorage.setCommandStorage(setter.setCommandVariables(commandMap));
