@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import view.SLogoView;
 import xml.XmlManager;
+import xml.XmlSaver;
 
 import java.io.File;
 import java.util.*;
@@ -115,5 +116,10 @@ public class SLogoController {
 
     public ObservableList<Integer> getActiveWorkspaceNums() {
         return myActiveWorkspaceNums;
+    }
+
+    public void saveWorkspaceVariables() {
+        Workspace workspace = myWorkspaceMap.get(myCurrentWorkspaceNum.get());
+        new XmlSaver().saveCommandsVariables(workspace.getModel().getData());
     }
 }

@@ -13,7 +13,7 @@ public class WorkspaceController extends InteractionController {
                     "StartButtons",
                     "WorkspaceCreator",
                     "WorkspaceLoader",
-                    "WorkspaceSaver",
+                    "WorkspaceVariableSaver",
                     "WorkspaceSwitcher",
                     "WorkspaceCloser"
             };

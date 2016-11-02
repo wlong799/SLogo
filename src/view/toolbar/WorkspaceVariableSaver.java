@@ -4,18 +4,18 @@ import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
-public class WorkspaceSaver extends MenuElement implements WorkspaceInteractor {
-    private static final String NAME = "Save Workspace";
+public class WorkspaceVariableSaver extends MenuElement implements WorkspaceInteractor {
+    private static final String NAME = "Save Workspace Variables";
 
     private MenuItem myMenuItem;
 
-    public WorkspaceSaver() {
+    public WorkspaceVariableSaver() {
         myMenuItem = new MenuItem(NAME);
     }
 
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
-        return;
+        myMenuItem.setOnAction(event -> slogoController.saveWorkspaceVariables());
     }
 
     @Override

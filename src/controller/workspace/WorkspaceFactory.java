@@ -31,7 +31,7 @@ public class WorkspaceFactory {
             {
                     "WorkspaceCreator",
                     "WorkspaceLoader",
-                    "WorkspaceSaver",
+                    "WorkspaceVariableSaver",
                     "WorkspaceSwitcher",
                     "WorkspaceCloser"
             };

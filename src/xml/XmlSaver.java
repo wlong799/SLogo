@@ -2,6 +2,7 @@ package xml;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
@@ -12,6 +13,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
 import dataStorage.CommandStorage;
 import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
@@ -20,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class XmlSaver {
+    private static final String SAVE_PACKAGE = "src/resources/xmlData/";
     private static final String COMMANDS_VARIABLES_FILENAME = "CommandsAndVariables";
     private static final String SEPARATOR = "_";
     private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
@@ -56,7 +59,7 @@ public class XmlSaver {
 
             Map<String, Double> variableMap = dataStorage.getValueVariableMap();
 
-            for(String variableName : variableMap.keySet()) {
+            for (String variableName : variableMap.keySet()) {
                 Element variableElement = doc.createElement(myResources.getString("variable_") + Integer.toString(variableNum));
 
                 variableElement.appendChild(createElementWithData
@@ -80,7 +83,7 @@ public class XmlSaver {
 
             Map<String, String> functionMap = commandStorage.getCommandMap();
 
-            for(String functionName : functionMap.keySet()) {
+            for (String functionName : functionMap.keySet()) {
                 Element functionElement = doc.createElement(myResources.getString("function_") + Integer.toString(functionNum));
 
                 functionElement.appendChild(createElementWithData
@@ -88,7 +91,7 @@ public class XmlSaver {
 
                 StringBuilder parameters = new StringBuilder();
 
-                for(String oneParameter : commandStorage.getCommandParams(functionName)) {
+                for (String oneParameter : commandStorage.getCommandParams(functionName)) {
                     parameters.append(oneParameter);
                     parameters.append(' ');
                 }
@@ -108,8 +111,10 @@ public class XmlSaver {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
 
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+
             SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
-            String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
+            String savedFileName = SAVE_PACKAGE + COMMANDS_VARIABLES_FILENAME + SEPARATOR + dateFormatter.format(new Date());
             StreamResult result = new StreamResult(new File(savedFileName));
 
             // Output to console for testing
@@ -125,7 +130,6 @@ public class XmlSaver {
         } catch (TransformerException tfe) {
             tfe.printStackTrace();
         }
-
 
 
     }
