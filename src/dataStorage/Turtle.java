@@ -3,58 +3,58 @@ package dataStorage;
 import java.beans.PropertyChangeSupport;
 import java.util.Observable;
 
-public class Turtle extends Observable{
+
+public class Turtle extends Observable implements TurtleState {
 
     private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
     /* The dataStorage's current position */
     private int myID;
 
-	/* The Turtle's current position */
-	private Position myPosition;
-	private double myHeading; // use unit circle-style direction
+    /* The Turtle's current position */
+    private Position myPosition;
+    private double myHeading; // use unit circle-style direction
 
-	/* Pen status */
-	private boolean myPenDown;
-    private double myPenColor;
+    /* Pen status */
+    private boolean myPenDown;
+    private String myPenColor;
     private double myPenSize;
+    private int myColorIndex;
 
     /* Turtle status */
-	private boolean myTurtleVisible;
+    private boolean myTurtleVisible;
     private double myShape;
 
-
-	public Turtle(int id) {
+    public Turtle (int id) {
         myID = id;
-		myPosition = new Position(0, 0);
-		myHeading = -90.0;
-		myPenDown = true;
-		myTurtleVisible = true;
-	}
-
-
-    private void updateAndCallObserver () {
-        TurtleState showOffState =
-                new TurtleState(this);
-        setChanged();
-        notifyObservers(showOffState);
+        myPosition = new Position(0, 0);
+        myHeading = -90.0;
+        myPenDown = true;
+        myTurtleVisible = true;
+        myPenColor = "rgb(255,0,0)";
+        myColorIndex = 0;
+        
     }
 
+    private void updateAndCallObserver () {
+        setChanged();
+        notifyObservers(this);
+    }
 
-	//
-	/* Getter and Setter methods */
-	//
+    //
+    /* Getter and Setter methods */
+    //
 
-    public int getID() {
+    public int getID () {
         return myID;
     }
 
-	public Position getPosition() {
-		return myPosition;
-	}
+    public Position getPosition () {
+        return myPosition;
+    }
 
-	public void setPosition(Position position) {
-		myPosition = position;
+    public void setPosition (Position position) {
+        myPosition = position;
         updateAndCallObserver();
     }
 
@@ -74,38 +74,47 @@ public class Turtle extends Observable{
     public void setPenDownStatus (boolean isPenDown) {
         myPenDown = isPenDown;
         updateAndCallObserver();
-	}
+    }
 
-    public double getPenColor() {
+    public String getPenColor () {
         return myPenColor;
     }
 
-    public void setPenColor(double newPenColor) {
-        myPenColor = newPenColor;
+    public int getColorIndex () {
+        return myColorIndex;
     }
 
-    public double getPenSize() {
+    public void setColorIndex (int index) {
+        myColorIndex = index;
+    }
+
+    public void setPenColor (String newPenColor) {
+        myPenColor = newPenColor;
+        updateAndCallObserver();
+    }
+
+    public double getPenSize () {
         return myPenSize;
     }
 
-    public void setPenSize(double newPenSize) {
+    public void setPenSize (double newPenSize) {
         myPenSize = newPenSize;
     }
 
-	public boolean getVisibility() {
-		return myTurtleVisible;
-	}
+    public boolean getVisibility () {
+        return myTurtleVisible;
+    }
 
-	public void setVisibility(boolean isVisible) {
-		myTurtleVisible = isVisible;
+    public void setVisibility (boolean isVisible) {
+        myTurtleVisible = isVisible;
         updateAndCallObserver();
-	}
+    }
 
-    public void setShape(double newShape) {
+    public void setShape (double newShape) {
         myShape = newShape;
     }
 
-    public double getShape() {
+    public double getShape () {
         return myShape;
     }
 }

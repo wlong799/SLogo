@@ -12,9 +12,8 @@ public class SetBackground extends AbstractCommandHigherOrder {
     @Override
     public double execute () {
         int index = getParameters().get(0).intValue();
-        // getData().
         System.out.println("set color " + index);
-        //getData().setColor(index);
+        getData().setBackgroundColor(index);
         return (double) index;
     }
 

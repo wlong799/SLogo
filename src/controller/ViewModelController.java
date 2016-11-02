@@ -8,6 +8,7 @@ import model.SLogoModel;
 import view.Commander;
 import view.ElementManager;
 import view.panel.CommandHistoryWindow;
+import view.panel.PaletteWindow;
 import view.panel.StoredFunctionWindow;
 import view.panel.StoredVariableWindow;
 import view.toolbar.SettingsMenuBar;
@@ -16,11 +17,10 @@ import view.turtle.TurtleManager;
 
 
 public class ViewModelController extends InteractionController {
-    private static final String[] COMMANDER_ELEMENTS = new String[]
-            {
-                    "TextEntryBox",
-                    "TurtleManager"
-            };
+    private static final String[] COMMANDER_ELEMENTS = new String[] {
+                                                                      "TextEntryBox",
+                                                                      "TurtleManager"
+    };
 
     private SLogoModel myModel;
 
@@ -30,16 +30,17 @@ public class ViewModelController extends InteractionController {
     }
 
     @Override
-    public void setUpInteractions() {
+    public void setUpInteractions () {
         linkCommanders();
         linkTurtleWithView();
         linkCommandHistory();
         linkFunctionStorage();
         linkVariableStorage();
+        linkColorStorage();
         // setLanguageChanger();
     }
 
-    private void linkCommanders() {
+    private void linkCommanders () {
         for (String commandClassName : COMMANDER_ELEMENTS) {
             Commander commander = myViewElements.getCommanderElement(commandClassName);
             if (commander != null) {
@@ -51,7 +52,7 @@ public class ViewModelController extends InteractionController {
         }
     }
 
-    private void linkVariableStorage() {
+    private void linkVariableStorage () {
         if (myViewElements.getGUIElement("StoredVariableWindow") == null ||
             myModel.getData() == null) {
             return;
@@ -68,6 +69,16 @@ public class ViewModelController extends InteractionController {
             double val = Double.parseDouble(newVals[1]);
             myModel.getData().setVariable(name, val);
         });
+    }
+
+    private void linkColorStorage () {
+        if (myViewElements.getGUIElement("PaletteWindow") == null ||
+            myModel.getData() == null) {
+            System.out.println("NULL BITCH");
+            return;
+        }
+        PaletteWindow colorWindow = (PaletteWindow) myViewElements.getGUIElement("PaletteWindow");
+        colorWindow.setObservedList(myModel.getData().getColorList());
     }
 
     private void linkFunctionStorage () {
