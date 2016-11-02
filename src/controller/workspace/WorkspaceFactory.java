@@ -32,6 +32,7 @@ public class WorkspaceFactory {
                     "LineColorPicker",
                     "LineSizePicker",
                     "LineStylePicker",
+                    "PenDownToggle",
                     "SeparatorElement",
                     "TurtleImagePicker"
             };
