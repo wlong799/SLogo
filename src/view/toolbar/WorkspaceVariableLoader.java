@@ -5,7 +5,7 @@ import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
 public class WorkspaceVariableLoader extends MenuElement implements WorkspaceInteractor {
-    private static final String NAME = "Save Workspace";
+    private static final String NAME = "Load Workspace Variables";
 
     private MenuItem myMenuItem;
 
@@ -15,7 +15,7 @@ public class WorkspaceVariableLoader extends MenuElement implements WorkspaceInt
 
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
-        return;
+        myMenuItem.setOnAction(event -> slogoController.loadWorkspaceVariables());
     }
 
     @Override

@@ -31,8 +31,11 @@ public class WorkspaceFactory {
             {
                     "WorkspaceCreator",
                     "WorkspaceLoader",
-                    "WorkspaceVariableSaver",
                     "WorkspaceSwitcher",
+                    "SeparatorElement",
+                    "WorkspaceVariableSaver",
+                    "WorkspaceVariableLoader",
+                    "SeparatorElement",
                     "WorkspaceCloser"
             };
     private static final String[] VIEW_MENU_ELEMENTS = new String[]

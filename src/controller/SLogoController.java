@@ -3,6 +3,7 @@ package controller;
 import controller.workspace.Workspace;
 import controller.workspace.WorkspaceFactory;
 import controller.workspace.WorkspaceLoadPreferences;
+import dataStorage.DataStorageManager;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import java.util.*;
 
 
 public class SLogoController {
+    private static final String DEFAULT_DIRECTORY = "src/resources/xmlData";
     private static final String FILE_CHOOSER_TITLE = "Choose a workspace XML file";
     private SLogoView mySLogoView;
     private int myNextWorkspaceNum;
@@ -53,10 +55,11 @@ public class SLogoController {
     public void loadWorkspace() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(FILE_CHOOSER_TITLE);
+        fileChooser.setInitialDirectory(new File(DEFAULT_DIRECTORY));
         File xmlFile = fileChooser.showOpenDialog(mySLogoView.getScene().getWindow());
         WorkspaceLoadPreferences preferences;
         try {
-        preferences = new XmlManager().loadWorkspacePreferences(xmlFile);
+            preferences = new XmlManager().loadWorkspacePreferences(xmlFile);
         } catch (Exception e) {
             System.out.println("Could not parse file... Loading defaults");
             newWorkspace();
@@ -121,5 +124,21 @@ public class SLogoController {
     public void saveWorkspaceVariables() {
         Workspace workspace = myWorkspaceMap.get(myCurrentWorkspaceNum.get());
         new XmlSaver().saveCommandsVariables(workspace.getModel().getData());
+    }
+
+    public void loadWorkspaceVariables() {
+        Workspace workspace = myWorkspaceMap.get(myCurrentWorkspaceNum.get());
+        DataStorageManager data = workspace.getModel().getData();
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(FILE_CHOOSER_TITLE);
+        fileChooser.setInitialDirectory(new File(DEFAULT_DIRECTORY));
+        File xmlFile = fileChooser.showOpenDialog(mySLogoView.getScene().getWindow());
+        try {
+            new XmlManager().loadAndSetVariablesCommands(xmlFile, data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not load variables from file.");
+        }
     }
 }
