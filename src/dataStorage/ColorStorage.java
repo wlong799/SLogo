@@ -5,72 +5,109 @@ import javafx.collections.ObservableList;
 import java.util.*;
 
 
-public class ColorStorage {
-    private Map<Integer, Map<String, Integer>> myColorMap;
-    private static final int DEFAULT_RETURN = 0;
-    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
-    private ResourceBundle myResources;
-    private ObservableList<Integer> myColor;
+/**
+ * 
+ * @author michael
+ *
+ */
+public class ColorStorage extends Observable {
+    private static final String COLOR_SEPARATOR = ",";
     private static final String COLOR_PATHS = "resources/colors";
+    private Map<Integer, String> myColorMap;
+    private ObservableList<String> myColorList;
+    private double myPenSize;
+    private String myPenColor;
+    private String myBackgroundColor;
 
-
-    public ColorStorage() {
+    public ColorStorage () {
         myColorMap = new HashMap<>();
-        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
-        myColor = FXCollections.observableArrayList();
+        myColorList = FXCollections.observableArrayList();
         init();
     }
 
     private void init () {
-        myColor.addAll(255, 255, 255);
+
         ResourceBundle defaultColors = ResourceBundle.getBundle(COLOR_PATHS);
         for (String s : defaultColors.keySet()) {
-            String colorList = defaultColors.getString(s);
-            String[] rgb = colorList.split(",");
-            Map<String, Integer> colorComponents = new HashMap<>();
-            colorComponents.put(myResources.getString("color_red"), Integer.parseInt(rgb[0]));
-            colorComponents.put(myResources.getString("color_green"), Integer.parseInt(rgb[1]));
-            colorComponents.put(myResources.getString("color_blue"), Integer.parseInt(rgb[2]));
-            myColorMap.put(Integer.parseInt(s), colorComponents);
+            String colorString = addRGB(defaultColors.getString(s));
+
+            myColorMap.put(Integer.parseInt(s), colorString);
+            myColorList.add(s + " " + colorString);
         }
+        myPenColor = myColorMap.get(0);
+        myBackgroundColor = myColorMap.get(1);
+        System.out.println(myColorMap.values());
     }
 
+    private String addRGB (String color) {
+        StringBuilder colorString = new StringBuilder();
+        colorString.append("rgb(");
+        colorString.append(color);
+        colorString.append(")");
+        return colorString.toString();
 
-    public Map<String, Integer> getColor(int index) {
-        try {
-            return myColorMap.get(index);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            // TODO: How can I access the Notifications to set a colorNotSpecifiedFlag?
-            Map<String, Integer> colorComponents = new HashMap<>();
-            colorComponents.put(myResources.getString("color_red"), DEFAULT_RETURN);
-            colorComponents.put(myResources.getString("color_green"), DEFAULT_RETURN);
-            colorComponents.put(myResources.getString("color_blue"), DEFAULT_RETURN);
-            return colorComponents;
-        }
+    }
+
+    public String getColor (int index) {
+        return myColorMap.containsKey(index) ? myColorMap.get(index) : myColorMap.get(0);
+    }
+
+    private String toColorString (int red, int green, int blue) {
+        StringBuilder colorBuilder = new StringBuilder();
+        colorBuilder.append(red);
+        colorBuilder.append(COLOR_SEPARATOR);
+        colorBuilder.append(green);
+        colorBuilder.append(COLOR_SEPARATOR);
+        colorBuilder.append(blue);
+        return addRGB(colorBuilder.toString());
     }
 
     public void addColor (int index, int red, int green, int blue) {
-        Map<String, Integer> colorComponents = new HashMap<>();
-        colorComponents.put(myResources.getString("color_red"), red);
-        colorComponents.put(myResources.getString("color_green"), green);
-        colorComponents.put(myResources.getString("color_blue"), blue);
-        myColorMap.put(index, colorComponents);
-    }
 
-    public void setColor (int index) {
         if (myColorMap.containsKey(index)) {
-            myColor.clear();
-            for (String key : myColorMap.get(index).keySet()) {
-                myColor.add(myColorMap.get(index).get(key));
-            }
+            myColorList.remove(index + " " + myColorMap.get(index));
         }
+        String colorString = toColorString(red, green, blue);
+        myColorMap.put(index, colorString);
+        // System.out.println(myColorMap.values());
+        myColorList.add(index + " " + colorString);
+        System.out.println(myColorList + " color list");
     }
 
+    public void setPenColor (int index) {
+        if (myColorMap.containsKey(index)) {
+            myPenColor = myColorMap.get(index);
+        }
+        updateObservers();
+    }
 
-    public Map<Integer, Map<String, Integer>> getColorMap() {
+    public void setBackgroundColor (int index) {
+        if (myColorMap.containsKey(index)) {
+            myBackgroundColor = myColorMap.get(index);
+        }
+        updateObservers();
+    }
+
+    public Map<Integer, String> getColorMap () {
         return myColorMap;
+    }
+
+    public ObservableList<String> getColorList () {
+        System.out.println(myColorList + " my color list");
+        return myColorList;
+    }
+
+    public void setPenSize (double penSize) {
+        myPenSize = penSize;
+        updateObservers();
+    }
+
+    /**
+     * 
+     */
+    private void updateObservers () {
+        this.notifyObservers(new String[] { myBackgroundColor, myPenColor,
+                                            Double.toString(myPenSize) });
     }
 
 }

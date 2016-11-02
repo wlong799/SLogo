@@ -2,7 +2,6 @@ package dataStorage;
 
 import java.util.List;
 import java.util.Map;
-
 import javafx.collections.ObservableList;
 import java.util.*;
 
@@ -67,32 +66,28 @@ public class DataStorageManager {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
 
+    // public ObservableList<Integer> getBackgroundColor () {
+    // return myColorStorage.getColor();
+    // }
 
-//    public ObservableList<Integer> getBackgroundColor () {
-//        return myColorStorage.getColor();
-//    }
-
-//    public int addColor (int index) {
-//        myColorStorage.addColor(index);
-//        return index;
-//    }
-
+    // public int addColor (int index) {
+    // myColorStorage.addColor(index);
+    // return index;
+    // }
 
     public void addHistory (String command) {
         myCommandHistoryStorage.addCommand(command);
     }
 
-
-    public Map<Integer, Map<String, Integer>> getColorMap() {
-        return myColorStorage.getColorMap();
+    public ObservableList<String> getColorList () {
+        return myColorStorage.getColorList();
     }
 
-
-    public Map<String, Double> getValueVariableMap() {
+    public Map<String, Double> getValueVariableMap () {
         return myVariableStorage.getVariableMap();
     }
 
-    public CommandStorage getCommandStorage() {
+    public CommandStorage getCommandStorage () {
         return myCommandStorage;
     }
 
@@ -106,12 +101,25 @@ public class DataStorageManager {
         myCommandStorage = commandStorage;
     }
 
+    public ColorStorage getColors () {
+        return myColorStorage;
+    }
+
     public void setColorStorage (ColorStorage colorStorage) {
         myColorStorage = colorStorage;
     }
 
-    public int setColor (int index) {
-        myColorStorage.setColor(index);
-        return index;
+    public void setColor (int index) {
+        myColorStorage.setPenColor(index);
+    }
+    
+    public void setBackgroundColor(int index){
+        myColorStorage.setBackgroundColor(index);
+    }
+
+    public void addColor (int index, int red, int green, int blue) {
+        // TODO Auto-generated method stub
+        System.out.println("ADDING COLOR");
+        myColorStorage.addColor(index, red, green, blue);
     }
 }
