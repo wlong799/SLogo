@@ -63,14 +63,6 @@ public class TextEntryBox extends GUIElement implements Commander {
         return myContent;
     }
 
-    public void setSubmitHandler(EventHandler<ActionEvent> submitHandler) {
-        mySubmitButton.setOnAction(submitHandler);
-    }
-
-    public String getEnteredText() {
-        return myTextBox.getText();
-    }
-
     public void setText(String text) {
         myTextBox.setText(text);
     }
@@ -90,6 +82,7 @@ public class TextEntryBox extends GUIElement implements Commander {
         if (entryText == null || entryText.length() == 0) {
             return null;
         }
+        clearText();
         return entryText;
     }
 

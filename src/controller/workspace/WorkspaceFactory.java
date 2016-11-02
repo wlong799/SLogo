@@ -23,6 +23,7 @@ public class WorkspaceFactory {
     private static final int NUM_TURTLES = 1;
     private static final String FILE_NAME = "File";
     private static final String VIEW_NAME = "View";
+    private static final String ANIMATION_NAME = "Animation";
     private static final String HELP_NAME = "Help";
     private static final String[] FILE_MENU_ELEMENTS = new String[]
             {
@@ -46,6 +47,12 @@ public class WorkspaceFactory {
                     "SeparatorElement",
                     "TurtleImagePicker",
                     "CustomTurtleImageInput"
+            };
+    private static final String[] ANIMATION_MENU_ELEMENTS = new String[]
+            {
+                    "AnimationToggler",
+                    "RunSpeedSetter",
+                    "AnimationStepper"
             };
 
     private static final String[] HELP_MENU_ELEMENTS = new String[]
@@ -72,6 +79,8 @@ public class WorkspaceFactory {
         workspaceContent.addMenuElement(FILE_NAME, Arrays.stream(FILE_MENU_ELEMENTS).map(
                 s -> TOOLBAR_PACKAGE + s).toArray(size -> new String[size]));
         workspaceContent.addMenuElement(VIEW_NAME, Arrays.stream(VIEW_MENU_ELEMENTS).map(
+                s -> TOOLBAR_PACKAGE + s).toArray(size -> new String[size]));
+        workspaceContent.addMenuElement(ANIMATION_NAME, Arrays.stream(ANIMATION_MENU_ELEMENTS).map(
                 s -> TOOLBAR_PACKAGE + s).toArray(size -> new String[size]));
         workspaceContent.addMenuElement(HELP_NAME, Arrays.stream(HELP_MENU_ELEMENTS).map(
                 s -> TOOLBAR_PACKAGE + s).toArray(size -> new String[size]));

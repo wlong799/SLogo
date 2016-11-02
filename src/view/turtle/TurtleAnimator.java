@@ -10,6 +10,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import view.Style;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -134,10 +135,11 @@ public class TurtleAnimator implements Runnable {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-            	if(myCurrentTurtleLines.getIsPenDown()==true){
-                myCurrentTurtleLines.drawLine(xStart, yStart, x.get(), y.get());
+                if (myCurrentTurtleLines.getIsPenDown()) {
+                    myCurrentTurtleLines.drawLine(xStart, yStart, x.get(), y.get());
+                }
             }
-        };};
+        };
 
         EventHandler onFinished = event -> timer.stop();
         KeyFrame startFrame = new KeyFrame(Duration.millis(0),

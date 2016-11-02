@@ -84,4 +84,8 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     public TurtleManager getTurtleManager () {
         return myTurtleManager;
     }
+
+    public TurtleAnimator getAnimator() {
+        return myTurtleAnimator;
+    }
 }

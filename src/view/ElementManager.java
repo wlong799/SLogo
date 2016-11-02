@@ -63,6 +63,11 @@ public class ElementManager {
                 object -> (WorkspaceInteractor) object).collect(Collectors.toList());
     }
 
+    public List<AnimationController> getAnimationControllerElements() {
+        return myElements.stream().filter(object -> object instanceof AnimationController).map(
+                object -> (AnimationController) object).collect(Collectors.toList());
+    }
+
     private Object getElement(String className) {
         for (Object element : myElements) {
             if (checkClass(element, className)) {
