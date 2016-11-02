@@ -1,15 +1,21 @@
-package model.command.zeroParameter.turtle;
+package model.command.higherOrderCommands;
 
 import model.command.AbstractCommand;
+import model.command.zeroParameter.turtle.AbstractCommandZeroParameterTurtle;
 import java.util.List;
 
 
-public class GetPenColor extends AbstractCommandZeroParameterTurtle {
-    public GetPenColor(List<AbstractCommand> parameters) {
+public class GetPenColor extends AbstractCommandHigherOrder {
+    public GetPenColor (List<AbstractCommand> parameters) {
         super(parameters);
     }
 
-    public double turtleExecute() {
-        return myTurtle.getColorIndex();
+    public double execute () {
+        return getData().getColors().getColorIndex();
+    }
+
+    @Override
+    public int getNumParameters () {
+        return 0;
     }
 }

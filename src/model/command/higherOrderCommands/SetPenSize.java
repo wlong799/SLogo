@@ -16,4 +16,9 @@ public class SetPenSize extends AbstractCommandHigherOrder {
         getData().getColors().setPenSize(newPenSize);
         return newPenSize;
     }
+    
+    @Override
+    public int getNumParameters () {
+        return 1;
+    }
 }
