@@ -25,9 +25,6 @@ public class ViewViewController extends InteractionController {
 
     @Override
     public void setUpInteractions() {
-        //setClickableCommandHistory();
-        //setClickableFunctionStorage();
-        //linkStyleElements();
         for (String[] linkedElements : STYLE_ELEMENTS_TO_LINK) {
             Stylizer stylizer = myViewElements.getStylizerElement(linkedElements[0]);
             Stylizable stylizable = myViewElements.getStylizableElement(linkedElements[1]);
@@ -36,18 +33,5 @@ public class ViewViewController extends InteractionController {
             }
         }
     }
-/*
-    private void setClickableCommandHistory() {
-        if (myViewElements.getGUIElement("CommandHistoryWindow") == null || myViewElements.getGUIElement("TextEntryBox") == null) {
-            return;
-        }
-        CommandHistoryWindow chWindow = (CommandHistoryWindow) myViewElements.getGUIElement("CommandHistoryWindow");
-        TextEntryBox textBox = (TextEntryBox) myViewElements.getGUIElement("TextEntryBox");
-        chWindow.setClickEvent(event -> {
-            String selectedCommand = chWindow.getSelectedElement();
-            textBox.setText(selectedCommand);
-        });
-    }*/
-
 
 }

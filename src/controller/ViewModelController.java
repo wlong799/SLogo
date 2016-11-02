@@ -36,7 +36,6 @@ public class ViewModelController extends InteractionController {
         linkCommanders();
         setObservableLists();
         linkTurtleWithView();
-        // setLanguageChanger();
     }
 
     private void linkCommanders() {
@@ -97,19 +96,5 @@ public class ViewModelController extends InteractionController {
                 turtleManager.setActiveTurtleNums(newList);
             }
         });
-    }
-
-    private void setLanguageChanger() {
-        if (myViewElements.getGUIElement("SettingsMenuBar") == null) {
-            System.out.println("fail");
-            return;
-        }
-
-        SettingsMenuBar toolBar = (SettingsMenuBar) myViewElements.getGUIElement("SettingsMenuBar");
-        toolBar.setLanguageChooserHandler(event -> {
-            myModel.setLanguage(toolBar.getLanguageSelection());
-            System.out.println("success");
-        });
-        System.out.println("success");
     }
 }

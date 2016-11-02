@@ -58,12 +58,9 @@ public class ElementManager {
                 object -> (Commander) object).collect(Collectors.toList());
     }
 
-    public WorkspaceInteractor getWorkspaceInteractorElement(String className) {
-        Object element = getElement(className);
-        if (element == null || !(element instanceof WorkspaceInteractor)) {
-            return null;
-        }
-        return (WorkspaceInteractor) element;
+    public List<WorkspaceInteractor> getWorkspaceInteractorElements() {
+        return myElements.stream().filter(object -> object instanceof WorkspaceInteractor).map(
+                object -> (WorkspaceInteractor) object).collect(Collectors.toList());
     }
 
     private Object getElement(String className) {
