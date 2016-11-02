@@ -4,6 +4,7 @@ import view.ElementManager;
 
 import view.Stylizable;
 import view.Stylizer;
+import view.panel.ActiveTurtlesWindow;
 import view.panel.CommandHistoryWindow;
 import view.panel.StoredFunctionWindow;
 import view.textbox.TextEntryBox;
