@@ -5,11 +5,14 @@ public class NotificationsState {
     private boolean myClearScreenFlag;
     private boolean myBackgroundColorFlag;
     private int myBackgroundColorIndex;
+    private boolean myFileSavedFlag;
 
-    public NotificationsState(boolean clearScreenFlag, boolean backgroundColorFlag, int backgroundColorIndex) {
+    NotificationsState(boolean clearScreenFlag, boolean backgroundColorFlag, int backgroundColorIndex,
+                              boolean fileSavedFlag) {
         myClearScreenFlag = clearScreenFlag;
         myBackgroundColorFlag = backgroundColorFlag;
         myBackgroundColorIndex = backgroundColorIndex;
+        myFileSavedFlag = fileSavedFlag;
     }
 
     public boolean getClearScreenFlag() {
@@ -20,9 +23,12 @@ public class NotificationsState {
         return myBackgroundColorFlag;
     }
 
-
     public int getBackgroundColorIndex() {
         return myBackgroundColorIndex;
+    }
+
+    public boolean getFileSavedFlag() {
+        return myFileSavedFlag;
     }
 
 }

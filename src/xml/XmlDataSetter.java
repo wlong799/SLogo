@@ -2,132 +2,121 @@ package xml;
 
 import controller.workspace.WorkspaceLoadPreferences;
 import dataStorage.*;
-import sun.applet.resources.MsgAppletViewer;
-
+import exceptions.XmlFormatException;
 import java.util.*;
 
-public class XmlDataSetter {
-    private static final int ONLY_ITEM = 0;
-    private static final String RESOURCE_PACKAGE = "resources/xmlNaming";
 
-    private ResourceBundle myResources;
+class XmlDataSetter implements IXmlStrings{
 
-    public XmlDataSetter() {
-        myResources = ResourceBundle.getBundle(RESOURCE_PACKAGE);
-    }
-
-
-    /**
-     *
-     * @param turtleMap: given only the part of the parsed map which is "turtle_storage"
-     * @return
-     */
-    public TurtleStorage setTurtles(Map<String, Map<String, String>> turtleMap) {
-
-        TurtleStorage newTurtleStorage = new TurtleStorage();
-
-        for(String oneTurtleKey : turtleMap.keySet()) {
-            Map<String, String> oneTurtleMap = turtleMap.get(oneTurtleKey);
-            List<Integer> oneID = new ArrayList<>();
-            oneID.add(Integer.parseInt(oneTurtleMap.get("id")));
-
-            newTurtleStorage.setActiveTurtles(oneID);  // makes the one turtle specified
-
-            Turtle oneTurtle = newTurtleStorage.getTurtle(oneID.get(ONLY_ITEM));
-
-            // set Position
-            Position turtlePosition = new Position(
-                    Double.parseDouble(oneTurtleMap.get("x")),
-                    Double.parseDouble(oneTurtleMap.get("y"))
-            );
-
-            oneTurtle.setPosition(turtlePosition);
-
-            // set Heading
-            oneTurtle.setHeading(Double.parseDouble(oneTurtleMap.get("heading")));
-
-            // set penDown
-            oneTurtle.setPenDownStatus(Boolean.getBoolean(oneTurtleMap.get("pen_down")));
-
-            oneTurtle.setPenColor(Double.parseDouble(oneTurtleMap.get("pen_color")));
-
-            oneTurtle.setPenSize(Double.parseDouble(oneTurtleMap.get("pen_size")));
-
-            oneTurtle.setVisibility(Boolean.getBoolean(oneTurtleMap.get("visible")));
-
-            oneTurtle.setShape(Double.parseDouble(oneTurtleMap.get("shape")));
-        }
-
-        return newTurtleStorage;
-    }
-
-    public ColorStorage setColors(Map<String, Map<String, String>> colorMap) {
-        ColorStorage newColorStorage = new ColorStorage();
-
-        for(String oneColorKey : colorMap.keySet()) {
-            Map<String, String> oneColorMap = colorMap.get(oneColorKey);
-            newColorStorage.addColor(
-                    Integer.parseInt(oneColorMap.get("index")),
-                    Integer.parseInt(oneColorMap.get("red")),
-                    Integer.parseInt(oneColorMap.get("green")),
-                    Integer.parseInt(oneColorMap.get("blue"))
-            );
-        }
-        return newColorStorage;
-    }
-
-    public VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) {
+    VariableStorage setValueVariables(Map<String, Map<String, String>> valueVariableMap) throws XmlFormatException{
         VariableStorage newValueVariableStorage = new VariableStorage();
 
         for(String oneVariableKey : valueVariableMap.keySet()) {
             Map<String, String> oneValueVariableMap = valueVariableMap.get(oneVariableKey);
+            String name;
+            try {
+                name = oneValueVariableMap.get(VARIABLE_NAME);
+            }
+            catch (NullPointerException e) {
+                throw new XmlFormatException(VARIABLE_NAME);
+            }
+
+            String value;
+
+            try {
+                value = oneValueVariableMap.get(VARIABLE_VALUE);
+            }
+            catch(NullPointerException e) {
+                throw new XmlFormatException(VARIABLE_VALUE);
+            }
 
             newValueVariableStorage.setVariable(
-                    oneValueVariableMap.get("name"),
-                    Double.parseDouble(oneValueVariableMap.get("value"))
+                    name,
+                    Double.parseDouble(value)
             );
         }
 
         return newValueVariableStorage;
     }
 
-    public CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) {
+    CommandStorage setCommandVariables(Map<String, Map<String, String>> commandVariableMap) throws XmlFormatException {
         CommandStorage newCommandVariableStorage = new CommandStorage();
 
         for(String oneVariableKey : commandVariableMap.keySet()) {
             Map<String, String> oneCommandVariableMap = commandVariableMap.get(oneVariableKey);
 
-            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get("parameters").split(" "));
+            List<String> parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
+
+            String functionName;
+            try{
+                functionName = oneCommandVariableMap.get(FUNCTION_NAME);
+            }
+            catch(NullPointerException e) {
+                throw new XmlFormatException(FUNCTION_NAME);
+            }
+
+            String functionBody;
+            try{
+                functionBody = oneCommandVariableMap.get(FUNCTION_BODY);
+            }
+            catch(NullPointerException e) {
+                throw new XmlFormatException(FUNCTION_BODY);
+            }
 
             newCommandVariableStorage.setCommand(
-                    oneCommandVariableMap.get("name"),
+                    functionName,
                     parameterList,
-                    oneCommandVariableMap.get("body")
+                    functionBody
             );
 
         }
         return newCommandVariableStorage;
     }
 
-    public WorkspaceLoadPreferences setWorkspaceLoadPreferences(Map<String, Object> workspaceMap) {
+    WorkspaceLoadPreferences setWorkspaceLoadPreferences(Map<String, Object> workspaceMap) throws XmlFormatException {
         List<Integer> backgroundColor = new ArrayList<>();
         List<Integer> lineColor = new ArrayList<>();
 
-        Map<String, String> colorMap = (Map<String, String>) workspaceMap.get(myResources.getString("background_color"));
+        Map<String, String> colorMap = new HashMap<>();
+        try {
+            colorMap = (Map<String, String>) workspaceMap.get(BACKGROUND_COLOR);
+        }
+        catch (Exception e) {
+            throw new XmlFormatException(BACKGROUND_COLOR);
+        }
 
         for(String colorKey : colorMap.keySet()){
             backgroundColor.add(Integer.parseInt(colorMap.get(colorKey)));
         }
 
-        Map<String, String> lineColorMap = (Map<String, String>) workspaceMap.get(myResources.getString("line_color"));
+        Map<String, String> lineColorMap = new HashMap<>();
+
+        try {
+            lineColorMap = (Map<String, String>) workspaceMap.get(LINE_COLOR);
+        }
+        catch(Exception e) {
+            throw new XmlFormatException(LINE_COLOR);
+        }
 
         for(String colorKey : lineColorMap.keySet()){
             lineColor.add(Integer.parseInt(lineColorMap.get(colorKey)));
         }
 
-        String startingImage = (String) workspaceMap.get(myResources.getString("starting_image"));
-        String commandLanguage = (String) workspaceMap.get(myResources.getString("command_language"));
-        return new WorkspaceLoadPreferences(backgroundColor, lineColor, startingImage, commandLanguage);
+        String startingImage;
+        String commandLanguage;
 
+        try {
+            startingImage = (String) workspaceMap.get(STARTING_IMAGE);
+        }
+        catch(NullPointerException e) {
+            throw new XmlFormatException(STARTING_IMAGE);
+        }
+        try {
+            commandLanguage = (String) workspaceMap.get(COMMAND_LANGUAGE);
+        }
+        catch(NullPointerException e) {
+            throw new XmlFormatException(COMMAND_LANGUAGE);
+        }
+        return new WorkspaceLoadPreferences(backgroundColor, lineColor, startingImage, commandLanguage);
     }
 }

@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 public class Style {
     private Image myImage;
     private Color myColor;
+    private double myLineWidth;
+    private boolean myBool;
 
     public Style (Image img) {
         myImage = img;
@@ -21,6 +23,15 @@ public class Style {
     public Style (Color color) {
         myColor = color;
     }
+    
+    public Style (double num){
+    	myLineWidth = num;
+    }
+    
+    public Style(boolean bool){
+    	myBool = bool;
+    	
+    }
 
     public Image getImage () {
         return myImage;
@@ -28,5 +39,13 @@ public class Style {
 
     public Color getColor () {
         return myColor;
+    }
+    
+    public boolean getPenIsDown (){
+    	return myBool;
+    }
+    
+    public double getWidth(){
+    	return myLineWidth;
     }
 }

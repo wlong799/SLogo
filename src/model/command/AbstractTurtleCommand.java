@@ -12,6 +12,7 @@ import dataStorage.TurtleStorage;
  *
  */
 public abstract class AbstractTurtleCommand extends AbstractCommand {
+    private static final double CIRCLE_DEGREES = 360;
 
     protected Turtle myTurtle;
     private TurtleStorage myTurtles;
@@ -48,5 +49,22 @@ public abstract class AbstractTurtleCommand extends AbstractCommand {
         getTurtles().setActiveTurtles(activeSingleTurtles);
         getTurtles().updateTurtles();
         return output;
+    }
+
+    protected double correctOverTurns(double degrees) {
+        int overByNumTurns = 0;
+        if(Math.abs(degrees) >= CIRCLE_DEGREES) {
+            overByNumTurns = (int) (degrees / CIRCLE_DEGREES);
+        }
+        double newDegrees =  degrees - overByNumTurns * CIRCLE_DEGREES;
+
+        if(newDegrees < 0) {
+            newDegrees += CIRCLE_DEGREES;
+        }
+        return newDegrees;
+    }
+
+    protected double distanceFormula (double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 }

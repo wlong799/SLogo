@@ -45,6 +45,7 @@ public class WorkspaceFactory {
                     "LineColorPicker",
                     "LineSizePicker",
                     "LineStylePicker",
+                    "PenDownToggle",
                     "SeparatorElement",
                     "TurtleImagePicker"
             };
@@ -53,6 +54,7 @@ public class WorkspaceFactory {
             {
                     "AboutInfo",
                     "CommandHelpInfo"
+                    
             };
 
     public static Workspace createWorkspace(double width, double height, SLogoController slogoController, boolean isStart) {

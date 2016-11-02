@@ -5,7 +5,8 @@ import java.util.List;
 import model.command.AbstractCommand;
 
 
-public class Quotient extends AbstractCommandTwoParameterMath {
+public class Quotient extends AbstractCommandTwoParameterMath{
+
     public Quotient(List<AbstractCommand> parameters) {
         super(parameters);
     }

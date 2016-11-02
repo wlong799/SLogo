@@ -123,7 +123,12 @@ public class SLogoController {
 
     public void saveWorkspaceVariables() {
         Workspace workspace = myWorkspaceMap.get(myCurrentWorkspaceNum.get());
-        new XmlSaver().saveCommandsVariables(workspace.getModel().getData());
+        try {
+            new XmlSaver().saveCommandsVariables(workspace.getModel().getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't save file.");
+        }
     }
 
     public void loadWorkspaceVariables() {

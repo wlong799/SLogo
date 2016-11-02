@@ -11,7 +11,6 @@ public class SetTowards extends AbstractCommandTwoParameterTurtle {
         super(parameters);
     }
 
-    // TODO: ensure degrees are always positive
     @Override
     protected double turtleExecute () {
         ArrayList<Double> operationParameters = getParameters();
@@ -28,6 +27,6 @@ public class SetTowards extends AbstractCommandTwoParameterTurtle {
 
         myTurtle.setHeading(newHeading);
 
-        return oldHeading - newHeading;
+        return correctOverTurns(oldHeading - newHeading);
     }
 }

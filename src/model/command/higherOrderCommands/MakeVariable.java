@@ -10,16 +10,6 @@ public class MakeVariable extends AbstractCommandHigherOrder {
 
     public MakeVariable (List<AbstractCommand> parameters) {
         super(parameters);
-        // TODO: look at Filip comment in expression tree
-        //myName = parameters.get(PARAMETER_ONE).getCommands().get(PARAMETER_ONE).toString();  // TODO:
-                                                                                             // make
-                                                                                             // a
-                                                                                             // toString
-                                                                                             // method
-                                                                                             // to
-                                                                                             // return
-                                                                                             // only
-                                                                                             // name
     }
     
     
