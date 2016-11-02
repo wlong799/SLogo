@@ -22,7 +22,12 @@ public class CommandStorage {
     public void setCommand (String commandName, List<String> parameterNames, String commandString) {
         commandParamMap.put(commandName, parameterNames);
         commandMap.put(commandName, commandString);
-        commandStorageList.add(commandName);
+        String commandView = commandName + "\n[ ";
+        for (String parameterName : parameterNames) {
+            commandView += parameterName + " ";
+        }
+        commandView += "]\n" + commandString;
+        commandStorageList.add(commandView);
     }
 
     // public void setCommand (String commandName, String commandString) {

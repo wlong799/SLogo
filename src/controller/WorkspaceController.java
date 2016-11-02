@@ -8,18 +8,6 @@ import java.util.Arrays;
  * Sets up interactions between elements of view and elements in workspace
  */
 public class WorkspaceController extends InteractionController {
-    private static final String[] WORKSPACE_INTERACTOR_LIST = new String[]
-            {
-                    "StartButtons",
-                    "WorkspaceCreator",
-                    "WorkspaceLoader",
-                    "WorkspaceSwitcher",
-                    "WorkspaceVariableSaver",
-                    "WorkspaceVariableLoader",
-                    "WorkspaceCloser"
-            };
-
-
     private SLogoController mySlogoController;
 
     public WorkspaceController(ElementManager elementManager, SLogoController slogoController) {
@@ -29,8 +17,7 @@ public class WorkspaceController extends InteractionController {
 
     @Override
     public void setUpInteractions() {
-        Arrays.stream(WORKSPACE_INTERACTOR_LIST).map(className -> myViewElements.getWorkspaceInteractorElement(className)).filter(
-                workspaceInteractor -> workspaceInteractor != null).forEach(
+        myViewElements.getWorkspaceInteractorElements().forEach(
                 workspaceInteractor -> workspaceInteractor.setWorkspaceInteractions(mySlogoController));
     }
 }
