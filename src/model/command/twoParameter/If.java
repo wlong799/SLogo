@@ -7,7 +7,6 @@ import java.util.List;
 import model.command.AbstractCommand;
 
 public class If extends AbstractCommandTwoParameter {
-    // TODO FILIP: see about moving a get numTimes and getCodeblock up to AbstractCommand.
 
     public If(List<AbstractCommand> parameters) {
         super(parameters);

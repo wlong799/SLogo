@@ -41,7 +41,6 @@ public class LanguageChooser extends MenuElement {
 	
 	@Override
 	public MenuItem getMenuItem() {
-		// TODO Auto-generated method stub
 		return myMenu;
 	}
 	

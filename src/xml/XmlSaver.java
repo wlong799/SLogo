@@ -26,9 +26,9 @@ public class XmlSaver implements IXmlStrings{
         return element;
     }
 
-    public void saveCommandsVariables(DataStorageManager dataStorage) {
+    public void saveCommandsVariables(DataStorageManager dataStorage) throws Exception {
 
-        try {
+//        http://www.mkyong.com/java/how-to-create-xml-file-in-java-dom/
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -108,15 +108,5 @@ public class XmlSaver implements IXmlStrings{
             transformer.transform(source, result);
 
             System.out.println("File saved!");
-
-            // TODO: print to the front end that can't load the file properly
-        } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
-        } catch (TransformerException tfe) {
-            tfe.printStackTrace();
-        }
-
-
-
     }
 }
