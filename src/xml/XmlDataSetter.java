@@ -55,10 +55,13 @@ class XmlDataSetter implements IXmlStrings{
 
             List<String> parameterList = new ArrayList<>();
             try {
-                parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
+                String stringOfParams = oneCommandVariableMap.get(FUNCTION_PARAMETERS);
+                if(!(stringOfParams.equals(EMPTY))) {
+                    parameterList = Arrays.asList(oneCommandVariableMap.get(FUNCTION_PARAMETERS).split(SPACE));
+                }
             }
             catch (NullPointerException e) {
-                // do nothing and keep going
+                throw new XmlFormatException(FUNCTION_PARAMETERS);
             }
 
             String functionName;

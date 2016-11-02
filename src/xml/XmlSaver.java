@@ -66,7 +66,7 @@ public class XmlSaver implements IXmlStrings {
         }
 
         if(!(variableStorage.hasChildNodes())) {
-            variableStorage.setTextContent("EMPTY");
+            variableStorage.setTextContent(EMPTY);
         }
 
         // command variable
@@ -94,7 +94,7 @@ public class XmlSaver implements IXmlStrings {
             }
 
             if(parameters.length() <= 0) {
-                parameters.append("EMPTY");
+                parameters.append(EMPTY);
             }
             functionElement.appendChild(createElementWithData
                     (FUNCTION_PARAMETERS, parameters.toString().trim(), doc));
@@ -108,7 +108,7 @@ public class XmlSaver implements IXmlStrings {
         }
 
         if(!(functionStorage.hasChildNodes())) {
-            functionStorage.setTextContent("EMPTY");
+            functionStorage.setTextContent(EMPTY);
         }
 
         // write the content into xml file
@@ -116,8 +116,8 @@ public class XmlSaver implements IXmlStrings {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
 
-        SimpleDateFormat currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT);
-        String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
+        String currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT).format(System.currentTimeMillis());
+        String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime;
         StreamResult result = new StreamResult(new File(FILE_PATH + savedFileName));
 
         // Output to console for testing
