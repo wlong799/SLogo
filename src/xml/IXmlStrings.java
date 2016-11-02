@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 interface IXmlStrings {
     String COMMANDS_VARIABLES_FILENAME = "CommandsAndVariables";
     String SEPARATOR = "_";
-    String TIME_SAVING_FORMAT = "HH:mm:ss";
+    String TIME_SAVING_FORMAT = "HH_mm_ss";
 
     String RESOURCE_PACKAGE = "resources/xmlNaming";
     ResourceBundle MY_RESOURCES = ResourceBundle.getBundle(RESOURCE_PACKAGE);
@@ -29,5 +29,6 @@ interface IXmlStrings {
 
     String SPACE = " ";
     String SAVED_WORKSPACE = MY_RESOURCES.getString("saved_workspace");
+    String EMPTY = MY_RESOURCES.getString("EMPTY");
 
 }

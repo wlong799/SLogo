@@ -49,6 +49,8 @@ public class XmlSaver implements IXmlStrings {
 
         Map<String, Double> variableMap = dataStorage.getValueVariableMap();
 
+        System.out.println(variableMap.keySet());
+
         for (String variableName : variableMap.keySet()) {
             Element variableElement = doc.createElement(VARIABLE_ + Integer.toString(variableNum));
 
@@ -61,6 +63,10 @@ public class XmlSaver implements IXmlStrings {
             variableStorage.appendChild(variableElement);
 
             variableNum++;
+        }
+
+        if(!(variableStorage.hasChildNodes())) {
+            variableStorage.setTextContent(EMPTY);
         }
 
         // command variable
@@ -87,6 +93,9 @@ public class XmlSaver implements IXmlStrings {
                 parameters.append(' ');
             }
 
+            if(parameters.length() <= 0) {
+                parameters.append(EMPTY);
+            }
             functionElement.appendChild(createElementWithData
                     (FUNCTION_PARAMETERS, parameters.toString().trim(), doc));
 
@@ -98,13 +107,17 @@ public class XmlSaver implements IXmlStrings {
             functionNum++;
         }
 
+        if(!(functionStorage.hasChildNodes())) {
+            functionStorage.setTextContent(EMPTY);
+        }
+
         // write the content into xml file
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
 
-        SimpleDateFormat currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT);
-        String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime.toString();
+        String currentTime = new SimpleDateFormat(TIME_SAVING_FORMAT).format(System.currentTimeMillis());
+        String savedFileName = COMMANDS_VARIABLES_FILENAME + SEPARATOR + currentTime;
         StreamResult result = new StreamResult(new File(FILE_PATH + savedFileName));
 
         // Output to console for testing
