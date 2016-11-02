@@ -9,7 +9,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
-
+import view.Style;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,6 +71,7 @@ public class TurtleAnimator implements Runnable {
     private void addAnimations(TurtleState turtleState) {
         myCurrentTurtleView = myTurtleManager.getTurtle(turtleState.getID());
         myCurrentTurtleLines = myTurtleManager.getTurtleLines(turtleState.getID());
+        myCurrentTurtleLines.setStyle(new Style(turtleState.getPenDownStatus()));
 
         double x = turtleState.getPosition().getX();
         double y = turtleState.getPosition().getY();

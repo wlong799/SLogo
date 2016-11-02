@@ -6,6 +6,7 @@ import dataStorage.DataStorageManager;
 import dataStorage.Turtle;
 import dataStorage.TurtleStorage;
 
+
 /**
  * 
  * @author Michael Schroeder
@@ -25,18 +26,27 @@ public abstract class AbstractTurtleCommand extends AbstractCommand {
     public void addOtherParameters (DataStorageManager data, TurtleStorage turtles) {
         myTurtles = turtles;
     }
-    
+
     protected TurtleStorage getTurtles () {
         return myTurtles;
     }
+
+    protected void setTurtleStorage (TurtleStorage turtles) {
+        myTurtles = turtles;
+    }
     protected abstract double turtleExecute ();
-    
+
     @Override
     public double execute () {
+        System.out.println(this.getClass());
+        //System.out.println(myTurtles.getClass());
+        System.out.println("BLAH");
         double output = 0.0;
-        List<Turtle> activeTurtles = new ArrayList<Turtle>(getTurtles().getActiveTurtles());
+        List<Turtle> activeTurtles = new ArrayList<Turtle>(myTurtles.getActiveTurtles());
+        System.out.println(activeTurtles.size());
         List<Integer> activeSingleTurtles = new ArrayList<Integer>();
         for (Turtle t : activeTurtles) {
+            System.out.println(this.getClass() + " turtle command");
             activeSingleTurtles.clear();
             activeSingleTurtles.add(t.getID());
             getTurtles().setActiveTurtles(activeSingleTurtles);
@@ -51,14 +61,14 @@ public abstract class AbstractTurtleCommand extends AbstractCommand {
         return output;
     }
 
-    protected double correctOverTurns(double degrees) {
+    protected double correctOverTurns (double degrees) {
         int overByNumTurns = 0;
-        if(Math.abs(degrees) >= CIRCLE_DEGREES) {
+        if (Math.abs(degrees) >= CIRCLE_DEGREES) {
             overByNumTurns = (int) (degrees / CIRCLE_DEGREES);
         }
-        double newDegrees =  degrees - overByNumTurns * CIRCLE_DEGREES;
+        double newDegrees = degrees - overByNumTurns * CIRCLE_DEGREES;
 
-        if(newDegrees < 0) {
+        if (newDegrees < 0) {
             newDegrees += CIRCLE_DEGREES;
         }
         return newDegrees;

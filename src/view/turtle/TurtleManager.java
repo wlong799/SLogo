@@ -91,6 +91,12 @@ public class TurtleManager extends GUIElement implements Stylizable, Commander {
         return activeLines;
     }
 
+    
+    public void clearScreen() {
+        for(TurtleLines lines : myTurtleLines.values()){
+            lines.clearLines();
+        }
+    }
     @Override
     public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
         myContainer.setOnMouseClicked(event -> {

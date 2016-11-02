@@ -122,7 +122,7 @@ public class ExpressionTree {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("Could not create command of class " + command);
             try {
                 System.out.println("Trying to create constant " + command);
