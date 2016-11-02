@@ -133,9 +133,10 @@ public class TurtleAnimator implements Runnable {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+            	if(myCurrentTurtleLines.getIsPenDown()==true){
                 myCurrentTurtleLines.drawLine(xStart, yStart, x.get(), y.get());
             }
-        };
+        };};
 
         EventHandler onFinished = event -> timer.stop();
         KeyFrame startFrame = new KeyFrame(Duration.millis(0),

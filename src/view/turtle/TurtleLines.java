@@ -24,6 +24,7 @@ public class TurtleLines extends GUIElement implements Stylizable {
 
     private Canvas myLineCanvas;
     private GraphicsContext myLineGraphics;
+    private boolean isPenDown;
     
     
 
@@ -33,22 +34,32 @@ public class TurtleLines extends GUIElement implements Stylizable {
         myLineGraphics = myLineCanvas.getGraphicsContext2D();
         myLineGraphics.setStroke(DEFAULT_LINE_COLOR);
         myLineGraphics.setLineWidth(DEFAULT_STROKE_SIZE);
+        isPenDown = true;
     }
 
     @Override
     public void setStyle(Style style) {
         Color color = style.getColor();
         Double width = style.getWidth();
+        Boolean bool = style.getPenIsDown();
         if (color != null) {
             myLineGraphics.setStroke(color);
-        }else if (width != null){
+        }
+        if (width != null){
         	myLineGraphics.setLineWidth(width);
+        }
+        if (bool != null){
+        	isPenDown = bool;
         }
     }
 
     @Override
     public Node getContent() {
         return myLineCanvas;
+    }
+    
+    public boolean getIsPenDown(){
+    	return isPenDown;
     }
 
     public void drawLine(double x1, double y1, double x2, double y2) {
