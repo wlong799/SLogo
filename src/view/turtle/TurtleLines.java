@@ -54,21 +54,15 @@ public class TurtleLines extends GUIElement implements Stylizable {
             isPenDown = bool;
         }
         if (lineType != null) {
-            /*if( lineType.equals("Solid")){
-        		myLineGraphics.setLineDashes(null);
-        		myLineGraphics.setLineDashOffset(0.0);
-        		
-        	}else if(lineType.equals("Dotted")){
-        		myLineGraphics.setLineDashes(100.0);
-        		myLineGraphics.setLineDashOffset(1);
-        		
-        	}else{
-        		myLineGraphics.setLineDashes(DASH_SIZE);
-        		myLineGraphics.setLineDashOffset(5);
-        		
-        		
-        	}*/
+            if (lineType.equals("Solid")) {
+                myLineGraphics.setLineDashes(0);
 
+            } else if (lineType.equals("Dotted")) {
+                myLineGraphics.setLineDashes(DOT_SIZE);
+
+            } else {
+                myLineGraphics.setLineDashes(DASH_SIZE);
+            }
             myLineType = lineType;
         }
     }
@@ -89,6 +83,7 @@ public class TurtleLines extends GUIElement implements Stylizable {
     public void clearLines() {
         myLineGraphics.clearRect(0, 0, myWidth, myHeight);
     }
+
     public void drawLine(double x1, double y1, double x2, double y2) {
         myLineGraphics.strokeLine(x1, y1, x2, y2);
 
