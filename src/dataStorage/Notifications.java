@@ -8,33 +8,15 @@ public class Notifications extends Observable {
     private static final boolean FALSE = false;
 
     private boolean myClearScreenFlag;
-    private boolean myBackgroundColorFlag;
-    private int myBackgroundColorIndex;
-    private boolean myFileSavedFlag;
 
-    private void updateAndCallObserver() {
-        NotificationsState showOffState = new NotificationsState(myClearScreenFlag, myBackgroundColorFlag,
-                myBackgroundColorIndex, myFileSavedFlag);
+    private void updateAndCallObserver () {
         setChanged();
-        notifyObservers(showOffState);
+        notifyObservers(myClearScreenFlag);
     }
 
-    public void setClearScreenFlag() {
+    public void setClearScreenFlag () {
         myClearScreenFlag = TRUE;
         updateAndCallObserver();
         myClearScreenFlag = FALSE;
-    }
-
-    public void setNewBackgroundColorIndex(int newIndex) {
-        myBackgroundColorFlag = TRUE;
-        myBackgroundColorIndex = newIndex;
-        updateAndCallObserver();
-        myBackgroundColorFlag = FALSE;
-    }
-
-    public void setFileSavedFlag() {
-        myFileSavedFlag = TRUE;
-        updateAndCallObserver();
-        myFileSavedFlag = FALSE;
     }
 }

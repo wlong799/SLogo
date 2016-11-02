@@ -118,8 +118,6 @@ public class DataStorageManager {
     }
 
     public void addColor (int index, int red, int green, int blue) {
-        // TODO Auto-generated method stub
-        System.out.println("ADDING COLOR");
         myColorStorage.addColor(index, red, green, blue);
     }
 }
