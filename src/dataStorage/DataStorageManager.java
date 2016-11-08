@@ -66,15 +66,6 @@ public class DataStorageManager {
         return myCommandHistoryStorage.getCommandHistoryList();
     }
 
-    // public ObservableList<Integer> getBackgroundColor () {
-    // return myColorStorage.getColor();
-    // }
-
-    // public int addColor (int index) {
-    // myColorStorage.addColor(index);
-    // return index;
-    // }
-
     public void addHistory (String command) {
         myCommandHistoryStorage.addCommand(command);
     }
@@ -112,8 +103,8 @@ public class DataStorageManager {
     public void setColor (int index) {
         myColorStorage.setPenColor(index);
     }
-    
-    public void setBackgroundColor(int index){
+
+    public void setBackgroundColor (int index) {
         myColorStorage.setBackgroundColor(index);
     }
 
