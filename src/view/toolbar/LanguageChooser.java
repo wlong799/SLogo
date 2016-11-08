@@ -10,7 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 
-
+/**
+ * Menu element that provides a list of toggle buttons that allow the user to select the current language.
+ *
+ * @author Will Long
+ */
 public class LanguageChooser extends MenuElement {
     private final String NAME = "Change Language";
 
@@ -18,7 +22,6 @@ public class LanguageChooser extends MenuElement {
     private final int numLanguages = 8;
     private Menu myMenu;
     private ToggleGroup myToggleGroup;
-    private ComboBox<String> myChoices;
 
     public LanguageChooser() {
         myMenu = new Menu(NAME);

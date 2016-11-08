@@ -4,8 +4,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 
 /**
- * Class responsible for organizing the layout of the GUI, as well as the interactions between
- * various elements.
+ * Main view class, responsible for managing which content is currently viewed on screen.
+ *
+ * @author Will Long
  */
 public class SLogoView {
     private double myWidth, myHeight;
@@ -14,6 +15,12 @@ public class SLogoView {
     private ContentManager myCurrentContentManager;
     private ElementManager myViewElements;
 
+    /**
+     * Initialize a new blank scene of specified size.
+     *
+     * @param width  is width of scene.
+     * @param height is height of scene.
+     */
     public SLogoView(double width, double height) {
         myWidth = width;
         myHeight = height;
@@ -36,6 +43,11 @@ public class SLogoView {
         return myHeight;
     }
 
+    /**
+     * Sets the content manager, and changes the scene to use the content specified by it.
+     *
+     * @param contentManager is the new ContentManager.
+     */
     public void setCurrentContentManager(ContentManager contentManager) {
         myCurrentContentManager = contentManager;
         myScene.setRoot(myCurrentContentManager.getContentLayout());

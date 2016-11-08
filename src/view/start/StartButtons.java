@@ -9,6 +9,11 @@ import javafx.scene.layout.HBox;
 import view.GUIElement;
 import view.WorkspaceInteractor;
 
+/**
+ * Creates start buttons for loading and creating new workspaces.
+ *
+ * @author Will Long
+ */
 public class StartButtons extends GUIElement implements WorkspaceInteractor {
     private static final double PADDING_RATIO = 0.05;
     private static final double NUM_BUTTONS = 2;
@@ -20,6 +25,12 @@ public class StartButtons extends GUIElement implements WorkspaceInteractor {
     private HBox buttonContainer;
     private Button newWorkspaceButton, loadWorkspaceButton;
 
+    /**
+     * Creates a New and Load button within specified space.
+     *
+     * @param width  is width of space to create buttons in.
+     * @param height is height of space to create buttons in.
+     */
     public StartButtons(double width, double height) {
         super(width, height);
         myPadding = myWidth * PADDING_RATIO;
@@ -44,6 +55,11 @@ public class StartButtons extends GUIElement implements WorkspaceInteractor {
         return button;
     }
 
+    /**
+     * New workspace button creates new workspace, while load workspace button loads in preferences.
+     *
+     * @param slogoController is the controller that holds the workspaces to interact with.
+     */
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
         newWorkspaceButton.setOnAction(event -> slogoController.newWorkspace());

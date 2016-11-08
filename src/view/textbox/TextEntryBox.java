@@ -12,8 +12,10 @@ import view.Commander;
 import view.GUIElement;
 
 /**
+ * Implements the text box through which commands can be sent to the parser. Provides box for entering text, and two
+ * buttons to the right for either submitting the text or clearing currently entered text.
+ *
  * @author Will Long
- * @version 10/19/16
  */
 public class TextEntryBox extends GUIElement implements Commander {
     private static final double TEXT_BOX_RATIO = 0.80;
@@ -71,11 +73,18 @@ public class TextEntryBox extends GUIElement implements Commander {
         myTextBox.clear();
     }
 
+    /**
+     * Send event when submit button is clicked.
+     * @param eventHandler is how the event should be handled upon trigger.
+     */
     @Override
     public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
         mySubmitButton.setOnAction(eventHandler);
     }
 
+    /**
+     * @return currently entered text in text box.
+     */
     @Override
     public String getCommandText(String language) {
         String entryText = myTextBox.getText().trim();

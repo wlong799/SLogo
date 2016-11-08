@@ -7,7 +7,9 @@ import view.GUIElement;
 
 
 /**
- * Starting screen responsible for loading the initial workspace.
+ * Background of starting screen, with a unique logo.
+ *
+ * @author Will Long
  */
 public class StartScreen extends GUIElement {
     private static final String IMAGE_LOCATION = "resources/slogo.png";

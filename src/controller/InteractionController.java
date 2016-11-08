@@ -3,9 +3,11 @@ package controller;
 import view.ElementManager;
 
 /**
- * Takes in elements present in view, and is responsible for setting up how
- * they interact with each other, and possibly how they interact with other
- * parts of the program
+ * Abstract superclass provides way for different controllers to set up interactions within the view and with the model.
+ * Takes in an ElementManager corresponding with all elements available in view. Different implementations set up
+ * interactions differently depending on their focus.
+ *
+ * @author Will Long
  */
 public abstract class InteractionController {
 

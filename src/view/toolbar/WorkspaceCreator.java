@@ -4,6 +4,11 @@ import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
+/**
+ * Menu element for creating a new workspace.
+ *
+ * @author Will Long
+ */
 public class WorkspaceCreator extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "New Workspace";
 

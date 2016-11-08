@@ -4,13 +4,16 @@ import view.ElementManager;
 
 import view.Stylizable;
 import view.Stylizer;
-import view.panel.CommandHistoryWindow;
-import view.panel.StoredFunctionWindow;
-import view.textbox.TextEntryBox;
 import view.turtle.TurtleAnimator;
 import view.turtle.TurtleContainer;
-import view.turtle.TurtleManager;
 
+/**
+ * Controller is responsible for setting up interactions between elements within the view. Stylizable and Stylizer
+ * elements are linked by specifying which combinations are linked together. All other elements are automatically linked
+ * simply by the fact that they implement the correct interfaces.
+ *
+ * @author Will Long
+ */
 public class ViewViewController extends InteractionController {
     private static final String[][] STYLE_ELEMENTS_TO_LINK = new String[][]
             {
@@ -44,7 +47,7 @@ public class ViewViewController extends InteractionController {
     }
 
     private void setAnimationControllers() {
-        TurtleAnimator animator = ((TurtleContainer)myViewElements.getGUIElement("TurtleContainer")).getAnimator();
+        TurtleAnimator animator = ((TurtleContainer) myViewElements.getGUIElement("TurtleContainer")).getAnimator();
         myViewElements.getAnimationControllerElements().forEach(animationController -> animationController.setAnimationControl(animator));
     }
 }

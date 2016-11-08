@@ -5,7 +5,12 @@ import javafx.scene.control.Slider;
 import view.AnimationController;
 import view.turtle.TurtleAnimator;
 
-public class RunSpeedSetter extends MenuElement implements AnimationController{
+/**
+ * Menu element with a slider that can set the run speed of the animation.
+ *
+ * @author Will Long
+ */
+public class RunSpeedSetter extends MenuElement implements AnimationController {
     private static final String NAME = "Set Run Speed";
     private static final double MIN_RATE = 0.1;
     private static final double DEFAULT_RATE = 1;

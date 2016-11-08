@@ -5,6 +5,8 @@ import view.ContentManager;
 
 /**
  * Responsible for maintaining the separate View and Model elements of an individual workspace.
+ *
+ * @author Will Long
  */
 public class Workspace {
     private ContentManager myContent;

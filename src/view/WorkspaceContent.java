@@ -12,8 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * WorkspaceContent just provides a quick setup for the application. Non-resizable, and provides a
- * TurtleContainer, with a TextEntryBox beneath.
+ * WorkspaceContent provides an implementation of ContentManager that provides the setup for the main workspace view
+ * in the SLogo application. Intializes the main elements within the window, provides functions for adding sub-elements
+ * (e.g. submenus, helper panel tabs), and uses a GridContent to lay them all out in the screen.
+ *
+ * @author Will  Long
  */
 public class WorkspaceContent implements ContentManager {
     private static final double BORDER_RATIO = 0.03;
@@ -29,6 +32,14 @@ public class WorkspaceContent implements ContentManager {
     private TextEntryBox myTextEntryBox;
     private TabbedHelperPanel myHelperPanel;
 
+    /**
+     * Creates new content with the specified size. Initializes empty versions of the main elements (i.e. menu bar,
+     * helper panel, text entry box, and turtle view), and uses a GridContent to lay them all out appropriately in the
+     * screen.
+     *
+     * @param width  is width of the content.
+     * @param height is height of the content.
+     */
     public WorkspaceContent(double width, double height) {
         myWidth = width;
         myHeight = height;
@@ -92,6 +103,11 @@ public class WorkspaceContent implements ContentManager {
         myElements.addElement(myTextEntryBox);
     }
 
+    /**
+     * Add a new TabElement to the helper panel using reflection, or catch an exception if the class name is invalid.
+     *
+     * @param tabClass is class of TabElement to add.
+     */
     public void addTab(String tabClass) {
         double tabWidth = myHelperPanel.getTabWidth();
         double tabHeight = myHelperPanel.getTabHeight();
@@ -120,6 +136,13 @@ public class WorkspaceContent implements ContentManager {
         myElements.addElement(tab);
     }
 
+    /**
+     * Adds a new menu to the bar, with specified name, and containing the specified classes using reflection. Skips any
+     * invalid menu elements and prints error messages.
+     *
+     * @param menuName              is name of menu to add.
+     * @param subMenuElementClasses is name of MenuElement classes to add.
+     */
     public void addMenuElement(String menuName, String[] subMenuElementClasses) {
         BaseMenu baseMenu = new BaseMenu(menuName);
         mySettingsMenuBar.addMenu(baseMenu);

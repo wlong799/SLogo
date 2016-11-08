@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
 import view.SLogoView;
 import xml.XmlManager;
 import xml.XmlSaver;
@@ -17,6 +16,12 @@ import java.io.File;
 import java.util.*;
 
 
+/**
+ * Main controller class responsible for handling which workspaces are currently available, and which one is being
+ * displayed.
+ *
+ * @author Will Long
+ */
 public class SLogoController {
     private static final String DEFAULT_DIRECTORY = "src/resources/xmlData";
     private static final String FILE_CHOOSER_TITLE = "Choose a workspace XML file";
@@ -52,6 +57,9 @@ public class SLogoController {
         mySLogoView.setCurrentContentManager(workspace.getContentManager());
     }
 
+    /**
+     * Load a new workspace using the file specified.
+     */
     public void loadWorkspace() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(FILE_CHOOSER_TITLE);
@@ -74,6 +82,9 @@ public class SLogoController {
         myNextWorkspaceNum++;
     }
 
+    /**
+     * Create new default workspace.
+     */
     public void newWorkspace() {
         double width = mySLogoView.getWidth();
         double height = mySLogoView.getHeight();
@@ -84,6 +95,9 @@ public class SLogoController {
         myNextWorkspaceNum++;
     }
 
+    /**
+     * Close the current workspace.
+     */
     public void removeWorkspace() {
         myActiveWorkspaceNums.remove(new Integer(myCurrentWorkspaceNum.get()));
         myWorkspaceMap.remove(myCurrentWorkspaceNum.get());
@@ -97,6 +111,11 @@ public class SLogoController {
         System.exit(0);
     }
 
+    /**
+     * Get an observable integer of the current workspace number.
+     *
+     * @return an observable integer.
+     */
     public SimpleIntegerProperty getCurrentWorkspaceNum() {
         return myCurrentWorkspaceNum;
     }
@@ -117,10 +136,16 @@ public class SLogoController {
         mySLogoView.setCurrentContentManager(workspace.getContentManager());
     }
 
+    /**
+     * @return an ObservableList of all active workspaces.
+     */
     public ObservableList<Integer> getActiveWorkspaceNums() {
         return myActiveWorkspaceNums;
     }
 
+    /**
+     * Save the current variables in the workspace to file.
+     */
     public void saveWorkspaceVariables() {
         Workspace workspace = myWorkspaceMap.get(myCurrentWorkspaceNum.get());
         try {
@@ -131,6 +156,9 @@ public class SLogoController {
         }
     }
 
+    /**
+     * Load variables from file into the workspace.
+     */
     public void loadWorkspaceVariables() {
         Workspace workspace = myWorkspaceMap.get(myCurrentWorkspaceNum.get());
         DataStorageManager data = workspace.getModel().getData();

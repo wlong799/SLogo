@@ -11,6 +11,11 @@ import view.WorkspaceInteractor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Menu element that provides a updating list of all available workspaces, and switches to the one clicked on.
+ *
+ * @author Will Long
+ */
 public class WorkspaceSwitcher extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "Switch Workspace";
     private static final String WORKSPACE_PREFIX = "Workspace ";
@@ -25,6 +30,12 @@ public class WorkspaceSwitcher extends MenuElement implements WorkspaceInteracto
         myCurrentItems = new HashMap<>();
     }
 
+    /**
+     * Toggle group and menu with radio buttons allow for the user to select the current workspace. Available buttons
+     * automatically updates as workspaces are opened and closed.
+     *
+     * @param slogoController is the controller that holds the workspaces to interact with.
+     */
     @Override
     public void setWorkspaceInteractions(SLogoController slogoController) {
         slogoController.getActiveWorkspaceNums().addListener((ListChangeListener<? super Integer>) c -> {
@@ -43,7 +54,7 @@ public class WorkspaceSwitcher extends MenuElement implements WorkspaceInteracto
         });
         myToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (myToggleGroup.getSelectedToggle() != null) {
-                int selectedWorkspace = (Integer)myToggleGroup.getSelectedToggle().getUserData();
+                int selectedWorkspace = (Integer) myToggleGroup.getSelectedToggle().getUserData();
                 if (selectedWorkspace == slogoController.getCurrentWorkspaceNum().get()) {
                     return;
                 }

@@ -17,7 +17,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Factory class for initializing a new workspace. Since creating a workspace involves multiple steps, with different
+ * dependencies and interactions to set up, it is better to use a factory class for creating new workspaces to ensure
+ * everything is created properly. This also separates the logic of creation into a single location. The constants
+ * listed at the top of the file are used to create the various elements within the workspace through reflection. This
+ * makes it easier to add new elements, as it is simply a manner of adding or removing class names.
+ *
+ * @author Will Long
+ */
 public class WorkspaceFactory {
     private static final String TOOLBAR_PACKAGE = "view.toolbar.";
     private static final String PANEL_PACKAGE = "view.panel.";
@@ -73,6 +81,17 @@ public class WorkspaceFactory {
                     "ActiveTurtlesWindow"
             };
 
+    /**
+     * Create a new workspace, either normal workspace, or a start workspace. Initializes the empty workspace, adds any
+     * menu elements and tabs specified in the constant arrays above. Then creates the model, and sets up all relevant
+     * interactions. Finally, adds the default number of starting turtles to the workspace.
+     *
+     * @param width           is width of workspace content.
+     * @param height          is height of workspace content.
+     * @param slogoController is controller managing the workspaces.
+     * @param isStartType     if true, creates a splash screen instead of the main workspace.
+     * @return the created workspace.
+     */
     public static Workspace createWorkspace(double width, double height, SLogoController slogoController, boolean isStartType) {
         if (isStartType) {
             return createStartContent(width, height, slogoController);
@@ -107,6 +126,16 @@ public class WorkspaceFactory {
         return workspace;
     }
 
+    /**
+     * Creates a new workspace using the implementation above, and additionally sets some initial conditions based on
+     * information contained within the preferences object, which was loaded from an XML file.
+     *
+     * @param width       is width of workspace content.
+     * @param height      is height of workspace content.
+     * @param controller  is controller managing the workspaces
+     * @param preferences is WorkspaceLoadPreferences to get initial conditions from.
+     * @return the custom workspace.
+     */
     public static Workspace createWorkspace(double width,
                                             double height,
                                             SLogoController controller,
@@ -130,6 +159,14 @@ public class WorkspaceFactory {
         return workspace;
     }
 
+    /**
+     * Creates the basic start screen, with no model.
+     *
+     * @param width           is width of start screen.
+     * @param height          is height of start screen.
+     * @param slogoController is controller managing workspaces.
+     * @return the splash screen.
+     */
     private static Workspace createStartContent(double width,
                                                 double height,
                                                 SLogoController slogoController) {

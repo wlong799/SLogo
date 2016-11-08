@@ -5,7 +5,12 @@ import javafx.scene.control.MenuItem;
 import view.AnimationController;
 import view.turtle.TurtleAnimator;
 
-public class AnimationToggler extends MenuElement implements AnimationController{
+/**
+ * Menu element that toggles whether or not animations should be running.
+ *
+ * @author Will Long
+ */
+public class AnimationToggler extends MenuElement implements AnimationController {
     private static final String NAME = "Set Running";
 
     private CheckMenuItem myMenuItem;
@@ -14,6 +19,7 @@ public class AnimationToggler extends MenuElement implements AnimationController
         myMenuItem = new CheckMenuItem(NAME);
         myMenuItem.setSelected(true);
     }
+
     @Override
     public void setAnimationControl(TurtleAnimator animator) {
         myMenuItem.selectedProperty().addListener((observable, oldValue, newValue) -> animator.setRunning(newValue));

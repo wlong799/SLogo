@@ -5,7 +5,9 @@ import view.ElementManager;
 import java.util.Arrays;
 
 /**
- * Sets up interactions between elements of view and elements in workspace
+ * Sets up interactions for elements that can manage the current workspaces in the application.
+ *
+ * @author Will Long
  */
 public class WorkspaceController extends InteractionController {
     private SLogoController mySlogoController;

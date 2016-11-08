@@ -9,6 +9,11 @@ import view.Stylizer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Menu element for selecting a new turtle image from a predefined list of available images.
+ *
+ * @author Will Long
+ */
 public class TurtleImagePicker extends MenuElement implements Stylizer {
     private static final String NAME = "Select Turtle Image";
     private static final String DEFAULT_IMAGE = "Turtle";
@@ -38,7 +43,7 @@ public class TurtleImagePicker extends MenuElement implements Stylizer {
     }
 
     @Override
-    public MenuItem getMenuItem(){
+    public MenuItem getMenuItem() {
         return myMenu;
     }
 

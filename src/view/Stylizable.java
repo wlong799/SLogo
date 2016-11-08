@@ -1,8 +1,15 @@
 package view;
 
 /**
- * Provides a common interface through which objects can set their style, based on a Style object.
+ * Classes that implement Stylizable are able to change their appearance based on information sent in a Style object.
+ *
+ * @author Will Long
  */
 public interface Stylizable {
+    /**
+     * Change appearance to the specified style.
+     *
+     * @param style is Style object with appearance information.
+     */
     void setStyle(Style style);
 }

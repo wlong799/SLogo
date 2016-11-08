@@ -16,6 +16,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Animates the turtle view. Implements runnable so that the back-end doesn't stall while animation is running. Takes in
+ * lists of turtle states, representing single events to be animated, and runs all animations for single events in
+ * parallel. Adds events to growing queue in case the view is already animating.
+ *
+ * @author Will Long
+ */
 public class TurtleAnimator implements Runnable {
     private static final double DEFAULT_DURATION = 1500;
     private static final long SLEEP_TIME = 250;
@@ -30,6 +37,11 @@ public class TurtleAnimator implements Runnable {
     private boolean isCurrentlyAnimating, isRunning;
     private double myRate;
 
+    /**
+     * Sets up the animator to prepare to animate the turtles within the specified manager.
+     *
+     * @param manager is the TurtleManager class to use.
+     */
     public TurtleAnimator(TurtleManager manager) {
         myDurationMilliseconds = DEFAULT_DURATION;
         myTurtleManager = manager;
@@ -41,10 +53,18 @@ public class TurtleAnimator implements Runnable {
         myRate = 1;
     }
 
+    /**
+     * Add a new event to be animated to the event queue
+     *
+     * @param turtleStateList is a list of TurtleStates corresponding to a single event.
+     */
     public void addEvent(List<TurtleState> turtleStateList) {
         myEventQueue.add(turtleStateList);
     }
 
+    /**
+     * Repeatedly check for any new events to animate, and run them if available and no other animations running.
+     */
     @Override
     public void run() {
         while (true) {
@@ -52,7 +72,7 @@ public class TurtleAnimator implements Runnable {
                 try {
                     Thread.sleep(SLEEP_TIME);
                 } catch (InterruptedException e) {
-                    ////System.out.println("Animation thread interrupted");
+                    System.out.println("Animation thread interrupted");
                 }
                 continue;
             }
@@ -60,14 +80,27 @@ public class TurtleAnimator implements Runnable {
         }
     }
 
+    /**
+     * Set whether or not animations should run.
+     *
+     * @param running is true if animator should run, false if it should pause.
+     */
     public void setRunning(boolean running) {
         isRunning = running;
     }
 
+    /**
+     * Sets the current animation speed.
+     *
+     * @param rate is rate to adjust default speed by.
+     */
     public void setRate(double rate) {
         myRate = rate;
     }
 
+    /**
+     * If the animation is currently paused, step forward by one animation.
+     */
     public void step() {
         if (myEventQueue.isEmpty() || isCurrentlyAnimating || isRunning) {
             return;
@@ -75,6 +108,11 @@ public class TurtleAnimator implements Runnable {
         runAnimation(myEventQueue.poll());
     }
 
+    /**
+     * Run all animations for the transitions to the new turtle states in parallel.
+     *
+     * @param turtleStates are the TurtleStates to transition to.
+     */
     private void runAnimation(List<TurtleState> turtleStates) {
         myDurationMilliseconds = DEFAULT_DURATION / myRate;
         isCurrentlyAnimating = true;

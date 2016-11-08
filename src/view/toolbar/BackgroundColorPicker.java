@@ -7,14 +7,19 @@ import view.Style;
 import view.Stylizable;
 import view.Stylizer;
 
-public class BackgroundColorPicker extends MenuElement implements Stylizer{
+/**
+ * Menu element that can select the background of the turtle view.
+ *
+ * @author Will Long
+ */
+public class BackgroundColorPicker extends MenuElement implements Stylizer {
     private static final String NAME = "Change Background";
     private static final Color DEFAULT_COLOR = Color.WHITE;
 
     private MenuItem myMenuItem;
     private ColorPicker myBGColorPicker;
 
-    public BackgroundColorPicker () {
+    public BackgroundColorPicker() {
         myBGColorPicker = new ColorPicker(DEFAULT_COLOR);
         myMenuItem = new MenuItem(NAME, myBGColorPicker);
     }

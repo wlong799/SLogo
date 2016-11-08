@@ -4,6 +4,11 @@ import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
+/**
+ * Menu element to load in a new workspace from preference file.
+ *
+ * @author Will Long
+ */
 public class WorkspaceLoader extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "Load Workspace";
 

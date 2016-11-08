@@ -7,6 +7,12 @@ import javafx.scene.control.cell.TextFieldListCell;
 
 import java.util.ResourceBundle;
 
+/**
+ * Stored variable window displays all current variables in the environment. Double-clicking allows for editing of a
+ * variable, and changing its value.
+ *
+ * @author Will Long
+ */
 public class StoredVariableWindow extends TabElement {
     private static final String MY_NAME = "Variables";
     private double tempVal;
@@ -31,6 +37,11 @@ public class StoredVariableWindow extends TabElement {
         return MY_NAME;
     }
 
+    /**
+     * Send information when an element is edited.
+     *
+     * @param eventHandler is how the event should be handled upon trigger.
+     */
     @Override
     public void setCommandTrigger(EventHandler<ActionEvent> eventHandler) {
         myListView.setOnEditCommit(event -> {
@@ -39,6 +50,12 @@ public class StoredVariableWindow extends TabElement {
         });
     }
 
+    /**
+     * Change edited variable to value specified, if valid.
+     *
+     * @param language is the language to send the command in.
+     * @return String telling parser to edit variable to specified value.
+     */
     @Override
     public String getCommandText(String language) {
         String text = myListView.getSelectionModel().getSelectedItem();

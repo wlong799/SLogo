@@ -14,7 +14,13 @@ import view.toolbar.LanguageChooser;
 import view.turtle.TurtleContainer;
 import view.turtle.TurtleManager;
 
-
+/**
+ * Controller responsible for linking elements in view with elements in model. Some elements must be explicitly linked,
+ * (e.g. give TabElement class and function for getting its relevant ObservableList). Others are loaded automatically if
+ * they implement the correct interface (e.g. Commander).
+ *
+ * @author Will Long
+ */
 public class ViewModelController extends InteractionController {
     private static final String[][] OBSERVABLE_LIST_LINKS = new String[][]
             {
@@ -106,7 +112,7 @@ public class ViewModelController extends InteractionController {
         if (myViewElements.getGUIElement("LanguageChooser") == null) {
             return;
         }
-        LanguageChooser languageChooser = (LanguageChooser)myViewElements.getGUIElement("LanguageChooser");
+        LanguageChooser languageChooser = (LanguageChooser) myViewElements.getGUIElement("LanguageChooser");
         languageChooser.setEventHandler(event -> {
             String language = languageChooser.getSelectedLanguage();
             if (language != null) {

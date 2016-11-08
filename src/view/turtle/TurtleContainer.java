@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -15,7 +16,11 @@ import java.util.Observer;
 
 
 /**
- * Container for all current turtles and the lines they've drawn
+ * Contains the overall view for the turtles. Includes the background and the manager for all the turtles and lines.
+ * Initializes and runs the thread containing the animator as well.
+ *
+ * @author Will Long
+ * @author James Marlotte
  */
 public class TurtleContainer extends GUIElement implements Observer, Stylizable {
     private static final Color DEFAULT_BG_COLOR = Color.WHITE;
@@ -25,7 +30,14 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     private TurtleManager myTurtleManager;
     private TurtleAnimator myTurtleAnimator;
 
-    public TurtleContainer (double width, double height) {
+    /**
+     * Initializes a container of the specified size, with no turtles to start off. Creates and starts the animation
+     * thread, as well as the empty TurtleManager.
+     *
+     * @param width  is width of container.
+     * @param height is height of container.
+     */
+    public TurtleContainer(double width, double height) {
         super(width, height);
         myContainer = new StackPane();
         myBackground = new Rectangle(myWidth, myHeight, DEFAULT_BG_COLOR);
@@ -37,8 +49,12 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
         myContainer.getChildren().addAll(myBackground, myTurtleManager.getContent());
     }
 
+    /**
+     * Updates based on information received by observables in the back-end. Has to check for multiple things, including
+     * appearance changes, screen clears, and new TurtleState change events.
+     */
     @Override
-    public void update (Observable o, Object arg) {
+    public void update(Observable o, Object arg) {
         if (arg instanceof String[]) {
             String[] array = (String[]) arg;
             Color bgColor = Color.web(array[0]);
@@ -53,10 +69,9 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
 
         if (!(arg instanceof List)) {
             if (arg instanceof Boolean) {
-                ////System.out.println("CLEARING THE LINES");
                 myTurtleManager.clearScreen();
             }
-                return;
+            return;
         }
         List<TurtleState> copiedList = new ArrayList<>();
         for (Object obj : (List) arg) {
@@ -68,8 +83,13 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
         myTurtleAnimator.addEvent(copiedList);
     }
 
+    /**
+     * Changes the background color to color specified by style.
+     *
+     * @param style is Style object with appearance information.
+     */
     @Override
-    public void setStyle (Style style) {
+    public void setStyle(Style style) {
         Color color = style.getColor();
         if (color != null) {
             myBackground.setFill(color);
@@ -77,11 +97,11 @@ public class TurtleContainer extends GUIElement implements Observer, Stylizable 
     }
 
     @Override
-    public Node getContent () {
+    public Node getContent() {
         return myContainer;
     }
 
-    public TurtleManager getTurtleManager () {
+    public TurtleManager getTurtleManager() {
         return myTurtleManager;
     }
 

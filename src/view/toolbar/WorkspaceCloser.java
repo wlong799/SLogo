@@ -4,6 +4,11 @@ import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
+/**
+ * Menu element for closing a workspace.
+ *
+ * @author Will Long
+ */
 public class WorkspaceCloser extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "Close Workspace";
 

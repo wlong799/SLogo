@@ -1,24 +1,20 @@
 package view.turtle;
 
-import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
 
 /**
- * Represents a turtle object on screen.
+ * Represents a turtle on screen and provides methods for getting/setting its current status. Has ability to change its
+ * image.
  */
-public class TurtleView extends GUIElement implements Stylizable{
+public class TurtleView extends GUIElement implements Stylizable {
     private static final String TURTLE_IMAGE_LOCATION = "resources/turtle.png";
     private static final double TURTLE_SIZE = 50;
     private static final Color HIGHLIGHT_COLOR = Color.YELLOW;
@@ -31,6 +27,9 @@ public class TurtleView extends GUIElement implements Stylizable{
     private Rectangle myHighlightBox;
     private Image currentImage;
 
+    /**
+     * Creates turtle in center of screen and sets it to have default image and settings.
+     */
     public TurtleView() {
         super(TURTLE_SIZE, TURTLE_SIZE);
         currentImage = new Image(TURTLE_IMAGE_LOCATION);
@@ -42,6 +41,11 @@ public class TurtleView extends GUIElement implements Stylizable{
         myContent = new StackPane(myTurtle, myHighlightBox);
     }
 
+    /**
+     * Change image to that specified by Style object.
+     *
+     * @param style is Style object with appearance information.
+     */
     @Override
     public void setStyle(Style style) {
         Image img = style.getImage();

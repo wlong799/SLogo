@@ -4,6 +4,11 @@ import controller.SLogoController;
 import javafx.scene.control.MenuItem;
 import view.WorkspaceInteractor;
 
+/**
+ * Menu element to save current workspace when clicked.
+ *
+ * @author Will Long
+ */
 public class WorkspaceVariableSaver extends MenuElement implements WorkspaceInteractor {
     private static final String NAME = "Save Workspace Variables";
 

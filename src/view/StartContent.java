@@ -5,6 +5,12 @@ import javafx.scene.layout.Pane;
 import view.start.StartButtons;
 import view.start.StartScreen;
 
+/**
+ * ContentManager responsible for setting up the initial splash screen. Provides a background logo and two options for
+ * either creating a new workspace or loading one from file.
+ *
+ * @author Will Long
+ */
 public class StartContent implements ContentManager {
     private static final double BUTTON_PANE_OFFSET_RATIO = 0.80;
     private static final double BUTTON_PANE_WIDTH_RATIO = 0.25;
@@ -16,7 +22,12 @@ public class StartContent implements ContentManager {
     private Pane myStartContent;
     private ElementManager myViewElements;
 
-    public StartContent (double width, double height) {
+    /**
+     * Creates a new splash screen of the specified size.
+     * @param width is width of screen.
+     * @param height is height of screen.
+     */
+    public StartContent(double width, double height) {
         myWidth = width;
         myHeight = height;
         myPaneWidth = myWidth * BUTTON_PANE_WIDTH_RATIO;
@@ -33,7 +44,7 @@ public class StartContent implements ContentManager {
     }
 
     @Override
-    public Parent getContentLayout () {
+    public Parent getContentLayout() {
         return myStartContent;
     }
 
@@ -41,7 +52,8 @@ public class StartContent implements ContentManager {
     public ElementManager getElements() {
         return myViewElements;
     }
-    private Pane createCenteredButtonPane (StartButtons startButtons) {
+
+    private Pane createCenteredButtonPane(StartButtons startButtons) {
         Pane pane = new Pane(startButtons.getContent());
         double widthOffset = (myWidth - myPaneWidth) / 2;
         double heightOffset = (myHeight * BUTTON_PANE_OFFSET_RATIO);

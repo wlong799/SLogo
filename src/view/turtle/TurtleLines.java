@@ -1,21 +1,19 @@
 package view.turtle;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 import view.GUIElement;
 import view.Style;
 import view.Stylizable;
 
+/**
+ * Provides a canvas on which to draw lines. Allows for stylizable line types, colors, and sizes.
+ *
+ * @author Will Long
+ * @author James Marlotte
+ */
 public class TurtleLines extends GUIElement implements Stylizable {
     private static final Color DEFAULT_LINE_COLOR = Color.BLACK;
     private static final double DEFAULT_STROKE_SIZE = 1;
@@ -28,6 +26,12 @@ public class TurtleLines extends GUIElement implements Stylizable {
     private String myLineType;
 
 
+    /**
+     * Creates new canvas of specified size, and sets default pen settings.
+     *
+     * @param width  is width of canvas.
+     * @param height is height of canvas.
+     */
     public TurtleLines(double width, double height) {
         super(width, height);
         myLineCanvas = new Canvas(myWidth, myHeight);
@@ -38,6 +42,11 @@ public class TurtleLines extends GUIElement implements Stylizable {
         myLineType = "Solid";
     }
 
+    /**
+     * Sets line size, color, or type depending on passed information.
+     *
+     * @param style is Style object with appearance information.
+     */
     @Override
     public void setStyle(Style style) {
         Color color = style.getColor();
@@ -80,12 +89,17 @@ public class TurtleLines extends GUIElement implements Stylizable {
         return myLineType;
     }
 
+    /**
+     * Clears contents of canvas.
+     */
     public void clearLines() {
         myLineGraphics.clearRect(0, 0, myWidth, myHeight);
     }
 
+    /**
+     * Draws a line from (x1, y1) to (x2, y2)
+     */
     public void drawLine(double x1, double y1, double x2, double y2) {
         myLineGraphics.strokeLine(x1, y1, x2, y2);
-
     }
 }

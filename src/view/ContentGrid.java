@@ -9,7 +9,10 @@ import view.toolbar.SettingsMenuBar;
 import view.turtle.TurtleContainer;
 
 /**
- * Sets up layout of workspace using a grid.
+ * ContentGrid is responsible for the top-level structure of the application. It has a menu bar at the top, and then
+ * uses a grid layout for setting up the main turtle window, the side panel, and the bottom bar.
+ *
+ * @author Will Long
  */
 public class ContentGrid extends GUIElement {
     private static final double MAIN_PANEL_WIDTH_RATIO = 0.70;
@@ -30,6 +33,15 @@ public class ContentGrid extends GUIElement {
     private double myXPadding, myYPadding;
     private double myBorderSize;
 
+    /**
+     * Create a new grid layout with the specified size and borders. Set up the padding between elements, as well as the
+     * sizes for the rows and columns to be used in the grid layout so that added elements will be properly placed and
+     * sized.
+     *
+     * @param width      is width of the content.
+     * @param height     is height of the content.
+     * @param borderSize is border surrounding the content.
+     */
     public ContentGrid(double width, double height, double borderSize) {
         super(width, height);
 
@@ -46,6 +58,11 @@ public class ContentGrid extends GUIElement {
         setGridColSizes();
     }
 
+    /**
+     * Places a SettingsMenuBar at the top of the screen, removing the previous if necessary.
+     *
+     * @param menu is the SettingsMenuBar to place content at top of screen.
+     */
     public void addMenu(SettingsMenuBar menu) {
         if (mySettingsMenuBar != null) {
             myContent.getChildren().remove(mySettingsMenuBar);
@@ -55,6 +72,11 @@ public class ContentGrid extends GUIElement {
         StackPane.setAlignment(mySettingsMenuBar.getContent(), Pos.TOP_CENTER);
     }
 
+    /**
+     * Place a TurtleContainer content in main section of screen, removing previous if necessary.
+     *
+     * @param turtleContainer is the TurtleContainer to place content of.
+     */
     public void addTurtleView(TurtleContainer turtleContainer) {
         if (myTurtleContainer != null) {
             myGrid.getChildren().remove(myTurtleContainer);
@@ -63,6 +85,11 @@ public class ContentGrid extends GUIElement {
         myGrid.add(myTurtleContainer.getContent(), COL_1, ROW_1, 1, 1);
     }
 
+    /**
+     * Place TabbedHelperPanel content at side of screen, removing previous if necessary.
+     *
+     * @param helperPanel is the TabbedHelperPanel to place content of.
+     */
     public void addHelperPanel(TabbedHelperPanel helperPanel) {
         if (myHelperPanel != null) {
             myGrid.getChildren().remove(myHelperPanel);
@@ -71,6 +98,11 @@ public class ContentGrid extends GUIElement {
         myGrid.add(myHelperPanel.getContent(), COL_2, ROW_1, 1, 2);
     }
 
+    /**
+     * Place a TextEntryBox at the bottom of the screen, removing previous if necessary.
+     *
+     * @param textBox is the TextEntryBox to place content of.
+     */
     public void addTextBox(TextEntryBox textBox) {
         if (myTextEntryBox != null) {
             myGrid.getChildren().remove(myTextEntryBox);
