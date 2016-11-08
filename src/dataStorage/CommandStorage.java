@@ -6,56 +6,69 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
+ * This class is used to store all of the custom user commands that have been defined in a specific
+ * workspace.
  * 
- * @author michael
+ * @author Michael Schroeder
  *
  */
 public class CommandStorage {
 
-    private Map<String, List<String>> commandParamMap;
-    private Map<String, String> commandMap;
-    private ObservableList<String> commandStorageList;
+    private Map<String, List<String>> myCommandParamMap;
+    private Map<String, String> myCommandMap;
+    private ObservableList<String> myCommandStorageList;
 
     public CommandStorage () {
-        commandParamMap = new HashMap<>();
-        commandMap = new HashMap<>();
-        commandStorageList = FXCollections.observableArrayList();
+        myCommandParamMap = new HashMap<String, List<String>>();
+        myCommandMap = new HashMap<String, String>();
+        myCommandStorageList = FXCollections.observableArrayList();
     }
 
+    /**
+     * Add a command to the command map
+     * 
+     * @param commandName - the name of the command
+     * @param parameterNames - the names of the variables to be used as parameters in the command
+     * @param commandString - the string representation of the commands to be executed when this
+     *        command is called.
+     */
     public void setCommand (String commandName, List<String> parameterNames, String commandString) {
-        commandParamMap.put(commandName, parameterNames);
-        commandMap.put(commandName, commandString);
+        myCommandParamMap.put(commandName, parameterNames);
+        myCommandMap.put(commandName, commandString);
         String commandView = commandName + "\n[ ";
+
         for (String parameterName : parameterNames) {
             commandView += parameterName + " ";
         }
         commandView += "]\n" + commandString;
-        commandStorageList.add(commandView);
+        myCommandStorageList.add(commandView);
     }
 
-    // public void setCommand (String commandName, String commandString) {
-    // commandStorageList.add(commandName + "\n" + commandString);
-    // commandMap.put(commandName, commandString);
-    // }
-
     public String getCommand (String commandName) {
-        return commandMap.get(commandName);
+        return myCommandMap.get(commandName);
     }
 
     public List<String> getCommandParams (String commandName) {
-        return commandParamMap.get(commandName);
+        return myCommandParamMap.get(commandName);
     }
 
+    /**
+     * Returns whether or not a command has been created
+     * 
+     * @param commandName - the command to check for
+     * @return - true if it has been created, false otherwise
+     */
     public boolean hasCommand (String commandName) {
-        return commandParamMap.containsKey(commandName) && commandMap.containsKey(commandName);
+        return myCommandParamMap.containsKey(commandName) && myCommandMap.containsKey(commandName);
     }
 
     public ObservableList<String> getCommandVariableList () {
-        return commandStorageList;
+        return myCommandStorageList;
     }
 
-    public Map<String, String> getCommandMap() {
-        return commandMap;
+    public Map<String, String> getCommandMap () {
+        return myCommandMap;
     }
 }
